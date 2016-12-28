@@ -3,3 +3,4 @@ __pycache__/
 __pycahce__
 migrations
 migrations/
+db.*

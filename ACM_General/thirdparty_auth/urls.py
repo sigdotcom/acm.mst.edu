@@ -14,9 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
 
+from thirdparty_auth.views import index, googleCallback
+
+app_name = 'thirdparty_auth'
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^social-auth/', include('thirdparty_auth.urls')),
+    url(r'^login/(?P<auth_backend>[a-z])/$', index, name='login'),
+    url(r'^register/(?P<auth_backend>[a-z])/$', index, name='login'),
+    url(r'^google-callback/$', googleCallback, name='google_oauth2_callback'),
 ]

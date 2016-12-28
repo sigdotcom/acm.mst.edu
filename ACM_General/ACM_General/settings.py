@@ -36,6 +36,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
+# Third Party Authentication
+GOOGLE_OAUTH2_CLIENT_ID = "939209911534-d36t8r1n6clsns0869g8bv1num1v7s5k.apps.googleusercontent.com"
+GOOGLE_OAUTH2_CLIENT_SECRET = "dd78C0pA9pu1o-hs4Nf8vR0q"
+GOOGLE_OAUTH2_REDIRECT_URI = "https://acm.mst.edu:8000/social-auth/google-callback/"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+    'thirdparty_auth.apps.ThirdpartyAuthConfig',
+
 ]
 
 MIDDLEWARE = [
