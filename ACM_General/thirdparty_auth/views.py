@@ -13,18 +13,40 @@ def index(request, auth_backend):
     data = {
         'client_id': getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
         'response_type':'code',
-        'scope':'openid email',
+        'scope':'openid email profile',
         'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
         'state':state,
         'hd':'mst.edu',
     }
     request.session['state'] = state
-    request = requests.get(
+    request = requests.post(
                 'https://accounts.google.com/o/oauth2/v2/auth',
-                params=data)
+                data=data)
 
     return HttpResponseRedirect(request.url)
     
 
 def googleCallback(request):
-    pass
+    responseState = request.GET.get('state')
+    sessionState = request.session['state']
+    code = request.GET.get('code')
+    if(responseState != sessionState): 
+        return(HttpResponseRedirect(''))
+    else:
+        payload = {
+            'code':code,
+            'scope':'',
+            'client_id':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
+            'client_secret':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_SECRET'),
+            'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
+            'grant_type':'authorization_code',
+        }
+        request = requests.post(
+                "https://www.googleapis.com/oauth2/v4/token", 
+                data=payload)
+        
+        return(HttpResponse(type(request.json())))
+        return(HttpResponseRedirect(request.url))
+
+def googleCallback2(request):
+    return( HttpResponse(request.POST))

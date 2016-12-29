@@ -25,7 +25,8 @@ SECRET_KEY = 't8p_54wdp4%sco&96!guss66ti3pt+^r%sl+m(e8jc^-&ncze_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'162.243.186.23',]
+ALLOWED_HOSTS = [u'162.243.186.23',
+                 u'kevinschoonover.me',]
 
 # Authentication
 
@@ -38,8 +39,8 @@ AUTHENTICATION_BACKENDS = [
 
 # Third Party Authentication
 GOOGLE_OAUTH2_CLIENT_ID = "939209911534-d36t8r1n6clsns0869g8bv1num1v7s5k.apps.googleusercontent.com"
-GOOGLE_OAUTH2_CLIENT_SECRET = "dd78C0pA9pu1o-hs4Nf8vR0q"
-GOOGLE_OAUTH2_REDIRECT_URI = "https://acm.mst.edu:8000/social-auth/google-callback/"
+GOOGLE_OAUTH2_CLIENT_SECRET = "x9xQx8trz4Prvg6IrdmkMmiR"
+GOOGLE_OAUTH2_REDIRECT_URI = "http://kevinschoonover.me:8000/social-auth/google-callback/"
 
 # Application definition
 
