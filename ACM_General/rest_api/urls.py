@@ -20,10 +20,10 @@ from rest_api import views
 
 app_name = 'rest_api'
 urlpatterns = [
-    url('accounts/$', views.UserList.as_view(), name='accountIndex'),
+    url('accounts/$', views.UserList.as_view(), name='user-list'),
     url('accounts/(?P<pk>[0-9a-z-]+)/$', 
         views.UserDetail.as_view(), 
-        name='accountByID'
+        name='user-detai'
     ),
 ]
 

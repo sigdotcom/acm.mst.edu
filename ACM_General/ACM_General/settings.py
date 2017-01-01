@@ -36,6 +36,10 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.UserBackend',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.backends.DjangoFilterBackend',)
+    }
+
 # Third Party Authentication
 GOOGLE_OAUTH2_CLIENT_ID = "939209911534-d36t8r1n6clsns0869g8bv1num1v7s5k.apps.googleusercontent.com"
 GOOGLE_OAUTH2_CLIENT_SECRET = "x9xQx8trz4Prvg6IrdmkMmiR"

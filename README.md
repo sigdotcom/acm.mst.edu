@@ -10,6 +10,8 @@ sudo apt-get upgrade
 sudo apt-get install python3 python3-pip postgresql
 sudo pip3 install django
 sudo pip3 install psycopg2
+sudo pip3 install djangorestframework
+sudo pip3 install django-filter
 git init
 git remote add origin THIS_REPOS_CLONE_LINK
 git pull origin master
