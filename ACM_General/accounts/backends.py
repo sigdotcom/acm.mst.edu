@@ -24,7 +24,7 @@ class UserBackend(object):
 
         try:
             user = User.objects.get(email=email)
-        except UserModel.DoesNotExist:
+        except User.DoesNotExist:
             return None
         else:
             if(self.user_can_authenticate(user)):
@@ -44,8 +44,8 @@ class UserBackend(object):
         Returns the user instance identified by user_id
         """
         try:
-            user = UserModel._default_manager.get(pk=user_id)
-        except UserModel.DoesNotExist:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
             return None
 
         return user if self.user_can_authenticate(user) else None

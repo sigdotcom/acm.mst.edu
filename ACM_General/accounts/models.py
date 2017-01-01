@@ -86,7 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                               unique=True, 
                               db_index = True, 
                               null=True)
-    date_joined = models.DateTimeField(auto_now_add = True)
+    date_joined = models.DateTimeField(auto_now_add = True, editable=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

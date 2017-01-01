@@ -20,6 +20,5 @@ from thirdparty_auth.views import index, googleCallback
 app_name = 'thirdparty_auth'
 urlpatterns = [
     url(r'^login/(?P<auth_backend>[a-z])/$', index, name='login'),
-    url(r'^register/(?P<auth_backend>[a-z])/$', index, name='login'),
     url(r'^google-callback/$', googleCallback, name='google_oauth2_callback'),
 ]
