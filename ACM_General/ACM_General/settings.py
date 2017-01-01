@@ -34,7 +34,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.UserBackend',
-    'django.contrib.auth.backends.ModelBackend'
 ]
 
 # Third Party Authentication
@@ -53,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
-
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -92,8 +91,12 @@ WSGI_APPLICATION = 'ACM_General.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_acmgeneral',
+        'USER': 'djangouser',
+        'PASSWORD': 'djangoUserPassword',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 

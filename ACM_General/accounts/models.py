@@ -25,7 +25,7 @@ class AbstractBaseUserManager(BaseUserManager):
     implementation of django.
     """
     
-    def _create_user(self, email, password, **extra_fields):
+    def _create_user(self, email, **extra_fields):
         """
         Base create_user function that creates a user based on fields passed 
         into it and returns the user.  extra_fields must be a member variable
@@ -38,21 +38,21 @@ class AbstractBaseUserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email,
                           **extra_fields)
-        user.set_password(password)
+        self.set_unusable_password()
         user.save(using=self._db)
 
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, **extra_fields):
         """
         create_user creates a user based of 'default values' that every user
         should adhere at registration.
         """
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, **extra_fields):
         """
         create_superuser creates a 'default' superuser which has access to
         the django admin panel.
@@ -66,7 +66,7 @@ class AbstractBaseUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
@@ -95,12 +95,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def get_short_name():
+    def get_short_name(self):
         """
         get_short_name returns the user's email when this method is called
         upon the class.
         """
-        return(email)
+        return(self.email)
 
     def __unicode__(self):
         """

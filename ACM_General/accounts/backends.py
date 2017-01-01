@@ -1,34 +1,34 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.conf import settings
+from accounts.models import User
 
 
-UserModel = get_user_model()
 
 class UserBackend(object):
     """
     Authencation backend which supports email as USERNAME_FIELD.
     """
 
-    def authenticate(self, request, email=None, password=None, **kwargs):
+    def authenticate(self, email=None, **kwargs):
         """
         Authenticates whether an email and password passed to it is registered
         in the database.
         """
 
-        if(email is None):
-            email = kwargs.get(UserModel.USERNAME_FIELD)
+        ###
+        # TODO: Find a better way to throw error at no email
+        ###
+        user = None
 
         try:
-            user = UserModel._default_manager.get_by_natural_key(email)
+            user = User.objects.get(email=email)
         except UserModel.DoesNotExist:
             return None
         else:
-            if(user.check_password(password) 
-               and self.user_can_authenticate(user)):
+            if(self.user_can_authenticate(user)):
                 return user
-            
 
     def user_can_authenticate(self, user):
         """

@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 
-from thirdparty_auth.views import index, googleCallback, googleCallback2
+from thirdparty_auth.views import index, googleCallback 
 
 app_name = 'thirdparty_auth'
 urlpatterns = [
     url(r'^login/(?P<auth_backend>[a-z])/$', index, name='login'),
     url(r'^register/(?P<auth_backend>[a-z])/$', index, name='login'),
     url(r'^google-callback/$', googleCallback, name='google_oauth2_callback'),
-    url(r'^google-callback2/$', googleCallback2, name='google_oauth22_callback'),
 ]
