@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
+    'events.apps.EventsConfig',
+    'home.apps.HomeConfig',
+    'sigs.apps.SigsConfig',
     'rest_framework',
 ]
 
