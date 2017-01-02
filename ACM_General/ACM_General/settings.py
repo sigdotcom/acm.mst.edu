@@ -41,9 +41,9 @@ REST_FRAMEWORK = {
     }
 
 # Third Party Authentication
-GOOGLE_OAUTH2_CLIENT_ID = "939209911534-d36t8r1n6clsns0869g8bv1num1v7s5k.apps.googleusercontent.com"
-GOOGLE_OAUTH2_CLIENT_SECRET = "x9xQx8trz4Prvg6IrdmkMmiR"
-GOOGLE_OAUTH2_REDIRECT_URI = "http://kevinschoonover.me:8000/social-auth/google-callback/"
+GOOGLE_OAUTH2_CLIENT_ID = "657268631103-h5mdi2g6sjhpg7cae0jktlgkjgmp7s1n.apps.googleusercontent.com"
+GOOGLE_OAUTH2_CLIENT_SECRET = "ASVDMoKZ1bi0cw6OHO0pKQb5"
+GOOGLE_OAUTH2_REDIRECT_URI = "http://kevinschoonover.me:8000/social-auth/google-oauth2/callback/"
 
 # Application definition
 

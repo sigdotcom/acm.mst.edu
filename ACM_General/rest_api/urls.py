@@ -23,17 +23,17 @@ urlpatterns = [
     url('accounts/$', views.UserList.as_view(), name='user-list'),
     url('accounts/(?P<pk>[0-9a-z-]+)/$', 
         views.UserDetail.as_view(), 
-        name='user-detai'
+        name='user-detail'
     ),
     url('events/$', views.EventList.as_view(), name='event-list'),
     url('events/(?P<pk>[0-9a-z-]+)/$', 
         views.EventDetail.as_view(), 
-        name='event-detai'
+        name='event-detail'
     ),
     url('sigs/$', views.SIGList.as_view(), name='sigs-list'),
     url('sigs/(?P<pk>[0-9a-z-]+)/$', 
         views.SIGDetail.as_view(), 
-        name='sigs-detai'
+        name='sigs-detail'
     ),
 
 ]

@@ -11,6 +11,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+from django.contrib.auth.models import PermissionsMixin
 
 import uuid
 
@@ -68,7 +69,7 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, **extra_fields)
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     """
      @Desc - Overloading of the base user class to enable email validation
              as apposed to username validation in default django 
