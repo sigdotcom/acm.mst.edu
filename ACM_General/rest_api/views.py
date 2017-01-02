@@ -57,7 +57,7 @@ class EventList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    List all Users or create a new user.
+    List all Events or create a new event.
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -76,7 +76,7 @@ class EventDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    Retrieve, updates, or delete a User instance.
+    Retrieve, updates, or delete a Event instance.
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -96,7 +96,7 @@ class SIGList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    List all Users or create a new user.
+    List all SIGs or create a new sig.
     """
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
@@ -116,7 +116,7 @@ class SIGDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    Retrieve, updates, or delete a User instance.
+    Retrieve, updates, or delete a SIG instance.
     """
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
