@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body_main %}
+    <p> Current Time is {{ currentTime }} </p>
+    <h1> Current Events </h1>
+    <ul>
+        {% for event in eventsList %}
+            {% if event.is_active %}
+                <li> {{ event.title }} | {{ event.date_expire }} </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h1> All Events </h1>
+    <ul>
+        {% for event in eventsList %}
+            <li> {{ event.title}} | {{ event.date_expire }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

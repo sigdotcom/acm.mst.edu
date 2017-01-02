@@ -5,14 +5,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id', 
-            'email', 
-            'date_joined', 
-            'is_active', 
+            'id',
+            'email',
+            'is_active',
             'is_staff',
             'is_superuser',
         )
-
     def validate_email(self, email):
         """
         Ensure the domain of the email is mst.edu
@@ -21,7 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
         domain = email.split('@')[1]
 
         if domain != 'mst.edu':
-            raise serializers.ValidationError('Email Domain is invalid')
+            raise serializers.ValidationError('Email domain entered is invalid'
+                                              ' must be \'mst.edu\'.')
 
         return(email)
 

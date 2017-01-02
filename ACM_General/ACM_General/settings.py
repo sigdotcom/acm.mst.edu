@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'home.apps.HomeConfig',
     'sigs.apps.SigsConfig',
+    'core.apps.CoreConfig',
     'rest_framework',
 ]
 

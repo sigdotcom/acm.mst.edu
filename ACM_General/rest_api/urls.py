@@ -25,6 +25,17 @@ urlpatterns = [
         views.UserDetail.as_view(), 
         name='user-detai'
     ),
+    url('events/$', views.EventList.as_view(), name='event-list'),
+    url('events/(?P<pk>[0-9a-z-]+)/$', 
+        views.EventDetail.as_view(), 
+        name='event-detai'
+    ),
+    url('sigs/$', views.SIGList.as_view(), name='sigs-list'),
+    url('sigs/(?P<pk>[0-9a-z-]+)/$', 
+        views.SIGDetail.as_view(), 
+        name='sigs-detai'
+    ),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

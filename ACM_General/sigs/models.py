@@ -1,7 +1,14 @@
 from django.db import models
-from accounts.models import User
+
+import uuid
 
 # Create your models here.
+
+##
+# To stop circular import errors and allow for djangos model resolution 
+# to do its thing
+##
+User = 'accounts.User'
 
 class SIG(models.Model):
     id = models.CharField(max_length=15, primary_key=True)
@@ -15,6 +22,13 @@ class SIG(models.Model):
                               related_name = "chair")
     description = models.CharField(max_length=1000)
 
+    def __str__(self):
+        return(self.id)
+
+    def __unicode__(self):
+        return(self.id)
+
+
 class Perm_Groups(models.Model):
     class Meta:
         unique_together = (("group_id","sig_id"),)
@@ -23,12 +37,3 @@ class Perm_Groups(models.Model):
     sig_id = models.ForeignKey(SIG, on_delete=models.CASCADE)
     name = models.CharField(max_length = 10, unique = True)
     description = models.CharField(max_length = 1000)
-
-class SIG_Perms(models.Model):
-    class Meta:
-        unique_together = (("user_id","sig_id"),)
-
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    sig_id = models.ForeignKey(SIG, on_delete=models.CASCADE)
-    perm_id = models.ForeignKey(Perm_Groups, on_delete=models.CASCADE)
-

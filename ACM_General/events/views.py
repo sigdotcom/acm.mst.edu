@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from events.models import Event
 
-# Create your views here.
+from datetime import datetime
+
+def list_events(request):
+    return(render(
+        request,
+        'events/listEvents.html',
+        {'eventsList': Event.objects.all()}
+    ))

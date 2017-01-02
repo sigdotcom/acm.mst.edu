@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang='en'>
+    <head>
+        {% block head_defaultContent %}
+            {% block head_viewport %}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+            {% endblock %}
+
+            {% block head_charset %}
+                <meta charset="utf-8" />
+            {% endblock %}
+
+            {% block head_keywords %}
+                <meta name="keywords" content="acmmst,mstacm, ACM General, ACM" />
+            {% endblock %}
+
+            {% block head_description %}
+                <meta name="description" content="ACM-General Site" />
+            {% endblock %}
+
+            {% block head_author %}
+                <meta name="author" content="ACM-MST sig.com" />
+            {% endblock %}
+
+            {% block head_robots %}
+                <meta name="robots" content="NONE,NOARCHIVE" />
+            {% endblock %}
+
+            {% block head_stylesheets %}
+            {% endblock %}
+
+            <title>{% block head_title %} ACM-General {% endblock %}</title>
+        {% endblock %}
+
+        {% block head_main %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block body_main %}
+        {% endblock %}
+    </body>
+</html>

@@ -10,7 +10,6 @@ from django.db import models
 ###
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 
 import uuid
@@ -33,12 +32,13 @@ class UserManager(BaseUserManager):
         """
 
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError('create_user must be initialized with email.'
+                             ' Server Error.')
 
         email = self.normalize_email(email)
         user = self.model(email=email,
                           **extra_fields)
-        self.set_unusable_password()
+        user.set_unusable_password()
         user.save(using=self._db)
 
         return user
@@ -68,7 +68,7 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, **extra_fields)
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser):
     """
      @Desc - Overloading of the base user class to enable email validation
              as apposed to username validation in default django 
@@ -95,6 +95,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    @property
+    def is_admin(self):
+        return(self.is_superuser)
+
     def get_short_name(self):
         """
         get_short_name returns the user's email when this method is called
@@ -115,4 +119,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email.
         """
         return(self.email)
-
