@@ -3,7 +3,7 @@
 Welcome to the ACM-General Django Project!
 
 ## Installation
-In any directly of the users chosing, please execute the following commands:
+In any directory of the users chosing, please execute the following commands:
 ```
 sudo apt-get update
 sudo apt-get upgrade
