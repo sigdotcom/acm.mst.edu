@@ -15,147 +15,170 @@ import base64
 
 ###
 # TODO: Modular Authentication with support for different protocols
+#       As of right now the Views do not actually use the auth_backend
+#       parameter.
 ###
-class SocialAuthIndex(View):
+class AuthorizationView(View):
     """
-    Default Social Authentication Class View which attempts to define the
-    necessary elements for plug-and-play Social Authentication for any site.
+    @Desc: Default Social Authentication Class View which attempts to define
+           the necessary elements for plug-and-play Social Authentication for 
+           any format.
     """
 
     http_method_names = ['get']
 
-    auth_types = {
-        'OAuth2': {
-            'necessary-parms': [
-                'redirect-uri',
-                'client-id',
-                'client-secret',
-                'auth_endpoint',
-                'token_endpoint',
-                'auth_scope',
-            ],
-            'handler': 'oauth2'
-        },
+    auth_methods = {
+        'google-oauth2': ''
     }
 
-    auth_patterns = {
-        'google-oauth2': {
-            'auth-type': 'OAuth2',
-            'parms': {
-                'redirect-uri': getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI', None),
-                'client-id': getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
-                'client-secret':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_SECRET'),
-                'auth_endpoint':'https://accounts.google.com/o/oauth2/v2/auth',
-                'token_endpoint':'https://www.googleapis.com/oauth2/v4/token',
-                'auth_scope':'openid email profile',
-                'auth_hd':'mst.edu',
-                'auth_response-type':''
-            },
-        },
-    }
-        
     def get(self, request, **kwargs):
+        """
+        @Desc: OAuth authorization processing and transaction handler.
 
-        ###
-        # If the user is authenticated, there is no reason to re-login
-        ###
+        @Returns: Prepared GET/POST redirect to the OAuth authentication
+                  endpoint.
+        """
+
         if request.user.is_authenticated():
-            return(HttpResponseRedirect('/'))
+            return HttpResponseRedirect('/')
 
         backend = kwargs.get('auth_backend')
-        auth_pattern = self.auth_patterns.get(backend)
+        auth_pattern = self.auth_methods.get(backend)
 
         if(auth_pattern is not None):
-            ###
-            # Creates state comparator which ensures transaction integrity
-            # between the server and a specific client 'state'
-            ###
-            state = hashlib.sha256(os.urandom(1024)).hexdigest()
-            request.session['state'] = state
-            ###
-            # Formation of the authorization endpoint redirect for
-            # Google OAuth2 Step 2 and then user redirect to authorize
-            # ACM-General Registration App
-            ###
-            data = {
-                'client_id': getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
-                'response_type':'code',
-                'scope':'openid email profile',
-                'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
-                'state':state,
-                'hd':'mst.edu',
-            }
+            data = self.prepare_transaction(request, backend)
             request = requests.post(
                         'https://accounts.google.com/o/oauth2/v2/auth',
-                        data=data)
+                        data=data
+                      )
 
             return HttpResponseRedirect(request.url)
         else:
             raise Http404("Authentication type does not exist")
 
-
-class CallbackIndex(View):
-     http_method_names = ['get']
-
-     def get(self, request, **kwargs):
+    def prepare_transaction(self, request, auth_backend):
         """
-        Google Callback URL which takes the POST data from google, cleans the
-        data to python datatypes, and creates/finds the user with the data.
+        @Desc: Prepares the POST/GET request parameters for the initial
+               authorization request for OAuth2. Also, Creates state comparator
+               which ensures transaction integrity between the server and a 
+               specific client 'state'.
 
-        For furthur information, see furthur information from Step 4 of:
-        https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
+        @Returns: Returns a dictonary of the necessay POST/GET parameters
+                  for an authorization request.
         """
+        state = hashlib.sha256(os.urandom(1024)).hexdigest()
+        request.session['state'] = state
 
+        data = {
+            'client_id': getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
+            'response_type':'code',
+            'scope':'openid email profile',
+            'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
+            'state':state,
+            'hd':'mst.edu',
+        }
+
+        return data
+
+class TokenView(View):
+    """
+    @Desc: Default Token Transaction View which handles the token OAuth
+           transaction as well as User registration/login for each User
+           authenticated
+    """
+    http_method_names = ['get']
+
+
+    def get(self, request, **kwargs):
+        """
+        @Desc: Google Callback URL which takes the POST data from google, 
+               cleans the data to python datatypes, and creates/finds the user 
+               with the data.
+
+               For furthur information, see Step 4 of:
+               https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
+        """
         ###
         # Normalizing data from callback
         ###
         responseState = request.GET.get('state')
         sessionState = request.session['state']
-        code = request.GET.get('code')
+        auth_backend = kwargs.get('auth_backend')
 
         ###
         # Ensure state integrity of the user
         ###
         if(responseState != sessionState): 
             return(HttpResponseRedirect(''))
-        else:
-            ###
-            # Creates and POSTs token endpoint request for the user
-            # JSON Web Token which contains the User Data
-            ###
-            payload = {
-                'code':code,
-                'scope':'',
-                'client_id':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
-                'client_secret':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_SECRET'),
-                'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
-                'grant_type':'authorization_code',
-            }
-            tokenRequest = requests.post(
-                    "https://www.googleapis.com/oauth2/v4/token", 
-                data=payload)
 
-        ###
-        # Cleaning the JSON Web Token into usable python datatypes
-        ###
-        json_data = json.loads(tokenRequest.text) 
+        payload = self.prepare_transaction(request, auth_backend)
+        tokenRequest = requests.post(
+                            "https://www.googleapis.com/oauth2/v4/token", 
+                            data=payload
+                       )
+        cleaned_data = self.clean_JWT(tokenRequest.text)
+
+        self.post_auth(request, cleaned_data)
+
+
+
+    def prepare_transaction(self, request, auth_backend):
+        """
+        @Desc: Preparing the GET/POST data necessary to perform the Token
+               Transaction.
+
+        @Returns: Returns the GET/POST data necessary to perform the Token
+                  Transaction.
+        """
+        code = request.GET.get('code')
+
+        payload = {
+            'code':code,
+            'scope':'',
+            'client_id':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_ID'),
+            'client_secret':getattr(settings, 'GOOGLE_OAUTH2_CLIENT_SECRET'),
+            'redirect_uri':getattr(settings, 'GOOGLE_OAUTH2_REDIRECT_URI'),
+            'grant_type':'authorization_code',
+        }
+
+        return(payload)
+
+    def clean_JWT(self, text):
+        """
+        @Desc: Transforms text containing a JSON Web Token into a cleaned
+               python dictionary.
+
+        @Returns: Returns the clean JSON Web Token as a python dictionary.
+        """
+        json_data = json.loads(text) 
         JWTsegments = json_data['id_token'].split('.')
         userData = base64.urlsafe_b64decode(JWTsegments[1] + "==")
         cleaned_userData = json.loads((userData).decode('utf-8'))
-        email = cleaned_userData['email']
 
-        ###
-        # Creating/Authenticating User from the JSON Web Token
-        ###
-        User.objects.get_or_create(email=email)
+        return(cleaned_userData)
+
+    def post_auth(self, request, cleaned_data):
+        """
+        @Desc: Actions after the JSON Web Token has been cleaned and the rest
+               of the transaction has been properly authenticated. Should be
+               used to perform some post_auth action and then present some
+               template/redirect.
+        """
+        email = cleaned_data.get('email') 
+        first_name = cleaned_data.get('given_name')
+        last_name = cleaned_data.get('family_name')
+
+        User.objects.get_or_create(
+            email=email, 
+            first_name=first_name,
+            last_name=last_name,
+        )
         user = authenticate(email=email)
 
-        ###
-        # Login for the User
-        ###
         if user is not None:
             login(request, user)
         else:
             return(HttpResponse('Error'))
 
-        return(HttpResponse('Ello'))
+        return(HttpResponseRedirect('/'))
+

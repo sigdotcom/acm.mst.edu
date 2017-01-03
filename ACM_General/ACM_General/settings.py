@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [u'162.243.186.23',
                  u'kevinschoonover.me',]
 
+ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 # Authentication
 
 AUTH_USER_MODEL = 'accounts.User'

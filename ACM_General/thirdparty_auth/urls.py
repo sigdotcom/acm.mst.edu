@@ -21,12 +21,12 @@ app_name = 'thirdparty_auth'
 urlpatterns = [
     url(
         r'^(?P<auth_backend>[0-9a-z-]+)/$', 
-        views.SocialAuthIndex.as_view(), 
+        views.AuthorizationView.as_view(), 
         name='login'
     ),
     url(
         r'^(?P<auth_backend>[0-9a-z-]+)/callback/$', 
-        views.CallbackIndex.as_view(), 
+        views.TokenView.as_view(), 
         name = 'callback'
     ),
 ]

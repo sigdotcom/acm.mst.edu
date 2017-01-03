@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from core.actions import isValidEmail
 from accounts.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -7,6 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'email',
+            'first_name',
+            'last_name',
             'is_active',
             'is_staff',
             'is_superuser',
@@ -16,11 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         Ensure the domain of the email is mst.edu
         """
 
-        domain = email.split('@')[1]
-
-        if domain != 'mst.edu':
-            raise serializers.ValidationError('Email domain entered is invalid'
-                                              ' must be \'mst.edu\'.')
+        email = isValidEmail(email)
 
         return(email)
 

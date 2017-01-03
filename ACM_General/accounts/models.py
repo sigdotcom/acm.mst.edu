@@ -12,6 +12,8 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
 from django.contrib.auth.models import PermissionsMixin
+from django.utils.translation import ugettext_lazy as _
+from core.actions import isValidEmail
 
 import uuid
 
@@ -31,10 +33,11 @@ class UserManager(BaseUserManager):
         into it and returns the user.  extra_fields must be a member variable
         of the class which the Manager is apart of.
         """
-
+        domain = email.split('@')[1]
         if not email:
             raise ValueError('create_user must be initialized with email.'
                              ' Server Error.')
+        email = isValidEmail(email)
 
         email = self.normalize_email(email)
         user = self.model(email=email,
@@ -83,10 +86,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField('email address', 
-                              unique=True, 
-                              db_index = True, 
-                              null=True)
+    email = models.EmailField(
+                _('email address'),
+                unique=True, 
+                db_index = True, 
+            )
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(auto_now_add = True, editable=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -100,23 +106,26 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_admin(self):
         return(self.is_superuser)
 
+    def get_full_name(self):
+        """
+        @Returns: The user's full name
+        """
+        return(str(self.first_name) + " " + str(self.last_name))
+
     def get_short_name(self):
         """
-        get_short_name returns the user's email when this method is called
-        upon the class.
+        @Returns: The user's email
         """
         return(self.email)
 
     def __unicode__(self):
         """
-        __unicode__ returns the user's email when unicode() is run on the 
-        User class.
+        @Returns: The user's email
         """
         return(self.email)
 
     def __str__(self):
         """
-        __str__ returns the user's email when str() is run on the User class
-        return self.email.
+        @Returns: The user's email
         """
         return(self.email)
