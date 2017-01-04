@@ -5,6 +5,7 @@ from django.db import IntegrityError
 # Create your tests here.
 
 class UserSetupCase(TestCase):
+
     def setUp(self):
         User.objects.create(
             email="test@mst.edu",

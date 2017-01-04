@@ -4,3 +4,4 @@ __pycahce__
 migrations
 migrations/
 db.*
+settings.py

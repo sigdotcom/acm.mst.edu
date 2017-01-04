@@ -87,16 +87,40 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
-                _('email address'),
+                verbose_name = _('Email Address'),
                 unique=True, 
                 db_index = True, 
+                null = True,
+                help_text= _('A valid @mst.edu email address'),
             )
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    date_joined = models.DateTimeField(auto_now_add = True, editable=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+    first_name = models.CharField(
+                        verbose_name = _('First Name'),
+                        max_length=30, 
+                        blank=True,
+                 )
+
+    last_name = models.CharField(
+                        verbose_name = _('Last Name'),
+                        max_length = 30, 
+                        blank = True,
+                )
+    date_joined = models.DateTimeField(
+                        verbose_name = _('Date Joined'),
+                        auto_now_add = True, 
+                        editable=False,
+                  )
+    is_active = models.BooleanField(
+                        verbose_name= _('Is Active'),
+                        default=True,
+                )
+    is_staff = models.BooleanField(
+                        verbose_name= _('Is Staff'),
+                        default=False,
+               )
+    is_superuser = models.BooleanField(
+                        verbose_name= _('Is Superuser'),
+                        default=False,
+                   )
     objects = UserManager() 
 
     USERNAME_FIELD = 'email'
