@@ -15,18 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 
-from thirdparty_auth import views 
+from thirdparty_auth import views
 
 app_name = 'thirdparty_auth'
 urlpatterns = [
     url(
-        r'^(?P<auth_backend>[0-9a-z-]+)/$', 
-        views.AuthorizationView.as_view(), 
+        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/$',
+        views.AuthorizationView.as_view(),
         name='login'
     ),
     url(
-        r'^(?P<auth_backend>[0-9a-z-]+)/callback/$', 
-        views.TokenView.as_view(), 
+        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/callback/$',
+        views.TokenView.as_view(),
         name = 'callback'
     ),
 ]
