@@ -9,73 +9,25 @@ from django.db import models
 # Custom Django Imports
 ###
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from core.actions import isValidEmail
+from accounts import managers
 
 import uuid
 
 # Create your models here.
+class Permission(models.Model):
+    pass
 
-class UserManager(BaseUserManager):
-    """
-    Interface for database query operations for the User model.
+class Group(models.Model):
+    pass
 
-    Allows seemless creation of users and superusers necessary for the default 
-    implementation of django.
-    """
-    
-    def _create_user(self, email, **extra_fields):
-        """
-        Base create_user function that creates a user based on fields passed 
-        into it and returns the user.  extra_fields must be a member variable
-        of the class which the Manager is apart of.
-        """
-        domain = email.split('@')[1]
-        if not email:
-            raise ValueError('create_user must be initialized with email.'
-                             ' Server Error.')
-        email = isValidEmail(email)
-
-        email = self.normalize_email(email)
-        user = self.model(email=email,
-                          **extra_fields)
-        user.set_unusable_password()
-        user.save(using=self._db)
-
-        return user
-
-    def create_user(self, email, **extra_fields):
-        """
-        create_user creates a user based of 'default values' that every user
-        should adhere at registration.
-        """
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, **extra_fields)
-
-    def create_superuser(self, email, **extra_fields):
-        """
-        create_superuser creates a 'default' superuser which has access to
-        the django admin panel.
-        """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(email, **extra_fields)
-
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser):
     """
      @Desc - Overloading of the base user class to enable email validation
-             as apposed to username validation in default django 
+             as apposed to username validation in default django
      @Fields -
       id - 16 character UUID which uniquely identifies each user
       email - Stores the user's email
@@ -88,25 +40,25 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
                 verbose_name = _('Email Address'),
-                unique=True, 
-                db_index = True, 
+                unique=True,
+                db_index = True,
                 null = True,
                 help_text= _('A valid @mst.edu email address'),
             )
     first_name = models.CharField(
                         verbose_name = _('First Name'),
-                        max_length=30, 
+                        max_length=30,
                         blank=True,
                  )
 
     last_name = models.CharField(
                         verbose_name = _('Last Name'),
-                        max_length = 30, 
+                        max_length = 30,
                         blank = True,
                 )
     date_joined = models.DateTimeField(
                         verbose_name = _('Date Joined'),
-                        auto_now_add = True, 
+                        auto_now_add = True,
                         editable=False,
                   )
     is_active = models.BooleanField(
@@ -121,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                         verbose_name= _('Is Superuser'),
                         default=False,
                    )
-    objects = UserManager() 
+    objects = managers.UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -153,3 +105,5 @@ class User(AbstractBaseUser, PermissionsMixin):
         @Returns: The user's email
         """
         return(self.email)
+
+

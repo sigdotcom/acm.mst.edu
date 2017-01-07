@@ -3,7 +3,7 @@ from accounts.serializers import UserSerializer
 from events.models import Event
 from events.serializers import EventSerializer
 from sigs.models import SIG
-from sigs.serializers import SIGSerializer, SIGSerializerTest
+from sigs.serializers import SIGSerializer
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions
@@ -130,8 +130,6 @@ class SIGDetail(mixins.RetrieveModelMixin,
     )
 
     def get_serializer_class(self):
-        if self.request.user.is_staff:
-            return SIGSerializerTest
         return self.serializer_class
 
     def get(self, request, *args, **kwargs):

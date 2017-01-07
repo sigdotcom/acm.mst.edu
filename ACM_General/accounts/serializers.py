@@ -5,15 +5,8 @@ from accounts.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            'id',
-            'email',
-            'first_name',
-            'last_name',
-            'is_active',
-            'is_staff',
-            'is_superuser',
-        )
+        exclude = ('password', )
+
     def validate_email(self, email):
         """
         Ensure the domain of the email is mst.edu
@@ -30,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
 
         return User.objects.create(**validated_data)
-    
+
     def update(self, instance, validated_data):
         """
         Update the data of an exsisting User model with the validated_data
@@ -38,10 +31,10 @@ class UserSerializer(serializers.ModelSerializer):
         """
 
         instance.email = validated_data.get('email', instance.email)
-        instance.is_active = validated_data.get('is_active', 
+        instance.is_active = validated_data.get('is_active',
                                                  instance.is_active)
         instance.is_staff = validated_data.get('is_staff', instance.is_staff)
-        instance.is_superuser = validated_data.get('is_superuser', 
+        instance.is_superuser = validated_data.get('is_superuser',
                                                     instance.is_superuser)
         instance.save()
         return(instance)
