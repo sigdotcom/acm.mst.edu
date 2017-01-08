@@ -7,8 +7,9 @@ In any directory of the users chosing, please execute the following commands:
 ```
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install python3 python3-pip postgresql
+sudo apt-get install python3 python3-pip postgresql libpq-dev
 sudo pip3 install django
+sudo pip3 install requests
 sudo pip3 install psycopg2
 sudo pip3 install djangorestframework
 sudo pip3 install django-filter
