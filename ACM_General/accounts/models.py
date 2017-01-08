@@ -19,10 +19,38 @@ import uuid
 
 # Create your models here.
 class Permission(models.Model):
-    pass
+    perm_code = models.CharField(
+                        verbose_name = _('Permission Code'),
+                        help_text = _('In-code reference to the permission'
+                                      ' title.'),
+                        max_length = 20,
+                        unique = True,
+                )
+    perm_desc = models.CharField(
+                        verbose_name = _('Permission Description'),
+                        help_text = _('A description of what the permission'
+                                      ' gives the User access to.'),
+                        max_length = 500,
+                )
 
 class Group(models.Model):
-    pass
+    permissions = models.ManyToManyField(
+                            Permission,
+                            verbose_name = _('Group Permissions'),
+                            help_text = _('The permissions related to the'
+                                          ' specific group'),
+                  )
+    group_name = models.CharField(
+                        verbose_name = _('Group Name'),
+                        help_text = _('The name of the Permissions group'),
+                        max_length = 20,
+                        blank = False,
+                 )
+    group_description = models.CharField(
+                                verbose_name = _('Group Description'),
+                                help_text = _('The description of the Group'),
+                                max_length = 500,
+                        )
 
 class User(AbstractBaseUser):
     """

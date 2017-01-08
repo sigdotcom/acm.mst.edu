@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 
-from accounts.views import user_logout 
+from accounts import views
 
 app_name = 'accounts'
 urlpatterns = [
-    url(r'logout/', user_logout, name='user-logout'),
+    url(r'logout/', views.user_logout, name='user-logout'),
+    url(r'login/', views.user_login, name='user-login'),
 ]
