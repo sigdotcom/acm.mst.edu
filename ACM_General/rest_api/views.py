@@ -1,5 +1,5 @@
-from accounts.models import User
-from accounts.serializers import UserSerializer
+from accounts.models import User, Group, Permission
+from accounts.serializers import UserSerializer, GroupSerializer, PermissionSerializer
 from events.models import Event
 from events.serializers import EventSerializer
 from sigs.models import SIG

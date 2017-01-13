@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_title %}
+    <title>ACM | Login</title>
+{% endblock %}
+
+{% block head_stylesheets %}
+        <link rel="stylesheet" href="{% static "accounts/css/login.css" %}" />
+{% endblock %}
+
+{% block body_main %}
+<div class="wrapper">
+
+    <div class="card">
+
+        <div class="logo"></div>
+
+        <div class="external-login">
+            <a class ="button" href="{% url "thirdparty_auth:login" "oauth2" "google" %}">
+                <div class="google external-card">
+                    Log in with Google
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+{% endblock %}
