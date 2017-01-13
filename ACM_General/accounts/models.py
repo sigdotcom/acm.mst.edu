@@ -19,19 +19,28 @@ import uuid
 
 # Create your models here.
 class Permission(models.Model):
-    perm_code = models.CharField(
-                        verbose_name = _('Permission Code'),
-                        help_text = _('In-code reference to the permission'
-                                      ' title.'),
-                        max_length = 20,
-                        unique = True,
-                )
-    perm_desc = models.CharField(
-                        verbose_name = _('Permission Description'),
-                        help_text = _('A description of what the permission'
-                                      ' gives the User access to.'),
-                        max_length = 500,
-                )
+    perm_choices = (
+            ('ALL', 'All Permissions'),
+            ('EDIT', 'Edit Permissions'),
+            ('VIEW', 'View Permissions'),
+            ('GET', 'Can View'),
+            ('POST', 'Can Post'),
+            ('HEAD', 'Can Head'),
+            ('PUT', 'Can Put'),
+            ('DELETE', 'Can Delete'),
+            ('OPTIONS', 'Can Options'),
+    )
+
+    request = models.CharField(
+                            verbose_name = _('Permission Requests'),
+                            help_text = _('The type of request which the'
+                                          ' permission grants'),
+                            max_length = 7,
+                            choices = perm_choices,
+                            blank = False,
+                            null = True,
+                   )
+
 
 class Group(models.Model):
     permissions = models.ManyToManyField(
@@ -44,11 +53,14 @@ class Group(models.Model):
                         verbose_name = _('Group Name'),
                         help_text = _('The name of the Permissions group'),
                         max_length = 20,
+                        default = _('Default Group Name'),
+                        unique = True,
                         blank = False,
                  )
     group_description = models.CharField(
                                 verbose_name = _('Group Description'),
                                 help_text = _('The description of the Group'),
+                                default = _('Default Group Description.'),
                                 max_length = 500,
                         )
 

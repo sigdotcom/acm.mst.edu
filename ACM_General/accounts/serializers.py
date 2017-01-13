@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from core.actions import isValidEmail
-from accounts.models import User
+from accounts.models import User, Permission, Group
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,4 +38,12 @@ class UserSerializer(serializers.ModelSerializer):
                                                     instance.is_superuser)
         instance.save()
         return(instance)
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+
+class PermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Permission
 
