@@ -3,6 +3,7 @@
 ##
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
+from core.actions import isValidEmail
 
 class UserManager(BaseUserManager):
     """
@@ -59,6 +60,8 @@ class UserManager(BaseUserManager):
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
+	
+        return self._create_user(email, **extra_fields)
 
 class PermissionManager(models.Manager):
     use_in_migrations = True

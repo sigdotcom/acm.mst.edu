@@ -22,14 +22,20 @@ class UserSetupCase(TestCase):
     def test_create_users(self):
         superuser = User.objects.create_superuser("superadmin@mst.edu")
         user = User.objects.create_user("eeafjeakl@mst.edu")
+	
+        self.assertIsNotNone(superuser)
+        self.assertIsNotNone(user)
+
         with self.assertRaises(ValueError):
             user2 = User.objects.create_user("feafsda@test.edu")
 
-        User.objects.create(
+        test = User.objects.create(
             email="lol@mst.edu",
             first_name="lol",
             last_name="lol",
         )
+
+        self.assertIsNotNone(test)
 
     def test_user_unique_exception_thrown(self):
         with self.assertRaises(IntegrityError):
@@ -79,11 +85,10 @@ class UserSetupCase(TestCase):
             last_name="Doe",
             is_superuser = False,
         )
-
         superuser = User.objects.create_superuser("superadmin@mst.edu")
 
-        self.assertEqual(superuser.is_admin, True)
-        self.assertEqual(user.is_admin, False)
+        self.assertEqual(superuser.is_staff, True)
+        self.assertEqual(user.is_staff, False)
         self.assertEqual(user.get_full_name(), "John Doe")
         self.assertEqual(user.get_short_name(), "johndoe@mst.edu")
         self.assertEqual(str(user), "johndoe@mst.edu")

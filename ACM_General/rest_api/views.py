@@ -21,10 +21,6 @@ class UserList(mixins.ListModelMixin,
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filter_class = UserFilter
-    permission_classes = (
-        IsStaffOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
 
 
     def get(self, request, *args, **kwargs):
@@ -42,10 +38,6 @@ class UserDetail(mixins.RetrieveModelMixin,
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (
-        IsStaffOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -65,10 +57,6 @@ class EventList(mixins.ListModelMixin,
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     filter_class = EventFilter
-    permission_classes = (
-        IsStaffOrReadOnly,
-    )
-
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
@@ -84,9 +72,6 @@ class EventDetail(mixins.RetrieveModelMixin,
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = (
-        IsStaffOrReadOnly,
-    )
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -106,9 +91,6 @@ class SIGList(mixins.ListModelMixin,
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
     filter_class = SIGFilter
-    permission_classes = (
-        IsStaffOrReadOnly,
-    )
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -125,9 +107,6 @@ class SIGDetail(mixins.RetrieveModelMixin,
     """
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
-    permission_classes = (
-        IsStaffOrReadOnly,
-    )
 
     def get_serializer_class(self):
         return self.serializer_class

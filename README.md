@@ -20,7 +20,9 @@ psql
 > # GRANT ALL PRIVILEGES ON django_acmgeneral TO djangouser;
 > # \q
 exit
-sudo nano ACM_Website/settings.py [CHANGE ALLOWED_HOST TO CURRENT IP]
+sudo nano ACM_Website/settings.py             # Change ALLOWED_HOSTS to current IP
+sudo mv ACM_Website/settings_local.template ACM_Website/settings_local.py
+sudo nano ACM_Website/settings_local.py       # Add values as necessary
 sudo python3 manage.py makemigrations
 sudo python3 manage.py migrate
 ```
