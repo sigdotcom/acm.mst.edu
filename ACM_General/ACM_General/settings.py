@@ -135,4 +135,6 @@ STATIC_URL = '/static/'
 
 
 # Temporary local settings
-from settings_local.py import *
+from .settings_local import *
+    
+
