@@ -1,0 +1,33 @@
+class DjangoStart < Vagrant.plugin(2, :command)
+  def self.synopsis
+    "Says Hello"
+  end
+
+  def execute
+    puts "Hello"
+    0
+  end
+end
+
+class DjangoStop < Vagrant.plugin(2, :command)
+  def self.synopsis
+    "Says Goodbye"
+  end
+
+  def execute
+    puts "Goodbye"
+    0
+  end
+end
+
+class DjangoControl < Vagrant.plugin(2)
+  name "Django Control"
+
+  command "server-start" do
+    DjangoStart
+  end
+
+  command "server-stop" do
+    DjangoStop
+  end
+end
