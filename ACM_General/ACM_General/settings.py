@@ -22,8 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'162.243.186.23',
-                 u'kevinschoonover.me',]
+ALLOWED_HOSTS = [u'localhost']
 
 ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 
@@ -135,4 +134,4 @@ STATIC_URL = '/static/'
 
 
 # Temporary local settings
-from settings_local.py import *
+from .settings_local import *

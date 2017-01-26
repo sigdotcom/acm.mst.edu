@@ -5,3 +5,4 @@ migrations
 migrations/
 db.*
 settings_local.py
+.vagrant/
