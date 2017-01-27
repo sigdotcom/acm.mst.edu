@@ -22,20 +22,21 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.network "private_network", type: "dhcp"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  $updates = <<-SHELL
+  $updates = <<-UPDATE
     apt-get update
-    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-kernel-server nfs-common
-  SHELL
+    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common
+  UPDATE
 
   $db = <<-DB
-    sudo -u postgres psql -c "create database django_acmgeneral;" \
-         -c "create user djangouser with password 'djangoUserPassword';" \
-         -c "grant all privileges on database django_acmgeneral to djangouser;"
+    sudo -u postgres psql -c "create database django_acmgeneral"
+    sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
+    sudo -u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
   DB
 
   $migrate = <<-MIGRATE
@@ -45,9 +46,17 @@ Vagrant.configure("2") do |config|
     cp ACM_General/settings_local.template ACM_General/settings_local.py
     python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
     python3 manage.py migrate
+
   MIGRATE
+
+  $setup = <<-SETUP
+    tmux new-session -d -s django 'cd /vagrant/ACM_General && python3 manage.py runserver 0.0.0.0:8000'
+    tmux ls
+    tmux detach -s django
+  SETUP
 
   config.vm.provision :shell, inline: $updates
   config.vm.provision :shell, inline: $db
   config.vm.provision :shell, inline: $migrate
+  config.vm.provision :shell, inline: $setup
 end
