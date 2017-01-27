@@ -46,7 +46,6 @@ Vagrant.configure("2") do |config|
     cp ACM_General/settings_local.template ACM_General/settings_local.py
     python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
     python3 manage.py migrate
-
   MIGRATE
 
   $setup = <<-SETUP
