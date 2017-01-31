@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
+{% load static %}
+
 {% block html_tag %}<html class="no-js" lang="en">{% endblock %}
 
 {% block head_title %}
@@ -7,13 +9,14 @@
 {% endblock %}
 
 {% block head_stylesheets %}
-     <link rel="stylesheet" href="css/normalize.css" />
-     <link rel="stylesheet" href="css/main.css" />
+     <link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
+     <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
+
      <link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block head_javascript %}
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="{% static "/home/js/vendor/modernizr-2.8.3.min.js" %}"></script>
 {% endblock %}
 
 {% block head_fonts %}
@@ -44,7 +47,7 @@
             </div>
             <div class="content-wrapper">
                 <a href="#" class="acm-logo-button">
-                    <img src="img/acm.png">
+			<img src="{% static "/home/img/acm.png" %}">
                     <h2 class="acm-text">Association for<br>Computing Machinery</h2>
                 </a>
                 <h2 class="acm-text"></h2>
@@ -57,27 +60,27 @@
             </div>
                 <nav>
                     <a href="#" class="home-nav nav-button">
-                        <img src="img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png"/>
+			    <img src="{% static "home/img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png" %}"/>
                         <h3>HOME</h3>
                     </a>
                     <a href="sponsors/index.html" class="sponsors-nav nav-button">
-                        <img src="img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"/>
+			    <img src="{% static "home/img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"%}"/>
                         <h3>SPONSORS</h3>
                     </a>
                     <a href="calendar/index.html" class="calendar-nav nav-button">
-                        <img src="img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"/>
+			    <img src="{% static "home/img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"%}"/>
                         <h3>CALENDAR</h3>
                     </a>
                     <a href="#" class="media-nav nav-button">
-                        <img src="img/ic_image_black_48dp/web/ic_image_black_48dp_1x.png"/>
+			    <img src="{% static "home/img/ic_image_black_48dp/web/ic_image_black_48dp_1x.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
                     <a href="#" class="officers-nav nav-button">
-                        <img src="img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png"/>
+			    <img src="{% static "home/img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
                     <a href="login/index.html" class="login-nav nav-button">
-                        <img src="img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"/>
+			 <img src="{% static "home/img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"%}"/>
                         <h3>LOGIN</h3>
                     </a>
                 </nav>
@@ -87,7 +90,7 @@
 
 {% block body_footer %}
         <footer>
-            <img src="img/footerimgtrans.png"/>
+            <img src="{% static "home/img/footerimgtrans.png"%}"/>
             <div class="footer-nav">
                 <a href="#">Home</a>
                 <a href="sponsors/index.html">Sponsors</a>

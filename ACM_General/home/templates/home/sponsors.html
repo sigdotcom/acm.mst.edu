@@ -1,5 +1,7 @@
 {% extends 'home/base.html' %}
 
+{% load static %}
+
 {% block head_title %}
     <title> ACM | Sponsors </title>
 {% endblock %}
@@ -11,7 +13,7 @@
 {% block head_stylesheets %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="../css/sponsors.css">
+    <link rel="stylesheet" href="{% static "home/css/sponsors.css" %}">
 {% endblock %}
 
 
@@ -21,12 +23,12 @@
         <h1 style="text-align:center;"> Contact <a href="mailto:acm@mst.com?Subject=ACM Sponsership" target="_top">acm@mst.edu</a> </h1>
 
         <div class="content-wrapper">
-            <img src="../img/tradebot_logo.png"/>
-            <img src="../img/at&tlogo.jpg"/>
-            <img src="../img/Garmin_Logo_Rgsd_CMKY.jpg"/>
-            <img src="../img/Union_Pacific_Logo.svg.png"/>
-            <img src="../img/Logo_Western_Digital_color.jpg"/>
-            <img src="../img/instt-snl.jpg"/>
+            <img src="{% static "home/img/tradebot_logo.png" %}"/>
+	    <img src="{% static "home/img/at&tlogo.jpg" %}"/>
+	    <img src="{% static "home/img/Garmin_Logo_Rgsd_CMKY.jpg" %}"/>
+	    <img src="{% static "home/img/Union_Pacific_Logo.svg.png" %}"/>
+	    <img src="{% static "home/img/Logo_Western_Digital_color.jpg" %}"/>
+	    <img src="{% static "home/img/instt-snl.jpg" %}"/>
         </div>
     </div>
 {% endblock %}
