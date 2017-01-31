@@ -1,0 +1,32 @@
+{% extends 'home/base.html' %}
+
+{% block head_title %}
+    <title> ACM | Sponsors </title>
+{% endblock %}
+
+{% block head_extra-descriptors %}
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+{% endblock %}
+
+{% block head_stylesheets %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="../css/sponsors.css">
+{% endblock %}
+
+
+{% block body_main %}
+    <div class="sponsors-highlight">
+        <h1 style="text-align:center;"> Interested in Sponsoring? </h1>
+        <h1 style="text-align:center;"> Contact <a href="mailto:acm@mst.com?Subject=ACM Sponsership" target="_top">acm@mst.edu</a> </h1>
+
+        <div class="content-wrapper">
+            <img src="../img/tradebot_logo.png"/>
+            <img src="../img/at&tlogo.jpg"/>
+            <img src="../img/Garmin_Logo_Rgsd_CMKY.jpg"/>
+            <img src="../img/Union_Pacific_Logo.svg.png"/>
+            <img src="../img/Logo_Western_Digital_color.jpg"/>
+            <img src="../img/instt-snl.jpg"/>
+        </div>
+    </div>
+{% endblock %}

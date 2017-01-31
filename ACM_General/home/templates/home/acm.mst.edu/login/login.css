@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+body,html {
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0;
+    padding:0;
+    height: 100%;
+    background-color: #222222;
+}
+
+.wrapper {
+    margin:auto;
+    height: 100%;
+    width:420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    width: 100%;
+    height:540px;
+    border-radius: 16px;
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+
+}
+
+.logo {
+    width:100%;
+    height:90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    background-image: url("../img/footerimg.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.external-login {
+}
+
+.external-card {
+    height: 55px;
+    border-radius: 5px;
+    margin: 6px 55px;
+    background-color: #1D1C1D;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.github {
+    background-image: url(../img/GitHub-Mark/PNG/GitHub-Mark-64pxmod.png);
+    background-repeat: no-repeat;
+    background-position: 7%;
+}
+
+.google {
+    background-image: url(../img/Google_-G-_Logo.svg.png);
+    background-size: 15%;
+    background-repeat: no-repeat;
+    background-color: #c9c9c9;
+    background-position: 10%;
+}
+
+.facebook {
+    background-image: url(../img/fb-art.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #3B5998;
+    background-position: 5%;
+}
+
+.bridge {
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cccccc;
+}
+
+.band {
+    width:136px;
+    height: 2px;
+    background-color: #dcdcdc;
+    margin: 0 10px;
+}
+
+.login-field {
+}
+
+.inputs {
+    height: 45px;
+    border-radius: 5px;
+    margin: 5px 55px 14px 55px;
+    border: 2px solid #dcdcdc;
+    color: #dcdcdc;
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs div {
+    width:29px;
+    height:25px;
+    margin: 10px;
+    background-image: url("../img/ic_mail_outline_black_24dp/web/ic_mail_outline_black_24dp_1x.png");
+    background-repeat: no-repeat;
+    opacity: .4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+.inputs:nth-of-type(2) div {
+    background-image: url("../img/ic_lock_outline_black_24dp/web/ic_lock_outline_black_24dp_1x.png");
+}
+
+.inputs input {
+    border: none;
+    width:100%;
+}
+.inputs input:focus {
+    outline: none;
+}
+
+.buttons-space {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 55px 14px 55px;
+}
+
+.create-space {
+    width:50%;
+    height:55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-space a {
+    color:#aaa;
+    font-size: 14px;
+}
+
+.login-space {
+    width:50%;
+    height:55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-space input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #39B38F;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}

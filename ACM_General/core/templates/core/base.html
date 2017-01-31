@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+
+{% block html_tag %}<html lang='en'>{% endblock %}
+    <head>
+        {% block head_defaultContent %}
+            {% block head_http-equiv %}
+                    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            {% endblock %}
+
+            {% block head_viewport %}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+            {% endblock %}
+
+            {% block head_charset %}
+                <meta charset="utf-8" />
+            {% endblock %}
+
+            {% block head_keywords %}
+                <meta name="keywords" content="acmmst,mstacm, ACM General, ACM" />
+            {% endblock %}
+
+            {% block head_description %}
+                <meta name="description" content="ACM-General Site" />
+            {% endblock %}
+
+            {% block head_author %}
+                <meta name="author" content="ACM-MST sig.com" />
+            {% endblock %}
+
+            {% block head_robots %}
+                <meta name="robots" content="NONE,NOARCHIVE" />
+            {% endblock %}
+
+            {% block head_stylesheets %}
+            {% endblock %}
+
+            {% block head_javascript %}
+            {% endblock %}
+
+            {% block head_extra-descriptors %}
+            {% endblock %}
+
+            {% block head_fonts %}
+            {% endblock %}
+
+            {% block head_title %} 
+                <title> ACM-General </title> 
+            {% endblock %}
+        {% endblock %}
+
+        {% block head_main %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <!--[if lt IE 8]>
+                <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        {% block body_scripts %}
+        {% endblock %}
+
+        {% block body_header %}
+        {% endblock %}
+
+        {% block body_main %}
+        {% endblock %}
+
+        {% block body_footer %}
+        {% endblock %}
+    </body>
+</html>
