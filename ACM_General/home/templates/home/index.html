@@ -50,4 +50,9 @@
                 </div>
             </div>
         <div class="sig-section">
+  	    {% block body_sciprts %}
+	        {{ block.super }} 
+	    {% endblock %}
+	</div>
+			
 {% endblock %}
