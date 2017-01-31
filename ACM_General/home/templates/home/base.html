@@ -63,11 +63,11 @@
 			    <img src="{% static "home/img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png" %}"/>
                         <h3>HOME</h3>
                     </a>
-                    <a href="sponsors/index.html" class="sponsors-nav nav-button">
+		    <a href="{% url "home:sponsors" %}" class="sponsors-nav nav-button">
 			    <img src="{% static "home/img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"%}"/>
                         <h3>SPONSORS</h3>
                     </a>
-                    <a href="calendar/index.html" class="calendar-nav nav-button">
+		    <a href="{% url "home:calendar" %}" class="calendar-nav nav-button">
 			    <img src="{% static "home/img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"%}"/>
                         <h3>CALENDAR</h3>
                     </a>
@@ -79,7 +79,7 @@
 			    <img src="{% static "home/img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
-                    <a href="login/index.html" class="login-nav nav-button">
+		    <a href="{% url "accounts:user-login" %}" class="login-nav nav-button">
 			 <img src="{% static "home/img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"%}"/>
                         <h3>LOGIN</h3>
                     </a>
@@ -93,13 +93,11 @@
             <img src="{% static "home/img/footerimgtrans.png"%}"/>
             <div class="footer-nav">
                 <a href="#">Home</a>
-                <a href="sponsors/index.html">Sponsors</a>
-                <a href="calendar/index.html">Calendar</a>
+		<a href="{% url "home:sponsors" %}">Sponsors</a>
+		<a href="{% url "home:calendar" %}">Calendar</a>
                 <a href="#">Media</a>
                 <a href="#">Officers</a>
             </div>
             <h5>@ 2016 Missouri S&T SIG.com. All rights reserved.</h5>
         </footer>
-
-
 {% endblock %}

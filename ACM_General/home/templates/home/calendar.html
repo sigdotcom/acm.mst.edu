@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'home/base.html' %}
 
-{% head_title %}
+{% block head_title %}
     <title> ACM | Calendar </title>
 {% endblock %}
 
@@ -8,13 +8,13 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
-{% head_stylesheet %}
+{% block head_stylesheet %}
     {{ block.super }}
 
     <link rel="stylesheet" href="../css/calendar.css" />
 {% endblock %}
 
-{% body_main %}
+{% block body_main %}
     <div class="main-section">
         <div class="content-wrapper">
             <iframe src="https://calendar.google.com/calendar/embed?src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&ctz=America/Chicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>

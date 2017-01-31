@@ -8,3 +8,15 @@ def index(request):
         request,
         'home/index.html',
     ))
+
+def sponsors(request):
+    return(render(
+        request,
+        'home/sponsors.html',
+    ))
+
+def calendar(request):
+    return(render(
+        request,
+        'home/calendar.html',
+    ))
