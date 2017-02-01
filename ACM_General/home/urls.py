@@ -19,7 +19,9 @@ from home import views
 
 app_name = "home"
 urlpatterns = [
-    url(r'^$', views.index, name = "index") 
+    url(r'^$', views.index, name = "index"),
+    url(r'sponsors/', views.sponsors, name = "sponsors"),
+    url(r'calendar/', views.calendar, name = "calendar"), 
 ]
 
 #url(r'^', include('home.urls')),

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'sigs.apps.SigsConfig',
     'core.apps.CoreConfig',
+    'rest_api.apps.RestApiConfig',
     'rest_framework',
 ]
 
@@ -131,6 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/static/'
 
 
 # Temporary local settings
