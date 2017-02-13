@@ -1,0 +1,45 @@
+.main-section {
+    height: 600px;
+}
+
+.main-section .content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.full-wide {
+    width: 100%;
+}
+
+.half-high {
+    height: 48%;
+}
+
+.full-high {
+    height: 100%;
+}
+
+.half-wide {
+    width: 49%;
+}
+
+.top-margin {
+    margin-top: 1%;
+}
+
+.bottom-margin {
+    margin-bottom: 1%;
+}
+
+.left-margin {
+    margin-left: 1%;
+}
+
+.right-margin {
+    margin-right: 1%;
+}
+
+.two-wide-wrapper {
+    display: flex;
+}

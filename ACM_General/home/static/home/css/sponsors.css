@@ -1,13 +1,91 @@
-.sponsors-highlight {
-    padding:20px 0;
-}
-
-.sponsors-highlight .content-wrapper {
+.main-section .content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.sponsors-highlight img {
-    height: 200px;
+.main-section .content-wrapper img {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    transition: filter .25s;
+}
+
+.main-section .content-wrapper a:hover > img {
+    -webkit-filter: opacity(70%); /* Safari 6.0 - 9.0 */
+    filter: opacity(70%);
+}
+
+
+.main-section .content-wrapper a {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-section .content-wrapper h3 {
+    margin: 16px 0 0 80px;
+    font-size: 1.4em;
+    width: 100%;
+}
+
+.main-section .content-wrapper h4 {
+    margin: 0 0 0 80px;
+    font-size: 1.1em;
+    width: 100%;
+    color: rgba(0,0,0,.5);
+}
+
+.main-section .content-wrapper h1 {
+    margin-top: 0;
+}
+
+.main-section .content-wrapper h2 {
+    margin: 0;
+}
+
+.main-section .content-wrapper h2 a {
+    display: inline;
+    margin:0;
+}
+
+.hor-bar {
+    width: 80%;
+    margin: 30px 0;
+    height: 3px;
+    border-radius: 50px;
+    background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 33%, rgba(0,0,0,.8) 66%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 33%,rgba(0,0,0,.8) 66%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,.8) 33%,rgba(0,0,0,.8) 66%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+}
+
+.div-bar {
+    width:100%;
+    margin:16px 0;
+    height: 2px;
+    background-color: rgba(0,0,0,.06);
+}
+
+.sponsor-spots {
+    margin-top: 30px;
+    padding-bottom: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 4px;
+    transition: box-shadow .2s;
+    box-shadow: 0 1px 20px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+.sponsor-spots:hover {
+    box-shadow: 0 1px 20px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.34);
+}
+
+.sponsor {
+    margin-top: 5px;
 }

@@ -11,6 +11,8 @@
    ========================================================================== */
 
 html {
+    height:100%;
+    width:100%;
     color: #222;
     font-size: 1em;
     line-height: 1.4;
@@ -99,6 +101,17 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html,body {
+    overflow-x:hidden;
+}
+
+body {
+    height:100%;
+    width:100%;
+    padding: 0;
+    margin: 0;
+}
+
 header {
     width:100%;
     height: 630px;
@@ -108,14 +121,16 @@ header {
 
 .header-background {
     z-index: 1;
-    position: absolute;
+    position: relative;
     height: 566px;
     width: 100%;
     background-color: #241234;
+    display: flex;
+    justify-content: center;
 }
 
 header .content-wrapper {
-    position:absolute;
+    position: absolute;
     z-index: 10;
 }
 
@@ -142,6 +157,7 @@ header .content-wrapper {
 
 .welcome-section {
     margin-top: 150px;
+    padding-left: 15px;
     width:100%;
     color: #fff;
     text-decoration: none;
@@ -170,7 +186,6 @@ header .content-wrapper {
 }
 nav {
     margin-top: 520px;
-    position:absolute;
     z-index: 10;
     border-radius: 4px;
     box-shadow: #ECECEC 0 1px 2px 1px;
@@ -209,7 +224,7 @@ nav {
 }
 
 .main-section {
-    height: 500px;
+    margin-bottom: 20px;
 }
 
 .gray-section {
@@ -279,15 +294,20 @@ nav {
 
 .sig-section-header h2 {
     color: #ddd;
-    text-align: center;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: normal;
-    padding: 35px 0 10px 0;
+    text-align: center;
     font-size: 24px;
+    margin: 0;
 }
 
 .sig-section-body {
     margin:auto;
     max-width: 1400px;
+    height: 270px;
     display: flex;
     align-items: center;
     justify-content:center;
@@ -296,11 +316,12 @@ nav {
 .sig-link-card {
     display: flex;
     flex-direction: column;
-    width: 12%;
+    width: 33%;
+    max-width: 160px;
     margin: 0 22px;
-    height: 100px;
+    height: 100%;
     align-items: center;
-    text-align: center;
+    justify-content: center;
 }
 
 .sig-link {
@@ -335,13 +356,14 @@ footer img {
 }
 .footer-nav {
     height: 80px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .footer-nav a {
-    margin: 0 40px;
+    margin: 0 2%;
     font-size: 14px;
     text-decoration: none;
     color: #ddd;
@@ -412,7 +434,9 @@ footer h5 {
 .content-wrapper {
     margin: 0 auto;
     width: 100%;
-    max-width:770px;
+    height: 100%;
+    max-width: 1000px;
+    /*position: relative;*/
 }
 
 /*
