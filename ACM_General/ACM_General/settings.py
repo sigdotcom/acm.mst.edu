@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'localhost','mav.claymav.com']
+ALLOWED_HOSTS = [u'localhost']
 
 ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 
