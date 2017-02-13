@@ -41,47 +41,46 @@
 {% block body_header %}
         <header>
             <div class="header-background">
-
-            </div>
-            <div class="content-wrapper">
-		    <a href="{% url "home:index" %}" class="acm-logo-button">
-			<img src="{% static "/home/img/acm.png" %}">
+                <div class="content-wrapper">
+                    <a href="{% url "home:index" %}" class="acm-logo-button">
+                    <img src="{% static "/home/img/acm.png" %}">
                     <h2 class="acm-text">Association for<br>Computing Machinery</h2>
-                </a>
-                <h2 class="acm-text"></h2>
+                    </a>
+                    <h2 class="acm-text"></h2>
 
-                <div class="welcome-section">
-                    <h2>Welcome.</h2>
-                    <h1>We are Under Construction.</h1>
-                    <!-- <a href="#">Read About Us</a> -->
+                    <div class="welcome-section">
+                        <h2>Welcome.</h2>
+                        <h1>We are Under Construction.</h1>
+                        <!-- <a href="#">Read About Us</a> -->
+                    </div>
                 </div>
-            </div>
                 <nav>
-			<a href="{% url "home:index" %}" class="home-nav nav-button">
-			    <img src="{% static "home/img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png" %}"/>
-                        <h3>HOME</h3>
+                    <a href="{% url "home:index" %}" class="home-nav nav-button">
+                    <img src="{% static "home/img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png" %}"/>
+                    <h3>HOME</h3>
                     </a>
-		    <a href="{% url "home:sponsors" %}" class="sponsors-nav nav-button">
-			    <img src="{% static "home/img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"%}"/>
-                        <h3>SPONSORS</h3>
+                    <a href="{% url "home:sponsors" %}" class="sponsors-nav nav-button">
+                    <img src="{% static "home/img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"%}"/>
+                    <h3>SPONSORS</h3>
                     </a>
-		    <a href="{% url "home:calendar" %}" class="calendar-nav nav-button">
-			    <img src="{% static "home/img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"%}"/>
-                        <h3>CALENDAR</h3>
+                    <a href="{% url "home:calendar" %}" class="calendar-nav nav-button">
+                    <img src="{% static "home/img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"%}"/>
+                    <h3>CALENDAR</h3>
                     </a>
                     <a href="#" class="media-nav nav-button">
-			    <img src="{% static "home/img/ic_image_black_48dp/web/ic_image_black_48dp_1x.png"%}"/>
+                        <img src="{% static "home/img/ic_image_black_48dp/web/ic_image_black_48dp_1x.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
                     <a href="#" class="officers-nav nav-button">
-			    <img src="{% static "home/img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png" %}"/>
+                        <img src="{% static "home/img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
-		    <a href="{% url "accounts:user-login" %}" class="login-nav nav-button">
-			 <img src="{% static "home/img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"%}"/>
-                        <h3>LOGIN</h3>
+                    <a href="{% url "accounts:user-login" %}" class="login-nav nav-button">
+                    <img src="{% static "home/img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"%}"/>
+                    <h3>LOGIN</h3>
                     </a>
                 </nav>
+            </div>
 
         </header>
 {% endblock %}
