@@ -140,7 +140,7 @@ header .content-wrapper {
     text-decoration: none;
     height: 80px;
     width: 260px;
-    margin: 7px 0 0 0;
+    margin: 7px 0 0 9px;
 }
 .acm-logo-button img {
     height: 100%;
@@ -157,7 +157,7 @@ header .content-wrapper {
 
 .welcome-section {
     margin-top: 150px;
-    padding-left: 15px;
+    padding-left: 9px;
     width:100%;
     color: #fff;
     text-decoration: none;
@@ -206,6 +206,15 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.disabled {
+  cursor: default;
+}
+
+.disabled img {
+  -webkit-filter: opacity(50%); /* Safari 6.0 - 9.0 */
+  filter: opacity(50%);
 }
 
 .nav-button:first-of-type:after {
@@ -288,26 +297,30 @@ nav {
 }
 
 .sig-section {
-    height: 350px;
+    height: 260px;
     background-color: #21262A;
+}
+
+.sig-section-header {
+  height:60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sig-section-header h2 {
     color: #ddd;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-weight: normal;
     text-align: center;
-    font-size: 24px;
+    font-size: 22px;
     margin: 0;
+    padding-top:20px;
 }
 
 .sig-section-body {
     margin:auto;
     max-width: 1400px;
-    height: 270px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content:center;
@@ -316,8 +329,8 @@ nav {
 .sig-link-card {
     display: flex;
     flex-direction: column;
-    width: 33%;
-    max-width: 160px;
+    width: 18%;
+    max-width: 120px;
     margin: 0 22px;
     height: 100%;
     align-items: center;
