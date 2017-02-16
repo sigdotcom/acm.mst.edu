@@ -3,6 +3,7 @@ __pycache__/
 __pycahce__
 migrations
 migrations/
+ACM_General/static/
 db.*
 settings_local.py
 .vagrant/
