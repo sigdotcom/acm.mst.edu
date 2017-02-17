@@ -4,26 +4,6 @@
     align-items: center;
 }
 
-.main-section .content-wrapper img {
-    max-width: 100%;
-    max-height: 250px;
-    object-fit: contain;
-    transition: filter .25s;
-}
-
-.main-section .content-wrapper a:hover > img {
-    -webkit-filter: opacity(70%); /* Safari 6.0 - 9.0 */
-    filter: opacity(70%);
-}
-
-
-.main-section .content-wrapper a {
-    width: calc(100% - 40px);
-    margin: 0 20px;
-    display: flex;
-    justify-content: center;
-}
-
 .donation-header {
   width:100%;
   padding-left: 40px;
@@ -31,21 +11,6 @@
 
 .donation-content {
   width:100%;
-}
-
-.main-section .content-wrapper h3 {
-  /*padding-left: 40px;*/
-    margin: 16px 0 0 0;
-    font-size: 1.4em;
-    width: 100%;
-}
-
-.main-section .content-wrapper h4 {
-    /*padding-left: 40px;*/
-    margin: 0;
-    font-size: 1.1em;
-    width: 100%;
-    color: rgba(0,0,0,.5);
 }
 
 .main-section .content-wrapper h1 {
@@ -96,6 +61,88 @@
     box-shadow: 0 1px 20px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.34);
 }
 
-.sponsor {
-    margin-top: 5px;
+.big-boy-spot {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 9px;
+}
+
+.card-wrapper {
+    display: flex;
+    /*justify-content: center;*/
+    flex-grow: 1;
+    height: 360px;
+    /*max-width:33.3333333333333333333333334%;*/
+    margin-bottom: 25px;
+}
+
+.sponsors-card {
+    cursor: default;
+    margin:auto;
+    background-color: white;
+    box-shadow: rgba(0,0,0,.25) 0 2px 4px 1px;
+    transition: box-shadow .2s;
+    display: flex;
+    width: 230px;
+    height: 100%;
+    /*margin: 0 12px;*/
+    flex-direction: column;
+    border-radius: 4px;
+}
+
+.sponsors-card:hover {
+    box-shadow: rgba(0,0,0,.35) 0 2px 6px 1px;
+}
+
+.sponsors-header {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.sponsors-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: normal;
+    padding: 10px 0 0 14px;
+    /*text-align: center;*/
+}
+
+.sponsors-header h4 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: normal;
+    color: rgb(120,120,120);
+    padding-left: 16px;
+    /*text-align:center;*/
+}
+
+.sponsors-content {
+    display: flex;
+}
+
+.sponsors-links {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 3;
+}
+
+.sponsors-links a {
+    font-weight: bold;
+    color: #77A22F;
+    text-decoration: none;
+    font-size: .9em;
+    padding-left: 22px;
+}
+
+.sponsors-content img {
+    width: 230px;
+    height: 230px;
+    border-radius: 4px 4px 0 0;
 }
