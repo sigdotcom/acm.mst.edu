@@ -8,8 +8,8 @@ sudo pip3 install -r requirements.txt
 cp settings_local.template ../ACM_General/ACM_General/settings_local.py
 cp ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
 cp ssl-acm.mst.edu /etc/nginx/sites-available
-sudo ln -s /etc/uwsgi/sites-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
-sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etcnginx/sites-enabled/
+sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
+sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
 cd ../ACM_General
 sudo python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
