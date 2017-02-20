@@ -1,9 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+import stripe
 
 # Create your views here.
 
-class sodamachinePayment(View):
+class membershipPayments(View):
     def get(self, request):
-        return HttpResponseRedirect('https://acm-chat.mst.edu/')
+        return render(request,'payments/payment.html', {})
+
+class paymentCallback(View):
+    def post(self, request, amount):
+        token = request.POST['stripeToken']
+        charge = stripe.Charge.create(
+                    currency="usd",
+                    amount=str(amount),
+                    description="ACM Membership Charge",
+                    source=token,
+                )
+        return HttpResponse(charge['failure_message'])

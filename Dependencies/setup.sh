@@ -15,5 +15,6 @@ cd ../ACM_General
 sudo python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
 sudo python3 manage.py collectstatic
 sudo python3 manage.py migrate
+sudo chown www-data:www-data -R /var/django
 sudo service uwsgi restart
 sudo service nginx restart

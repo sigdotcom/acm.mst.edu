@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'sigs.apps.SigsConfig',
     'core.apps.CoreConfig',
     'rest_api.apps.RestApiConfig',
+    'payments.apps.PaymentsConfig',
     'rest_framework',
 ]
 
@@ -121,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Temporary local settings
 from ACM_General.settings_local import *

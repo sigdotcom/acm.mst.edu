@@ -17,11 +17,16 @@ from django.conf.urls import url, include
 
 from payments import views
 
-app_name = 'accounts'
+app_name = 'payments'
 urlpatterns = [
     url(
-      r'sodamachine/',
-      views.sodamachinePayment.as_view(),
-      name='sodamachine-pay'
+      r'membership/',
+      views.membershipPayments.as_view(),
+      name='membership-pay',
+    ),
+    url(
+      r'callback/(?P<amount>[0-9]+)/$',
+      views.paymentCallback.as_view(),
+      name='payment-callback',
     ),
 ]
