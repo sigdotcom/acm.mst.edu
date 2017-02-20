@@ -18,6 +18,6 @@ before_script:
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE django_acmgeneral TO djangouser;" -U postgres
   - psql -c "ALTER USER djangouser CREATEDB;" -U postgres
 script:
-  - cp Dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
+  - cp ./Dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
   - cd ACM_General
   - python3 manage.py test
