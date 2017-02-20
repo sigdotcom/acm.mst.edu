@@ -16,7 +16,6 @@ ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/static/'
 
 # Third Party Authentication
 SOCIAL_AUTH_CONFIG = {
