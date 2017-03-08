@@ -1,9 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from payments.models import Transaction
 import stripe
 
 # Create your views here.
+
+stripe.api_key = getattr(settings, 'STRIPE_KEY' , None)
+
+if(stripe.api_key == None):
+    raise ImproperlyConfigured('Please enter a Stripe API key into settings_local')
 
 class membershipPayments(View):
     def get(self, request):
@@ -18,4 +26,12 @@ class paymentCallback(View):
                     description="ACM Membership Charge",
                     source=token,
                 )
-        return HttpResponse(charge['failure_message'])
+
+        trans = Transation.objects.create_transaction(
+                                        token, user = request.user,
+                                        cost = amount,
+                                        category = 'ACM Membership (Year)',
+                                        description = 'See Category',
+                                    )
+
+        return HttpResponse(trans)
