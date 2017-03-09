@@ -19,7 +19,17 @@ html {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-font-feature-settings: "liga" on;
     /*letter-spacing: .02em;*/
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 /*
@@ -114,7 +124,7 @@ body {
 
 header {
     width:100%;
-    height: 630px;
+    /*height: 500px;*/
     display: flex;
     justify-content: center;
 }
@@ -122,7 +132,7 @@ header {
 .header-background {
     z-index: 1;
     position: relative;
-    height: 566px;
+    height: 536px;
     width: 100%;
     background-color: #241234;
     display: flex;
@@ -132,6 +142,7 @@ header {
 header .content-wrapper {
     position: absolute;
     z-index: 10;
+    padding-top: 0;
 }
 
 .acm-logo-button {
@@ -156,9 +167,9 @@ header .content-wrapper {
 }
 
 .welcome-section {
-    margin-top: 150px;
+    margin-top: 140px;
     padding-left: 9px;
-    width:100%;
+    /*width:100%;*/
     color: #fff;
     text-decoration: none;
 }
@@ -185,7 +196,7 @@ header .content-wrapper {
     text-decoration: none;
 }
 nav {
-    margin-top: 520px;
+    margin-top: 490px;
     z-index: 10;
     border-radius: 4px;
     box-shadow: #ECECEC 0 1px 2px 1px;
@@ -210,6 +221,7 @@ nav {
 
 .disabled {
   cursor: default;
+  color: #888 !important;
 }
 
 .disabled img {
@@ -233,7 +245,7 @@ nav {
 }
 
 .main-section {
-    margin-bottom: 20px;
+    background-color: #f0f0f0;
 }
 
 .gray-section {
@@ -388,6 +400,81 @@ footer h5 {
     font-weight: normal;
 }
 
+/* hamburger */
+
+#menu-wrapper {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+label:focus {
+    outline: none;
+}
+
+.menu {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 240px;
+    height: 100%;
+    transform: translate3d(-240px, 0, 0);
+    transition: transform 0.35s;
+}
+.menu label.menu-toggle {
+    position: absolute;
+    right: -60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 0 0 4px 0;
+    line-height: 0px;
+    display: block;
+    padding: 0;
+    text-indent: -9999px;
+    background: #fff url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/25px 25px no-repeat;
+}
+.menu ul li > label {
+    background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50%/16px 16px no-repeat;
+}
+.menu ul li a, .menu ul li label {
+    display: block;
+    text-align: center;
+    padding: 0 20px;
+    line-height: 60px;
+    text-decoration: none;
+    color: #000;
+    transition: background-color .15s;
+}
+.menu ul li a:hover, .menu ul li label:hover {
+    color: #666;
+    background-color: #f0f0f0;
+}
+.menu ul {
+    margin-top: 0;
+    padding-left:0;
+}
+.menu ul li {
+    list-style: none;
+}
+
+/* hide inputs */
+.menu-checkbox {
+    display: none;
+}
+
+/* hide navigation icon for sublabels */
+.menu .menu label.menu-toggle {
+    background: none;
+}
+
+/* fade in checked menu */
+.menu-checkbox:checked + .menu {
+    transform: translate3d(0, 0, 0);
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
@@ -448,6 +535,7 @@ footer h5 {
     margin: 0 auto;
     width: 100%;
     height: 100%;
+    padding-top: 60px;
     max-width: 1000px;
     /*position: relative;*/
 }
@@ -496,6 +584,85 @@ footer h5 {
    Inlined to avoid the additional HTTP request:
    http://www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
+
+@media (max-width:320px)  {
+    /* smartphones, iPhone, portrait 480x320 phones */
+
+}
+@media (max-width:414px)  {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .acm-logo-button {
+        display: none;
+    }
+    .welcome-section {
+        padding-top: 130px;
+        margin: 0 !important;
+    }
+    footer {
+        height: 110px;
+        padding-top: 10px;
+    }
+    footer img {
+        display: none;
+    }
+    header .header-background .content-wrapper {
+        padding-top: 0 !important;
+    }
+}
+@media (max-width:641px)  {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .header-background {
+        height: 320px;
+    }
+    .welcome-section {
+        margin-top: -115px;
+        margin-left: 165px;
+    }
+    .welcome-section h2 {
+        font-size: 1.8em;
+    }
+    .welcome-section h1 {
+        font-size: 2.2em;
+    }
+    nav {
+        margin-top: 0;
+        border-radius: 0;
+        height: 60px;
+        display: none;
+    }
+    #menu-wrapper {
+        display: block;
+    }
+    nav img {
+        display: none;
+    }
+    .nav-button {
+        font-size: .7em;
+    }
+    .acm-logo-button {
+        margin: 45px 0 0 30px;
+        width: 110px;
+        height: 110px;
+    }
+    .acm-text {
+        display: none;
+    }
+    .main-section .content-wrapper {
+        padding-top: 0 !important;
+    }
+    .main-section .sponsor-header-content-wrapper {
+        padding-top: 10px !important;
+    }
+    header .header-background .content-wrapper {
+        padding-top: 60px;
+    }
+    .sig-link-card {
+        width: 24%;
+    }
+}
+/*@media (max-width:961px)  { !* tablet, landscape iPad, lo-res laptops ands desktops *! }*/
+/*@media (max-width:1025px) { !* big landscape tablets, laptops, and desktops *! }*/
+/*@media (min-width:1281px) { !* hi-res laptops and desktops *! }*/
 
 @media print {
     *,
