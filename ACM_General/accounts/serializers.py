@@ -1,20 +1,22 @@
 from rest_framework import serializers
-from core.actions import isValidEmail
-from accounts.models import User, Permission, Group
+from ACM_General.core.actions import is_valid_email
+from . import models
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = models.User
         exclude = ('password', )
 
-    def validate_email(self, email):
+    @staticmethod
+    def validate_email(email):
         """
         Ensure the domain of the email is mst.edu
         """
 
-        email = isValidEmail(email)
+        email = is_valid_email(email)
 
-        return(email)
+        return email
 
     def create(self, validated_data):
         """
@@ -22,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data if no ValidationErrors were raised
         """
 
-        return User.objects.create(**validated_data)
+        return models.User.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
@@ -31,19 +33,18 @@ class UserSerializer(serializers.ModelSerializer):
         """
 
         instance.email = validated_data.get('email', instance.email)
-        instance.is_active = validated_data.get('is_active',
-                                                 instance.is_active)
+        instance.is_active = validated_data.get('is_active', instance.is_active)
         instance.is_staff = validated_data.get('is_staff', instance.is_staff)
-        instance.is_superuser = validated_data.get('is_superuser',
-                                                    instance.is_superuser)
+        instance.is_superuser = validated_data.get('is_superuser', instance.is_superuser)
         instance.save()
-        return(instance)
+        return instance
+
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Group
+        model = models.Group
+
 
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Permission
-
+        model = models.Permission

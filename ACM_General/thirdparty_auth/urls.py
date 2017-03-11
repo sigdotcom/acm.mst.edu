@@ -13,9 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 
-from thirdparty_auth import views
+from . import views
 
 app_name = 'thirdparty_auth'
 urlpatterns = [
@@ -27,6 +27,6 @@ urlpatterns = [
     url(
         r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/callback/$',
         views.TokenView.as_view(),
-        name = 'callback'
+        name='callback'
     ),
 ]

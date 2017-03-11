@@ -1,7 +1,8 @@
 import django_filters
-from accounts.models import User
-from events.models import Event
-from sigs.models import SIG
+from ACM_General.accounts.models import User
+from ACM_General.events.models import Event
+from ACM_General.sigs.models import SIG
+
 
 class UserFilter(django_filters.FilterSet):
     class Meta:
@@ -15,10 +16,12 @@ class UserFilter(django_filters.FilterSet):
             'last_login'
         ]
 
+
 class EventFilter(django_filters.FilterSet):
     class Meta:
         model = Event
         fields = '__all__'
+
 
 class SIGFilter(django_filters.FilterSet):
     class Meta:

@@ -1,17 +1,15 @@
 from django.conf import settings
-from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib.auth import authenticate, login
-from django.core.exceptions import ImproperlyConfigured
-from accounts.models import User
-
+from ACM_General.accounts.models import User
 import hashlib
 import os
 import requests
 import json
 import base64
 # Create your views here.
+
 
 ###
 # TODO: Modular Authentication with support for different protocols
@@ -41,7 +39,7 @@ class AuthorizationView(View):
         auth_provider = kwargs.get('auth_provider')
         auth_data = getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
 
-        if(auth_data is not None):
+        if auth_data is not None:
             data = self.prepare_transaction(request, auth_data)
             request = requests.post(
                         'https://accounts.google.com/o/oauth2/v2/auth',
@@ -52,7 +50,8 @@ class AuthorizationView(View):
         else:
             raise Http404("Authentication type does not exist")
 
-    def prepare_transaction(self, request, auth_data):
+    @staticmethod
+    def prepare_transaction(request, auth_data):
         """
         @Desc: Prepares the POST/GET request parameters for the initial
                authorization request for OAuth2. Also, Creates state comparator
@@ -67,14 +66,15 @@ class AuthorizationView(View):
 
         data = {
             'client_id': auth_data.get('client_id'),
-            'response_type':'code',
-            'scope':'openid email profile',
+            'response_type': 'code',
+            'scope': 'openid email profile',
             'redirect_uri': auth_data.get('redirect_uri'),
-            'state':state,
-            'hd':'mst.edu',
+            'state': state,
+            'hd': 'mst.edu',
         }
 
         return data
+
 
 class TokenView(View):
     """
@@ -84,7 +84,6 @@ class TokenView(View):
     """
     http_method_names = ['get']
     auth_type = 'oauth2'
-
 
     def get(self, request, **kwargs):
         """
@@ -98,8 +97,8 @@ class TokenView(View):
         ###
         # Normalizing data from callback
         ###
-        responseState = request.GET.get('state')
-        sessionState = request.session['state']
+        response_state = request.GET.get('state')
+        session_state = request.session['state']
         auth_type = kwargs.get('auth_type')
         auth_provider = kwargs.get('auth_provider')
         auth_data = getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
@@ -107,24 +106,23 @@ class TokenView(View):
         ###
         # Ensure state integrity of the user
         ###
-        if(responseState != sessionState):
+        if response_state != session_state:
             return HttpResponseRedirect('')
 
-        if(auth_data is None):
+        if auth_data is None:
             return HttpResponseRedirect('')
 
         payload = self.prepare_transaction(request, auth_data)
-        tokenRequest = requests.post(
+        token_request = requests.post(
                             "https://www.googleapis.com/oauth2/v4/token",
                             data=payload
                        )
-        cleaned_data = self.clean_JWT(tokenRequest.text)
+        cleaned_data = self.clean_jwt(token_request.text)
 
         return self.post_auth(request, cleaned_data)
 
-
-
-    def prepare_transaction(self, request, auth_data):
+    @staticmethod
+    def prepare_transaction(request, auth_data):
         """
         @Desc: Preparing the GET/POST data necessary to perform the Token
                Transaction.
@@ -135,17 +133,18 @@ class TokenView(View):
         code = request.GET.get('code')
 
         payload = {
-            'code':code,
-            'scope':'',
-            'client_id':auth_data.get('client_id'),
-            'client_secret':auth_data.get('client_secret'),
-            'redirect_uri':auth_data.get('redirect_uri'),
-            'grant_type':'authorization_code',
+            'code': code,
+            'scope': '',
+            'client_id': auth_data.get('client_id'),
+            'client_secret': auth_data.get('client_secret'),
+            'redirect_uri': auth_data.get('redirect_uri'),
+            'grant_type': 'authorization_code',
         }
 
-        return(payload)
+        return payload
 
-    def clean_JWT(self, text):
+    @staticmethod
+    def clean_jwt(text):
         """
         @Desc: Transforms text containing a JSON Web Token into a cleaned
                python dictionary.
@@ -153,13 +152,14 @@ class TokenView(View):
         @Returns: Returns the clean JSON Web Token as a python dictionary.
         """
         json_data = json.loads(text)
-        JWTsegments = json_data['id_token'].split('.')
-        userData = base64.urlsafe_b64decode(JWTsegments[1] + "==")
-        cleaned_userData = json.loads((userData).decode('utf-8'))
+        jwt_segments = json_data['id_token'].split('.')
+        user_data = base64.urlsafe_b64decode(jwt_segments[1] + "==")
+        cleaned_user_data = json.loads(user_data.decode('utf-8'))
 
-        return(cleaned_userData)
+        return cleaned_user_data
 
-    def post_auth(self, request, cleaned_data):
+    @staticmethod
+    def post_auth(request, cleaned_data):
         """
         @Desc: Actions after the JSON Web Token has been cleaned and the rest
                of the transaction has been properly authenticated. Should be
@@ -180,7 +180,6 @@ class TokenView(View):
         if user is not None:
             login(request, user)
         else:
-            return(HttpResponse('Error'))
+            return HttpResponse('Error')
 
-        return(HttpResponseRedirect('/'))
-
+        return HttpResponseRedirect('/')

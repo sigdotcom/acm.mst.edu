@@ -13,28 +13,27 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from django.contrib import admin
-from rest_api import views
+from . import views
 
 app_name = 'rest_api'
 urlpatterns = [
     url('accounts/$', views.UserList.as_view(), name='user-list'),
-    url('accounts/(?P<pk>[0-9a-z-]+)/$', 
-        views.UserDetail.as_view(), 
+    url('accounts/(?P<pk>[0-9a-z-]+)/$',
+        views.UserDetail.as_view(),
         name='user-detail'
-    ),
+        ),
     url('events/$', views.EventList.as_view(), name='event-list'),
-    url('events/(?P<pk>[0-9a-z-]+)/$', 
-        views.EventDetail.as_view(), 
+    url('events/(?P<pk>[0-9a-z-]+)/$',
+        views.EventDetail.as_view(),
         name='event-detail'
-    ),
+        ),
     url('sigs/$', views.SIGList.as_view(), name='sigs-list'),
-    url('sigs/(?P<pk>[0-9a-z-]+)/$', 
-        views.SIGDetail.as_view(), 
+    url('sigs/(?P<pk>[0-9a-z-]+)/$',
+        views.SIGDetail.as_view(),
         name='sigs-detail'
-    ),
+        ),
 
 ]
 

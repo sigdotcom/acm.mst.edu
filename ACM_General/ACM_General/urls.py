@@ -26,4 +26,4 @@ urlpatterns = [
     url(r'^', include('home.urls')),
 ]
 
-#url(r'^', include('home.urls')),
+# url(r'^', include('home.urls')),

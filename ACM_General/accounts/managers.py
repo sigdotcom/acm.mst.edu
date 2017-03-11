@@ -1,9 +1,7 @@
-##
-#
-##
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
-from core.actions import isValidEmail
+from ACM_General.core.actions import is_valid_email
+
 
 class UserManager(BaseUserManager):
     """
@@ -24,11 +22,10 @@ class UserManager(BaseUserManager):
         into it and returns the user.  extra_fields must be a member variable
         of the class which the Manager is apart of.
         """
-        domain = email.split('@')[1]
         if not email:
             raise ValueError('create_user must be initialized with email.'
                              ' Server Error.')
-        email = isValidEmail(email)
+        email = is_valid_email(email)
 
         email = self.normalize_email(email)
         user = self.model(email=email,
@@ -60,16 +57,18 @@ class UserManager(BaseUserManager):
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-	
+
         return self._create_user(email, **extra_fields)
+
 
 class PermissionManager(models.Manager):
     use_in_migrations = True
 
     def get_by_natural_key(self, perm_code):
-        return self.get(perm_code = perm_code)
+        return self.get(perm_code=perm_code)
 
-    def _create_permission(self, **kwargs):
+    @staticmethod
+    def _create_permission(**kwargs):
         if not kwargs.get('perm_code'):
             raise ValueError('create_permission must be passed the keyword'
                              ' argument \'perm_code\'')
@@ -80,8 +79,9 @@ class PermissionManager(models.Manager):
     def create_permission(self, **kwargs):
         pass
 
+
 class GroupManager(models.Manager):
     use_in_migrations = True
 
     def get_by_natural_key(self, name):
-        group = self.get(name=name)
+        return self.get(name=name)
