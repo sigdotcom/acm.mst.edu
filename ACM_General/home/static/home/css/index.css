@@ -1,11 +1,32 @@
 .main-section {
-    height: 600px;
+    height: 700px;
+    padding-bottom: 30px;
 }
 
 .main-section .content-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    /*flex-wrap: wrap;*/
+    box-sizing: border-box;
+}
+
+.non-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 86%;
+  width: 100%;
+}
+
+.main-section .content-wrapper h1 {
+  padding-left: 9px;
+  padding-bottom: 12px;
+  display:flex;
+  align-items: center;
+  margin: 0;
+  /*margin: 0 0 2% 0;*/
+  height: 14%;
+  width: 100%;
 }
 
 .full-wide {

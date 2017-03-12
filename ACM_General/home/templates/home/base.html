@@ -11,8 +11,6 @@
 {% block head_stylesheets %}
      <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
      <link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
-
-     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block head_javascript %}
@@ -35,15 +33,43 @@
 {% endblock %}
 
 {% block head_fonts %}
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />-->
 {% endblock %}
 
 {% block body_header %}
         <header>
+            <div id="menu-wrapper">
+                <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
+                <div class="menu">
+                    <label class="menu-toggle" for="menu"><span>Toggle</span></label>
+                    <ul>
+                        <li>
+                            <a href="{% url "home:index" %}">Home</a>
+                        </li>
+                        <li>
+                            <a href="{% url "home:sponsors" %}">Sponsors</a>
+                        </li>
+                        <li>
+                            <a href="{% url "home:calendar" %}">Calendar</a>
+                        </li>
+                        <li>
+                            <a href="#" class="disabled">Media</a>
+                        </li>
+                        <li>
+                            <a href="#" class="disabled">Officers</a>
+                        </li>
+                        <li>
+                            <a href="{% url "accounts:user-login" %}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- #wrapper -->
+
             <div class="header-background">
                 <div class="content-wrapper">
                     <a href="{% url "home:index" %}" class="acm-logo-button">
-                    <img src="{% static "/home/img/acm.png" %}">
+                    <img src="{% static "/home/img/core/acm.png" %}">
                     <h2 class="acm-text">Association for<br>Computing Machinery</h2>
                     </a>
                     <h2 class="acm-text"></h2>
@@ -56,28 +82,28 @@
                 </div>
                 <nav>
                     <a href="{% url "home:index" %}" class="home-nav nav-button">
-                    <img src="{% static "home/img/ic_home_black_48dp/web/ic_home_black_48dp_1x.png" %}"/>
-                    <h3>HOME</h3>
+                      <img src="{% static "home/img/core/home-icon.png" %}"/>
+                      <h3>HOME</h3>
                     </a>
                     <a href="{% url "home:sponsors" %}" class="sponsors-nav nav-button">
-                    <img src="{% static "home/img/ic_business_center_black_48dp/web/ic_business_center_black_48dp_1x.png"%}"/>
-                    <h3>SPONSORS</h3>
+                      <img src="{% static "home/img/core/sponsors-icon.png"%}"/>
+                      <h3>SPONSORS</h3>
                     </a>
                     <a href="{% url "home:calendar" %}" class="calendar-nav nav-button">
-                    <img src="{% static "home/img/ic_today_black_48dp/web/ic_today_black_48dp_1x.png"%}"/>
-                    <h3>CALENDAR</h3>
+                      <img src="{% static "home/img/core/calendar-icon.png"%}"/>
+                      <h3>CALENDAR</h3>
                     </a>
-                    <a href="#" class="media-nav nav-button">
-                        <img src="{% static "home/img/ic_image_black_48dp/web/ic_image_black_48dp_1x.png"%}"/>
+                    <a href="#" class="media-nav nav-button disabled">
+                        <img src="{% static "home/img/core/media-icon.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
-                    <a href="#" class="officers-nav nav-button">
-                        <img src="{% static "home/img/ic_recent_actors_black_48dp/web/ic_recent_actors_black_48dp_1x.png" %}"/>
+                    <a href="#" class="officers-nav nav-button disabled">
+                        <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
                     <a href="{% url "accounts:user-login" %}" class="login-nav nav-button">
-                    <img src="{% static "home/img/ic_account_box_black_48dp/web/ic_account_box_black_48dp_1x.png"%}"/>
-                    <h3>LOGIN</h3>
+                      <img src="{% static "home/img/core/login-icon.png"%}"/>
+                      <h3>LOGIN</h3>
                     </a>
                 </nav>
             </div>
@@ -87,7 +113,7 @@
 
 {% block body_footer %}
         <footer>
-            <img src="{% static "home/img/footerimgtrans.png"%}"/>
+            <img src="{% static "home/img/core/footerimgtrans.png"%}"/>
             <div class="footer-nav">
 		<a href="{% url "home:index" %}">Home</a>
 		<a href="{% url "home:sponsors" %}">Sponsors</a>
