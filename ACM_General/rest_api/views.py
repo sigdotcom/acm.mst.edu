@@ -1,9 +1,9 @@
-from ACM_General.accounts.models import User, Group, Permission
-from ACM_General.accounts.serializers import UserSerializer, GroupSerializer, PermissionSerializer
-from ACM_General.events.models import Event
-from ACM_General.events.serializers import EventSerializer
-from ACM_General.sigs.models import SIG
-from ACM_General.sigs.serializers import SIGSerializer
+from accounts.models import User, Group, Permission
+from accounts.serializers import UserSerializer, GroupSerializer, PermissionSerializer
+from events.models import Event
+from events.serializers import EventSerializer
+from sigs.models import SIG
+from sigs.serializers import SIGSerializer
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions

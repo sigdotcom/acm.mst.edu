@@ -2,7 +2,7 @@ from django.conf import settings
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib.auth import authenticate, login
-from ACM_General.accounts.models import User
+from accounts.models import User
 import hashlib
 import os
 import requests

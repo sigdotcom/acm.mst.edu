@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
-from ACM_General.core.actions import is_valid_email
+from core.actions import is_valid_email
 
 
 class UserManager(BaseUserManager):

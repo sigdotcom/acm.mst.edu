@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ACM_General.core.actions import is_valid_email
+from core.actions import is_valid_email
 from . import models
 
 
