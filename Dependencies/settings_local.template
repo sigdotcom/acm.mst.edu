@@ -3,13 +3,10 @@
 SECRET_KEY = 'ThisIsNotForProduction,PleaseDoNotUseThisForProduction'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Development: DEBUG = False
 DEBUG = True
 
-# Develpoment: ALLOWED_HOSTS = [u'acm.mst.edu']
 ALLOWED_HOSTS = [u'localhost'] 
 
-# Develpoment: ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 
 # Static files (CSS, JavaScript, Images)
@@ -28,6 +25,9 @@ SOCIAL_AUTH_CONFIG = {
     },
 }
 
+# Stripe Private Key
+STRIPE_KEY = "INSERT ME PLEASE"
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
@@ -40,6 +40,9 @@ DATABASES = {
         'PORT': '',
     }
 }
+###
+# Development Variables
+###
 
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
@@ -52,3 +55,6 @@ DATABASES = {
 # SECURE_SSL_REDIRECT = True
 # CSRF_COOKIE_HTTPONLY = True
 # X_FRAME_OPTIONS = "DENY" 
+# ENFORCED_EMAIL_DOMAINS = ['mst.edu']
+# ALLOWED_HOSTS = [u'acm.mst.edu']
+# DEBUG = False

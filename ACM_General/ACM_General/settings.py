@@ -123,6 +123,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Temporary local settings
 from ACM_General.settings_local import *
