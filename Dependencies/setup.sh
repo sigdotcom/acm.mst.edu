@@ -12,6 +12,7 @@ sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enable
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
 cd ../ACM_General
+sudo chown www-data:www-data -R /var/django
 sudo python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
 sudo python3 manage.py collectstatic
 sudo python3 manage.py migrate
