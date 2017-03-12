@@ -22,6 +22,11 @@ urlpatterns = [
     url(
       r'sodamachine/',
       views.SodamachinePayment.as_view(),
-      name='sodamachine-pay'
+      name='sodamachine-pay',
+    ),
+    url(
+      r'membership/',
+      views.MembershipPayment.as_view(),
+      name='acm-memberships',
     ),
 ]

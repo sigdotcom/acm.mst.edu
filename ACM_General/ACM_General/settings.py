@@ -44,12 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'thirdparty_auth.apps.ThirdpartyAuthConfig',
+    'core.apps.CoreConfig',
     'events.apps.EventsConfig',
     'home.apps.HomeConfig',
-    'sigs.apps.SigsConfig',
-    'core.apps.CoreConfig',
+    'payments.apps.PaymentsConfig',
     'rest_api.apps.RestApiConfig',
+    'sigs.apps.SigsConfig',
+    'thirdparty_auth.apps.ThirdpartyAuthConfig',
     'rest_framework',
 ]
 

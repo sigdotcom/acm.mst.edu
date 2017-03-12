@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block head_title %}
+<title> ACM | Membership </title>
+{% endblock %}
+
+{% block head_stylesheets %}
+<link rel="stylesheet" href="{% static "/core/css/genericForm.css" %}" />
+{% endblock %}
+
+{% block head_javascript %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+{% endblock %}
+
+{% block body_content %}
+<div class="body-wrapper">
+    <div class="card">
+        <div class="logo"></div>
+        {{ form }}
+    </div>
+</div>
+{% endblock %}
