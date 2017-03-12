@@ -2,39 +2,99 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils import timezone
 from accounts.models import User
-from payments import managers
+from sigs.models import SIG
+from uuid4 import uuid4
+from . import managers
 
 # Create your models here.
 
-class Transaction(models.Model):
+class TransactionCategory(models.Model):
     """
-    TODO: Add Transaction Docstring
+    @Desc: Transaction Category is meant to allow for the easy categorization
+           of the different transactions for more specifed queries.
     """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(
+                verbose_name=_('Category Name'),
+                help_text=_('The name of the Category'),
+                max_length=50,
+            )
 
-    objects = managers.TransactionManager()
+    def __unicode__(self):
+        return self.name
 
-    trans_types = (
-            ('ACM Membership (Semester)', 'ACM Membership (Semester)'),
-            ('ACM Membership (Year)', 'ACM Membership (Year)'),
-            ('Sponsor', 'Sponsorship'),
-    )
+    def __str__(self):
+        return self.name
 
-    date_joined = models.DateTimeField(
-                        verbose_name = _('Date Joined'),
+
+class Product(models.Model):
+    """
+    @Desc: The purpose of the Product class is to create a standard 'template'
+           which can be input into a transaction model in a standardized way.
+           This allows for miscellaneous transactions to still occur but still
+           have a good way of dealing with things such as ACM Memberships,
+           Sponsorships, etc.
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(
+                verbose_name=_('Product Name'),
+                help_text=_('The name of the Product'),
+                max_length=50,
+            )
+    date_created = models.DateTimeField(
+                        verbose_name=_('Date Created'),
+                        help_text=_('The date in which the transaction'
+                                    ' was created'),
                         auto_now_add = True,
                         editable=False,
                   )
-    category = models.CharField(
-                    verbose_name = _('Transaction Type'),
-                    help_text = _('The type of transaction which occured'),
-                    max_length = 50,
-                    choices = trans_types,
+    cost = models.DecimalField(
+                    verbose_name = _('Transaction Cost'),
+                    help_text = _('How much the transaction costed.'),
+                    decimal_places = 2,
+                    max_digits = 7,
+                    null = False,
             )
     description = models.CharField(
                     verbose_name = _('Transaction Description'),
                     help_text = _('A description of the transaction.'),
                     max_length = 500,
             )
+    category = models.ForeignKey(TransactionCategory, on_delete=models.PROTECT)
+    sig = models.ForeignKey(SIG, on_delete=models.PROTECT)
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+
+
+class Transaction(models.Model):
+    """
+    @Desc: The Transaction model will act as storage and classification of any
+           ACM transaction including but not limited to ACM Memberships,
+           Sponsorships, etc.
+    """
+
+    objects = managers.TransactionManager()
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    date_created = models.DateTimeField(
+                        verbose_name=_('Date Created'),
+                        help_text=_('The date in which the transaction'
+                                    ' was created'),
+                        auto_now_add = True,
+                        editable=False,
+                  )
+    description = models.CharField(
+                    verbose_name = _('Transaction Description'),
+                    help_text = _('A description of the transaction.'),
+                    max_length = 500,
+            )
+    category = models.ForeignKey(TransactionCategory, on_delete=models.PROTECT)
+    sig = models.ForeignKey(SIG, on_delete=models.PROTECT)
     cost = models.DecimalField(
                     verbose_name = _('Transaction Cost'),
                     help_text = _('How much the transaction costed.'),

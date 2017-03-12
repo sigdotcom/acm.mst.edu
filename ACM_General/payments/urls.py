@@ -20,11 +20,6 @@ from . import views
 app_name = 'payments'
 urlpatterns = [
     url(
-      r'sodamachine/',
-      views.SodamachinePayment.as_view(),
-      name='sodamachine-pay',
-    ),
-    url(
       r'membership/',
       views.MembershipPayment.as_view(),
       name='acm-memberships',

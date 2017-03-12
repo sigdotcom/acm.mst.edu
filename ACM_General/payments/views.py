@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from payments.models import Transaction
+from django.views import View
+from django.shortcuts import render
+from . import models
+from . import forms
 import stripe
 
 # Create your views here.
@@ -11,13 +14,25 @@ if(stripe.api_key == None):
     raise ImproperlyConfigured('Please enter a Stripe API key into settings_local')
 
 
-class membershipPayments(View):
+class MembershipPayment(View):
     def get(self, request):
-        return render(request,'payments/payment.html', {})
+        """
+        TODO: Docstring
+        """
+
+        return render(
+                request,
+                'payments/acm_membership.html',
+                {"products": models.Product.objects.all()}
+            )
 
 
 class paymentCallback(View):
     def post(self, request, amount):
+        """
+        TODO: Docstring
+        """
+
         token = request.POST['stripeToken']
         charge = stripe.Charge.create(
                     currency="usd",
@@ -26,7 +41,7 @@ class paymentCallback(View):
                     source=token,
                 )
 
-        trans = Transation.objects.create_transaction(
+        trans = models.Transaction.objects.create_transaction(
                                         token, user = request.user,
                                         cost = amount,
                                         category = 'ACM Membership (Year)',

@@ -8,6 +8,7 @@
 
 {% block head_stylesheets %}
 <link rel="stylesheet" href="{% static "/core/css/genericForm.css" %}" />
+<link rel="stylesheet" href="{% static "/payments/css/payments.css" %}" />
 {% endblock %}
 
 {% block head_javascript %}
@@ -18,7 +19,13 @@
 <div class="body-wrapper">
     <div class="card">
         <div class="logo"></div>
-        {{ form }}
+        <div class="payment-wrapper">
+            {% for product in products %}
+            <div class="payment-container">
+                {{product.name}}
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
