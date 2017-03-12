@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from events.models import Event
+from . import models
 
-from datetime import datetime
 
 def list_events(request):
     return(render(
         request,
         'events/listEvents.html',
-        {'eventsList': Event.objects.all()}
+        {'eventsList': models.Event.objects.all()}
     ))

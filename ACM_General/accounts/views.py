@@ -4,10 +4,11 @@ from django.contrib.auth import logout
 
 # Create your views here.
 
+
 def user_logout(request):
     logout(request)
-    return(HttpResponseRedirect('/'))
+    return HttpResponseRedirect('/')
+
 
 def user_login(request):
-   return render(request, "accounts/login.html") 
-
+    return render(request, "accounts/login.html")
