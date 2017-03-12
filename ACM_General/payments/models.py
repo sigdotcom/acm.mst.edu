@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from accounts.models import User
 from sigs.models import SIG
-from uuid4 import uuid4
+import uuid as uuid
 from . import managers
 
 # Create your models here.
