@@ -24,4 +24,9 @@ urlpatterns = [
       views.MembershipPayment.as_view(),
       name='acm-memberships',
     ),
+    url(
+        r'productHandler/(?P<pk>[0-9a-z-]+)/',
+        views.ProductHandler.as_view(),
+        name='product-handler',
+    ),
 ]

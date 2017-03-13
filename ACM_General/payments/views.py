@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from . import models
 from . import forms
 import stripe
@@ -27,23 +27,24 @@ class MembershipPayment(View):
             )
 
 
-class paymentCallback(View):
-    def post(self, request, amount):
+class ProductHandler(View):
+    def post(self, request, pk):
         """
         TODO: Docstring
         """
 
         token = request.POST['stripeToken']
+        product = get_object_or_404(models.Transaction, pk=pk)
         charge = stripe.Charge.create(
                     currency="usd",
-                    amount=str(amount),
-                    description="ACM Membership Charge",
+                    amount=product.cost,
+                    description=product.description,
                     source=token,
                 )
 
         trans = models.Transaction.objects.create_transaction(
                                         token, user = request.user,
-                                        cost = amount,
+                                        cost = product.cost,
                                         category = 'ACM Membership (Year)',
                                         description = 'See Category',
                                     )
