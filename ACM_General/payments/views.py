@@ -34,10 +34,10 @@ class ProductHandler(View):
         """
 
         token = request.POST['stripeToken']
-        product = get_object_or_404(models.Transaction, pk=pk)
+        product = get_object_or_404(models.Product, pk=pk)
         charge = stripe.Charge.create(
                     currency="usd",
-                    amount=product.cost,
+                    amount=int(product.cost*100),
                     description=product.description,
                     source=token,
                 )
@@ -45,8 +45,8 @@ class ProductHandler(View):
         trans = models.Transaction.objects.create_transaction(
                                         token, user = request.user,
                                         cost = product.cost,
-                                        category = 'ACM Membership (Year)',
-                                        description = 'See Category',
+                                        category=product.category,
+                                        description=product.description,
                                     )
 
         return HttpResponse(trans)
