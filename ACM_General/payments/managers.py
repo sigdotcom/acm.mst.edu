@@ -22,7 +22,7 @@ class TransactionManager(models.Manager):
             raise ValueError('create_transaction() value must be greater than'
                              ' zero')
 
-        transaction = self.model(stripe_token, **kwargs);
+        transaction = self.model(stripe_token=stripe_token, **kwargs);
         transaction.save(using=self._db)
 
         return(transaction)

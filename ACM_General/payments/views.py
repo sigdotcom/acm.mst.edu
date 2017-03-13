@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from . import models
@@ -43,11 +44,12 @@ class ProductHandler(View):
                 )
 
         trans = models.Transaction.objects.create_transaction(
-                                        token, user = request.user,
-                                        cost = product.cost,
+                                        token, user=request.user,
+                                        cost=product.cost,
+                                        sig=product.sig,
                                         category=product.category,
                                         description=product.description,
                                     )
 
-        return HttpResponse(trans)
+        return HttpResponseRedirect('/')
 
