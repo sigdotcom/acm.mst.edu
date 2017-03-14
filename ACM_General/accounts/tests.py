@@ -1,35 +1,35 @@
 from django.test import TestCase
-from accounts.models import User
+from . import models
 from django.db import IntegrityError
 
 # Create your tests here.
 
-class UserSetupCase(TestCase):
 
+class UserSetupCase(TestCase):
     def setUp(self):
-        User.objects.create(
+        models.User.objects.create(
             email="test@mst.edu",
             first_name="test_me",
             last_name="test_please",
         )
 
-        User.objects.create(
+        models.User.objects.create(
             email="test2@mst.edu",
             first_name="test",
             last_name="test",
         )
         
     def test_create_users(self):
-        superuser = User.objects.create_superuser("superadmin@mst.edu")
-        user = User.objects.create_user("eeafjeakl@mst.edu")
-	
+        superuser = models.User.objects.create_superuser("superadmin@mst.edu")
+        user = models.User.objects.create_user("eeafjeakl@mst.edu")
+
         self.assertIsNotNone(superuser)
         self.assertIsNotNone(user)
 
         with self.assertRaises(ValueError):
-            user2 = User.objects.create_user("feafsda@test.edu")
+            models.User.objects.create_user("feafsda@test.edu")
 
-        test = User.objects.create(
+        test = models.User.objects.create(
             email="lol@mst.edu",
             first_name="lol",
             last_name="lol",
@@ -39,36 +39,37 @@ class UserSetupCase(TestCase):
 
     def test_user_unique_exception_thrown(self):
         with self.assertRaises(IntegrityError):
-            User.objects.create(
+            models.User.objects.create(
                 email="duplicate@mst.edu",
                 first_name="test",
                 last_name="test",
             )
-            User.objects.create(
+            models.User.objects.create(
                 email="duplicate@mst.edu",
                 first_name="test",
                 last_name="test",
             )
-            
 
     def test_can_retrieve_users(self):
-        User.objects.get(email="test@mst.edu")
+        models.User.objects.get(email="test@mst.edu")
 
-        User.objects.all()
+        models.User.objects.all()
         
-        with self.assertRaises(User.DoesNotExist):
-            User.objects.get(
+        with self.assertRaises(models.User.DoesNotExist):
+            models.User.objects.get(
                 email="test@mst.edu",
-                first_name = "test",
+                first_name="test",
             )
 
-        User.objects.get(
+        models.User.objects.get(
                 email="test@mst.edu",
-                first_name= "test_me",
+                first_name="test_me",
                 last_name="test_please",
-            ) 
-    def test_can_change_user(self):
-        user = User.objects.get(email="test@mst.edu")
+            )
+
+    @staticmethod
+    def test_can_change_user():
+        user = models.User.objects.get(email="test@mst.edu")
 
         ##
         # Don't make a test with matching email please, will break test
@@ -76,16 +77,16 @@ class UserSetupCase(TestCase):
         user.email = "GETCHANGEDKID@mst.edu"
 
         user.save(update_fields=['email'])
-        User.objects.get(email="GETCHANGEDKID@mst.edu")
+        models.User.objects.get(email="GETCHANGEDKID@mst.edu")
 
     def test_user_model_member_functions(self):
-        user = User.objects.create(
+        user = models.User.objects.create(
             email="johndoe@mst.edu",
             first_name="John",
             last_name="Doe",
-            is_superuser = False,
+            is_superuser=False,
         )
-        superuser = User.objects.create_superuser("superadmin@mst.edu")
+        superuser = models.User.objects.create_superuser("superadmin@mst.edu")
 
         self.assertEqual(superuser.is_staff, True)
         self.assertEqual(user.is_staff, False)

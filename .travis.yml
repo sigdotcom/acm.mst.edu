@@ -11,13 +11,14 @@ python:
   - "3.7-dev" # 3.7 development branch
   - "nightly" # currently points to 3.7-dev
 
-install: "pip3 install -r requirements.txt"
+install: "pip3 install -r Dependencies/requirements.txt"
 before_script:
   - psql -c "create database django_acmgeneral;" -U postgres
   - psql -c "CREATE USER djangouser WITH PASSWORD 'djangoUserPassword';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE django_acmgeneral TO djangouser;" -U postgres
   - psql -c "ALTER USER djangouser CREATEDB;" -U postgres
+  - cp Dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
+
 script:
   - cd ACM_General
-  - cp ACM_General/settings_local.template ACM_General/settings_local.py
   - python3 manage.py test

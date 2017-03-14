@@ -1,101 +1,75 @@
 {% extends 'home/base.html' %}
 
-{% block body_mian %}
-	<div class="main-section">
-            <div class="content-wrapper">
+{% load static %}
 
+{% block head_stylesheets %}
+<link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/index.css" %}" />
+
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+{% endblock %}
+
+{% block body_content %}
+	<div class="main-section">
+        <div class="content-wrapper">
+            <h1>Special Interest Group events:</h1>
+            <div class="non-carousel">
+              <a href="#" class="full-wide half-high bottom-margin"><img src="#" width="100%" height="100%"></a>
+              <div class="full-wide half-high two-wide-wrapper top-margin">
+                  <a href="#" class="full-high half-wide right-margin"><img src="#" width="100%" height="100%"></a>
+                  <a href="#" class="full-high half-wide left-margin"><img src="#" width="100%" height="100%"></a>
+              </div>
             </div>
         </div>
-        <div class="main-section">
-                <div class="learn-header">
-                    <h2>What to Expect from ACM</h2>
-                    <h5>We have a variety of Special Interest Groups (SIG's) and events.</h5>
-                </div>
-                <div class="learn-body">
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>ACM-Women</h3>
-                        <p>The Missouri S&T ACM-W chapter aims to facilitate a thriving community of women in computing.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG-Competition</h3>
-                        <p>SIG-Comp is a group that focuses on programming competitions and algorithmic theory. Great for learning.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG-Security</h3>
-                        <p>SIG-Sec teaches and practices network security, hacking, and cryptography.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG-Game</h3>
-                        <p>SIG-Game builds and hosts an AI tournament and throughout the year, develops platforms to facilitate it.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG.com</h3>
-                        <p>SIG.com is the web division of ACM, creators of this website, and the infrastructure behind a smarter ACM.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG-Lounge</h3>
-                        <p>SIG-Lounge is in charge of the lounge in the Computer Science building at Missouri S&T.</p>
-                    </div>
-                    <div class="sig-card">
-                        <!--<img src="">-->
-                        <h3>SIG-Tutor</h3>
-                        <p>SIG-Tutor valiantly fights to tackle bad grades by organizing study sessions and groups for CS education.</p>
-                    </div>
-                </div>
-            </div>
-        <div class="sig-section">
-            <div class="sig-section-header">
-                <h2>Check out the Special Interest Groups.</h2>
-            </div>
-            <div class="sig-section-body">
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>ACM-W</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG-Comp</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG-Sec</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG-Game</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG.com</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG-Lounge</h3>
-                </div>
-                <div class="sig-link-card">
-                    <a class="sig-link" href="#">
-                        <!--<img src="">-->
-                    </a>
-                    <h3>SIG-Tutor</h3>
-                </div>
-            </div>
+    </div>
+    <div class="sig-section">
+        <div class="sig-section-header">
+            <h2>Check out the Special Interest Groups on their Websites.</h2>
         </div>
-{% endblock %} 
+        <div class="sig-section-body">
+            <div class="sig-link-card">
+                <a class="sig-link" href="http://mst.orgsync.com/org/acmw/">
+                    <!--<img src="">-->
+                </a>
+                <h3>ACM-W</h3>
+            </div>
+            <!--<div class="sig-link-card">-->
+                <!--<a class="sig-link" href="#">-->
+                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
+                <!--</a>-->
+                <!--<h3>SIG-Comp</h3>-->
+            <!--</div>-->
+            <div class="sig-link-card">
+                <a class="sig-link" href="https://acmsigsec.mst.edu/">
+                    <!--<img src="">-->
+                </a>
+                <h3>SIG-Sec</h3>
+            </div>
+            <div class="sig-link-card">
+                <a class="sig-link" href="http://siggame.io/blog/">
+                    <!--<img src="">-->
+                </a>
+                <h3>SIG-Game</h3>
+            </div>
+            <!--<div class="sig-link-card">-->
+                <!--<a class="sig-link" href="#">-->
+                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
+                <!--</a>-->
+                <!--<h3>SIG.com</h3>-->
+            <!--</div>-->
+            <!--<div class="sig-link-card">-->
+                <!--<a class="sig-link" href="#">-->
+                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
+                <!--</a>-->
+                <!--<h3>SIG-Lounge</h3>-->
+            <!--</div>-->
+            <!--<div class="sig-link-card">-->
+                <!--<a class="sig-link" href="#">-->
+                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
+                <!--</a>-->
+                <!--<h3>SIG-Tutor</h3>-->
+            <!--</div>-->
+        </div>
+    </div>
+{% endblock %}

@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from sigs.models import SIG 
+from . import models
+
 
 class SIGSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SIG 
+        model = models.SIG
         fields = '__all__'

@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsStaffOrReadOnly(permissions.BasePermission):
     """
     Custom permission which only allows admins to edit data
@@ -7,6 +8,7 @@ class IsStaffOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return request.user.is_staff
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
