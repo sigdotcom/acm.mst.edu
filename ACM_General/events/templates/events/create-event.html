@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block head_title %}
+    <title> Create an Event </title>
+{% endblock %}
+
+{% block head_stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'events/css/create-event.css' %}" />
+{% endblock %}
+
+{% block body_content %}
+    <div class="wrapper">
+        <div class="create-event">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3>Event Details</h3>
+                {% include "events/form-template.html" %}
+                <input type="submit" value="Submit Event">
+            </form>
+        </div>
+    </div>
+{% endblock %}
