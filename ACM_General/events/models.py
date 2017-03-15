@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 import uuid
 
 ##
-# To stop circular import errors and allow for djangos model resolution 
+# To stop circular import errors and allow for djangos model resolution
 # to do its thing
 ##
 
@@ -18,8 +18,8 @@ SIG = 'sigs.SIG'
 class Event(models.Model):
     id = models.UUIDField(
                 verbose_name=_('ACM User ID'),
-                primary_key=True, 
-                default=uuid.uuid4, 
+                primary_key=True,
+                default=uuid.uuid4,
                 editable=False
          )
     date_created = models.DateTimeField(
@@ -37,14 +37,14 @@ class Event(models.Model):
                         help_text=_('When the event is over.'),
                   )
     creator = models.ForeignKey(
-                User, 
+                User,
                 on_delete=models.CASCADE,
                 verbose_name=_('Creator'),
                 help_text=_('The user who created the event.'),
                 related_name='User',
             )
     hosting_sig = models.ForeignKey(
-                    SIG, 
+                    SIG,
                     verbose_name=_('Hosting SIG'),
                     help_text=_('The SIG hosting the event.'),
                     on_delete=models.CASCADE,
@@ -85,8 +85,8 @@ class Event(models.Model):
         return self.date_expire > timezone.now()
 
 
-class EventParticipation(models.Model):
+class Event_Participation(models.Model):
     class Meta:
         unique_together = (("event_id", "user_id"),)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE) 
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
