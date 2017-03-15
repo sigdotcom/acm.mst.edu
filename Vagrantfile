@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     cp Dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
     cd ACM_General/
     python3 manage.py makemigrations accounts core events home sigs thirdparty_auth
-    python3 manage.py collectstatic
+    python3 manage.py collectstatic --noinput
     python3 manage.py migrate
   MIGRATE
 
