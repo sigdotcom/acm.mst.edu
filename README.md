@@ -57,7 +57,7 @@ In order to see detailed information about each of the apps, please see the read
   + This app is used for interacting with the Django REST framework.
 7. [Sigs](ACM_General/sigs/)
   + This app is used for creating the different SIG groups that exist within the Computer Science department.
-  + This app helps define what SIGs a student is part of and who the chairs of each SIG are.
+  + This app helps define the different demographics of a Special Interest Group such as who the chair is, which members are apart of the SIG, etc.
 8. [Third Party Authentication](ACM_General/thirdparty_auth/)
   + This app handles third party authentication services which allow users to sign-in to the acm.mst.edu by using sites such as Google and Github.
 
