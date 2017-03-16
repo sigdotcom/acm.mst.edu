@@ -48,6 +48,7 @@ In order to see detailed information about each of the apps, please see the read
   + This is where the custom authentication backend and custom BaseUser are stored.
 3. [Events](ACM_General/events/)
   + This app handles the main event components of the project such as registering an event and registering for an event.
+  + This app is also able to list out events in some organized fashion.
 4. [Home](ACM_General/home/)
   + This app handles the main index of the project and the homepage.
 5. [Payments](ACM_General/payments/)
