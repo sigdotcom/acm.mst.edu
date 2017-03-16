@@ -42,6 +42,14 @@ In order to see detailed information about each of the apps, please see the read
   + This app handles the main event components of the project such as registering an event and registering for an event.
 4. [Home](ACM_General/home/)
   + This app handles the main index of the project and the homepage.
+5. [Payments](ACM_General/payments/)
+  + This app handles transactions done with Swipe. With this app, students are be able to make purchases towards semester or year memberships in ACM.
+6. [Rest Api](ACM_General/rest_api/)
+  + This app is used for interacting with the Django Rest Api
+7. [Sigs](ACM_General/sigs/)
+  + This app is used for creating the different SIG groups that exist within the Computer Science department. This app helps define what SIGs a student is part of and who the chairs of each SIG are.
+8. [Third Party Authentication](ACM_General/thirdparty_auth/)
+  + This app handles third party authentication services which allow users to sign-in to the acm.mst.edu by using sites such as Google and Github.
 
 ## Contributing
 Please contact [acm@mst.edu](acm@mst.edu) if you wish to contribute to this project.
