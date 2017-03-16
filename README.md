@@ -4,7 +4,7 @@ Welcome to the ACM-General Django Project!
 
 ## Installation
 ### Vagrant
-Vagrant is a development tool we use to help ease the burden of configuring the different components of the project. With Vagrant, we don't have to worry about having various things installed such as Django, Python3, postgreSQL, etc. Although we do recommend installing Python and Django if you haven't already so that you can practice with them in case you aren't familiar with them. Using Vagrant simply makes it so that when testing the website, all required components will be installed on a virtual machine and the website will be locally hosted for further testing.
+Vagrant is a development tool we use to help ease the burden of configuring the different components of the project. With Vagrant, we don't have to worry about installing various things such as Django, Python3, postgreSQL, etc onto our local computer. Although we do recommend installing Python and Django if you haven't already so that you can practice with them in case you aren't familiar with them. Using Vagrant simply makes it so that when testing the website, all required components will be installed on a virtual machine and the website will be locally hosted for further viewing & testing.
 
 ### Requirements
 1. [Virtualbox](https://virtualbox.org)
@@ -12,13 +12,21 @@ Vagrant is a development tool we use to help ease the burden of configuring the 
 2. [Vagrant](https://vagrantup.com)
   + Download the version compatible with your host operating system.
 
-After satisfying these requirements, change to the directory in which the Vagrant file is located and run the following command:
+After satisfying these requirements, clone the repository down into the directory of your choosing using the command:
+```bash
+$ git clone https://github.com/MST-ACM/acm.mst.edu.git
+
+# Or if you have a ssh key linked to your computer
+$ git clone git@github.com:MST-ACM/acm.mst.edu.git
+```
+
+Then change to the directory in which the Vagrant file is located and run the following command: (This will initialize and provision the vagrant box; this may take some time)
 ```bash
 $ vagrant up
 ```
-This will initialize and provision the vagrant box. (This may take some time)  
+After running `vagrant up`, you should be ready to start developing and working on the website! To access the site running on your computer locally, open up a web browser and enter `localhost:8000` into the address bar.
 
-After that you can run  
+Here are some additional commands that allow you to interact with Vagrant more and that you'll most likely need to use:
 ```bash
 $ vagrant reload --provision # this will restart and reprovision the vm
 
@@ -47,7 +55,8 @@ In order to see detailed information about each of the apps, please see the read
 6. [Rest Api](ACM_General/rest_api/)
   + This app is used for interacting with the Django Rest Api
 7. [Sigs](ACM_General/sigs/)
-  + This app is used for creating the different SIG groups that exist within the Computer Science department. This app helps define what SIGs a student is part of and who the chairs of each SIG are.
+  + This app is used for creating the different SIG groups that exist within the Computer Science department.
+  + This app helps define what SIGs a student is part of and who the chairs of each SIG are.
 8. [Third Party Authentication](ACM_General/thirdparty_auth/)
   + This app handles third party authentication services which allow users to sign-in to the acm.mst.edu by using sites such as Google and Github.
 
