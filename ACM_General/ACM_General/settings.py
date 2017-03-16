@@ -43,14 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'accounts.apps.AccountsConfig',
-    'thirdparty_auth.apps.ThirdpartyAuthConfig',
+    'core.apps.CoreConfig',
     'events.apps.EventsConfig',
     'home.apps.HomeConfig',
-    'sigs.apps.SigsConfig',
-    'core.apps.CoreConfig',
+    'payments.apps.PaymentsConfig',
     'rest_api.apps.RestApiConfig',
-    'rest_framework',
+    'sigs.apps.SigsConfig',
+    'thirdparty_auth.apps.ThirdpartyAuthConfig',
 ]
 
 MIDDLEWARE = [
