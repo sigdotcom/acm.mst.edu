@@ -53,7 +53,7 @@ In order to see detailed information about each of the apps, please see the read
 5. [Payments](ACM_General/payments/)
   + This app handles transactions done with Swipe. With this app, students are be able to make purchases towards semester or year memberships in ACM.
 6. [Rest Api](ACM_General/rest_api/)
-  + This app is used for interacting with the Django Rest Api
+  + This app is used for interacting with the Django REST framework.
 7. [Sigs](ACM_General/sigs/)
   + This app is used for creating the different SIG groups that exist within the Computer Science department.
   + This app helps define what SIGs a student is part of and who the chairs of each SIG are.
