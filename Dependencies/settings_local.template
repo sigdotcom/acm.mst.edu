@@ -25,8 +25,9 @@ SOCIAL_AUTH_CONFIG = {
     },
 }
 
-# Stripe Private Key
-STRIPE_KEY = "INSERT ME PLEASE"
+# Stripe Keys
+STRIPE_PRIV_KEY = ""
+STRIPE_PUB_KEY = ""
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

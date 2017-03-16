@@ -14,6 +14,12 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def get_by_natural_key(self, email):
+        """
+        @Desc - This function allows for a intutive search of the user by
+                the user's email. Similary, this can be done by running
+                User.objects.get(email=foo); however, this more standarized,
+                django approach to this.
+        """
         return self.get(email=email)
 
     def _create_user(self, email, **extra_fields):
@@ -62,13 +68,22 @@ class UserManager(BaseUserManager):
 
 
 class PermissionManager(models.Manager):
+    """
+    TODO: Docstring
+    """
     use_in_migrations = True
 
     def get_by_natural_key(self, perm_code):
+        """
+        TODO: Docstring
+        """
         return self.get(perm_code=perm_code)
 
     @staticmethod
     def _create_permission(**kwargs):
+        """
+        TODO: Docstring
+        """
         if not kwargs.get('perm_code'):
             raise ValueError('create_permission must be passed the keyword'
                              ' argument \'perm_code\'')
@@ -77,11 +92,20 @@ class PermissionManager(models.Manager):
                              ' argument \'perm_desc\'')
 
     def create_permission(self, **kwargs):
+        """
+        TODO: Docstring
+        """
         pass
 
 
 class GroupManager(models.Manager):
+    """
+    TODO: Docstring
+    """
     use_in_migrations = True
 
     def get_by_natural_key(self, name):
+        """
+        TODO: Docstring
+        """
         return self.get(name=name)

@@ -9,7 +9,7 @@ import stripe
 
 # Create your views here.
 
-stripe.api_key = getattr(settings, 'STRIPE_KEY' , None)
+stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY' , None)
 
 if(stripe.api_key == None):
     raise ImproperlyConfigured('Please enter a Stripe API key into settings_local')
@@ -24,7 +24,10 @@ class MembershipPayment(View):
         return render(
                 request,
                 'payments/acm_membership.html',
-                {"products": models.Product.objects.all()}
+                {
+                    "products": models.Product.objects.all(),
+                    "stripe_public_key": getattr(settings, 'STRIPE_PUB_KEY', None),
+                }
             )
 
 
