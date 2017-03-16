@@ -75,7 +75,7 @@ class User(AbstractBaseUser):
       TODO: Integrations.
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     email = models.EmailField(
                 verbose_name=_('Email Address'),
                 unique=True,

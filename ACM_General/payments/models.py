@@ -13,7 +13,7 @@ class TransactionCategory(models.Model):
     @Desc: Transaction Category is meant to allow for the easy categorization
            of the different transactions for more specifed queries.
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     name = models.CharField(
                 verbose_name=_('Category Name'),
                 help_text=_('The name of the Category'),
@@ -35,7 +35,7 @@ class Product(models.Model):
            have a good way of dealing with things such as ACM Memberships,
            Sponsorships, etc.
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     name = models.CharField(
                 verbose_name=_('Product Name'),
                 help_text=_('The name of the Product'),
@@ -80,7 +80,7 @@ class Transaction(models.Model):
 
     objects = managers.TransactionManager()
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     date_created = models.DateTimeField(
                         verbose_name=_('Date Created'),
                         help_text=_('The date in which the transaction'

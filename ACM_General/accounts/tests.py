@@ -21,24 +21,6 @@ class UserModelCase(TestCase):
             last_name="test",
         )
 
-    def test_create_users(self):
-        superuser = models.User.objects.create_superuser("superadmin@mst.edu")
-        user = models.User.objects.create_user("eeafjeakl@mst.edu")
-
-        self.assertIsNotNone(superuser)
-        self.assertIsNotNone(user)
-
-        with self.assertRaises(ValueError):
-            models.User.objects.create_user("feafsda@test.edu")
-
-        test = models.User.objects.create(
-            email="lol@mst.edu",
-            first_name="lol",
-            last_name="lol",
-        )
-
-        self.assertIsNotNone(test)
-
     def test_user_unique_exception_thrown(self):
         with self.assertRaises(IntegrityError):
             models.User.objects.create(
@@ -96,6 +78,22 @@ class UserModelCase(TestCase):
         self.assertEqual(user.get_short_name(), "johndoe@mst.edu")
         self.assertEqual(str(user), "johndoe@mst.edu")
 
+class ManagerTestCase(TestCase):
+    """
+    @Desc - Testing the User Manager and all of its member functinos.
+    """
+    def setUp:
+        super(TestCase, self).setUp()
+
+    def test_get_by_natural_key(self):
+        pass
+
+    def test_create_user_function(self):
+        pass
+
+    def test_create_superuser_function(self):
+        pass
+
 
 class AccountsViewCase(TestCase):
     """
@@ -120,8 +118,11 @@ class AccountsViewCase(TestCase):
         response = self.client.get(reverse('accounts:user-logout'), follow=True)
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/index.html')
 
         response = self.client.get(reverse('accounts:user-login'))
+        self.assertTemplateUsed(response, 'accounts/login.html')
+
         self.assertEqual(response.status_code, 200)
 
     def test_logout_system(self):
@@ -177,3 +178,10 @@ class UserAuthBackendCase(TestCase):
         self.assertEqual(self.backend.user_can_authenticate(models.User.objects.get(email="test2@mst.edu")), False)
         with self.assertRaises(TypeError):
             self.assertEqual(self.backend.user_can_authenticate())
+
+    def test_get_user_function(self):
+        user = models.User.objects.create_user('test4@mst.edu')
+        self.assertIsNotNone(self.backend.get_user(user.id))
+        with self.assertRaises(ValueError):
+            self.backend.get_user('1232-a4')
+        self.assertEqual(self.backend.get_user('e1e73e34-09f1-11e7-bff3-afc1ff1d82f0'), None)
