@@ -52,7 +52,7 @@ In order to see detailed information about each of the apps, please see the read
 4. [Home](ACM_General/home/)
   + This app handles the main index of the project and the homepage.
 5. [Payments](ACM_General/payments/)
-  + This app handles transactions done with Swipe. With this app, students are be able to make purchases towards semester or year memberships in ACM.
+  + This app handles transactions done with Stripe. With this app, students are be able to make purchases towards semester or year memberships in ACM.
 6. [Rest Api](ACM_General/rest_api/)
   + This app is used for interacting with the Django REST framework.
 7. [Sigs](ACM_General/sigs/)
