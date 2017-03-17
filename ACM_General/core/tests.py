@@ -12,7 +12,7 @@ class ActionsTestCase(TestCase):
         """
         TODO: Docstring
         """
-        super(TestCase, self).setUp()
+        super().setUp()
 
     def test_actions_functions(self):
         """

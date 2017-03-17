@@ -7,11 +7,11 @@ class SIGManager(models.Manager):
     """
     use_in_migrations = True
 
-    def get_by_natural_key(self, perm_code):
+    def get_by_natural_key(self, id):
         """
         TODO: Docstring
         """
-        return self.get(perm_code=perm_code)
+        return self.get(id=id)
 
     def _create_sig(self, **kwargs):
         """
@@ -30,10 +30,12 @@ class SIGManager(models.Manager):
         SIG = self.model(**kwargs)
         SIG.save(using=self._db)
 
+        return SIG
+
     def create_sig(self, **kwargs):
         """
         TODO: Docstring
         """
 
-        self._create_sig(**kwargs)
+        return self._create_sig(**kwargs)
 

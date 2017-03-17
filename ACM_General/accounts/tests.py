@@ -7,7 +7,7 @@ from django.urls import reverse
 
 class UserModelCase(TestCase):
     def setUp(self):
-        super(UserModelCase, self).setUp()
+        super().setUp()
         models.User.objects.create(
             email="test@mst.edu",
             first_name="test_me",
@@ -82,7 +82,7 @@ class ManagerTestCase(TestCase):
     @Desc - Testing the User Manager and all of its member functinos.
     """
     def setUp(self):
-        super(TestCase, self).setUp()
+        super().setUp()
 
     def test_get_by_natural_key(self):
         user = models.User.objects.create_user('testme@mst.edu')
@@ -169,7 +169,7 @@ class ViewTestCase(TestCase):
         @Desc - Setup a global client in which all the test cases may use to
                 reduce redundancy.
         """
-        super(ViewTestCase, self).setUp()
+        super().setUp()
 
     def test_status_codes(self):
         """
@@ -222,7 +222,7 @@ class UserAuthBackendCase(TestCase):
         @Desc - Creates a 'global' user for each function to run authentication
                 functions on as well as spare users in the database.
         """
-        super(UserAuthBackendCase, self).setUp()
+        super().setUp()
         self.backend = UserBackend()
         models.User.objects.create_user("test@mst.edu")
         models.User.objects.create_user("test2@mst.edu", is_active=False)

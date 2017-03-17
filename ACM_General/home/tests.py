@@ -5,7 +5,7 @@ from django.test import TestCase
 
 class HomeViewCase(TestCase):
     def setUp(self):
-        super(TestCase, self).setUp()
+        super().setUp()
 
     def test_view_responses(self):
         response = self.client.get(reverse('home:index'))
