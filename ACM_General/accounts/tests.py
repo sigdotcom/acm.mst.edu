@@ -3,7 +3,6 @@ from django.db import IntegrityError
 from accounts.backends import UserBackend
 from django.test import TestCase
 from django.urls import reverse
-# Create your tests here.
 
 
 class UserModelCase(TestCase):
