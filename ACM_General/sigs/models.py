@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from . import managers
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ User = 'accounts.User'
 
 
 class SIG(models.Model):
+    objects = managers.SIGManager()
     id = models.CharField(
         verbose_name=_('SIG ID'),
         help_text=_('The UUID of the Special Interest Group.'),

@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'home.apps.HomeConfig',
     'payments.apps.PaymentsConfig',
-    'rest_api.apps.RestApiConfig',
     'sigs.apps.SigsConfig',
+    'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
 ]
 
@@ -122,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Temporary local settings
 from ACM_General.settings_local import *

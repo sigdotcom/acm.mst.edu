@@ -34,6 +34,21 @@ urlpatterns = [
         views.SIGDetail.as_view(),
         name='sigs-detail'
         ),
+    url('transactions/$', views.TransactionList.as_view(), name='transaction-list'),
+    url('transactions/(?P<pk>[0-9a-z-]+)/$',
+        views.TransactionDetail.as_view(),
+        name='transaction-detail'
+        ),
+    url('product/$', views.ProductList.as_view(), name='product-list'),
+    url('product/(?P<pk>[0-9a-z-]+)/$',
+        views.ProductDetail.as_view(),
+        name='product-detail'
+        ),
+    url('category/$', views.CategoryList.as_view(), name='category-list'),
+    url('category/(?P<pk>[0-9a-z-]+)/$',
+        views.CategoryDetail.as_view(),
+        name='category-detail'
+        ),
 
 ]
 

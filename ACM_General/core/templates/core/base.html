@@ -5,12 +5,11 @@
     <head>
         {% block head_defaultContent %}
             {% block head_http-equiv %}
-                    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+                <meta http-equiv="x-ua-compatible" content="ie=edge" />
             {% endblock %}
 
             {% block head_viewport %}
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
                 <link rel="apple-touch-icon" sizes="180x180" href="{% static "/home/img/apple-touch-icon.png" %}">
                 <link rel="icon" type="image/png" href="{% static "/home/img/favicon-32x32.png" %}" sizes="32x32">
                 <link rel="icon" type="image/png" href="{% static "/home/img/favicon-16x16.png" %}" sizes="16x16">
@@ -24,7 +23,7 @@
             {% endblock %}
 
             {% block head_keywords %}
-                <meta name="keywords" content="acmmst,mstacm, ACM General, ACM" />
+                <meta name="keywords" content="acmmst, mstacm, ACM General, ACM" />
             {% endblock %}
 
             {% block head_description %}

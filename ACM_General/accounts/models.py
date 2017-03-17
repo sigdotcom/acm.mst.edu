@@ -70,6 +70,9 @@ class User(AbstractBaseUser):
       is_active - Whether or not a user accoutn should be considered 'active'
       is_admin - Stores whether or not the user can access the admin panel
       objects - Container for the User Manager
+
+
+      TODO: Integrations.
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
