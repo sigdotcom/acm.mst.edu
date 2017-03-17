@@ -28,18 +28,18 @@ class UserManager(BaseUserManager):
         into it and returns the user.  extra_fields must be a member variable
         of the class which the Manager is apart of.
         """
-        if not email:
-            raise ValueError('create_user must be initialized with email.'
-                             ' Server Error.')
-        email = is_valid_email(email)
+        if(is_valid_email(email)):
+            email = self.normalize_email(email)
+            user = self.model(email=email,
+                              **extra_fields)
+            user.set_unusable_password()
+            user.save(using=self._db)
 
-        email = self.normalize_email(email)
-        user = self.model(email=email,
-                          **extra_fields)
-        user.set_unusable_password()
-        user.save(using=self._db)
-
-        return user
+            return user
+        else:
+            raise ValueError('create_user() was supplied an email not'
+                             ' whitelisted in ENFORCED_DOMAINS. See'
+                             ' settings.py.')
 
     def create_user(self, email, **extra_fields):
         """
@@ -66,7 +66,7 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, **extra_fields)
 
-
+'''
 class PermissionManager(models.Manager):
     """
     TODO: Docstring
@@ -109,3 +109,4 @@ class GroupManager(models.Manager):
         TODO: Docstring
         """
         return self.get(name=name)
+'''

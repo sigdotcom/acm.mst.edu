@@ -75,6 +75,11 @@ class User(AbstractBaseUser):
       TODO: Integrations.
     """
 
+    objects = managers.UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     email = models.EmailField(
                 verbose_name=_('Email Address'),
@@ -111,10 +116,6 @@ class User(AbstractBaseUser):
                         verbose_name=_('Is Superuser'),
                         default=False,
                    )
-    objects = managers.UserManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     @property
     def is_admin(self):
@@ -127,12 +128,6 @@ class User(AbstractBaseUser):
         return str(self.first_name) + " " + str(self.last_name)
 
     def get_short_name(self):
-        """
-        @Returns: The user's email
-        """
-        return self.email
-
-    def __unicode__(self):
         """
         @Returns: The user's email
         """
