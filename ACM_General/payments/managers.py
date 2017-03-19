@@ -1,7 +1,31 @@
-##
-#
-##
 from django.db import models
+
+
+class TransactionCategoryManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+    def _create_category(self, name, **kwargs):
+        model = self.model(name=name, **kwargs)
+        model.save()
+        return model
+
+    def create_category(self, name, **kwargs):
+        return self._create_category(name, **kwargs)
+
+
+class ProductManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+    def _create_product(self, name, **kwargs):
+        model = self.model(name=name, **kwargs)
+        model.save()
+        return model
+
+    def create_product(self, name, **kwargs):
+        return self._create_product(name, **kwargs)
+
 
 class TransactionManager(models.Manager):
     def get_by_natural_key(self, stripe_token):
@@ -25,7 +49,7 @@ class TransactionManager(models.Manager):
         transaction = self.model(stripe_token=stripe_token, **kwargs);
         transaction.save(using=self._db)
 
-        return(transaction)
+        return transaction
 
     def create_transaction(self, stripe_token, **kwargs):
         """
