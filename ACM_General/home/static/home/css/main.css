@@ -473,6 +473,40 @@ label:focus {
 /* fade in checked menu */
 .menu-checkbox:checked + .menu {
     transform: translate3d(0, 0, 0);
+    box-shadow: 0 0 8px rgba(0,0,0,.45);
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#loginmodal {
+    width: 300px;
+    height: 300px;
+    padding: 15px 20px;
+    /*background: #F0f0f0;*/
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+.google {
+    margin-top:6px;
+    height: 100%;
+    width: 60%;
+    margin: auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* ==========================================================================

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+
+{% block html_tag %}<html lang='en'>{% endblock %}
+<head>
+    {% block head_defaultContent %}
+    {% block head_http-equiv %}
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% endblock %}
+
+    {% block head_viewport %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "/home/img/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" href="{% static "/home/img/favicon-32x32.png" %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static "/home/img/favicon-16x16.png" %}" sizes="16x16">
+    <link rel="manifest" href="{% static "/home/img/manifest.json" %}">
+    <link rel="mask-icon" href="{% static "/home/img/safari-pinned-tab.svg" %}" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    {% endblock %}
+
+    {% block head_charset %}
+    <meta charset="utf-8" />
+    {% endblock %}
+
+    {% block head_keywords %}
+    <meta name="keywords" content="acmmst,mstacm, ACM General, ACM" />
+    {% endblock %}
+
+    {% block head_description %}
+    <meta name="description" content="ACM-General Site" />
+    {% endblock %}
+
+    {% block head_author %}
+    <meta name="author" content="ACM-MST sig.com" />
+    {% endblock %}
+
+    {% block head_robots %}
+    <meta name="robots" content="NONE,NOARCHIVE" />
+    {% endblock %}
+
+    {% block head_stylesheets %}
+    <link rel="stylesheet" href="{% static "/home/css/404.css" %}" />
+    {% endblock %}
+
+    {% block head_javascript %}
+    {% endblock %}
+
+    {% block head_extra-descriptors %}
+    {% endblock %}
+
+    {% block head_fonts %}
+    {% endblock %}
+
+    {% block head_title %}
+    <title> ACM | 404 </title>
+    {% endblock %}
+    {% endblock %}
+
+    {% block head_main %}
+    {% endblock %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+{% block body_header %}
+{% endblock %}
+
+{% block body_content %}
+    <div class="top-content">
+        <h1>404</h1>
+    </div>
+    <div class="bottom-content">
+        <div class="container">
+            <h2>Where ever you were going, you didn't make it.</h2>
+            <a href="http://acm.mst.edu">Home</a>
+            <a href="mailto:acm@mst.com?Subject=ACM Sponsorship" target="_top">Ask Someone</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_footer %}
+{% endblock %}
+
+{% block body_scripts %}
+{% endblock %}
+</body>
+</html>
