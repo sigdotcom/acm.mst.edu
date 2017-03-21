@@ -17,7 +17,8 @@ class SIG(models.Model):
     id = models.CharField(
         verbose_name=_('SIG ID'),
         help_text=_('The UUID of the Special Interest Group.'),
-        max_length=15,
+        max_length=25,
+        default='test',
         primary_key=True,
     )
     is_active = models.BooleanField(

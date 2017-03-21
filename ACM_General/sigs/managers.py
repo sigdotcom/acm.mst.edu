@@ -18,16 +18,13 @@ class SIGManager(models.Manager):
         TODO: Docstring
         """
 
-        if not kwargs.get('id'):
-            raise ValueError("create_sig() must have the keyword argument 'id'")
-
         if not kwargs.get('founder'):
             raise ValueError("create_sig() must have the keyword argument 'founder'")
 
         if not kwargs.get('description'):
             raise ValueError("create_sig() must have the keywork argument 'description'")
 
-        SIG = self.model(**kwargs)
+        SIG = self.model(kwargs)
         SIG.save(using=self._db)
 
         return SIG
