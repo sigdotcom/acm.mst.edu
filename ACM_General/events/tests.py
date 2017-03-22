@@ -1,7 +1,6 @@
 from . import models
 from accounts.models import User
 from django.utils import timezone
-from datetime import datetime
 from django.test import TestCase
 from sigs.models import SIG
 
@@ -20,10 +19,10 @@ class ManagerTestCase(TestCase):
     def test_create_event(self):
         self.assertIsNotNone(timezone.now)
         models.Event.objects.create_event(
-                        create=self.user,
+                        creator=self.user,
                         hosting_sig=self.sig,
                         title='test',
-                        date_hosted=datetime.now,
-                        date_expire=datetime.now,
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
                     )
 

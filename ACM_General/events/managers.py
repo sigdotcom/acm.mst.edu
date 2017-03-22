@@ -6,10 +6,10 @@ class EventManager(models.Manager):
         return self.get(title=title)
 
     def _create_event(self, **kwargs):
-        model = self.model(kwargs)
+        model = self.model(**kwargs)
         model.save(using=self._db)
         return model;
 
     def create_event(self, **kwargs):
-        return self._create_event()
+        return self._create_event(**kwargs)
 

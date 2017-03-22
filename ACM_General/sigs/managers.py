@@ -24,7 +24,7 @@ class SIGManager(models.Manager):
         if not kwargs.get('description'):
             raise ValueError("create_sig() must have the keywork argument 'description'")
 
-        SIG = self.model(kwargs)
+        SIG = self.model(**kwargs)
         SIG.save(using=self._db)
 
         return SIG
