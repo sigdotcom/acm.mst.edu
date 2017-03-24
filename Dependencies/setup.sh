@@ -14,7 +14,7 @@ sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
 cd ../ACM_General
 sudo chown www-data:www-data -R /var/django
-find .. -name migrations -exec rm -rf {} \;
+find .. -name migrations -type d -exec rm -rf {} \;
 sudo python3 manage.py makemigrations accounts core events home sigs thirdparty_auth payments --noinput
 sudo python3 manage.py collectstatic --noinput
 sudo python3 manage.py migrate --noinput

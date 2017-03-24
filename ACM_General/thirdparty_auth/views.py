@@ -1,3 +1,4 @@
+from core.actions import is_valid_email
 from django.conf import settings
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -170,12 +171,16 @@ class TokenView(View):
         first_name = cleaned_data.get('given_name')
         last_name = cleaned_data.get('family_name')
 
-        User.objects.get_or_create(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-        )
-        user = authenticate(email=email)
+        if(is_valid_email(email)):
+            ##
+            #TODO: Define get_or_create() in user manager
+            ##
+            User.objects.get_or_create(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+            )
+            user = authenticate(email=email)
 
         if user is not None:
             login(request, user)

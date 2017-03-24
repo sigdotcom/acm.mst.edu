@@ -70,9 +70,17 @@ class User(AbstractBaseUser):
       is_active - Whether or not a user accoutn should be considered 'active'
       is_admin - Stores whether or not the user can access the admin panel
       objects - Container for the User Manager
+
+
+      TODO: Integrations.
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    objects = managers.UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     email = models.EmailField(
                 verbose_name=_('Email Address'),
                 unique=True,
@@ -108,10 +116,6 @@ class User(AbstractBaseUser):
                         verbose_name=_('Is Superuser'),
                         default=False,
                    )
-    objects = managers.UserManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     @property
     def is_admin(self):
@@ -124,12 +128,6 @@ class User(AbstractBaseUser):
         return str(self.first_name) + " " + str(self.last_name)
 
     def get_short_name(self):
-        """
-        @Returns: The user's email
-        """
-        return self.email
-
-    def __unicode__(self):
         """
         @Returns: The user's email
         """

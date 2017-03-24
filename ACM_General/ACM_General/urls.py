@@ -25,5 +25,3 @@ urlpatterns = [
     url(r'^payments/', include('payments.urls')),
     url(r'^', include('home.urls')),
 ]
-
-# url(r'^', include('home.urls')),

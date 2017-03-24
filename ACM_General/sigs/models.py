@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from . import managers
 
 # Create your models here.
 
@@ -11,10 +12,13 @@ User = 'accounts.User'
 
 
 class SIG(models.Model):
+    objects = managers.SIGManager()
+
     id = models.CharField(
         verbose_name=_('SIG ID'),
         help_text=_('The UUID of the Special Interest Group.'),
-        max_length=15,
+        max_length=25,
+        default='test',
         primary_key=True,
     )
     is_active = models.BooleanField(
@@ -52,10 +56,8 @@ class SIG(models.Model):
     def __str__(self):
         return self.id
 
-    def __unicode__(self):
-        return self.id
 
-
+"""
 class PermGroups(models.Model):
     class Meta:
         unique_together = (("group_id", "sig_id"),)
@@ -85,3 +87,4 @@ class PermGroups(models.Model):
                     ' Permission Group does.'),
         max_length=1000,
     )
+"""
