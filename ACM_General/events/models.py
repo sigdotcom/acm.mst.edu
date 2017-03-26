@@ -83,7 +83,7 @@ class Event(models.Model):
 
     @property
     def is_active(self):
-        return self.date_expire > timezone.now()
+        return self.date_expire >= timezone.now()
 
 
 class EventParticipation(models.Model):
