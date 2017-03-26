@@ -4,16 +4,9 @@ from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from . import models
-from . import forms
 import stripe
 
 # Create your views here.
-
-stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY' , None)
-
-if(stripe.api_key == None):
-    raise ImproperlyConfigured('Please enter a Stripe API key into settings_local')
-
 
 class MembershipPayment(View):
     def get(self, request):
@@ -36,8 +29,17 @@ class ProductHandler(View):
         """
         TODO: Docstring
         """
+        token = request.POST.get('stripeToken', None)
+        if token is None:
+            raise ValueError('ProductHandler view did not receive a stripe'
+                             ' token in the POST request.')
 
-        token = request.POST['stripeToken']
+        stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY' , None)
+        if(stripe.api_key == "" or stripe.api_key == None):
+            raise ValueError('ProductHandler view has an invalid'
+                             ' stripe.api_key, please insert one in'
+                             ' settings_local.py.')
+
         product = get_object_or_404(models.Product, pk=pk)
         charge = stripe.Charge.create(
                     currency="usd",

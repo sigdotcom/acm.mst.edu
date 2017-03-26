@@ -14,9 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
         Ensure the domain of the email is mst.edu
         """
 
-        email = is_valid_email(email)
-
-        return email
+        if is_valid_email(email):
+            return email
+        else:
+            raise serializers.ValidationError("UserSerializer was passed an "
+                                              " invalid email.")
 
     def create(self, validated_data):
         """

@@ -38,9 +38,6 @@ class TransactionManager(models.Manager):
                 created.
         """
         cost = kwargs.get('cost', None)
-        if(stripe_token == None):
-            raise ValueError('create_transaction() must be initialized with a'
-                             ' stripe_token.')
 
         if(cost == None):
             raise ValueError('create_transaction() value must be greater than'
