@@ -1,10 +1,9 @@
 *.pyc
 __pycache__/
-__pycahce__
+__pycache__
 migrations
 migrations/
 ACM_General/static/
-static/
 *.sock
 db.*
 settings_local.py
