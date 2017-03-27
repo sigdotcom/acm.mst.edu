@@ -124,4 +124,3 @@ class ViewTestCase(LiveServerTestCase):
         #       as of 3/26/17.
         ##
 
-
