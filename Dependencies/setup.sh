@@ -6,9 +6,11 @@ sudo -u postgres psql -c "create database django_acmgeneral"
 sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
 sudo -u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
 sudo pip3 install -r requirements.txt
-cp settings_local.template ../ACM_General/ACM_General/settings_local.py
-cp ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
-cp ssl-acm.mst.edu /etc/nginx/sites-available
+# WARNING: This -n will not quash any existing files so if you're looking for a
+#          complete overwrite remove these flags
+cp -n settings_local.template ../ACM_General/ACM_General/settings_local.py
+cp -n ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
+cp -n ssl-acm.mst.edu /etc/nginx/sites-available
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
