@@ -1,8 +1,11 @@
+from accounts.models import User
 from django.utils import timezone
 from django.urls import reverse
 from django.test import TestCase
-from accounts.models import User
 from events.models import Event
+from events.serializers import EventSerializer
+import json
+import uuid
 from sigs.models import SIG
 from payments.models import TransactionCategory, Product, Transaction
 from events.models import Event
@@ -44,20 +47,6 @@ class ViewTestCase(TestCase):
         """
         TODO: Docstring
         """
-        response = self.client.get(reverse('rest_api:user-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:user-detail', kwargs={'pk':self.user.id}))
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('rest_api:event-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:event-detail', kwargs={'pk':self.event.id}))
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('rest_api:sigs-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:sigs-detail', kwargs={'pk':self.sig.id}))
-        self.assertEqual(response.status_code, 200)
 
         response = self.client.get(reverse('rest_api:transaction-list'))
         self.assertEqual(response.status_code, 200)
@@ -69,19 +58,230 @@ class ViewTestCase(TestCase):
         response = self.client.get(reverse('rest_api:category-detail', kwargs={'pk':self.category.id}))
         self.assertEqual(response.status_code, 200)
 
-    def test_post_views(self):
+    def test_accounts_rest_actions(self):
+        user = {
+                "email": "test@mst.edu",
+                "first_name": "test",
+                "last_name": "test",
+                "is_active": True,
+                "is_staff": False,
+                "is_superuser": False
+            }
+        ##
+        # Testing standard views with initial created model
+        ##
         response = self.client.get(reverse('rest_api:user-list'))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('rest_api:user-detail', kwargs={'pk':self.user.id}))
+        self.assertEqual(response.status_code, 200)
 
+        ##
+        # Testing creating a new user
+        ##
+        response = self.client.post(reverse('rest_api:user-list'), user)
+        self.assertEqual(response.status_code, 201)
+        for k,v in user.items():
+            self.assertEqual(response.json()[k], v)
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        user['email'] = "test1@mst.edu"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:user-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(user),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["email"], "test1@mst.edu")
+
+        ##
+        # Testing delete capability
+        ##
+        user_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:user-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:user-detail',
+                                kwargs={'pk':user_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:user-detail',
+                                kwargs={'pk':user_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:user-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
+
+    def test_events_rest_actions(self):
+        event={
+            "date_hosted": timezone.now(),
+            "date_expire": timezone.now(),
+            "title": "test1",
+            "description": "test",
+            "location": "test",
+            "presenter": "test",
+            "cost": 3.00,
+            "creator": self.user.id,
+            "hosting_sig": self.sig.id
+        }
+
+        ##
+        # Testing standard views with initial created model
+        ##
         response = self.client.get(reverse('rest_api:event-list'))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('rest_api:event-detail', kwargs={'pk':self.event.id}))
+        self.assertEqual(response.status_code, 200)
 
+
+        ##
+        # Testing creating a new event
+        ##
+        response = self.client.post(reverse('rest_api:event-list'), event)
+        self.assertEqual(response.status_code, 201)
+        for k in ('title', 'description', 'location'):
+            self.assertEqual(response.json()[k], event[k])
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        event['title'] = "test1"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:event-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(event, default=str),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["title"], "test1")
+
+        ##
+        # Testing delete capability
+        ##
+        event_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:event-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:event-detail',
+                                kwargs={'pk':event_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:event-detail',
+                                kwargs={'pk':event_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:event-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
+
+    def test_events_rest_actions(self):
+        sig = {
+            "id": "sig_test",
+            "is_active": True,
+            "description": "test",
+            "founder": self.user.id,
+            "chair": self.user.id
+        }
+
+        ##
+        # Testing standard views with initial created model
+        ##
         response = self.client.get(reverse('rest_api:sigs-list'))
         self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('rest_api:transaction-list'))
+        response = self.client.get(reverse('rest_api:sigs-detail', kwargs={'pk':self.sig.id}))
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get(reverse('rest_api:category-list'))
+
+        ##
+        # Testing creating a new event
+        ##
+        response = self.client.post(
+                            reverse('rest_api:sigs-list'),
+                            data=json.dumps(sig, default=str),
+                            content_type='application/json'
+
+                        )
+        self.assertEqual(response.status_code, 201)
+        for k in sig:
+            self.assertEqual(str(response.json()[k]), str(sig[k]))
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        sig["description"] = "sig-web"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:sigs-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(sig, default=str),
+                            content_type='application/json'
+                        )
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["description"], "sig-web")
+
+        ##
+        # Testing delete capability
+        ##
+        sig_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:sigs-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:sigs-detail',
+                                kwargs={'pk':sig_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:sigs-detail',
+                                kwargs={'pk':sig_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:sigs-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
 

@@ -6,6 +6,10 @@ class EventManager(models.Manager):
         return self.get(title=title)
 
     def _create_event(self, **kwargs):
+        """
+        @Raises - django.db.integrityError
+                  ValueError
+        """
         date_hosted=kwargs.get('date_hosted', None)
         date_expire=kwargs.get('date_expire', None)
         if date_hosted is None:

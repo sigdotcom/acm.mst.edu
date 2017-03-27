@@ -72,8 +72,10 @@ class User(AbstractBaseUser):
       objects - Container for the User Manager
 
 
-      TODO: Integrations.
     """
+    ##
+    # TODO: Integrations.
+    ##
 
     objects = managers.UserManager()
 
@@ -83,21 +85,18 @@ class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     email = models.EmailField(
                 verbose_name=_('Email Address'),
+                help_text=_('A valid @mst.edu email address'),
                 unique=True,
                 db_index=True,
-                null=True,
-                help_text=_('A valid @mst.edu email address'),
             )
     first_name = models.CharField(
                         verbose_name=_('First Name'),
                         max_length=30,
-                        blank=True,
                  )
 
     last_name = models.CharField(
                         verbose_name=_('Last Name'),
                         max_length=30,
-                        blank=True,
                 )
     date_joined = models.DateTimeField(
                         verbose_name=_('Date Joined'),
