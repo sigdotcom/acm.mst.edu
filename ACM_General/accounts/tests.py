@@ -77,6 +77,7 @@ class UserModelCase(TestCase):
         self.assertEqual(superuser.is_admin, True)
         self.assertEqual(str(user), "johndoe@mst.edu")
 
+
 class ManagerTestCase(TestCase):
     """
     @Desc - Testing the User Manager and all of its member functinos.
@@ -154,8 +155,6 @@ class ManagerTestCase(TestCase):
         self.assertEqual(user.is_active, True)
         self.assertEqual(user.is_superuser, True)
         self.assertEqual(user.is_staff, True)
-
-
 
 
 class ViewTestCase(TestCase):

@@ -23,9 +23,6 @@ class TransactionCategory(models.Model):
                 max_length=50,
             )
 
-    def __unicode__(self):
-        return self.name
-
     def __str__(self):
         return self.name
 
@@ -76,9 +73,6 @@ class Product(models.Model):
                     on_delete=models.PROTECT,
                     null=False,
                 )
-
-    def __unicode__(self):
-        return self.name
 
     def __str__(self):
         return self.name
@@ -153,9 +147,6 @@ class Transaction(models.Model):
                     api_key = getattr(settings, 'STRIPE_PRIV_KEY' , None)
                 )
 
-    def __unicode__(self):
-        return self.customer_id
-
     def __str__(self):
-        return self.customer_id
+        return self.stripe_token
 
