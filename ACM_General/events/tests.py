@@ -20,14 +20,15 @@ class ManagerTestCase(TestCase):
                         )
 
     def test_create_event(self):
-        self.assertIsNotNone(timezone.now)
-        models.Event.objects.create_event(
+        event = models.Event.objects.create_event(
                         creator=self.user,
                         hosting_sig=self.sig,
                         title='test',
                         date_hosted=timezone.now(),
                         date_expire=timezone.now(),
                     )
+        self.assertIsNotNone(event)
+
         with transaction.atomic():
             with self.assertRaises(ValueError):
                 models.Event.objects.create_event(
