@@ -207,7 +207,7 @@ class ViewTestCase(TestCase):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
 
-    def test_events_rest_actions(self):
+    def test_sigs_rest_actions(self):
         sig = {
             "id": "sig_test",
             "is_active": True,
@@ -281,6 +281,242 @@ class ViewTestCase(TestCase):
         # Ensure it doesnt exist on the master list
         ##
         response = self.client.get(reverse('rest_api:sigs-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
+
+    def test_transactions_rest_actions(self):
+        transaction = {
+                    "description": "test",
+                    "cost": 3,
+                    "stripe_token": "test",
+                    "customer_id": "test",
+                    "coupon_id": "test",
+                    "subscription_id": "test",
+                    "category": self.category.id,
+                    "sig": self.sig.id,
+                    "user": self.user.id
+        }
+
+        ##
+        # Testing standard views with initial created model
+        ##
+        response = self.client.get(reverse('rest_api:transaction-list'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(
+                            reverse('rest_api:transaction-detail',
+                            kwargs={'pk':self.transaction.id})
+                    )
+        self.assertEqual(response.status_code, 200)
+
+
+        ##
+        # Testing creating a new event
+        ##
+        response = self.client.post(
+                            reverse('rest_api:transaction-list'),
+                            data=json.dumps(transaction, default=str),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 201)
+        for k in ('description', 'stripe_token'):
+            self.assertEqual(str(response.json()[k]), str(transaction[k]))
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        transaction["description"] = "test"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:transaction-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(transaction, default=str),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["description"], "test")
+
+        ##
+        # Testing delete capability
+        ##
+        transaction_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:transaction-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:transaction-detail',
+                                kwargs={'pk':transaction_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:transaction-detail',
+                                kwargs={'pk':transaction_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:transaction-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
+
+    def test_category_rest_actions(self):
+        category = {
+            "name": "test"
+        }
+
+        ##
+        # Testing standard views with initial created model
+        ##
+        response = self.client.get(reverse('rest_api:category-list'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('rest_api:category-detail', kwargs={'pk':self.category.id}))
+        self.assertEqual(response.status_code, 200)
+
+
+        ##
+        # Testing creating a new event
+        ##
+        response = self.client.post(
+                            reverse('rest_api:category-list'),
+                            data=json.dumps(category, default=str),
+                            content_type='application/json'
+
+                        )
+        self.assertEqual(response.status_code, 201)
+        for k in category:
+            self.assertEqual(str(response.json()[k]), str(category[k]))
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        category["name"] = "test1"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:category-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(category, default=str),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], "test1")
+
+        ##
+        # Testing delete capability
+        ##
+        category_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:category-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:category-detail',
+                                kwargs={'pk':category_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:category-detail',
+                                kwargs={'pk':category_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:category-list'))
+        with self.assertRaises(IndexError):
+            self.assertEqual(response.json()[1], None)
+        self.assertIsNotNone(response.json()[0])
+
+    def test_product_rest_actions(self):
+        product = {
+            "name": "test",
+            "cost": 3.00,
+            "description": "test",
+            "category": self.category.id,
+            "sig": self.sig.id
+        }
+
+        ##
+        # Testing standard views with initial created model
+        ##
+        response = self.client.get(reverse('rest_api:product-list'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('rest_api:product-detail', kwargs={'pk':self.product.id}))
+        self.assertEqual(response.status_code, 200)
+
+
+        ##
+        # Testing creating a new event
+        ##
+        response = self.client.post(
+                            reverse('rest_api:product-list'),
+                            data=json.dumps(product, default=str),
+                            content_type='application/json'
+
+                        )
+        self.assertEqual(response.status_code, 201)
+        for k in ('name', 'description'):
+            self.assertEqual(str(response.json()[k]), str(product[k]))
+
+        ##
+        # Testing "PUT" or modifing a user
+        # NOTE: This test requires the data to be sent in a special way due to
+        #       how the django client does put requests.
+        ##
+        product["name"] = "test1"
+        response = self.client.put(
+                            reverse(
+                                'rest_api:product-detail',
+                                kwargs={'pk':response.json()['id']}
+                            ),
+                            data=json.dumps(product, default=str),
+                            content_type='application/json'
+                        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], "test1")
+
+        ##
+        # Testing delete capability
+        ##
+        product_id = response.json()['id']
+        response = self.client.get(reverse('rest_api:product-list'))
+        self.assertIsNotNone(response.json()[1])
+
+        response = self.client.delete(
+                            reverse(
+                                'rest_api:product-detail',
+                                kwargs={'pk':product_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(
+                            reverse(
+                                'rest_api:product-detail',
+                                kwargs={'pk':product_id}
+                            )
+                        )
+        self.assertEqual(response.status_code, 404)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(reverse('rest_api:product-list'))
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])

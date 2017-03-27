@@ -175,11 +175,6 @@ class ProductList(mixins.ListModelMixin,
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-
     #filter_class = filters.UserFilter
 
     def get(self, request, *args, **kwargs):
