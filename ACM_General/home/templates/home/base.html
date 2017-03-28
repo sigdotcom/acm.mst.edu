@@ -61,7 +61,7 @@
                             <a href="#" class="disabled">Officers</a>
                         </li>
                         <li>
-                            <a href="{% url "accounts:user-login" %}">Login</a>
+                            <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -102,7 +102,7 @@
                         <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
-                    <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}" class="login-nav nav-button" id="modaltrigger">
+                    <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}" class="login-nav nav-button">
                       <img src="{% static "home/img/core/login-icon.png"%}"/>
                       <h3>LOGIN</h3>
                     </a>

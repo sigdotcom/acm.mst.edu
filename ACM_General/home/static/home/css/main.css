@@ -630,7 +630,8 @@ label:focus {
         display: none;
     }
     .welcome-section {
-        padding-top: 130px;
+        padding-top: 100px;
+        text-align: center;
         margin: 0 !important;
     }
     footer {
