@@ -163,6 +163,9 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
     def setUp(self):
         super().setUp()
 
+    def tearDown(self):
+        super().setUp()
+
     def test_acm_membership_payment(self):
         """
         TODO: Implement ACM Membership Integration Test
