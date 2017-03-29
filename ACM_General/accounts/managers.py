@@ -14,6 +14,12 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def get_by_natural_key(self, email):
+        """
+        @Desc - This function allows for a intutive search of the user by
+                the user's email. Similary, this can be done by running
+                User.objects.get(email=foo); however, this more standarized,
+                django approach to this.
+        """
         return self.get(email=email)
 
     def _create_user(self, email, **extra_fields):
@@ -22,18 +28,18 @@ class UserManager(BaseUserManager):
         into it and returns the user.  extra_fields must be a member variable
         of the class which the Manager is apart of.
         """
-        if not email:
-            raise ValueError('create_user must be initialized with email.'
-                             ' Server Error.')
-        email = is_valid_email(email)
+        if(is_valid_email(email)):
+            email = self.normalize_email(email)
+            user = self.model(email=email,
+                              **extra_fields)
+            user.set_unusable_password()
+            user.save(using=self._db)
 
-        email = self.normalize_email(email)
-        user = self.model(email=email,
-                          **extra_fields)
-        user.set_unusable_password()
-        user.save(using=self._db)
-
-        return user
+            return user
+        else:
+            raise ValueError('create_user() was supplied an email not'
+                             ' whitelisted in ENFORCED_DOMAINS. See'
+                             ' settings.py.')
 
     def create_user(self, email, **extra_fields):
         """
@@ -60,15 +66,24 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, **extra_fields)
 
-
+'''
 class PermissionManager(models.Manager):
+    """
+    TODO: Docstring
+    """
     use_in_migrations = True
 
     def get_by_natural_key(self, perm_code):
+        """
+        TODO: Docstring
+        """
         return self.get(perm_code=perm_code)
 
     @staticmethod
     def _create_permission(**kwargs):
+        """
+        TODO: Docstring
+        """
         if not kwargs.get('perm_code'):
             raise ValueError('create_permission must be passed the keyword'
                              ' argument \'perm_code\'')
@@ -77,11 +92,21 @@ class PermissionManager(models.Manager):
                              ' argument \'perm_desc\'')
 
     def create_permission(self, **kwargs):
+        """
+        TODO: Docstring
+        """
         pass
 
 
 class GroupManager(models.Manager):
+    """
+    TODO: Docstring
+    """
     use_in_migrations = True
 
     def get_by_natural_key(self, name):
+        """
+        TODO: Docstring
+        """
         return self.get(name=name)
+'''

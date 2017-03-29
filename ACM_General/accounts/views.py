@@ -9,6 +9,5 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-
 def user_login(request):
     return render(request, "accounts/login.html")

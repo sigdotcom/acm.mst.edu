@@ -17,11 +17,16 @@ from django.conf.urls import url
 from . import views
 
 
-app_name = 'accounts'
+app_name = 'payments'
 urlpatterns = [
     url(
-      r'sodamachine/',
-      views.SodamachinePayment.as_view(),
-      name='sodamachine-pay'
+      r'membership/',
+      views.MembershipPayment.as_view(),
+      name='acm-memberships',
+    ),
+    url(
+        r'productHandler/(?P<pk>[0-9a-z-]+)/',
+        views.ProductHandler.as_view(),
+        name='product-handler',
     ),
 ]

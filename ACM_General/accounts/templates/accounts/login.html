@@ -3,20 +3,18 @@
 {% load staticfiles %}
 
 {% block head_title %}
-    <title>ACM | Login</title>
+<title>ACM | Login</title>
 {% endblock %}
 
 {% block head_stylesheets %}
-        <link rel="stylesheet" href="{% static "accounts/css/login.css" %}" />
+<link rel="stylesheet" href="{% static "core/css/genericForm.css" %}" />
+<link rel="stylesheet" href="{% static "accounts/css/login.css" %}" />
 {% endblock %}
 
 {% block body_content %}
-<div class="wrapper">
-
+<div class="body-wrapper">
     <div class="card">
-
         <div class="logo"></div>
-
         <div class="external-login">
             <a class ="button" href="{% url "thirdparty_auth:login" "oauth2" "google" %}">
                 <div class="google external-card">
@@ -24,7 +22,6 @@
                 </div>
             </a>
         </div>
-
     </div>
-
+</div>
 {% endblock %}

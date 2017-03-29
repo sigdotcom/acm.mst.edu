@@ -1,0 +1,45 @@
+.logo {
+    width:100%;
+    height:90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    background-image: url("/static/core/img/mstacm-logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.body-wrapper {
+    margin:auto;
+    height: 100%;
+    width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    height: 1050 px;
+    border-radius: 16px;
+    background-color: white;
+    flex-direction: column;
+}
+
+.title {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1.5em;
+}

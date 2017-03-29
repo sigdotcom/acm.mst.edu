@@ -2,6 +2,8 @@ from accounts.models import User, Group, Permission
 from accounts.serializers import UserSerializer, GroupSerializer, PermissionSerializer
 from events.models import Event
 from events.serializers import EventSerializer
+from payments.models import Transaction, Product, TransactionCategory
+from payments.serializers import TransactionSerializer, ProductSerializer, CategorySerializer
 from sigs.models import SIG
 from sigs.serializers import SIGSerializer
 from rest_framework import mixins
@@ -125,3 +127,117 @@ class SIGDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class TransactionList(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
+    """
+    List all Users or create a new user.
+    """
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+    #filter_class = filters.UserFilter
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class TransactionDetail(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 generics.GenericAPIView):
+    """
+    Retrieve, updates, or delete a User instance.
+    """
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class ProductList(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
+    """
+    List all Users or create a new user.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    #filter_class = filters.UserFilter
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class ProductDetail(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 generics.GenericAPIView):
+    """
+    Retrieve, updates, or delete a User instance.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class CategoryList(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
+    """
+    List all Users or create a new user.
+    """
+    queryset = TransactionCategory.objects.all()
+    serializer_class = CategorySerializer
+
+    #filter_class = filters.UserFilter
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class CategoryDetail(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 generics.GenericAPIView):
+    """
+    Retrieve, updates, or delete a User instance.
+    """
+    queryset = TransactionCategory.objects.all()
+    serializer_class = CategorySerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+

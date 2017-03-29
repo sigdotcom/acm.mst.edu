@@ -1,3 +1,4 @@
+from core.actions import is_valid_email
 from django.conf import settings
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -35,9 +36,12 @@ class AuthorizationView(View):
         if request.user.is_authenticated():
             return HttpResponseRedirect('/')
 
-        auth_type = kwargs.get('auth_type')
-        auth_provider = kwargs.get('auth_provider')
-        auth_data = getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+        auth_type = kwargs.get('auth_type', None)
+        auth_provider = kwargs.get('auth_provider', None)
+        try:
+            auth_data=getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+        except:
+            auth_data=None
 
         if auth_data is not None:
             data = self.prepare_transaction(request, auth_data)
@@ -97,29 +101,43 @@ class TokenView(View):
         ###
         # Normalizing data from callback
         ###
-        response_state = request.GET.get('state')
-        session_state = request.session['state']
-        auth_type = kwargs.get('auth_type')
-        auth_provider = kwargs.get('auth_provider')
-        auth_data = getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+        response_state=request.GET.get('state', None)
+
+        try:
+            session_state=request.session['state']
+        except:
+            session_state=None
+
+        auth_type=kwargs.get('auth_type', None)
+        auth_provider=kwargs.get('auth_provider', None)
+
+        try:
+            auth_data=getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+        except:
+            auth_data=None
 
         ###
         # Ensure state integrity of the user
         ###
-        if response_state != session_state:
-            return HttpResponseRedirect('')
+        if response_state != session_state or response_state == None or session_state == None:
+            raise Http404('Invalid Session State')
 
         if auth_data is None:
-            return HttpResponseRedirect('')
+            raise Http404('Authentication Callback not found')
 
         payload = self.prepare_transaction(request, auth_data)
+        ##
+        # TODO: Automatically generate goopleapi link as may change in future.
+        ##
         token_request = requests.post(
                             "https://www.googleapis.com/oauth2/v4/token",
                             data=payload
                        )
-        cleaned_data = self.clean_jwt(token_request.text)
-
-        return self.post_auth(request, cleaned_data)
+        if token_request.status_code == 200:
+            cleaned_data = self.clean_jwt(token_request.text)
+            return self.post_auth(request, cleaned_data)
+        else:
+            raise Http404("Invalid transaction as Google falied to send a JWT")
 
     @staticmethod
     def prepare_transaction(request, auth_data):
@@ -166,16 +184,20 @@ class TokenView(View):
                used to perform some post_auth action and then present some
                template/redirect.
         """
-        email = cleaned_data.get('email')
-        first_name = cleaned_data.get('given_name')
-        last_name = cleaned_data.get('family_name')
+        email = cleaned_data.get('email', None)
+        first_name = cleaned_data.get('given_name', None)
+        last_name = cleaned_data.get('family_name', None)
 
-        User.objects.get_or_create(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-        )
-        user = authenticate(email=email)
+        if(is_valid_email(email)):
+            ##
+            #TODO: Define get_or_create() in user manager
+            ##
+            User.objects.get_or_create(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+            )
+            user = authenticate(email=email)
 
         if user is not None:
             login(request, user)

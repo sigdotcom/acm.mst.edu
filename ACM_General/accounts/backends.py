@@ -9,8 +9,9 @@ class UserBackend(object):
 
     def authenticate(self, email=None):
         """
-        Authenticates whether an email and password passed to it is registered
-        in the database.
+        @Desc - authenticates whether or not a user is in the database based on
+                a given email. Necessary for login as Django requires
+                this function to be run on any to-be-logined user.
         """
 
         ###
@@ -24,12 +25,16 @@ class UserBackend(object):
         else:
             if self.user_can_authenticate(user):
                 return user
+            else:
+                return None
 
     @staticmethod
     def user_can_authenticate(user):
         """
-        Reject users with is_active=False. Custom user models that don't 
-        have that attribute are allowed.
+        @Desc - Returns true if the user has the is_active flag set. This
+                function allows for users to be 'shut off' of opposed to
+                deleted, forcing less clean-up and increased fidelity when user
+                leaves. If is_active is false, returns False.
         """
 
         is_active = getattr(user, 'is_active', None)
@@ -37,7 +42,8 @@ class UserBackend(object):
 
     def get_user(self, user_id):
         """
-        Returns the user instance identified by user_id
+        @Desc - Fetches the user from the database whose id (UUID) matches the
+                given user_id; otherwise, returns None.
         """
         try:
             user = User.objects.get(pk=user_id)
