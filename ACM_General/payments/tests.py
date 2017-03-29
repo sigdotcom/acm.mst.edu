@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
+from selenium import webdriver
 import stripe
 ##
 # NOTE: Because all of the models in the Transactions apps are so closely
@@ -170,4 +171,5 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         """
         TODO: Implement ACM Membership Integration Test
         """
-        pass
+        driver=webdriver.Firefox()
+        driver.quit()
