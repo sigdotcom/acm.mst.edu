@@ -195,7 +195,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         self.driver.get(self.live_server_url)  #selenium will set cookie domain based on current page domain
         self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
         self.driver.refresh() #need to update page for logged in use
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(1)
 
     def tearDown(self):
         super().setUp()
@@ -213,37 +213,28 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
                         )
         stripe_button = selenium.find_element_by_css_selector('button.stripe-button-el')
         stripe_button.click()
-        time.sleep(1)
-
 
         # Test that Stripe has taken over the screen
         ## We switch context to the stripe iframe with name stripe_checkout_app
         selenium.switch_to.frame('stripe_checkout_app')
-        time.sleep(1)
 
         # Proceed through the Stripe workflow and redirect to a confirmation page
         email_input= selenium.find_element_by_xpath("//input[@placeholder='Email']")
         email_input.send_keys('test@mst.edu')
-        time.sleep(1)
 
         card_input=selenium.find_element_by_xpath("//input[@placeholder='Card number']")
         card_input.send_keys('4242424242424242')
-        time.sleep(1)
 
         expire_input=selenium.find_element_by_xpath("//input[@placeholder='MM / YY']")
         expire_input.send_keys('0250')
-        time.sleep(1)
 
         expire_input=selenium.find_element_by_xpath("//input[@placeholder='CVC']")
         expire_input.send_keys('4444')
-        time.sleep(1)
 
         pay_button=selenium.find_element_by_xpath("//button")
         pay_button.click()
-        time.sleep(1)
 
         selenium.switch_to_default_content()
-        time.sleep(4)
 
         ##
         # If this test fails, make sure that the STRIPE_PUB_KEY and

@@ -1,6 +1,6 @@
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb firefox-esr
+sudo apt-get install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb firefox
 sudo -u postgres psql -c "drop database django_acmgeneral"
 sudo -u postgres psql -c "create database django_acmgeneral"
 sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
