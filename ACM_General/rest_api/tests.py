@@ -11,7 +11,7 @@ from payments.models import TransactionCategory, Product, Transaction
 from events.models import Event
 
 # Create your tests here.
-class ViewTestCase(TestCase):
+class AccountsTestCase(TestCase):
     def setUp(self):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -42,24 +42,7 @@ class ViewTestCase(TestCase):
                                                         category=self.category,
                                                         sig=self.sig,
                                                     )
-
-    def test_view_templates(self):
-        """
-        TODO: Docstring
-        """
-
-        response = self.client.get(reverse('rest_api:transaction-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:transaction-detail', kwargs={'pk':self.transaction.id}))
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get(reverse('rest_api:category-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:category-detail', kwargs={'pk':self.category.id}))
-        self.assertEqual(response.status_code, 200)
-
-    def test_accounts_rest_actions(self):
-        user = {
+        self.user_data = {
                 "email": "test@mst.edu",
                 "first_name": "test",
                 "last_name": "test",
@@ -67,6 +50,10 @@ class ViewTestCase(TestCase):
                 "is_staff": False,
                 "is_superuser": False
             }
+
+    def test_accounts_rest_actions(self):
+        user = self.user_data
+
         ##
         # Testing standard views with initial created model
         ##
@@ -129,6 +116,46 @@ class ViewTestCase(TestCase):
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
+
+    def test_serializer_validation(self):
+        user = self.user_data
+        user['email']="test@fail.com"
+        response = self.client.post(reverse('rest_api:user-list'), user)
+        self.assertEqual(response.status_code, 400)
+
+
+
+class EventsTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.event = Event.objects.create_event(
+                        creator=self.user,
+                        hosting_sig=self.sig,
+                        title='test',
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
+                    )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.transaction = Transaction.objects.create_transaction(
+                                                        '3232',
+                                                        cost=3.00,
+                                                        category=self.category,
+                                                        sig=self.sig,
+                                                    )
 
     def test_events_rest_actions(self):
         event={
@@ -207,6 +234,39 @@ class ViewTestCase(TestCase):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
 
+
+class SigsTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.event = Event.objects.create_event(
+                        creator=self.user,
+                        hosting_sig=self.sig,
+                        title='test',
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
+                    )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.transaction = Transaction.objects.create_transaction(
+                                                        '3232',
+                                                        cost=3.00,
+                                                        category=self.category,
+                                                        sig=self.sig,
+                                                    )
+
     def test_sigs_rest_actions(self):
         sig = {
             "id": "sig_test",
@@ -284,6 +344,39 @@ class ViewTestCase(TestCase):
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
+
+
+class TransactionsTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.event = Event.objects.create_event(
+                        creator=self.user,
+                        hosting_sig=self.sig,
+                        title='test',
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
+                    )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.transaction = Transaction.objects.create_transaction(
+                                                        '3232',
+                                                        cost=3.00,
+                                                        category=self.category,
+                                                        sig=self.sig,
+                                                    )
 
     def test_transactions_rest_actions(self):
         transaction = {
@@ -369,6 +462,39 @@ class ViewTestCase(TestCase):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
 
+
+class CategoryTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.event = Event.objects.create_event(
+                        creator=self.user,
+                        hosting_sig=self.sig,
+                        title='test',
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
+                    )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.transaction = Transaction.objects.create_transaction(
+                                                        '3232',
+                                                        cost=3.00,
+                                                        category=self.category,
+                                                        sig=self.sig,
+                                                    )
+
     def test_category_rest_actions(self):
         category = {
             "name": "test"
@@ -442,6 +568,39 @@ class ViewTestCase(TestCase):
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
+
+
+class ProductTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.event = Event.objects.create_event(
+                        creator=self.user,
+                        hosting_sig=self.sig,
+                        title='test',
+                        date_hosted=timezone.now(),
+                        date_expire=timezone.now(),
+                    )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.transaction = Transaction.objects.create_transaction(
+                                                        '3232',
+                                                        cost=3.00,
+                                                        category=self.category,
+                                                        sig=self.sig,
+                                                    )
 
     def test_product_rest_actions(self):
         product = {
