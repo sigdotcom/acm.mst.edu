@@ -10,7 +10,7 @@ sudo pip3 install -r requirements.txt
 #          complete overwrite remove these flags
 cp -n settings_local.template ../ACM_General/ACM_General/settings_local.py
 cp -n ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
-cp -n env_vars.template /etc/uwsgi/apps-available
+cp -n env_vars.template /etc/uwsgi/apps-available/env_vars.txt
 cp -n ssl-acm.mst.edu /etc/nginx/sites-available
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/

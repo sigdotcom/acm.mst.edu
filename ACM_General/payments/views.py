@@ -5,6 +5,7 @@ from django.views import View
 from django.shortcuts import render, get_object_or_404
 from . import models
 import stripe
+import os
 
 # Create your views here.
 
@@ -19,7 +20,7 @@ class MembershipPayment(View):
                 'payments/acm_membership.html',
                 {
                     "products": models.Product.objects.all(),
-                    "stripe_public_key": getattr(settings, 'STRIPE_PUB_KEY', None),
+                    "stripe_public_key": os.environ['STRIPE_PUB_KEY'],
                 }
             )
 
