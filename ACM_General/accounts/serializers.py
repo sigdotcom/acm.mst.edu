@@ -28,12 +28,3 @@ class UserSerializer(serializers.ModelSerializer):
 
         return models.User.objects.create(**validated_data)
 
-
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Group
-
-
-class PermissionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Permission
