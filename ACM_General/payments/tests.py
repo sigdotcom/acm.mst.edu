@@ -195,7 +195,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         self.driver.get(self.live_server_url)  #selenium will set cookie domain based on current page domain
         self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
         self.driver.refresh() #need to update page for logged in use
-        self.driver.implicit_wait(10)
+        self.driver.implicitly_wait(10)
 
     def tearDown(self):
         super().setUp()
