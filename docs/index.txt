@@ -1,0 +1,43 @@
+.. MST-ACM Website (acm.mst.edu) documentation master file, created by
+   sphinx-quickstart on Thu Mar 30 21:36:02 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+acm.mst.edu: MST-ACM Website
+=========================================================
+Release v\ |version|.
+
+Welcome
+-----------
+The purpose of this documentation is to provide future SIG.com memebers or
+developers a more foundational understanding of the acm.mst.edu website with
+some commentary into the reasoning behind functional descisions. This
+documentation is meant people for with out much fundamental knowledge of
+tools used; however, it will not explicitly describe anything explicitly
+mentioned in documentation such as models, managers, and views. 
+
+If you have any issues with the documentation or questions contact 
+ksyh3@mst.edu.
+
+Project Overview
+------------------
+This will give a overview of the projects objectives, feature, and apps.
+
+.. toctree::
+   :maxdepth: 2
+
+   overview/intro
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
