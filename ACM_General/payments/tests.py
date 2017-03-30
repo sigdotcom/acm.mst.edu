@@ -5,8 +5,6 @@ from django.urls import reverse
 from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
 from selenium import webdriver
-from django.conf import settings
-from django.test.utils import override_settings
 import stripe
 import time
 ##
@@ -138,6 +136,9 @@ class PaymentsViewCase(TestCase):
                                                         sig=self.sig,
                                                     )
 
+    def test_ensure_api_keys(self):
+        self.assertIsNotNone(getattr(settings, 'STRIPE_PUB_KEY', None))
+        self.assertIsNotNone(getattr(settings, 'STRIPE_PRIV_KEY', None))
 
     def test_view_integrity(self):
         response=self.client.get(reverse('payments:acm-memberships'))
@@ -200,7 +201,6 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         super().setUp()
         self.driver.quit()
 
-    @override_settings(DEBUG=True)
     def test_acm_membership_payment(self):
         """
         TODO: Implement ACM Membership Integration Test
@@ -217,6 +217,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         # Test that Stripe has taken over the screen
         ## We switch context to the stripe iframe with name stripe_checkout_app
         selenium.switch_to.frame('stripe_checkout_app')
+        time.sleep(1)
 
         # Proceed through the Stripe workflow and redirect to a confirmation page
         email_input= selenium.find_element_by_xpath("//input[@placeholder='Email']")

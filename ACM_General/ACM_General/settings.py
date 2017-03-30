@@ -28,8 +28,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 ## These values are set in /Dependencies/env_vars.template and copied into
 ## /etc/uwsgi/apps-availabble/.
 ###
-STRIPE_PRIV_KEY = os.environ['STRIPE_PRIV_KEY']
-STRIPE_PUB_KEY = os.environ['STRIPE_PUB_KEY']
+STRIPE_PRIV_KEY = os.environ.get('STRIPE_PRIV_KEY', None)
+STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY', None)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/

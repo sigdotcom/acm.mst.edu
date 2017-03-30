@@ -20,7 +20,7 @@ class MembershipPayment(View):
                 'payments/acm_membership.html',
                 {
                     "products": models.Product.objects.all(),
-                    "stripe_public_key": os.environ['STRIPE_PUB_KEY'],
+                    "stripe_public_key": getattr(settings, 'STRIPE_PUB_KEY', None)
                 }
             )
 
