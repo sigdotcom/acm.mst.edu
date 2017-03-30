@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import uuid
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = uuid.uuid1()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,6 +22,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # STATIC_ROOT = "/var/www/html"
+
+###
+# Stripe Keys
+## These values are set in /Dependencies/env_vars.template and copied into
+## /etc/uwsgi/apps-availabble/.
+###
+STRIPE_PRIV_KEY = os.environ.get('STRIPE_PRIV_KEY', None)
+STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY', None)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -46,6 +58,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'core.apps.CoreConfig',
     'events.apps.EventsConfig',
+    'django_filters',
     'home.apps.HomeConfig',
     'payments.apps.PaymentsConfig',
     'sigs.apps.SigsConfig',

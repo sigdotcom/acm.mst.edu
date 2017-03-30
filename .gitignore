@@ -9,3 +9,4 @@ db.*
 settings_local.py
 .vagrant/
 .*
+*.log*
