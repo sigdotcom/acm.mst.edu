@@ -196,6 +196,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
         self.driver.refresh() #need to update page for logged in use
         self.driver.implicitly_wait(1)
+        self.maxDiff=None
 
     def tearDown(self):
         super().setUp()
@@ -233,6 +234,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
 
         pay_button=selenium.find_element_by_xpath("//button")
         pay_button.click()
+        self.assertEqual(selenium.page_source, "test")
 
         selenium.switch_to_default_content()
 

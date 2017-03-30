@@ -1,10 +1,11 @@
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb firefox
+sudo apt-get install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb
 sudo -u postgres psql -c "drop database django_acmgeneral"
 sudo -u postgres psql -c "create database django_acmgeneral"
 sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
 sudo -u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
+sudo -u postgres psql -c "alter user djangouser createdb"
 sudo pip3 install -r requirements.txt
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
