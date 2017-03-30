@@ -5,7 +5,10 @@ from django.urls import reverse
 from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
 from selenium import webdriver
+from django.conf import settings
+from django.test.utils import override_settings
 import stripe
+import time
 ##
 # NOTE: Because all of the models in the Transactions apps are so closely
 #       linked, we need to test them all at once.
@@ -34,6 +37,7 @@ class PaymentsManagerCase(TestCase):
         self.assertIsNotNone(product)
         transaction = models.Transaction.objects.create_transaction(
                                                         '3232',
+                                                        description="test",
                                                         cost=3.00,
                                                         category=category,
                                                         sig=self.sig,
@@ -144,7 +148,13 @@ class PaymentsViewCase(TestCase):
                                          kwargs={'pk':self.product.id}))
         self.assertEqual(response.status_code, 405)
 
+        response=self.client.post(reverse('payments:product-handler',
+                                         kwargs={'pk':self.product.id}),
+                                  {'stripeToken': 'test'}
+                                )
+        self.assertEqual(response.status_code, 404)
 
+        self.client.force_login(self.user)
         with self.assertRaises(ValueError):
             response=self.client.post(reverse('payments:product-handler',
                                               kwargs={'pk':self.product.id}))
@@ -163,13 +173,78 @@ class PaymentsViewCase(TestCase):
 class PaymentsIntegrationTestCase(LiveServerTestCase):
     def setUp(self):
         super().setUp()
+        self.driver=webdriver.Firefox()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.sig = SIG.objects.create_sig(
+                        id='test',
+                        chair=self.user,
+                        founder=self.user,
+                        description='test',
+                    )
+        self.category = models.TransactionCategory.objects.create_category('test')
+        self.product = models.Product.objects.create_product(
+                                        'test',
+                                        cost=3.00,
+                                        description='test',
+                                        category=self.category,
+                                        sig=self.sig,
+                                    )
+        self.client.login(email='ksyh3@mst.edu') #Native django test client
+        cookie = self.client.cookies['sessionid']
+        self.driver.get(self.live_server_url)  #selenium will set cookie domain based on current page domain
+        self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.driver.refresh() #need to update page for logged in use
+        self.maxDiff=None
 
     def tearDown(self):
         super().setUp()
+        self.driver.quit()
 
+    @override_settings(DEBUG=True)
     def test_acm_membership_payment(self):
         """
         TODO: Implement ACM Membership Integration Test
         """
-        driver=webdriver.Firefox()
-        driver.quit()
+        selenium=self.driver
+        selenium.get("{}{}".format(
+                                self.live_server_url,
+                                reverse('payments:acm-memberships')
+                            )
+                        )
+        stripe_button = selenium.find_element_by_css_selector('button.stripe-button-el')
+        stripe_button.click()
+
+        # Test that Stripe has taken over the screen
+        ## We switch context to the stripe iframe with name stripe_checkout_app
+        selenium.switch_to.frame('stripe_checkout_app')
+
+        # Proceed through the Stripe workflow and redirect to a confirmation page
+        email_input= selenium.find_element_by_xpath("//input[@placeholder='Email']")
+        email_input.send_keys('test@mst.edu')
+        time.sleep(1)
+
+        card_input=selenium.find_element_by_xpath("//input[@placeholder='Card number']")
+        card_input.send_keys('4242424242424242')
+        time.sleep(1)
+
+        expire_input=selenium.find_element_by_xpath("//input[@placeholder='MM / YY']")
+        expire_input.send_keys('0250')
+        time.sleep(1)
+
+        expire_input=selenium.find_element_by_xpath("//input[@placeholder='CVC']")
+        expire_input.send_keys('4444')
+        time.sleep(1)
+
+        pay_button=selenium.find_element_by_xpath("//button")
+        pay_button.click()
+        time.sleep(1)
+
+        selenium.switch_to_default_content()
+        time.sleep(4)
+
+        ##
+        # If this test fails, make sure that the STRIPE_PUB_KEY and
+        # STRIPE_PRIV_KEY environment variables are set in Travis CI settings
+        # for the ACM account.
+        ##
+        self.assertIsNotNone(models.Transaction.objects.get(description="test"))

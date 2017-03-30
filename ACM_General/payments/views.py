@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from . import models
@@ -30,6 +30,9 @@ class ProductHandler(View):
         TODO: Docstring
         """
         token = request.POST.get('stripeToken', None)
+        if request.user.is_authenticated() == False:
+            raise Http404("Invalid User")
+
         if token is None:
             raise ValueError('ProductHandler view did not receive a stripe'
                              ' token in the POST request.')
@@ -53,7 +56,7 @@ class ProductHandler(View):
                                         cost=product.cost,
                                         sig=product.sig,
                                         category=product.category,
-                                        description=product.description,
+                                        description=product.description
                                     )
 
         return HttpResponseRedirect('/')

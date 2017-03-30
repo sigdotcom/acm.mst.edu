@@ -195,9 +195,11 @@ class TokenView(View):
             User.objects.get_or_create(
                 email=email,
                 first_name=first_name,
-                last_name=last_name,
+                last_name=last_name
             )
             user = authenticate(email=email)
+        else:
+            user=None
 
         if user is not None:
             login(request, user)
