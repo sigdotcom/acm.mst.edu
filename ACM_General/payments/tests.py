@@ -195,7 +195,7 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         self.driver.get(self.live_server_url)  #selenium will set cookie domain based on current page domain
         self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
         self.driver.refresh() #need to update page for logged in use
-        self.maxDiff=None
+        self.driver.implicit_wait(10)
 
     def tearDown(self):
         super().setUp()
@@ -213,6 +213,8 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
                         )
         stripe_button = selenium.find_element_by_css_selector('button.stripe-button-el')
         stripe_button.click()
+        time.sleep(1)
+
 
         # Test that Stripe has taken over the screen
         ## We switch context to the stripe iframe with name stripe_checkout_app
