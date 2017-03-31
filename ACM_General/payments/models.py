@@ -118,24 +118,24 @@ class Transaction(models.Model):
     stripe_token=models.CharField(
                     verbose_name=_('Transaction Stripe Token'),
                     help_text=_('The token associated with the stripe payment.'),
-                    max_length=25,
+                    max_length=50,
             )
     customer_id=models.CharField(
                     verbose_name=_('Transaction Customer ID'),
                     help_text=_('The Customer ID associated with the user.'),
-                    max_length=25,
+                    max_length=50,
             )
     coupon_id=models.CharField(
                     verbose_name=_('Transaction Stripe Token'),
                     help_text= _('The coupon which the user used in the transaction.'),
-                    max_length=25,
+                    max_length=50,
                     null=True,
                     blank=True,
             )
     subscription_id=models.CharField(
                     verbose_name=_('Transaction Subscription ID'),
                     help_text=_('The subscription id associated with the charge'),
-                    max_length=25,
+                    max_length=50,
                     null=True,
                     blank=True,
             )
