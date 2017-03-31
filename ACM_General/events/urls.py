@@ -13,10 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from . import views
+from django.conf.urls import url, include
+from events import views
 
 app_name = 'events'
 urlpatterns = [
+    # acm.mst.edu/events/
     url('^$', views.list_events, name='events-list'),
+
+    # acm.mst.edu/events/create/
+    url('create/$', views.create_event, name='create-event'),
 ]

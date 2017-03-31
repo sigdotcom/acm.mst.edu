@@ -1,0 +1,6 @@
+{% for field in form %}
+    <div class="flex-item">
+        <label class="field-label" for="{{field.name}}">{{field.label}}:</label>
+        <span class="field-input">{{field}}</span>
+    </div>
+{% endfor %}

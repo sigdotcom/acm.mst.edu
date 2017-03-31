@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block head_title %}
+    <title> Event Details </title>
+{% endblock %}
+
+{% block head_stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'events/css/create-event.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block head_javascript %}
+    <script src="https://unpkg.com/flatpickr"></script>
+{% endblock %}
+
+{% block body_header %}
+{% endblock %}
+
+{% block body_content %}
+    <div class="wrapper">
+        <div class="create-event">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3>Event Details</h3>
+                {% include "events/form-template.html" %}
+                <input type="submit" value="Submit Event">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_scripts %}
+    <script>
+        flatpickr("#calendar", {
+            enableTime: true,
+            altInput: true
+        });
+    </script>
+{% endblock %}
