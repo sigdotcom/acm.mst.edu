@@ -3,7 +3,7 @@ from .models import Event
 from accounts.models import User
 from datetime import datetime
 from .forms import EventForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 def list_events(request):
@@ -29,6 +29,7 @@ def create_event(request):
 
             #event.creator = request.user
             event.save()
+            return HttpResponseRedirect("/")
         else:
             return HttpResponse(form.errors)
 
