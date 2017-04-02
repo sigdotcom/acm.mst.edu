@@ -14,11 +14,12 @@
 {% endblock %}
 
 {% block head_javascript %}
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
-    <script src="{% static "/home/js/plugins.js" %}"></script>
-    <script src="{% static "/home/js/main.js" %}"></script>
-    <script src="{% static "/home/js/vendor/modernizr-2.8.3.min.js" %}"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="{% static "/home/js/jquery.leanModal.min.js" %}"></script>-->
+    <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>-->
+    <!--<script src="{% static "/home/js/plugins.js" %}"></script>-->
+    <!--<script src="{% static "/home/js/main.js" %}"></script>-->
+    <!--<script src="{% static "/home/js/vendor/modernizr-2.8.3.min.js" %}"></script>-->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--<script>-->
@@ -60,7 +61,7 @@
                             <a href="#" class="disabled">Officers</a>
                         </li>
                         <li>
-                            <a href="{% url "accounts:user-login" %}">Login</a>
+                            <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -101,13 +102,13 @@
                         <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
-                    <a href="{% url "accounts:user-login" %}" class="login-nav nav-button">
+                    <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}" class="login-nav nav-button">
                       <img src="{% static "home/img/core/login-icon.png"%}"/>
                       <h3>LOGIN</h3>
                     </a>
+
                 </nav>
             </div>
-
         </header>
 {% endblock %}
 
@@ -115,9 +116,9 @@
         <footer>
             <img src="{% static "core/img/mstacm-logo-trans.png"%}"/>
             <div class="footer-nav">
-		<a href="{% url "home:index" %}">Home</a>
-		<a href="{% url "home:sponsors" %}">Sponsors</a>
-		<a href="{% url "home:calendar" %}">Calendar</a>
+                <a href="{% url "home:index" %}">Home</a>
+                <a href="{% url "home:sponsors" %}">Sponsors</a>
+                <a href="{% url "home:calendar" %}">Calendar</a>
                 <a href="#">Media</a>
                 <a href="#">Officers</a>
             </div>
