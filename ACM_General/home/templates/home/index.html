@@ -12,14 +12,41 @@
 
 {% block body_content %}
 	<div class="main-section">
-        <div class="content-wrapper">
-            <h1>Special Interest Group events:</h1>
-            <div class="non-carousel">
-              <a href="#" class="full-wide half-high bottom-margin"><img src="#" width="100%" height="100%"></a>
-              <div class="full-wide half-high two-wide-wrapper top-margin">
-                  <a href="#" class="full-high half-wide right-margin"><img src="#" width="100%" height="100%"></a>
-                  <a href="#" class="full-high half-wide left-margin"><img src="#" width="100%" height="100%"></a>
-              </div>
+        <!--<div class="content-wrapper">-->
+        <div class="event-wrapper">
+            <div class="event-card">
+                <a href="{% static  "../../static/home/img/index/STUMPED Poster.jpg" %}" class="flyer-space">
+                    <img src="{% static  "../../static/home/img/index/STUMPED Poster.jpg" %}" />
+                </a>
+                <div class="flyer-info">
+                    <h2>SIG-Game Presents: Stumped</h2>
+                    <p>Info about Stumped. Way more words here because of the way that space just ends up being completely wasted as of right now.</p>
+                    <div><a href="http://siggame.io">Learn More</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <a href="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" class="flyer-space">
+                    <img src="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" />
+                </a>
+                <div class="flyer-info">
+                    <h2>SIG-Comp Presents: ACM Programming Cup</h2>
+                    <p>Info about ACM Programming Cup. Way more words here because of the way that space just ends up being completely wasted as of right now.</p>
+                    <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship">Learn More</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <a href="{% static  "../../static/home/img/index/2017-04-19-Cantenna.png" %}" class="flyer-space">
+                    <img src="{% static  "../../static/home/img/index/2017-04-19-Cantenna.png" %}" />
+                </a>
+                <div class="flyer-info">
+                    <h2>SIG-Security Presents: Cantenna Build</h2>
+                    <p>Info about Cantenna Build. Way more words here because of the way that space just ends up being completely wasted as of right now.</p>
+                    <div><a href="https://acmsigsec.mst.edu/talks.html">Learn More</a></div>
+                </div>
             </div>
         </div>
     </div>
@@ -47,7 +74,7 @@
                 <h3>SIG-Sec</h3>
             </div>
             <div class="sig-link-card">
-                <a class="sig-link" href="http://siggame.io/blog/">
+                <a class="sig-link" href="http://siggame.io/">
                     <!--<img src="">-->
                 </a>
                 <h3>SIG-Game</h3>

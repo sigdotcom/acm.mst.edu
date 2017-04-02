@@ -1,66 +1,108 @@
 .main-section {
-    height: 700px;
-    padding-bottom: 30px;
+    /*height: 500px;*/
+    background-color: white;
+    padding-top: 50px;
 }
 
-.main-section .content-wrapper {
+/*.main-section .content-wrapper {*/
+    /*padding: 70px 0 0 0;*/
+/*}*/
+.event-card {
+    margin: 0 auto 0 auto;
+    padding: 20px 0 20px 0;
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    display: flex;
+    /*background-color: white;*/
+    border-radius: 0.25rem;
+}
+.event-wrapper:nth-child(even) {
+    background-color: #f0f0f0;
+}
+.event-wrapper:nth-child(even) .event-card {
+    flex-direction: row-reverse;
+}
+.flyer-space {
+    height: 100%;
+    margin-right: 40px;
+    display: flex;
+}
+.event-wrapper:nth-child(even) .event-card .flyer-space {
+    margin-right: 0;
+    margin-left: 40px;
+}
+.event-card:nth-child(even) .flyer-info p {
+    padding-right: 0;
+    padding-left: 10px;
+}
+.event-card:nth-child(even) .flyer-info a {
+    margin-left: 10px;
+}
+.flyer-space img {
+    height:100%;
+    border-radius: 0.25rem;
+}
+
+.flyer-info {
     display: flex;
     flex-direction: column;
-    /*flex-wrap: wrap;*/
-    box-sizing: border-box;
+    justify-content: center;
 }
 
-.non-carousel {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  height: 86%;
-  width: 100%;
+.flyer-info h2 {
+    color: rgba(0,0,0,.87);
+    font-weight: normal;
+    line-height: 25px;
+    margin-left: 30px;
+}
+.flyer-info p {
+    color: rgba(0,0,0,.54);
+    font-size: 15px;
+    margin-bottom: 40px;
+    padding-right: 10px;
+}
+.flyer-info a {
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    background-color: #E9654C;
+    padding: 10px 30px;
+    border-radius: 25px;
 }
 
-.main-section .content-wrapper h1 {
-  padding-left: 9px;
-  padding-bottom: 12px;
-  display:flex;
-  align-items: center;
-  margin: 0;
-  /*margin: 0 0 2% 0;*/
-  height: 14%;
-  width: 100%;
-}
-
-.full-wide {
-    width: 100%;
-}
-
-.half-high {
-    height: 48%;
-}
-
-.full-high {
-    height: 100%;
-}
-
-.half-wide {
-    width: 49%;
-}
-
-.top-margin {
-    margin-top: 1%;
-}
-
-.bottom-margin {
-    margin-bottom: 1%;
-}
-
-.left-margin {
-    margin-left: 1%;
-}
-
-.right-margin {
-    margin-right: 1%;
-}
-
-.two-wide-wrapper {
-    display: flex;
+@media (max-width:641px) {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .main-section {
+        padding-top: 0 !important;
+    }
+    .event-card {
+        flex-direction: column;
+        height: 700px;
+    }
+    .event-card .flyer-space img {
+        margin: auto;
+    }
+    .flyer-info h2 {
+        margin-left: 0;
+        text-align: center;
+    }
+    .flyer-info p {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .flyer-info a {
+        margin-left: 15px;
+    }
+    .event-wrapper:nth-child(even) .event-card {
+        flex-direction: column !important;
+    }
+    .event-wrapper:nth-child(even) .flyer-space {
+         margin-right: 0;
+         margin-left: 0;
+     }
+    .flyer-space {
+        height:400px;
+        margin-right: 0;
+    }
 }
