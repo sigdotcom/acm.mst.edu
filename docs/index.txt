@@ -21,12 +21,22 @@ ksyh3@mst.edu.
 
 Project Overview
 ------------------
-This will give a overview of the projects objectives, feature, and apps.
+This will give a overview of the projects objectives, features, and overarching
+information.
 
 .. toctree::
    :maxdepth: 2
 
-   overview/intro
+   overview/intro.txt
+   overview/install.txt
+   overview/faq.txt
+
+Apps
+-----
+.. toctree::
+   :maxdepth: 3
+
+   apps/events/toctree
 
 
 .. toctree::

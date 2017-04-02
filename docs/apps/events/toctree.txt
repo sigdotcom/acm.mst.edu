@@ -1,0 +1,9 @@
+========
+Events
+========
+The purpose of the event app is to provide all of the necessary models and
+views necessary to faciliate event creation and regristation.
+
+.. toctree::
+   :maxdepth: 2
+
