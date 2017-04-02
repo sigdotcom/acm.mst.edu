@@ -42,3 +42,12 @@ class ActionsTestCase(TestCase):
         with self.assertRaises(TypeError):
             actions.is_valid_email()
 
+class ViewTestCase(TestCase):
+    def setUp(self):
+        super().setUp()
+
+    def test_view_integrity(self):
+        response=self.client.get('43214321432141')
+        self.assertEqual(responst.status_code, 404)
+        self.assertTemplateUsed(response, 'core/404.html')
+
