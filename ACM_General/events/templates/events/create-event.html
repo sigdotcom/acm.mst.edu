@@ -8,13 +8,23 @@
 {% block head_stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'events/css/create-event.css' %}" />
     <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'events/css/material_blue.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'events/css/confirmDate.css' %}" />
 {% endblock %}
 
 {% block head_javascript %}
     <script src="https://unpkg.com/flatpickr"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="{% static 'events/scripts/confirmDate.js' %}"></script>
 {% endblock %}
 
 {% block body_header %}
+
+    <!--
+         The header on the Event Creation page. Items may seem like they're in reverse as to how they appear
+         on the page but that is because I have the items arranged in "row-reverse" order through using FlexBox
+         (tool used for arrangning items on page amongst other things; in the css file).
+    -->
     <div class="header">
         <div class="logo-name">
             <a href="/">
@@ -33,8 +43,10 @@
 {% endblock %}
 
 {% block body_content %}
+
+    <!-- Each of the "Event Details" input fields -->
     <div class="event-details">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% include "events/form-template.html" %}
             <input type="submit" value="Submit Event">
@@ -44,9 +56,35 @@
 
 {% block body_scripts %}
     <script>
-        flatpickr("#calendar", {
-            enableTime: true,
-            altInput: true
+
+        // Adds the datetime picker "flatpickr"
+        let flatpickr_calendar = new flatpickr("#calendar", {
+                enableTime: true, // Adds time to be chosen by user
+                altInput: true,   // Changes the way the datetime is displayed to the user (looks nicer)
+                utc: true         // Dates are parsed, formatted, and displayed in UTC
+            }
+        );
+
+        // Makes the datetime fields required and also makes the datetime input fields, that have been filled
+        // out by flatpickr, unchangeable. This is essentially the same as having the "required" and "readonly"
+        // set on the datetime input fields. This can't be done with plain HTML though because when "readonly"
+        // is used in HTML on a field, "required" is then ignored.
+        $(".flatpickr-input").attr("required", true);
+        $(".flatpickr-input").attr("readonly", false);
+        $(".flatpickr-input").keydown(function(e){
+            e.preventDefault();
         });
+
+        // Makes sure the date_expire is greater than the date_hosted
+        $("input[type='submit']").click(function(e){
+            let date_expire = $("input[name='date_expire']").val();
+            let date_hosted = $("input[name='date_hosted']").val();
+
+            if (date_hosted > date_expire) {
+                alert("The hosted date can\'t be after the expire date!");
+                e.preventDefault();
+            }
+        });
+
     </script>
 {% endblock %}

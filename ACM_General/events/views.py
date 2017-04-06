@@ -19,12 +19,12 @@ def create_event(request):
     #    return render(request, './accounts/templates/login.html')
 
     if request.method == 'POST':
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
 
         if form.is_valid():
             event = form.save(commit=False)
-
-            # Temporary
+            # Temporary - This only works becuase I first created an account and a sig
+            # (The account I created had the first name "Zach")
             event.creator = User.objects.get(first_name="Zach")
 
             #event.creator = request.user

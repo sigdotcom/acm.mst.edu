@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   $updates = <<-UPDATE
     apt-get update
-    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common
+    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common libjpeg-dev
   UPDATE
 
   $db = <<-DB

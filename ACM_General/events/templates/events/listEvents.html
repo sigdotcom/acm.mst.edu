@@ -6,7 +6,7 @@
     <ul>
         {% for event in eventsList %}
             {% if event.is_active %}
-                <li> {{ event.title }} | {{ event.date_expire }} </li>
+                <li> {{ event.title }} | {{ event.date_expire }} | DateTime Created: {{ event.date_created }}</li>
             {% endif %}
         {% endfor %}
     </ul>

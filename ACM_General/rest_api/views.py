@@ -60,7 +60,7 @@ class EventList(mixins.ListModelMixin,
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    filter_class = filters.EventFilter
+    #filter_class = filters.EventFilter
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -240,4 +240,3 @@ class CategoryDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-

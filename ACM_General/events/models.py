@@ -14,6 +14,11 @@ SIG = 'sigs.SIG'
 
 # Create your models here.
 
+# Used to obtain a path that uses an instance of the Event object to get the "date_hosted" variable.
+# This is done so that fliers can be stored in path that looks like: 'fliers/<date_hosted>/'. (This
+# makes it easier to find media uploaded about an Event).
+def get_path_for_flier(instance, filename):
+    return 'fliers/{}/{}'.format(str(instance.date_hosted)[:10], filename)
 
 class Event(models.Model):
     objects=managers.EventManager()
@@ -80,6 +85,9 @@ class Event(models.Model):
             blank=True,
             default=0,
         )
+    flier = models.ImageField(
+            upload_to=get_path_for_flier,
+    )
 
     @property
     def is_active(self):

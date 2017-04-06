@@ -3,6 +3,7 @@ __pycache__/
 __pycahce__
 migrations
 migrations/
+media/
 ACM_General/static/
 *.sock
 db.*

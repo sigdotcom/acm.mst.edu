@@ -17,11 +17,12 @@ class UserFilter(django_filters.FilterSet):
         ]
 
 
+#TODO: Implement Filter for Events that allows ImageField
+'''
 class EventFilter(django_filters.FilterSet):
     class Meta:
         model = Event
-        fields = '__all__'
-
+'''
 
 class SIGFilter(django_filters.FilterSet):
     class Meta:
