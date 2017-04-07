@@ -1,12 +1,21 @@
 from django.shortcuts import render
+from events.models import Event
+from django.utils import timezone
 
 # Create your views here.
 
 
 def index(request):
+
+    # Grabs the 3 nearest upcoming events
+    events = Event.objects.all().order_by('date_hosted').filter(date_expire__gte=timezone.now())
+    if len(events) > 2:
+        events = events[:3]
+
     return(render(
         request,
         'home/index.html',
+        {"upcoming_events": events}
     ))
 
 
