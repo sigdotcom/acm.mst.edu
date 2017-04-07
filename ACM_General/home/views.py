@@ -7,7 +7,7 @@ from django.utils import timezone
 
 def index(request):
 
-    # Grabs the 3 nearest upcoming events
+    # Grabs the 3 nearest upcoming events that aren't in the past
     events = Event.objects.all().order_by('date_hosted').filter(date_expire__gte=timezone.now())
     if len(events) > 2:
         events = events[:3]

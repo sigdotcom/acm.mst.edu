@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import Event
 from accounts.models import User
-from datetime import datetime
 from .forms import EventForm
 from django.http import HttpResponse, HttpResponseRedirect
 

@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^events/', include('events.urls')),
     url(r'^payments/', include('payments.urls')),
     url(r'^', include('home.urls')),
+    url(r'^tz_detect/', include('tz_detect.urls')),
 ]
