@@ -1,6 +1,6 @@
 *.pyc
 __pycache__/
-__pycahce__
+__pycache__
 migrations
 migrations/
 media/
