@@ -6,4 +6,3 @@ django-filter
 stripe
 selenium
 Pillow
-django-tz-detect

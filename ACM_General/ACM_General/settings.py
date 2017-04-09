@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
     'rest_framework',
-    'tz_detect',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +76,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'tz_detect.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'ACM_General.urls'
