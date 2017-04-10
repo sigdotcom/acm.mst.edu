@@ -19,30 +19,32 @@ mentioned in documentation such as models, managers, and views.
 If you have any issues with the documentation or questions contact 
 ksyh3@mst.edu.
 
-Project Overview
+Beginner's Guide
+----------------
+The purpose of the beginner's guide is to give an introduction to SIG.com and
+all of the tools, programming languages, and ideals which we use to create the
+websites. This also provides teaching materials and reference materials to use
+when they are first learning web development.
+
+Placeholder
+------------
+This will be an 'intermediate guide' which will be a walk through of how the 
+app handles user authentication, api, payments and other more advance SIG.com
+specific implementation.
+
+Contribution Guide
 ------------------
-This will give a overview of the projects objectives, features, and overarching
-information.
+The purpose of the Contribution Guide is to show users/members the best way to
+contribute to the project whether through adding to the actual website,
+creating fliers, or by doing presentations.
 
-.. toctree::
-   :maxdepth: 2
-
-   overview/intro.txt
-   overview/install.txt
-   overview/faq.txt
-
-Apps
------
-.. toctree::
-   :maxdepth: 3
-
-   apps/events/toctree
-
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
+Reference Manual
+-----------------
+The purpose of the Reference Manual is to give an in-depth description of each
+function, class, model, view, etc. which the project has.
+FAQ
+----
+Place Holder
 
 
 Indices and tables
