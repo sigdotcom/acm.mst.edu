@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from accounts.backends import UserBackend
 from django.test import TestCase
 from django.urls import reverse
+import uuid
 
 
 class UserModelCase(TestCase):
@@ -255,10 +256,10 @@ class UserAuthBackendCase(TestCase):
         self.assertIsNotNone(self.backend.get_user(user.id))
 
         with self.assertRaises(ValueError):
-            self.backend.get_user('1232-a4')
+            self.backend.get_user('1232')
 
         self.assertEqual(
-                self.backend.get_user('e1e73e34-09f1-11e7-bff3-afc1ff1d82f0'),
+                self.backend.get_user(uuid.uuid1()),
                 None
         )
 
