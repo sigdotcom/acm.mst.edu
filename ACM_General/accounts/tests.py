@@ -255,9 +255,6 @@ class UserAuthBackendCase(TestCase):
         user = models.User.objects.create_user('test4@mst.edu')
         self.assertIsNotNone(self.backend.get_user(user.id))
 
-        with self.assertRaises(ValueError):
-            self.backend.get_user('1232')
-
         self.assertEqual(
                 self.backend.get_user(uuid.uuid1()),
                 None
