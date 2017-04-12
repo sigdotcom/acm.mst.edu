@@ -1,0 +1,64 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block head_title %}
+<title> ACM | Officers </title>
+{% endblock %}
+
+{% block head_stylesheets %}
+<link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/officers.css" %}" />
+
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+{% endblock %}
+
+{% block body_content %}
+	<div class="main-section">
+		<div class="content-wrapper">
+			<ul class="cards">
+        <li class="cards__item">
+            <div class="card">
+                <div class="card__image contain" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
+                <div class="card__content">
+                    <div class="card__title">Officer 1 | Position</div>
+                    <p class="card__text">About them.</p>
+                    <a href="http://tradebot.com/" class="btn btn--block card__btn">Learn More</a>
+                </div>
+            </div>
+        </li>
+        <li class="cards__item">
+            <div class="card">
+                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
+                <div class="card__content">
+                    <div class="card__title">Officer 2 | Position</div>
+                    <p class="card__text">About them.</p>
+                    <a href="https://www.garmin.com/" class="btn btn--block card__btn">Learn More</a>
+                </div>
+            </div>
+        </li>
+        <li class="cards__item">
+            <div class="card">
+                <div class="card__image contain" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
+                <div class="card__content">
+                    <div class="card__title">Officer 3 | Position</div>
+                    <p class="card__text">About them.</p>
+                    <a href="https://www.att.com/" class="btn btn--block card__btn">Learn More</a>
+                </div>
+            </div>
+        </li>
+        <li class="cards__item">
+            <div class="card">
+                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
+                <div class="card__content">
+                    <div class="card__title">Officer 4 | Position</div>
+                    <p class="card__text">About them.</p>
+                    <a href="https://www.up.com/" class="btn btn--block card__btn">Learn More</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+		</div>
+	</div>
+{% endblock %}

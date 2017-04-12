@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'sponsors/', views.sponsors, name="sponsors"),
     url(r'calendar/', views.calendar, name="calendar"),
+    url(r'officers/', views.officers, name="officers"),
 ]

@@ -58,7 +58,7 @@
                             <a href="#" class="disabled">Media</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Officers</a>
+                            <a href="{% url "home:officers" %}">Officers</a>
                         </li>
                         <li>
                             <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
@@ -98,7 +98,7 @@
                         <img src="{% static "home/img/core/media-icon.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
-                    <a href="#" class="officers-nav nav-button disabled">
+                    <a href="{% url "home:officers" %}" class="officers-nav nav-button">
                         <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>

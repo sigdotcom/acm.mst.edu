@@ -22,3 +22,8 @@ def calendar(request):
         request,
         'home/calendar.html',
     ))
+
+def officers(request):
+    return(render(
+        request,
+        'home/officers.html'))

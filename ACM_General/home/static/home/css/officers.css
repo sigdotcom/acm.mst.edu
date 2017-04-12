@@ -1,0 +1,130 @@
+.main-section .content-wrapper:nth-of-type(1) {
+    padding-top: 80px;
+}
+
+.main-section .content-wrapper:nth-of-type(2) {
+    padding-top: 20px;
+}
+
+.main-section .content-wrapper h1 {
+    margin-top: 0;
+}
+
+.main-section .content-wrapper h2 {
+    margin: 0;
+}
+
+.main-section .content-wrapper h2 a {
+    display: inline;
+    margin:0;
+}
+
+@media(min-width: 641px) {
+    .cards__item {
+        width: 50%;
+    }
+}
+@media(min-width: 1000px) {
+    .cards__item {
+        width: 50%;
+    }
+}
+@media(max-width: 640px) {
+    .cards__item {
+        width: 100% !important;
+    }
+    .card {
+        width: 100%;
+    }
+}
+
+.btn {
+    background-color: white;
+    border: 1px solid lightgray;
+    //border-radius: 1rem;
+    padding: 0.5rem;
+    font-weight: bold;
+    color: #77A22F;
+    text-decoration: none;
+    text-align: center;*/
+    /*font-size: .9em;*/
+    /*padding-left: 22px;*/
+    }
+}
+
+.btn--block {
+    display: block;
+    width: 100%;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cards__item {
+    display: flex;
+    padding: 1rem;
+    width: 50%;
+}
+
+.card {
+    background-color: white;
+    border-radius: 0.25rem;
+    /*box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);*/
+    display: flex;
+    flex-direction: row;
+    //overflow: hidden;
+    max-height: 270px;
+    width: 100%;
+}
+
+.card__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 1rem;
+    width: 60%;
+}
+
+.card__image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    filter: contrast(70%);
+    //filter: saturate(180%);
+    overflow: hidden;
+    position: relative;
+    transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);
+    width: 40%;
+    height: 100%;
+}
+
+.contain {
+    /*background-size:contain;*/
+}
+
+.card__image::before {
+     /*//content: "";
+     //display: block;
+     padding-top: 70%; // 16:9 aspect ratio*/
+ }
+
+.card__title {
+    /*color: black;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 1px;*/
+}
+
+.card__text {
+    flex: 1 1 auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
