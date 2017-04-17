@@ -170,7 +170,7 @@ header .content-wrapper {
 .welcome-section {
     margin-top: 140px;
     padding-left: 14px;
-    /*width:100%;*/
+    display: table;
     color: #fff;
     text-decoration: none;
 }
@@ -179,6 +179,7 @@ header .content-wrapper {
     font-weight: normal;
     font-size: 32px;
     margin: 0;
+    display: inline;
 }
 
 .welcome-section h1 {
@@ -186,6 +187,7 @@ header .content-wrapper {
     font-weight: normal;
     line-height: 40px;
     margin: 4px 0 20px 0;
+    display: inline;
 }
 
 .welcome-section a {
@@ -578,7 +580,7 @@ label:focus {
 .content-wrapper {
     margin: 0 auto;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 56px);
     padding-top: 60px;
     max-width: 1000px;
     /*position: relative;*/
@@ -639,7 +641,7 @@ label:focus {
         display: none;
     }
     .welcome-section {
-        padding-top: 100px;
+        z-index: 12;
         text-align: center;
         margin: 0 !important;
     }
@@ -660,8 +662,9 @@ label:focus {
         height: 320px;
     }
     .welcome-section {
-        margin-top: -115px;
-        margin-left: 165px;
+        margin: 0;
+        width: 90px;
+        /*margin-left: 165px;*/
     }
     .welcome-section h2 {
         font-size: 1.8em;
@@ -688,7 +691,7 @@ label:focus {
         font-size: .7em;
     }
     .acm-logo-button {
-        margin: 45px 0 0 30px;
+        margin: 0;
         width: 110px;
         height: 110px;
     }
@@ -702,7 +705,10 @@ label:focus {
         padding-top: 10px !important;
     }
     header .header-background .content-wrapper {
-        padding-top: 60px;
+        margin-top: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .sig-link-card {
         width: 24%;

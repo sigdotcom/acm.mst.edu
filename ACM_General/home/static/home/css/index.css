@@ -78,7 +78,7 @@
     }
     .event-card {
         flex-direction: column;
-        height: 700px;
+        height: 750px;
     }
     .event-card .flyer-space img {
         margin: auto;
@@ -99,7 +99,7 @@
     }
     .event-wrapper:nth-child(even) .flyer-space {
          margin-right: 0;
-         margin-left: 0;
+         margin-left: 0 !important;
      }
     .flyer-space {
         height:400px;
