@@ -40,6 +40,7 @@
 
 {% block body_header %}
         <header>
+            <div class="top-bar"></div>
             <div id="menu-wrapper">
                 <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
                 <div class="menu">
@@ -55,10 +56,10 @@
                             <a href="{% url "home:calendar" %}">Calendar</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Media</a>
+                            <a href="{% url "home:media" %}">Media</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Officers</a>
+                            <a href="{% url "home:officers" %}">Officers</a>
                         </li>
                         <li>
                             <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
@@ -94,11 +95,11 @@
                       <img src="{% static "home/img/core/calendar-icon.png"%}"/>
                       <h3>CALENDAR</h3>
                     </a>
-                    <a href="#" class="media-nav nav-button disabled">
+                    <a href="{% url "home:media" %}" class="media-nav nav-button">
                         <img src="{% static "home/img/core/media-icon.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
-                    <a href="#" class="officers-nav nav-button disabled">
+                    <a href="{% url "home:officers" %}" class="officers-nav nav-button">
                         <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
