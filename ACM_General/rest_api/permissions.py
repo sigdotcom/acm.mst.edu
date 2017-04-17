@@ -1,3 +1,4 @@
+"""
 from rest_framework import permissions
 
 
@@ -24,3 +25,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         return request.user.email == obj.email
+"""

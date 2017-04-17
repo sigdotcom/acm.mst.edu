@@ -1,5 +1,5 @@
-from accounts.models import User, Group, Permission
-from accounts.serializers import UserSerializer, GroupSerializer, PermissionSerializer
+from accounts.models import User
+from accounts.serializers import UserSerializer
 from events.models import Event
 from events.serializers import EventSerializer
 from payments.models import Transaction, Product, TransactionCategory
@@ -9,7 +9,7 @@ from sigs.serializers import SIGSerializer
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions
-from rest_api.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
+# from rest_api.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from . import filters

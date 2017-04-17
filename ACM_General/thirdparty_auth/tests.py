@@ -27,7 +27,7 @@ class ViewTestCase(LiveServerTestCase):
                                 follow=True
                             )
         self.assertEqual(response.redirect_chain[0][1], 302)
-        self.assertEqual(response.status_code, 404)
+        self.assertIn(response.status_code, (404, 400))
 
 
         ##
