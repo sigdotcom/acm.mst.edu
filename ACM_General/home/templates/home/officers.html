@@ -7,11 +7,7 @@
 {% endblock %}
 
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
-<link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
 <link rel="stylesheet" href="{% static "/home/css/officers.css" %}" />
-
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block body_content %}
@@ -93,7 +89,7 @@
 {#                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
                 <div class="card__content">
                     <div class="card__title">Kevin Schoonover | SIG.com Chair, System Administrator</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 6 Months<br>SIG - SIG.com ACM-General</p>
+                    <p class="card__text">Year - Freshman<br>Length of Service - 6 Months<br>SIG - SIG.com, ACM-General</p>
                     <div class="link_zone">
                         <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
                         <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
@@ -131,6 +127,10 @@
             </div>
         </li>
     </ul>
+{#            This a tag below should expand and make more info about past officers appear#}
+{#            <a href="#" class="past_officers">#}
+{#                Past Officers#}
+{#            </a>#}
 		</div>
 	</div>
 {% endblock %}

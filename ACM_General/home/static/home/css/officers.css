@@ -126,3 +126,22 @@
     line-height: 1.5;
     margin-bottom: 1.25rem;
 }
+
+.past_officers {
+    height: 46px;
+    background-color: rgba(233,101,76,.5);
+    margin:0 1rem;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    transition: background-color .1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.past_officers:hover {
+    background-color: rgba(233,101,76,.8);
+}
