@@ -56,7 +56,7 @@
                             <a href="{% url "home:calendar" %}">Calendar</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Media</a>
+                            <a href="{% url "home:media" %}">Media</a>
                         </li>
                         <li>
                             <a href="{% url "home:officers" %}">Officers</a>
@@ -95,7 +95,7 @@
                       <img src="{% static "home/img/core/calendar-icon.png"%}"/>
                       <h3>CALENDAR</h3>
                     </a>
-                    <a href="#" class="media-nav nav-button disabled">
+                    <a href="{% url "home:media" %}" class="media-nav nav-button">
                         <img src="{% static "home/img/core/media-icon.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
@@ -120,8 +120,8 @@
                 <a href="{% url "home:index" %}">Home</a>
                 <a href="{% url "home:sponsors" %}">Sponsors</a>
                 <a href="{% url "home:calendar" %}">Calendar</a>
-                <a href="#">Media</a>
-                <a href="#">Officers</a>
+                <a href="{% url "home:media" %}">Media</a>
+                <a href="{% url "home:officers" %}">Officers</a>
             </div>
             <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
         </footer>
