@@ -1,0 +1,14 @@
+.media-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    padding-bottom: 7.5px;
+}
+
+.media-picture {
+    padding: 5px 5px;
+    width: 375px;
+    height: 375px;
+}

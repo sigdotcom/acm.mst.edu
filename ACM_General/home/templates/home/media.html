@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "home/base.html" %}
 
-</body>
-</html>
+{% load static %}
+
+{% block head_title %}
+    <title> ACM | Media </title>
+{% endblock %}
+
+{% block head_stylesheets %}
+<link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
+<link rel="stylesheet" href="{% static "/home/css/media.css" %}" />
+{% endblock %}
+
+
+
+{% block body_content %}
+<div class="media-container">
+    <a href="{% static "/home/img/media/ctf.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/ctf.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/ctf_1.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/ctf_1.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/sigsec.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/sigsec.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/sigcomp.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/sigcomp.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/intropython.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/intropython.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/network_talk.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/network_talk.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/sigcomp_1.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/sigcomp_1.jpg" %}" />
+    </a>
+    <a href="{% static "/home/img/media/megaminer.jpg" %}">
+        <img class="media-picture" src="{% static "/home/img/media/megaminer.jpg" %}" />
+    </a>
+
+</div>
+{% endblock %} 
