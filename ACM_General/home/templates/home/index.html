@@ -3,11 +3,7 @@
 {% load static %}
 
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
-<link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
 <link rel="stylesheet" href="{% static "/home/css/index.css" %}" />
-
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block body_content %}
@@ -27,8 +23,18 @@
                 </div>
             </div>
         </div>-->
-
-
+{#        <div class="event-wrapper">#}
+{#            <div class="event-card">#}
+{#                <a href="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" class="flyer-space">#}
+{#                    <img src="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" />#}
+{#                </a>#}
+{#                <div class="flyer-info">#}
+{#                    <h2>SIG-Comp Presents: ACM Programming Cup</h2>#}
+{#                    <p>Test your programming might against other S&T students battling for greatness in the ACM Programming Cup. See the flier for more details.</p>#}
+{#                    <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship">Learn More</a></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <div class="event-wrapper">
             <div class="event-card">
                 <a href="{% static  "../../static/home/img/index/2017-04-19-Cantenna.png" %}" class="flyer-space">
