@@ -99,7 +99,8 @@
     overflow: hidden;
     position: relative;
     transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);
-    width: 40%;
+    max-width: 155px;
+    min-width: 155px;
     height: 100%;
 }
 
