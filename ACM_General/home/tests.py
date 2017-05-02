@@ -20,3 +20,11 @@ class HomeViewCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/calendar.html')
 
+        response = self.client.get(reverse('home:media'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/media.html')
+
+        response = self.client.get(reverse('home:officers'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/officers.html')
+

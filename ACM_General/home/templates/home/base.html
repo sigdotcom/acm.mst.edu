@@ -8,7 +8,7 @@
     <title> ACM | General </title>
 {% endblock %}
 
-{% block head_stylesheets %}
+{% block head_base_stylesheets %}
      <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
      <link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
 {% endblock %}
@@ -40,6 +40,7 @@
 
 {% block body_header %}
         <header>
+            <div class="top-bar"></div>
             <div id="menu-wrapper">
                 <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
                 <div class="menu">
@@ -55,10 +56,10 @@
                             <a href="{% url "home:calendar" %}">Calendar</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Media</a>
+                            <a href="{% url "home:media" %}">Media</a>
                         </li>
                         <li>
-                            <a href="#" class="disabled">Officers</a>
+                            <a href="{% url "home:officers" %}">Officers</a>
                         </li>
                         <li>
                             <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
@@ -73,11 +74,11 @@
                     <img src="{% static "/home/img/core/acm.png" %}">
                     <h2 class="acm-text">Association for<br>Computing Machinery</h2>
                     </a>
-                    <h2 class="acm-text"></h2>
 
                     <div class="welcome-section">
                         <h2>Welcome.</h2>
-                        <h1>We are Under Construction.</h1>
+                    <br>
+                        <h1>We are Missouri S&T - ACM.</h1>
                         <!-- <a href="#">Read About Us</a> -->
                     </div>
                 </div>
@@ -94,11 +95,11 @@
                       <img src="{% static "home/img/core/calendar-icon.png"%}"/>
                       <h3>CALENDAR</h3>
                     </a>
-                    <a href="#" class="media-nav nav-button disabled">
+                    <a href="{% url "home:media" %}" class="media-nav nav-button">
                         <img src="{% static "home/img/core/media-icon.png"%}"/>
                         <h3>MEDIA</h3>
                     </a>
-                    <a href="#" class="officers-nav nav-button disabled">
+                    <a href="{% url "home:officers" %}" class="officers-nav nav-button">
                         <img src="{% static "home/img/core/officers-icon.png" %}"/>
                         <h3>OFFICERS</h3>
                     </a>
@@ -119,8 +120,8 @@
                 <a href="{% url "home:index" %}">Home</a>
                 <a href="{% url "home:sponsors" %}">Sponsors</a>
                 <a href="{% url "home:calendar" %}">Calendar</a>
-                <a href="#">Media</a>
-                <a href="#">Officers</a>
+                <a href="{% url "home:media" %}">Media</a>
+                <a href="{% url "home:officers" %}">Officers</a>
             </div>
             <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
         </footer>

@@ -27,16 +27,17 @@
     height: 100%;
     margin-right: 40px;
     display: flex;
+    min-width: 275px;
 }
 .event-wrapper:nth-child(even) .event-card .flyer-space {
     margin-right: 0;
     margin-left: 40px;
 }
-.event-card:nth-child(even) .flyer-info p {
+.event-wrapper:nth-child(even) .flyer-info p {
     padding-right: 0;
     padding-left: 10px;
 }
-.event-card:nth-child(even) .flyer-info a {
+.event-wrapper:nth-child(even) .flyer-info a {
     margin-left: 10px;
 }
 .flyer-space img {
@@ -60,7 +61,6 @@
     color: rgba(0,0,0,.54);
     font-size: 15px;
     margin-bottom: 40px;
-    padding-right: 10px;
 }
 .flyer-info a {
     font-size: 14px;
@@ -78,7 +78,7 @@
     }
     .event-card {
         flex-direction: column;
-        height: 700px;
+        height: 750px;
     }
     .event-card .flyer-space img {
         margin: auto;
@@ -99,7 +99,7 @@
     }
     .event-wrapper:nth-child(even) .flyer-space {
          margin-right: 0;
-         margin-left: 0;
+         margin-left: 0 !important;
      }
     .flyer-space {
         height:400px;
