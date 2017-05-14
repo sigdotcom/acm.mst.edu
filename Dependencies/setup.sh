@@ -1,10 +1,10 @@
 ###
-# Working with the package manager to install all the necessary linux
-# dependencies.
+# Installing all the necessary dependencies. 
 ###
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb
+sudo pip3 install -r requirements.txt
 
 ###
 # Preparing the database
@@ -24,10 +24,8 @@ cp -rf acm.mst.edu /var/django/
 cd /var/django/acm.mst.edu/Dependencies
 
 ###
-# Setting up all the python packages and moving he propeer configuration files
-# into place.
+# Moving he propeer configuration files into place.
 ###
-sudo pip3 install -r requirements.txt
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
 cp -n settings_local.template ../ACM_General/ACM_General/settings_local.py
