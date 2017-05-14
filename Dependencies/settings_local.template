@@ -1,7 +1,7 @@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'localhost', u'dev.kevinschoonover.me'] 
+ALLOWED_HOSTS = [u'localhost']
 
 ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 
