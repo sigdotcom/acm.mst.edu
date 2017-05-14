@@ -20,7 +20,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p /var/django/
 cd ../../
-cp -rf acm.mst.edu /var/django/
+sudo cp -rf acm.mst.edu /var/django/
 cd /var/django/acm.mst.edu/Dependencies
 
 ###
