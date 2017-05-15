@@ -1,3 +1,19 @@
+if [ "`basename $(pwd)`" != "Dependencies" ]; then
+    echo "setup.sh must be run in the Dependencies folder."
+    exit 1;
+fi
+
+if [[ $# -ne 1 ]]; then
+    echo "usage: setup.sh [dev, live]"
+    exit 1;
+fi
+
+if [[ $1 == "dev" ]]; then
+    BUILD_URL="dev.kevinschoonover.me"
+elif [[ $1 == "live" ]]; then
+    BUILD_URL="acm.mst.edu"
+fi
+
 ###
 # Installing all the necessary dependencies. 
 ###
@@ -20,18 +36,22 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p /var/django/
 cd ../../
-sudo cp -rf acm.mst.edu/ /var/django/
-cd /var/django/acm.mst.edu/Dependencies
+sudo rsync -a --delete acm.mst.edu/ /var/django/$BUILD_URL/
+cd /var/django/$BUILD_URL/Dependencies
 
 ###
 # Moving he propeer configuration files into place.
 ###
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
-cp -n settings_local.template ../ACM_General/ACM_General/settings_local.py
-cp -n ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
-cp -n env_vars.template /etc/uwsgi/apps-available/env_vars.txt
-cp -n ssl-acm.mst.edu /etc/nginx/sites-available
+sudo rsync -auz settings_local.template ../ACM_General/ACM_General/settings_local.py
+sudo rsync -auz ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
+sudo rsync -auz env_vars.template /etc/uwsgi/apps-available/env_vars.txt
+sudo rsync -auz ssl-acm.mst.edu /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i 's/\$BUILD_URL/'"$BUILD_URL"'/g' /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i 's/\$BUILD_URL/'"$BUILD_URL"'/g' /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
+sed -i '/localhost/s/]/, u\x27'"$BUILD_URL"'\x27]/' ../ACM_General/ACM_General/settings_local.py
+
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
@@ -53,6 +73,12 @@ for d in *; do
 done
 python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
+
+###
+# Creating the Sphinx documentation
+###
+cd ../docs/
+make html
 
 ###
 # Restarting the two services necessary to make it run.
