@@ -20,7 +20,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p /var/django/
 cd ../../
-sudo cp -rf acm.mst.edu/ /var/django/
+sudo rsync -a --delete acm.mst.edu/ /var/django/acm.mst.edu/
 cd /var/django/acm.mst.edu/Dependencies
 
 ###
@@ -28,10 +28,10 @@ cd /var/django/acm.mst.edu/Dependencies
 ###
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
-cp -n settings_local.template ../ACM_General/ACM_General/settings_local.py
-cp -n ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
-cp -n env_vars.template /etc/uwsgi/apps-available/env_vars.txt
-cp -n ssl-acm.mst.edu /etc/nginx/sites-available
+rsync -a settings_local.template ../ACM_General/ACM_General/settings_local.py
+rsync -a ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
+rsync -a env_vars.template /etc/uwsgi/apps-available/env_vars.txt
+rsync -a ssl-acm.mst.edu /etc/nginx/sites-available
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
@@ -53,6 +53,12 @@ for d in *; do
 done
 python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
+
+###
+# Creating the Sphinx documentation
+###
+cd ../docs/
+make html
 
 ###
 # Restarting the two services necessary to make it run.

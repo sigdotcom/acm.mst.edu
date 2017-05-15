@@ -42,6 +42,10 @@ server {
     	uwsgi_pass  django;
         include     /var/django/acm.mst.edu/ACM_General/ACM_General/uwsgi_params; # the uwsgi_params file you installed
     }
+
+    location /docs {
+        alias /var/django/acm.mst.edu/docs/_build/
+    }
     
     location /security {
         return 301 https://acmsigsec.mst.edu;
