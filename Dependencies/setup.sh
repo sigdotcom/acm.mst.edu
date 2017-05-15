@@ -1,21 +1,18 @@
 if [ "`basename $(pwd)`" != "Dependencies" ]; then
-    echo "setup.sh must be run in the Dependencies folder"
+    echo "setup.sh must be run in the Dependencies folder."
     exit 1;
 fi
 
 if [[ $# -ne 1 ]]; then
     echo "usage: setup.sh [dev, live]"
-    echo $#
     exit 1;
 fi
 
-if [[ $1 == "dev"]]; then
-    BASE_URL="dev.kevinschoonover.me"
-else if [[ $1 == "live" ]]; then
-    BASE_URL="acm.mst.edu"
+if [[ $1 == "dev" ]]; then
+    BUILD_URL="dev.kevinschoonover.me"
+elif [[ $1 == "live" ]]; then
+    BUILD_URL="acm.mst.edu"
 fi
-
-
 
 ###
 # Installing all the necessary dependencies. 
@@ -39,19 +36,22 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p /var/django/
 cd ../../
-sudo rsync -a --delete acm.mst.edu/ /var/django/acm.mst.edu/
-cd /var/django/acm.mst.edu/Dependencies
+sudo rsync -a --delete acm.mst.edu/ /var/django/$BUILD_URL/
+cd /var/django/$BUILD_URL/Dependencies
 
 ###
 # Moving he propeer configuration files into place.
 ###
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
-rsync -a settings_local.template ../ACM_General/ACM_General/settings_local.py
-rsync -a ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
-rsync -a env_vars.template /etc/uwsgi/apps-available/env_vars.txt
-rsync -a ssl-acm.mst.edu /etc/nginx/sites-available
-sed -i 's/\$BASE_URL/'"$BASE_URL"'/g' /etc/nginx/sites-available/ssl-acm.mst.edu
+sudo rsync -auz settings_local.template ../ACM_General/ACM_General/settings_local.py
+sudo rsync -auz ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
+sudo rsync -auz env_vars.template /etc/uwsgi/apps-available/env_vars.txt
+sudo rsync -auz ssl-acm.mst.edu /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i 's/\$BUILD_URL/'"$BUILD_URL"'/g' /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i 's/\$BUILD_URL/'"$BUILD_URL"'/g' /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
+sed -i '/localhost/s/]/, u\x27'"$BUILD_URL"'\x27]/' ../ACM_General/ACM_General/settings_local.py
+
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default

@@ -44,7 +44,7 @@ server {
     }
 
     location /docs {
-        alias /var/django/$BUILD_URL/docs/_build/;
+        alias /var/django/$BUILD_URL/docs/_build/html/;
     } 
     
     location /security {
