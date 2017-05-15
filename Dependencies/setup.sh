@@ -1,3 +1,22 @@
+if [ "`basename $(pwd)`" != "Dependencies" ]; then
+    echo "setup.sh must be run in the Dependencies folder"
+    exit 1;
+fi
+
+if [[ $# -ne 1 ]]; then
+    echo "usage: setup.sh [dev, live]"
+    echo $#
+    exit 1;
+fi
+
+if [[ $1 == "dev"]]; then
+    BASE_URL="dev.kevinschoonover.me"
+else if [[ $1 == "live" ]]; then
+    BASE_URL="acm.mst.edu"
+fi
+
+
+
 ###
 # Installing all the necessary dependencies. 
 ###
@@ -32,6 +51,7 @@ rsync -a settings_local.template ../ACM_General/ACM_General/settings_local.py
 rsync -a ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available
 rsync -a env_vars.template /etc/uwsgi/apps-available/env_vars.txt
 rsync -a ssl-acm.mst.edu /etc/nginx/sites-available
+sed -i 's/\$BASE_URL/'"$BASE_URL"'/g' /etc/nginx/sites-available/ssl-acm.mst.edu
 sudo ln -s /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini /etc/uwsgi/apps-enabled/
 sudo ln -s /etc/nginx/sites-available/ssl-acm.mst.edu /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
