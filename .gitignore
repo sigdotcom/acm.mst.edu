@@ -11,3 +11,7 @@ settings_local.py
 .*
 *.log*
 docs/_build/
+*.aux
+*.pdf
+*.out
+*.toc
