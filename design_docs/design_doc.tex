@@ -16,23 +16,26 @@
 In order to start on a large-scale project like the ACM-General website, I
 believe that it is important to first talk about why we are doing the project.
 
-The main reason that that I started this processes originally was threefold.
-Firstly, originally the majority of the System Administrator job was updating
-the old ACM-General website by manually uploading photos by inputing them into
-wordpress and then creating wordpress events; I personally believed that we
-could do better. Secondly, I wanted to create a more succinct and refined user
-experience for everyone who interacted with the website thereby increasing user
-productivity and activity with ACM. Lastly, I believed that the website was 
-capable of so much more than a 'attractive' flier and event share such a
-automatically managing SIGs, allowing for developer interaction through an API,
-and much more. All of this and more will be discussed throughout this Design
-documentation.
-\subsection{Tools / Prerequiste Knowledge}
+The main reason that that I started this process originally was threefold.
+Firstly, the majority of the System Administrator job was updating
+the old ACM-General website by manually uploading photos and inputting them into
+a WordPress site and then creating WordPress events; I personally believed that we
+could create a more personalized and intelligent approach which would allow these
+repetitive tasks to be more easily automated. Secondly, I wanted to create a 
+more succinct and refined user experience for everyone who interacted with the 
+website thereby increasing user productivity and activity within ACM. 
+Lastly, I believed that the website was capable of so much more than a 
+'attractive' flier and an event share. Features like automatically managing SIGs, 
+allowing for developer interaction through an API, and much more would allow
+for ACM to grow in a more extensive and intelligent way. All of this and 
+more will be discussed throughout this Design documentation.
+
+\subsection{Tools / Prerequisite Knowledge}
 Some tools, frameworks, and languages one should attempt to familiarize 
 themselves with to jump head-first into the project:
 \begin{itemize}
     \item Django (\url{https://docs.djangoproject.com/en/1.11/}) - Web 
-          Framework and backend which runs all of the webpage interaction.
+          Framework and back-end which runs all of the webpage interaction.
     \item Django REST Framework (\url{http://www.django-rest-framework.org/}) -
           A nice library which helps to automatically configure and manage the
           API.
@@ -54,17 +57,18 @@ themselves with to jump head-first into the project:
 \section{Design}
 \subsection{Web API}
 In order to improve overall modularity and extensibility, a RESTful Web API
-exposing the majority, if not all, of the Django models  must be implemented. 
+exposing the majority, if not all, of the Django models must be implemented. 
 
 \subsubsection{Schema}
-The url scheme for the web-api will be as follows: 
+The URL scheme for the web-api will be as follows: 
 \\ \texttt{http://www.foobar.com/web-api/<api\_version>/<model\_name>/(model\_pk)}
 \\ 
 \\
 \textbf{api\_version} (Required): Whatever version of the API that is used. All
-previous versions of the API will be reserved (unless expressly depricated to
+previous versions of the API will be reserved (unless expressly deprecated to
 all users of the API) in order to preserve backwards compatibility of software
-which may be legacy. % Full Indent
+which may be legacy. The most current version will be named \texttt{latest}
+% Full Indent
 \\
 \textbf{model\_name} (Required): The name of the model which the user is
 attempting to access with the API call with every character lowercase. 
@@ -76,7 +80,7 @@ the user is attempting to access. % Full Indent
 \subsubsection{Permissions}
 Any developer wishing to gain access to the API will need to be registered on 
 the site. After the user log-in, they can visit the route 
-\textbf{/developer/api\_keys} which displays a heirarchy of all models and
+\textbf{/developer/api\_keys} which displays a hierarchy of all models and
 permissions (GET (all), GET (specific primary key), POST, PUT, DELETE) for each
 model. The user can then request any level of access they require (including
 all API permissions) by selecting which permissions they want on a per-model
@@ -99,10 +103,40 @@ POST request.
 \subsection{Events}
 \subsection{Payments}
 \subsection{SIGs}
-\subsection{Uesrs}
+\subsection{Users}
 \subsection{Sponsors}
 \subsection{External Developers}
 \subsection{Permissions}
+\subsubsection{Permissions ideas}
+Brainstorming of all permission ideas necessary for the website. Section will be 
+refined/removed later.
+\begin{itemize}
+    \item Manage API Keys
+    \item Per-model
+    \begin{itemize}
+        \item GET specific instance
+        \item GET all models
+        \item DELETE specific instance
+        \item Create new instance
+        \item Modify existing instance 
+    \end{itemize}
+
+    \item Per-SIG
+    \begin{itemize}
+        \item Manage SIG roles / permissions
+        \item Create SIG events
+        \item Manage SIG members
+        \item Manage SIG budget?
+    \end{itemize}
+
+    \item Per-view (need to have a better way of modulating this)
+    \begin{itemize}
+        \item Can GET
+        \item Can POST 
+    \end{itemize}
+
+
+\end{itemize}
 \subsection{Testing}
 \subsection{Permissions}
 
