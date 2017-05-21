@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage{changepage}
 \title{acm.mst.edu Design Documentation}
 \author{Kevin Schoonover}
 \date{\today}
@@ -52,6 +53,49 @@ themselves with to jump head-first into the project:
 
 \section{Design}
 \subsection{Web API}
+In order to improve overall modularity and extensibility, a RESTful Web API
+exposing the majority, if not all, of the Django models  must be implemented. 
+
+\subsubsection{Schema}
+The url scheme for the web-api will be as follows: 
+\\ \texttt{http://www.foobar.com/web-api/<api\_version>/<model\_name>/(model\_pk)}
+\\ 
+\\
+\textbf{api\_version} (Required): Whatever version of the API that is used. All
+previous versions of the API will be reserved (unless expressly depricated to
+all users of the API) in order to preserve backwards compatibility of software
+which may be legacy. % Full Indent
+\\
+\textbf{model\_name} (Required): The name of the model which the user is
+attempting to access with the API call with every character lowercase. 
+% Full Indent
+\\
+\textbf{model\_pk} (Optional): The specific primary key of the model instance
+the user is attempting to access. % Full Indent
+
+\subsubsection{Permissions}
+Any developer wishing to gain access to the API will need to be registered on 
+the site. After the user log-in, they can visit the route 
+\textbf{/developer/api\_keys} which displays a heirarchy of all models and
+permissions (GET (all), GET (specific primary key), POST, PUT, DELETE) for each
+model. The user can then request any level of access they require (including
+all API permissions) by selecting which permissions they want on a per-model
+basis. After the user submits their request for permissions, the system
+administrator or any person responsible for managing API keys can confirm or
+deny the key request for that person. \textbf{TBD: Internal messaging system or
+email}. %TODO
+
+\subsubsection{Transactions}
+\texttt{/web-api/<api\_version>/<model\_name>/}:
+\\
+\textbf{GET}: Returns a JSON of all existing \texttt{<model\_name>} references in the
+database.
+\\
+\textbf{POST}: Creates a new \texttt{<model\_name>} with the properties specified in the
+POST request.
+\\
+\textbf{OPTIONS}: Returns all the possible options of the endpoint.
+
 \subsection{Events}
 \subsection{Payments}
 \subsection{SIGs}
