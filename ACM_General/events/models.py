@@ -86,7 +86,13 @@ class Event(models.Model):
             default=0,
         )
     flier = models.ImageField(
+            verbose_name=_('Flier Image'),
             upload_to=get_path_for_flier,
+    )
+
+    link = models.URLField(
+            verbose_name=_('Event Link'),
+            blank=True,
     )
 
     @property

@@ -56,7 +56,7 @@
     <script>
 
         // Adds the datetime picker "flatpickr"
-        let flatpickr_calendar = new flatpickr("#calendar", {
+        var flatpickr_calendar = new flatpickr("#calendar", {
                 enableTime: true, // Adds time to be chosen by user
                 altInput: true,   // Changes the way the datetime is displayed to the user (looks nicer)
                 utc: true         // Dates are parsed, formatted, and displayed in UTC
@@ -75,8 +75,8 @@
 
         // Makes sure the date_expire is greater than the date_hosted
         $("input[type='submit']").click(function(e){
-            let date_expire = $("input[name='date_expire']").val();
-            let date_hosted = $("input[name='date_hosted']").val();
+            var date_expire = $("input[name='date_expire']").val();
+            var date_hosted = $("input[name='date_hosted']").val();
 
             if (date_hosted > date_expire) {
                 alert("The hosted date can\'t be after the expire date!");
