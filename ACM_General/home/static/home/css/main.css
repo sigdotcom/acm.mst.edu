@@ -113,7 +113,7 @@ textarea {
    ========================================================================== */
 
 html,body {
-    overflow-x:hidden;
+    /*overflow-x:hidden;*/
 }
 
 body {
@@ -152,7 +152,7 @@ header .content-wrapper {
     text-decoration: none;
     height: 80px;
     width: 260px;
-    margin: 7px 0 0 9px;
+    margin: 14px 0 0 14px;
 }
 .acm-logo-button img {
     height: 100%;
@@ -169,8 +169,8 @@ header .content-wrapper {
 
 .welcome-section {
     margin-top: 140px;
-    padding-left: 9px;
-    /*width:100%;*/
+    padding-left: 14px;
+    display: table;
     color: #fff;
     text-decoration: none;
 }
@@ -179,6 +179,7 @@ header .content-wrapper {
     font-weight: normal;
     font-size: 32px;
     margin: 0;
+    display: inline;
 }
 
 .welcome-section h1 {
@@ -186,6 +187,7 @@ header .content-wrapper {
     font-weight: normal;
     line-height: 40px;
     margin: 4px 0 20px 0;
+    display: inline;
 }
 
 .welcome-section a {
@@ -415,7 +417,7 @@ label:focus {
 }
 
 .menu {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -429,13 +431,12 @@ label:focus {
     position: absolute;
     right: -60px;
     width: 60px;
-    height: 60px;
-    border-radius: 0 0 4px 0;
+    height: 56px;
     line-height: 0px;
     display: block;
     padding: 0;
     text-indent: -9999px;
-    background: #fff url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/25px 25px no-repeat;
+    background: #f0f0f0 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/23px 21px no-repeat;
 }
 .menu ul li > label {
     background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50%/16px 16px no-repeat;
@@ -444,13 +445,13 @@ label:focus {
     display: block;
     text-align: center;
     padding: 0 20px;
-    line-height: 60px;
+    line-height: 56px;
     text-decoration: none;
     color: #000;
-    transition: background-color .15s;
+    transition: background-color .1s;
 }
 .menu ul li a:hover, .menu ul li label:hover {
-    color: #666;
+    color: #E9654C;
     background-color: #f0f0f0;
 }
 .menu ul {
@@ -508,6 +509,16 @@ label:focus {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.top-bar {
+    display: none;
+    position: fixed;
+    z-index:2;
+    width:100%;
+    height:56px;
+    background-color: #F0F0F0;
+    box-shadow: rgba(0,0,0,.2) 0 4px 4px 0;
 }
 
 /* ==========================================================================
@@ -569,7 +580,7 @@ label:focus {
 .content-wrapper {
     margin: 0 auto;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 56px);
     padding-top: 60px;
     max-width: 1000px;
     /*position: relative;*/
@@ -630,7 +641,7 @@ label:focus {
         display: none;
     }
     .welcome-section {
-        padding-top: 100px;
+        z-index: 12;
         text-align: center;
         margin: 0 !important;
     }
@@ -651,8 +662,9 @@ label:focus {
         height: 320px;
     }
     .welcome-section {
-        margin-top: -115px;
-        margin-left: 165px;
+        margin: 0;
+        width: 300px;
+        /*margin-left: 165px;*/
     }
     .welcome-section h2 {
         font-size: 1.8em;
@@ -669,6 +681,9 @@ label:focus {
     #menu-wrapper {
         display: block;
     }
+    .top-bar {
+        display: block;
+    }
     nav img {
         display: none;
     }
@@ -676,7 +691,7 @@ label:focus {
         font-size: .7em;
     }
     .acm-logo-button {
-        margin: 45px 0 0 30px;
+        margin: 0;
         width: 110px;
         height: 110px;
     }
@@ -690,7 +705,10 @@ label:focus {
         padding-top: 10px !important;
     }
     header .header-background .content-wrapper {
-        padding-top: 60px;
+        margin-top: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .sig-link-card {
         width: 24%;

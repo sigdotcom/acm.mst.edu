@@ -48,9 +48,9 @@ server {
     }
 
      #Django media
-     location /media  {
-        alias /var/django/acm.mst.edu/ACM_General/media;
-     }
+     #location /media  {
+     #   alias /var/django/acm.mst.edu/ACM_General/media;
+     #}
 
     location /static {
         alias /var/django/acm.mst.edu/ACM_General/static; # your Django project's static files - amend as required

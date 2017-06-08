@@ -31,3 +31,17 @@ def calendar(request):
         request,
         'home/calendar.html',
     ))
+
+
+def media(request):
+    return(render(
+        request,
+        'home/media.html',
+    ))
+
+
+def officers(request):
+    return(render(
+        request,
+        'home/officers.html',
+    ))

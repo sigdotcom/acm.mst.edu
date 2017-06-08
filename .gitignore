@@ -11,3 +11,4 @@ settings_local.py
 .vagrant/
 .*
 *.log*
+docs/_build/

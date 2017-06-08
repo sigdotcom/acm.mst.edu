@@ -3,58 +3,15 @@
 {% load static %}
 
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "home/css/normalize.css" %}" />
-<link rel="stylesheet" href="{% static "home/css/main.css" %}" />
-<link rel="stylesheet" href="{% static "home/css/index.css" %}" />
-
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<link rel="stylesheet" href="{% static "home/css/normalize.css" %}" />
+	<link rel="stylesheet" href="{% static "home/css/main.css" %}" />
+	<link rel="stylesheet" href="{% static "home/css/index.css" %}" />
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block body_content %}
 	<div class="main-section">
-		{% include "home/upcoming-events.html" %}
-        <!--<div class="content-wrapper">
-        <div class="event-wrapper">
-            <div class="event-card">
-                <a href="{% static "home/img/index/STUMPED Poster.jpg" %}" class="flyer-space">
-                    <img src="{% static "home/img/index/STUMPED Poster.jpg" %}" />
-                </a>
-                <div class="flyer-info">
-                    <h2>SIG-Game Presents: Stumped</h2>
-                    <p>The sign-ups for MegaMinerAI 19: Stumped are open!
-
-                    Gather your team of code-savvy beavers and register at MegaMinerAI.com. The competition is April 8th-9th from noon to noon.
-
-                    Registration fee is $24 per team, but includes T-Shirts, food, and possible prizes for you and your teammates!</p>
-                    <div><a href="http://siggame.io">Learn More</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="event-wrapper">
-            <div class="event-card">
-                <a href="{% static "home/img/index/2017-4-15 Programming Cup.png" %}" class="flyer-space">
-                    <img src="{% static "home/img/index/2017-4-15 Programming Cup.png" %}" />
-                </a>
-                <div class="flyer-info">
-                    <h2>SIG-Comp Presents: ACM Programming Cup</h2>
-                    <p>Test your programming might against other S&T students battling for greatness in the ACM Programming Cup. See the flier for more details.</p>
-                    <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship">Learn More</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="event-wrapper">
-            <div class="event-card">
-                <a href="{% static "home/img/index/2017-04-19-Cantenna.png" %}" class="flyer-space">
-                    <img src="{% static "home/img/index/2017-04-19-Cantenna.png" %}" />
-                </a>
-                <div class="flyer-info">
-                    <h2>SIG-Security Presents: Cantenna Build</h2>
-                    <p>Build a directional, external antenna for your computer out of a metal can! Then, bring your new cantenna to the wireless security audit on April 22nd where we race around Rolla searching for unsecured wireless networks. Everyone is welcome, but ACM members get priority.</p>
-                    <div><a href="https://acmsigsec.mst.edu/talks.html">Learn More</a></div>
-                </div>
-            </div>
-        </div>
-		-->
+		<!-- Events go here -->
     </div>
     <div class="sig-section">
         <div class="sig-section-header">
