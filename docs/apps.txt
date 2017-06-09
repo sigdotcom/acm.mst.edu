@@ -1,5 +1,5 @@
 .. This file will be used for writing out detailed information on each of the
-   modules.
+   apps.
 
 .. .........  Constant Variables  ...............
 .. _modelform-link: https://docs.djangoproject.com/en/1.11/topics/forms/modelforms/
