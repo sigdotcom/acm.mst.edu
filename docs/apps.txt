@@ -1,0 +1,93 @@
+.. This file will be used for writing out detailed information on each of the
+   modules.
+
+.. .........  Constant Variables  ...............
+.. _modelform-link: https://docs.djangoproject.com/en/1.11/topics/forms/modelforms/
+.. _class-meta-fields: https://docs.djangoproject.com/en/1.11/topics/forms/modelforms/#selecting-the-fields-to-use
+.. ..............................................
+
+Project Applications
+====================
+
+.. _accounts-app:
+
+Accounts
+--------
+
+Here is some information on the account app.
+
+.. .........................................
+
+.. _core-app:
+
+Core
+----
+
+Here is some information on the core app.
+
+.. .........................................
+
+.. _events-app:
+
+Events
+------
+
+.. glossary::
+
+    forms.py
+        This file is used for combining the Event Class model with a form
+        (ModelForm). This ModelForm adds extra information about what to
+        display on the form that is created. More information about ModelForm
+        can be found `here <modelform-link_>`_.
+
+        You can use different variables to change the way model fields will be
+        displayed such as using the widget variable. For example, the title
+        field of the model is changed with the widget variable to include
+        having a Textarea (which is an HTML element used to define having a
+        larger input area for text). To learn more about the changing the
+        fields in the Class Meta, click `here <class-meta-fields_>`_.
+
+.. ........................................
+
+.. _home-app:
+
+Home
+----
+
+Here is some information on the home app.
+
+.. .......................................
+
+.. _payments-app:
+
+Payments
+--------
+
+Here is some information on the payments app.
+
+.. .......................................
+
+.. _rest-api-app:
+
+Rest API
+--------
+
+Here is some information on the rest API app.
+
+.. .......................................
+
+.. _sigs-app:
+
+Sigs
+----
+
+Here is some information on the sigs app.
+
+.. .......................................
+
+.. _third-party-auth-app:
+
+Third-Party Authentication
+--------------------------
+
+Here is some information on the third-party authentication app.
