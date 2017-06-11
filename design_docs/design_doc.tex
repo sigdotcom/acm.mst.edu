@@ -88,20 +88,63 @@ administrator or any person responsible for managing API keys can confirm or
 deny the key request for that person. \textbf{TBD: Internal messaging system or
 email}. %TODO
 
-\subsubsection{Transactions}
-\texttt{/web-api/<api\_version>/<model\_name>/}:
-\\
-\textbf{GET}: Returns a JSON of all existing \texttt{<model\_name>} references in the
-database.
-\\
-\textbf{POST}: Creates a new \texttt{<model\_name>} with the properties specified in the
-POST request.
-\\
-\textbf{OPTIONS}: Returns all the possible options of the endpoint.
-
 \subsection{Events}
+In order to increase marketing and publicity for the SIGs, we hope to make the
+process of publishing, advertising, and recruiting for events a more automated
+and robust processe. In a sense, we hope to eliminate much of the as we can
+for the PR people.
+
+\subsubsection{Creation}
+An appointed member of SIGs will have access to the event creation page. In
+this page, the user can input a flier, description, start date, end date, and any
+additional metadata which may be valuable for later use. After the event is submitted,
+a QR code or password will be generated that is 'linked' to this event (explained
+in \ref{sec:participation}).
+
+\subsubsection{'Master' List}
+% Insert diagram of what I am talking about
+In each of the SIG's homepages, there will be a 'master' list section which
+contains all events which that SIG has ever created (ACM General will have a
+list of all events from every SIG). In this list, each event can be editted,
+deleted, made visible, or any other function deemed necessary later. Moreover,
+batch actions will be allowed for things such as make visible and delete.
+
+\subsubsection{Participation}
+\label{sec:participation}
+There will be two main systems of user participation: RSVPs and "check-in".
+
+\textbf{RSVP} - If the SIG which created the event chooses, the can enable event
+RSVPs. This will allow them to get a rough gauge of the amount of people coming
+to the event. Moreover, the SIG will be allowed to have a RSVP questionnarie which
+is a form that allows for people who sign up to input preffered pizza toppings, 
+t-shirt sizes, et cetera. This can either be implemented as an automatically generated
+google document based on the event creator specifications, the event creator
+inputting a google document link, or a self-generated HTML form. 
+
+\textbf{check-in} - At the beginning of an event, a QR code or password (generated
+during the event creation) will be displayed on the screen or put on the board.
+If a password is generated, the user will visit a link on the website such as
+\texttt{/event/check-in/} which will accept the password input and "check-in"
+the user. On the backend, this will associate the user with event which can
+later be used for processing event data. If a QR code was generated, scanning it
+will automate this processes as outlined in the password description.
+
 \subsection{Payments}
+\subsubsection{Stripe}
+All of the transactions will be handled through the Stripe payment gateway which
+can be view in more detail at \url{https://stripe.com/docs}.
+
+\subsubsection{Product Handler}
+In order to centralize all of the payments across all of the SIGs, the API will
+reveal the product handler route which will process transactions. Given the UUID
+of a product, a SIG can make a post request to the product handler route with the
+stripe token that will charge it the correct amount. \textbf{NOTE:} This will
+require heavy security and auditting to ensure that this does not get abused.
+The UUID being required on the POST as well as stripe's ability to refund will 
+allow for a nice layer of security, but extra care must be taken.
+
 \subsection{SIGs}
+\subsubsection{SIG homepage}
 \subsection{Users}
 \subsection{Sponsors}
 \subsection{External Developers}
