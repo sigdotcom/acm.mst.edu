@@ -59,6 +59,16 @@ Project Applications
 * :ref:`sigs-app`
 * :ref:`third-party-auth-app`
 
+
+.. ....................
+
+.. toctree::
+   :hidden:
+
+   apps
+
+.. ....................
+
 Indices and tables
 ==================
 
