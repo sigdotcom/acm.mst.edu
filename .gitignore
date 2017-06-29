@@ -12,3 +12,4 @@ settings_local.py
 .*
 *.log*
 docs/_build/
+docs/apps/

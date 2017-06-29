@@ -1,5 +1,5 @@
 .. MST-ACM Website (acm.mst.edu) documentation master file, created by
-   sphinx-quickstart on Thu Mar 30 21:36:02 2017.
+   sphinx-quickstart on Mon Jun 19 11:38:24 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -47,27 +47,13 @@ FAQ
 ----
 Place Holder
 
-Project Applications
---------------------
-
-* :ref:`accounts-app`
-* :ref:`core-app`
-* :ref:`events-app`
-* :ref:`home-app`
-* :ref:`payments-app`
-* :ref:`rest-api-app`
-* :ref:`sigs-app`
-* :ref:`third-party-auth-app`
-
-
-.. ....................
 
 .. toctree::
    :hidden:
 
-   apps
+   apps/events/events
+   apps/events/modules
 
-.. ....................
 
 Indices and tables
 ==================
