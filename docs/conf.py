@@ -19,10 +19,7 @@
 #
 # import os
 # import sys
-# sys.path.insert(0, os.path.abspath('../ACM_General/'))
-#
-# from django.conf import settings
-# settings.configure()
+# sys.path.insert(0, os.path.abspath('.'))
 
 import django, os, sys
 sys.path.insert(0, os.path.abspath('../ACM_General'))
@@ -165,7 +162,3 @@ texinfo_documents = [
      author, 'MST-ACMWebsiteacmmstedu', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-# -- Additional changes made to the conf.py file
-# autodoc_default_flags = ['members', 'show-inheritance']
