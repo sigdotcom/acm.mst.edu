@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \title{acm.mst.edu Design Documentation}
 \author{Kevin Schoonover}
 \date{\today}
@@ -86,7 +87,7 @@ all API permissions) by selecting which permissions they want on a per-model
 basis. After the user submits their request for permissions, the system
 administrator or any person responsible for managing API keys can confirm or
 deny the key request for that person. \textbf{TBD: Internal messaging system or
-email}. %TODO
+email}. % TODO
 
 \subsection{Events}
 In order to increase marketing and publicity for the SIGs, we hope to make the
@@ -102,7 +103,7 @@ a QR code or password will be generated that is 'linked' to this event (explaine
 in \ref{sec:participation}).
 
 \subsubsection{'Master' List}
-% Insert diagram of what I am talking about
+% TODO: Insert diagram of what I am talking about
 In each of the SIG's homepages, there will be a 'master' list section which
 contains all events which that SIG has ever created (ACM General will have a
 list of all events from every SIG). In this list, each event can be editted,
@@ -149,6 +150,35 @@ allow for a nice layer of security, but extra care must be taken.
 \subsection{Sponsors}
 \subsection{External Developers}
 \subsection{Permissions}
+The envisioned permissions system is a modular, SIG-based hierarchy with 
+fine-grain permission controls. What this means is that for every SIG, the
+user has a different permission level. Breaking apart each section of the 
+definition, the permission system is modular in the sense that any SIG
+or any feature should in theory be able to easily fit into this permission
+system. SIG-based refers to roles and hierarchies are based around the SIG 
+structure of ACM: each SIG has its own roles, own hierarchies, and own permissions
+for each role. Because of this, each user can have a different role in each of the
+different SIGs. Hierarchy speaks to the fact that roles within a SIG have
+a hierarchical structure. Lastly, fine-grain permission controls mean that
+each SIG should be able to very specifically define the permissions for the
+roles within the SIG.
+
+How this plays out in a practical example: a user can be the President of ACM-General,
+but only be a member of SIG.com. In each of these different groups, the user would
+be able to interact with the SIGs and SIG homepage in different ways. Regarding
+all of ACM-General, the user would be able to create events, add members, or any
+other action which required special permissions; however, in SIG.com the user
+would not be able to do anything.
+
+\subsubsection{Fine-grained Control}
+In order to control 
+
+% TODO: Fix graphic
+\begin{figure}[!htb]
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/permissions.pdf}
+\end{figure}
+
+% TODO: Plan for modular permissions.
 \subsubsection{Permissions ideas}
 Brainstorming of all permission ideas necessary for the website. Section will be
 refined/removed later.
