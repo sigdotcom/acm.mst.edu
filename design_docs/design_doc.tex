@@ -92,7 +92,7 @@ email}. % TODO
 \subsection{Events}
 In order to increase marketing and publicity for the SIGs, we hope to make the
 process of publishing, advertising, and recruiting for events a more automated
-and robust processe. In a sense, we hope to eliminate much of the as we can
+and robust processes. In a sense, we hope to eliminate much of the as we can
 for the PR people.
 
 \subsubsection{Creation}
@@ -106,7 +106,7 @@ in \ref{sec:participation}).
 % TODO: Insert diagram of what I am talking about
 In each of the SIG's homepages, there will be a 'master' list section which
 contains all events which that SIG has ever created (ACM General will have a
-list of all events from every SIG). In this list, each event can be editted,
+list of all events from every SIG). In this list, each event can be edited,
 deleted, made visible, or any other function deemed necessary later. Moreover,
 batch actions will be allowed for things such as make visible and delete.
 
@@ -116,8 +116,8 @@ There will be two main systems of user participation: RSVPs and "check-in".
 
 \textbf{RSVP} - If the SIG which created the event chooses, the can enable event
 RSVPs. This will allow them to get a rough gauge of the amount of people coming
-to the event. Moreover, the SIG will be allowed to have a RSVP questionnarie which
-is a form that allows for people who sign up to input preffered pizza toppings, 
+to the event. Moreover, the SIG will be allowed to have a RSVP questionnaire which
+is a form that allows for people who sign up to input preferred pizza toppings, 
 t-shirt sizes, et cetera. This can either be implemented as an automatically generated
 google document based on the event creator specifications, the event creator
 inputting a google document link, or a self-generated HTML form. 
@@ -126,7 +126,7 @@ inputting a google document link, or a self-generated HTML form.
 during the event creation) will be displayed on the screen or put on the board.
 If a password is generated, the user will visit a link on the website such as
 \texttt{/event/check-in/} which will accept the password input and "check-in"
-the user. On the backend, this will associate the user with event which can
+the user. On the back-end, this will associate the user with event which can
 later be used for processing event data. If a QR code was generated, scanning it
 will automate this processes as outlined in the password description.
 
@@ -140,15 +140,70 @@ In order to centralize all of the payments across all of the SIGs, the API will
 reveal the product handler route which will process transactions. Given the UUID
 of a product, a SIG can make a post request to the product handler route with the
 stripe token that will charge it the correct amount. \textbf{NOTE:} This will
-require heavy security and auditting to ensure that this does not get abused.
+require heavy security and auditing to ensure that this does not get abused.
 The UUID being required on the POST as well as stripe's ability to refund will 
 allow for a nice layer of security, but extra care must be taken.
 
-\subsection{SIGs}
-\subsubsection{SIG homepage}
+\subsection{SIG homepage}
+The SIG homepage is the main point of contact between the SIGs and the website's
+features. Each of the SIGs will have it's own homepage, generated from a standard
+template. The homepage will have the following features:
+\begin{enumerate}
+    \item Finances - Any user with the proper permissions will be able to view
+          the finances of the SIG.
+    \item Information - Any user will be able to view a varity of information
+          about the SIGs such as an abstract of what the SIG is about, the members
+          of the SIG's leadership, any upcoming events the SIG is hosting, and any
+          other pertinent information.
+    \item Metrics - Any user with proper permissions will be able to see metrics
+          about the SIGs such as new users per-month, events per-month, etc.
+    \item Permissions - Any user with proper permissions will be able to manage
+          the permissions within the SIG much like in \ref{sub-sec:perm_control}.
+    \item User Management - Any user with the proper permissions will be able
+          to see a list of all of the users who have joined the SIG as well as
+          other management features such as pruning inactive members and 
+          emailing listservs.
+\end{enumerate}
+
 \subsection{Users}
+\subsubsection{User Homepage}
+Much like the SIG homepage, the User homepage will offer a variety of customization and
+viewing options which will enhance the users ability to interact with the SIGs in
+meaningful ways. Examples of the features include:
+\begin{enumerate}
+    \item Metadata - Optional metadata can be provided to help customize event
+          experience. Things like t-shirt size, pizza preference, and other things
+          can be provided on a global scale to help make events more efficient
+          and personable.
+    \item Statistics - How much longer they have with their ACM membership, how
+          long they have been a member, and other statistics about their ACM
+          experience.
+\end{enumerate}
+
 \subsection{Sponsors}
+In order to attract more sponsors as well as making sponsorship easier. The website
+will attempt to automate the sponsorship process and offer marketing to help
+attract new sponsorships.
+
+Marketing will be accomplished by dedicated a page to 'Why sponsor us?' detailing
+what the title states as well as comparing the different sponsorship packages and
+their features. Moreover, information about the sponsors and a list of sponsors
+will be displayed on a 'sponsors' page in an aesthetically pleasing format.
+
+Sponsors will now be able to donate using the Stripe payment method which will
+automatically set-up the features listed in the sponsorship package. 
 \subsection{External Developers}
+I hope to provide a variety of features for external developers within
+Missouri S\&T and other SIGs can utilize. Any external developer will be
+issued a developer key by registering on the site and then viewing a page
+like \texttt{/developer/}. Much like the permission system, this key can be
+generated with very specific permissions to provide fine-grain access to the API.
+For every route to the API, the developer can choose specifically which
+access they need on which API routes.
+
+Other than that, I have no other plans for external developers, but suggestions
+are appreciated. 
+
 \subsection{Permissions}
 The envisioned permissions system is a modular, SIG-based hierarchy with 
 fine-grain permission controls. What this means is that for every SIG, the
@@ -170,13 +225,17 @@ all of ACM-General, the user would be able to create events, add members, or any
 other action which required special permissions; however, in SIG.com the user
 would not be able to do anything.
 
-\subsubsection{Fine-grained Control}
-In order to control 
+A more graphical representation is:
 
-% TODO: Fix graphic
-\begin{figure}[!htb]
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/permissions.pdf}
-\end{figure}
+% TODO: Computerize this figure
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/permissions.jpg}
+
+\subsubsection{Fine-grained Control}
+\label{sub-sec:perm_control}
+In order to control each of the different permissions in the roles a representative
+GUI would look like: 
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/permissions.pdf}
 
 % TODO: Plan for modular permissions.
 \subsubsection{Permissions ideas}
@@ -210,10 +269,69 @@ refined/removed later.
 
 \end{itemize}
 \subsection{Testing}
-\subsection{Permissions}
+Testing will be required for every user who wishes to contribute to the code base.
+Every developer will be responsible for thoroughly testing their features using Django's
+unit-testing framework. Test-driven development is encouraged. 
+
+Before every release, the website will be examined to make sure no visual bug,
+cross-browser compatibility, and any other hard-to-test features are allowed
+to be released. 
 
 \section{Workflow}
+\subsection{Git}
+The git workflow the development will be following is located on 
+\url{http://nvie.com/posts/a-successful-git-branching-model/}. I recommend
+reading the article for a thorough understanding of how it will all piece together.
+The part that most developers will need to be concerned about is how to properly
+branch and push to the proper place. 
+
+Whenever a developer wants to add a new feature,
+the developer will create a branch with the schema \texttt{feature/<feature-name>}. The 
+developer will write all the code to establish this feature on that branch. After
+the developer has completed the feature, written the necessary documentation, and
+properly tested it implementing unit-tests, the developer will then push this
+feature to the \texttt{develop} branch for integration testing with all currently
+produced features. 
+
+\subsection{Features}
+For any feature a developer wishes to add, a GitHub issue must be made detailing
+the new feature with a description, a reason why the feature should be added, and
+the details of how the feature will be implemented. Even if the developer does
+not wish to implement the feature themselves, the issue must be made to allow for
+group discussion as well as possible implementation by someone else.
+
+\subsection{Release Cycle}:
+Each release cycle will last approximately five weeks. The first week, issues will
+be selected from GitHub and added to a GitHub milestone representing all the 
+features which will finished before the release. Week 2 and 3 will be used to 
+develop these features. During week 4, the feature will be tested and the 
+documentation will be checked for readability and accuracy. Week 5 will be an
+extra week just in case things get pushed back or a step took longer than
+anticipated.
+
 
 \section{Milestones / Deadlines}
+The release cycle up to the 2018 Semester:
+\\
+\textbf{Release 0.5.0 - 2017.06.30 - 2017.08.25}
+\begin{itemize}
+    \item Permissions
+    \item Event Creation
+    \item ACM Membership
+\end{itemize}
+\textbf{Release 0.6.0 - 2017.08.25 - 2017.09.29}
+\begin{itemize}
+    \item Sponsorship - Why Sponsor Us? and Online Sponsorship Payment
+    \item Documentation updated to current state
+\end{itemize}
+\textbf{Release 0.7.0 - 2017.09.29 - 2017.11.03}
+\begin{itemize}
+    \item Event Management and Event Participation 
+\end{itemize}
+\textbf{Release 1.0.0 - 2017.11.03 - 2018.12.08}
+\begin{itemize}
+    \item SIG homepage 
+    \item User homepage
+\end{itemize}
 
 \end{document}
