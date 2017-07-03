@@ -3,7 +3,6 @@ __pycache__/
 __pycache__
 migrations
 migrations/
-media/
 ACM_General/static/
 *.sock
 db.*
@@ -13,3 +12,4 @@ settings_local.py
 *.log*
 docs/_build/
 docs/apps/
+fliers/

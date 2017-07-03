@@ -44,7 +44,7 @@
 
     <!-- Each of the "Event Details" input fields -->
     <div class="event-details">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {% include "events/form-template.html" %}
             <input type="submit" value="Submit Event">

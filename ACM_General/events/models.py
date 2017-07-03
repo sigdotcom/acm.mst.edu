@@ -27,7 +27,7 @@ def get_path_for_flier(instance, filename):
         This is done so that fliers can be stored in path that looks like: 'fliers/<date_hosted>/'. (This
         makes it easier to find media uploaded about an Event).
     """
-    return 'fliers/{}/{}'.format(str(instance.date_hosted)[:10], filename)
+    return '{}/{}'.format(str(instance.date_hosted)[:10], filename)
 
 class Event(models.Model):
     """
