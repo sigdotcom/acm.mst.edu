@@ -6,6 +6,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.test import TestCase
 from sigs.models import SIG
+from django.core.files.uploadedfile import TemporaryUploadedFile
+import os
+import shutil
+from datetime import datetime
 
 # Create your tests here.
 
@@ -108,6 +112,37 @@ class ModelTestCase(TestCase):
                     )
         self.assertEqual(event2.is_active, True)
 
+    def test_get_path_for_flier_function_along_with_image_field(self):
+        # Creating a temporary image for testing
+        temp_image = TemporaryUploadedFile(name='test_image.jpg', content_type='image/jpeg', size=4, charset='utf-8')
+
+        # Use the min datetime since I'll be adding it to the fliers folder and the deleting it;
+        # using the min datetime will guaruntee that I'm not deleting any fliers that aren't being
+        # used for testing purposes.
+        test_date = datetime.min
+
+        # Makes the test date 'aware' as to satisfy django's enabled timezone feature
+        test_date = timezone.make_aware(test_date, timezone.get_current_timezone())
+
+        # Create an event that uses the date and image I created
+        event=models.Event.objects.create_event(
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=test_date,
+            date_expire=test_date,
+            flier=temp_image,
+        )
+
+        test_date = str(test_date)[:10]
+
+        # Checks that image is created inside the correct directory
+        self.assertEqual(os.path.exists('fliers/{}/test_image.jpg'.format(test_date)), True)
+
+        # Close the temp image and delete the directory created for testing
+        temp_image.close()
+        shutil.rmtree('fliers/{}'.format(test_date))
+
 
 class ViewTestCase(TestCase):
     def setUp(self):
@@ -117,4 +152,3 @@ class ViewTestCase(TestCase):
         response = self.client.get(reverse('events:events-list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'events/listEvents.html')
-
