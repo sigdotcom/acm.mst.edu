@@ -4,7 +4,7 @@
 """
 
 from .models import Event
-from django.forms.widgets import DateTimeInput, Textarea
+from django.forms.widgets import DateTimeInput, Textarea, TextInput
 from django import forms
 
 
@@ -38,4 +38,5 @@ class EventForm(forms.ModelForm):
             'date_expire': DateTimeInput(attrs={'id': 'calendar'}),
             'title': Textarea(attrs={'rows': 3}),
             'description': Textarea(attrs={'rows': 3}),
+            'link': TextInput(),
         }

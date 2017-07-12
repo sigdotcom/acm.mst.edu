@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from . import managers
 import uuid
+from django.core.exceptions import ValidationError
+
 
 # To stop circular import errors and allow for djangos model resolution to
 # work as it should.
@@ -141,6 +143,35 @@ class Event(models.Model):
         (gone past the current date).
         """
         return self.date_expire >= timezone.now()
+
+    def clean(self):
+        """
+        The clean function is used for making checks on the data posted to the form.
+        """
+
+        # Calls the original clean function
+        super(Event, self).clean()
+
+        # Sets up a dictionary for storing individual field errors
+        errors = {'date_expire': [], 'date_hosted': []}
+
+        # This is mostly done to catch errors when testing the EventForm with certain fields empty
+        if not self.date_expire:
+            errors['date_expire'].append(ValidationError(_('Please fill out the expiration date field.')))
+        if not self.date_hosted:
+            errors['date_hosted'].append(ValidationError(_('Please fill out the host date field.')))
+
+        # Checks that the datetimes given for the host and expire date are valid
+        if self.date_expire and self.date_expire < timezone.now():
+            errors['date_expire'].append(ValidationError(_('The expiration date shouldn\'t be before the current date!')))
+        if self.date_hosted and self.date_hosted < timezone.now():
+            errors['date_hosted'].append(ValidationError(_('The host date shouldn\'t be before the current date!')))
+        if self.date_expire and self.date_hosted and self.date_expire < self.date_hosted:
+            errors['date_expire'].append(ValidationError(_('The expiration date shouldn\'t be before the host date!')))
+
+        # Returns errors if any occured
+        if errors['date_expire'] or errors['date_hosted']:
+            raise ValidationError(errors)
 
 
 class EventParticipation(models.Model):

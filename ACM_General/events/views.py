@@ -41,9 +41,8 @@ def create_event(request):
             event.creator = request.user
             event.save()
             return HttpResponseRedirect("/")
-        else:
-            return HttpResponse(form.errors)
 
-    # Sends user to create event page if the user has permission to do so along
-    # with the request not being a POST request (not submitting the form).
+        return render(request, 'events/create-event.html', {'form': form})
+
+    # Sends user to create event page if the user has permission to do so
     return render(request, 'events/create-event.html', {'form': EventForm})

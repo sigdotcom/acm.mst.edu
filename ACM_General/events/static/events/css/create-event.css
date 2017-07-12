@@ -51,7 +51,7 @@ input, textarea, option {
 
 .logo-name {
     color: white;
-    font-size: 90%;
+    font-size: 85%;
     align-self: center;
 }
 
@@ -59,6 +59,12 @@ input, textarea, option {
     margin: 25px;
     display: flex;
     flex-direction: column;
+}
+
+.error-message {
+    color: red;
+    font-size: 90%;
+    flex: 6;
 }
 
 .flex-item{

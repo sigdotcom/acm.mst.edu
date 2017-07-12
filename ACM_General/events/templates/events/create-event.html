@@ -41,10 +41,15 @@
 {% endblock %}
 
 {% block body_content %}
+    {% for error in form.non_field_errors %}
+        <div class="error-message">
+            <strong>*{{ error }}</strong>
+        </div>
+    {% endfor %}
 
     <!-- Each of the "Event Details" input fields -->
     <div class="event-details">
-        <form action="" method="post" enctype="multipart/form-data" novalidate>
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% include "events/form-template.html" %}
             <input type="submit" value="Submit Event">
@@ -74,6 +79,7 @@
         });
 
         // Makes sure the date_expire is greater than the date_hosted
+        /*
         $("input[type='submit']").click(function(e){
             var date_expire = $("input[name='date_expire']").val();
             var date_hosted = $("input[name='date_hosted']").val();
@@ -83,6 +89,7 @@
                 e.preventDefault();
             }
         });
+        */
 
     </script>
 {% endblock %}
