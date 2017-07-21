@@ -1,128 +1,128 @@
 {% extends 'core/base.html' %}
+{#TODO : REMOVE ^ ?#}
 
 {% load static %}
 
-{% block html_tag %}<html class="no-js" lang="en">{% endblock %}
+{% block html_tag %}
+  <html class="no-js" lang="en">
+{% endblock %}
 
 {% block head_title %}
-    <title> ACM | General </title>
+  <title> ACM | General </title>
 {% endblock %}
 
 {% block head_base_stylesheets %}
-     <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}" />
-     <link rel="stylesheet" href="{% static "/home/css/main.css" %}" />
+  <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
+  <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
 {% endblock %}
 
 {% block head_javascript %}
-    <!--<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
-    <!--<script type="text/javascript" charset="utf-8" src="{% static "/home/js/jquery.leanModal.min.js" %}"></script>-->
-    <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>-->
-    <!--<script src="{% static "/home/js/plugins.js" %}"></script>-->
-    <!--<script src="{% static "/home/js/main.js" %}"></script>-->
-    <!--<script src="{% static "/home/js/vendor/modernizr-2.8.3.min.js" %}"></script>-->
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <!--<script>-->
-        <!--(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=-->
-        <!--function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;-->
-        <!--e=o.createElement(i);r=o.getElementsByTagName(i)[0];-->
-        <!--e.src='https://www.google-analytics.com/analytics.js';-->
-        <!--r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));-->
-        <!--ga('create','UA-XXXXX-X','auto');ga('send','pageview');-->
-    <!--</script>-->
-
+  <script>
+    var $buoop = {vs:{i:13,f:25,o:15,s:6,c:30},unsupported:false,mobile:false,api:4};
+      function $buo_f(){
+       var e = document.createElement("script");
+       e.src = "//browser-update.org/update.min.js";
+       document.body.appendChild(e);
+      };
+      try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+      catch(e){window.attachEvent("onload", $buo_f)}
+</script>
 {% endblock %}
 
 {% block head_fonts %}
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <!--<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
+        rel="stylesheet">
 {% endblock %}
 
 {% block body_header %}
-        <header>
-            <div class="top-bar"></div>
-            <div id="menu-wrapper">
-                <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
-                <div class="menu">
-                    <label class="menu-toggle" for="menu"><span>Toggle</span></label>
-                    <ul>
-                        <li>
-                            <a href="{% url "home:index" %}">Home</a>
-                        </li>
-                        <li>
-                            <a href="{% url "home:sponsors" %}">Sponsors</a>
-                        </li>
-                        <li>
-                            <a href="{% url "home:calendar" %}">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="{% url "home:media" %}">Media</a>
-                        </li>
-                        <li>
-                            <a href="{% url "home:officers" %}">Officers</a>
-                        </li>
-                        <li>
-                            <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div><!-- #wrapper -->
+  <header>
+    <div class="constraint-wrapper">
+      <div class="header-acm-seal-wrapper">
+        <div class="header-acm-seal">
+          <img src="{% static "/home/img/core/acm.png" %}">
+          <h3>Association for<br>Computing Machinery</h3>
+        </div>
+      </div>
 
-            <div class="header-background">
-                <div class="content-wrapper">
-                    <a href="{% url "home:index" %}" class="acm-logo-button">
-                    <img src="{% static "/home/img/core/acm.png" %}">
-                    <h2 class="acm-text">Association for<br>Computing Machinery</h2>
-                    </a>
+      <div class="header-welcome-wrapper">
+        <h1 class="header-welcome">We are Missouri S&T - ACM</h1>
+      </div>
+    </div>
+  </header>
+{% endblock %}
 
-                    <div class="welcome-section">
-                        <h2>Welcome.</h2>
-                    <br>
-                        <h1>We are Missouri S&T - ACM.</h1>
-                        <!-- <a href="#">Read About Us</a> -->
-                    </div>
-                </div>
-                <nav>
-                    <a href="{% url "home:index" %}" class="home-nav nav-button">
-                      <img src="{% static "home/img/core/home-icon.png" %}"/>
-                      <h3>HOME</h3>
-                    </a>
-                    <a href="{% url "home:sponsors" %}" class="sponsors-nav nav-button">
-                      <img src="{% static "home/img/core/sponsors-icon.png"%}"/>
-                      <h3>SPONSORS</h3>
-                    </a>
-                    <a href="{% url "home:calendar" %}" class="calendar-nav nav-button">
-                      <img src="{% static "home/img/core/calendar-icon.png"%}"/>
-                      <h3>CALENDAR</h3>
-                    </a>
-                    <a href="{% url "home:media" %}" class="media-nav nav-button">
-                        <img src="{% static "home/img/core/media-icon.png"%}"/>
-                        <h3>MEDIA</h3>
-                    </a>
-                    <a href="{% url "home:officers" %}" class="officers-nav nav-button">
-                        <img src="{% static "home/img/core/officers-icon.png" %}"/>
-                        <h3>OFFICERS</h3>
-                    </a>
-                    <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}" class="login-nav nav-button">
-                      <img src="{% static "home/img/core/login-icon.png"%}"/>
-                      <h3>LOGIN</h3>
-                    </a>
+{% block body_navigation %}
+  <div class="top-bar"></div> <!-- mobile menu bar -->
+  <div id="menu-wrapper"><!-- mobile menu -->
+    <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
+    <div class="menu">
+      <label class="menu-toggle" for="menu"><span>Toggle</span></label>
+      <ul>
+        <li>
+          <a href="{% url "home:index" %}">Home</a>
+        </li>
+        <li>
+          <a href="{% url "home:sponsors" %}">Sponsors</a>
+        </li>
+        <li>
+          <a href="{% url "home:calendar" %}">Calendar</a>
+        </li>
+        <li>
+          <a href="{% url "home:media" %}">Media</a>
+        </li>
+        <li>
+          <a href="{% url "home:officers" %}">Officers</a>
+        </li>
+        <li>
+          <a
+            href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div><!-- mobile menu -->
 
-                </nav>
-            </div>
-        </header>
+  <div class="pseudo-nav"></div>
+  <nav><!-- desktop nav -->
+    <ul class="nav-link-wrapper">
+      <li class="nav-home nav-button"><a href="{% url "home:index" %}" title="Home">
+                <img src="{% static "home/img/core/home-icon.png" %}"/>
+        <span>Home</span>
+      </a></li>
+      <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}" title="Sponsors">
+                <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
+        <span>Sponsors</span>
+      </a>
+      <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}" title="Calendar">
+                <img src="{% static "home/img/core/calendar-icon.png" %}"/>
+        <span>Calendar</span>
+      </a></li>
+      <li class="nav-media nav-button"><a href="{% url "home:media" %}" title="Media">
+                <img src="{% static "home/img/core/media-icon.png" %}"/>
+        <span>Media</span>
+      </a></li>
+      <li class="nav-officers nav-button"><a href="{% url "home:officers" %}" title="Officers">
+                <img src="{% static "home/img/core/officers-icon.png" %}"/>
+        <span>Officers</span>
+      </a></li>
+      <li class="nav-login nav-button"><a href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+             title="Login">
+                <img src="{% static "home/img/core/login-icon.png" %}"/>
+        <span>Log In</span>
+      </a></li>
+    </ul>
+  </nav><!-- desktop nav -->
 {% endblock %}
 
 {% block body_footer %}
-        <footer>
-            <img src="{% static "core/img/mstacm-logo-trans.png"%}"/>
-            <div class="footer-nav">
-                <a href="{% url "home:index" %}">Home</a>
-                <a href="{% url "home:sponsors" %}">Sponsors</a>
-                <a href="{% url "home:calendar" %}">Calendar</a>
-                <a href="{% url "home:media" %}">Media</a>
-                <a href="{% url "home:officers" %}">Officers</a>
-            </div>
-            <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
-        </footer>
+  <footer>
+    <img src="{% static "core/img/mstacm-logo.png" %}"/>
+    <div class="footer-nav">
+      <a href="{% url "home:index" %}">Home</a>
+      <a href="{% url "home:sponsors" %}">Sponsors</a>
+      <a href="{% url "home:calendar" %}">Calendar</a>
+      <a href="{% url "home:media" %}">Media</a>
+      <a href="{% url "home:officers" %}">Officers</a>
+    </div>
+    <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
+  </footer>
 {% endblock %}
