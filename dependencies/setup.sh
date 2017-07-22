@@ -1,5 +1,5 @@
-if [ "`basename $(pwd)`" != "Dependencies" ]; then
-    echo "setup.sh must be run in the Dependencies folder."
+if [ "`basename $(pwd)`" != "dependencies" ]; then
+    echo "setup.sh must be run in the dependencies folder."
     exit 1;
 fi
 
@@ -37,7 +37,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 mkdir -p /var/django/
 cd ../../
 sudo rsync -a --delete acm.mst.edu/ /var/django/$BUILD_URL/
-cd /var/django/$BUILD_URL/Dependencies
+cd /var/django/$BUILD_URL/dependencies
 
 ###
 # Moving he propeer configuration files into place.
