@@ -9,6 +9,9 @@ import uuid
 from sigs.models import SIG
 from payments.models import TransactionCategory, Product, Transaction
 from events.models import Event
+from django.core.files.uploadedfile import SimpleUploadedFile
+import tempfile
+from django.conf import settings
 
 # Create your tests here.
 class AccountsTestCase(TestCase):
@@ -124,7 +127,6 @@ class AccountsTestCase(TestCase):
         self.assertEqual(response.status_code, 400)
 
 
-
 class EventsTestCase(TestCase):
     def setUp(self):
         super().setUp()
@@ -157,6 +159,10 @@ class EventsTestCase(TestCase):
                                                         sig=self.sig,
                                                     )
 
+        # Sets up image variable for creating Event
+        image_path = 'test_data/test_image.jpg'
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+
     def test_events_rest_actions(self):
         event={
             "date_hosted": timezone.now(),
@@ -166,8 +172,9 @@ class EventsTestCase(TestCase):
             "location": "test",
             "presenter": "test",
             "cost": 3.00,
+            "flier": self.image,
             "creator": self.user.id,
-            "hosting_sig": self.sig.id
+            "hosting_sig": self.sig.id,
         }
 
         ##
@@ -188,19 +195,16 @@ class EventsTestCase(TestCase):
             self.assertEqual(response.json()[k], event[k])
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
         #       how the django client does put requests.
         ##
         event['title'] = "test1"
         response = self.client.put(
-                            reverse(
-                                'rest_api:event-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(event, default=str),
-                            content_type='application/json'
-                        )
+            reverse('rest_api:event-detail', kwargs={'pk':response.json()['id']}),
+            data=json.dumps(event, default=str, ensure_ascii=False),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["title"], "test1")
 
@@ -679,4 +683,3 @@ class ProductTestCase(TestCase):
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
-

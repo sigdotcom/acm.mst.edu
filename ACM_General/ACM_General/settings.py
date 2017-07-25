@@ -19,9 +19,10 @@ SECRET_KEY = uuid.uuid1()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_URL = '/fliers/'
+MEDIA_URL = '/media_files/'
+FLIERS_PATH = 'fliers'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'fliers')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_files')
 # STATIC_ROOT = "/var/www/html"
 
 ###

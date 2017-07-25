@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from . import managers
 import uuid
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 
 # To stop circular import errors and allow for djangos model resolution to
@@ -22,14 +23,14 @@ def get_path_for_flier(instance, filename):
     :param filename: The filename of the image being used as a flier for the current event being created
 
     :rtype: string
-    :return: String that contains a path to where to save the current event flier.
+    :returns: String that contains a path to where to save the current event flier.
 
     .. note::
 
-        This is done so that fliers can be stored in path that looks like: 'fliers/<date_hosted>/'. (This
-        makes it easier to find media uploaded about an Event).
+        This is done so that fliers can be stored in path that looks like: 'media_files/fliers/<date_hosted>/<filename>'.
+        (This makes it easier to find media uploaded about an Event).
     """
-    return '{}/{}'.format(str(instance.date_hosted)[:10], filename)
+    return '{}/{}/{}'.format(settings.FLIERS_PATH, str(instance.date_hosted)[:10], filename)
 
 class Event(models.Model):
     """
