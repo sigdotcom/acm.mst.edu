@@ -4,7 +4,6 @@ from accounts.models import User
 from .forms import EventForm
 from django.http import HttpResponse, HttpResponseRedirect
 from accounts.backends import UserBackend
-from accounts.models import User
 
 
 def list_events(request):
