@@ -1,14 +1,14 @@
 .nav-home a span {
   color: #4d4d4d !important;
 }
+
 .nav-home:hover a span {
   color: #4d4d4d !important;
 }
+
 .nav-home:after {
   transform: scaleX(.8);
 }
-
-
 
 .event-wrapper:nth-child(even) {
   background-color: #f1f1f1;
@@ -35,6 +35,7 @@
 .flier-space img {
   height: 100%;
 }
+
 .event-wrapper:nth-child(even) .event-card .flier-space img {
   margin-left: 10px;
 }
@@ -55,12 +56,11 @@
 .flier-info p {
   color: rgba(0, 0, 0, .70);
   font-size: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  
   .event-card {
     flex-direction: column;
     height: 750px;

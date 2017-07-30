@@ -1,39 +1,37 @@
-{% extends 'core/base.html' %}
-{#TODO : REMOVE ^ ?#}
-
-{% load static %}
-
+{% extends 'core/base.html' %}{% load static %}
 {% block html_tag %}
-  <html class="no-js" lang="en">
-{% endblock %}
-
+  <html class="no-js" lang="en">{% endblock %}
 {% block head_title %}
-  <title> ACM | General </title>
-{% endblock %}
+  <title> ACM | General </title>{% endblock %}
 
 {% block head_base_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
-  <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
-{% endblock %}
-
+  <link rel="stylesheet"
+        href="{% static "/home/css/main.css" %}"/>{% endblock %}
 {% block head_javascript %}
   <script>
-    var $buoop = {vs:{i:13,f:25,o:15,s:6,c:30},unsupported:false,mobile:false,api:4};
-      function $buo_f(){
-       var e = document.createElement("script");
-       e.src = "//browser-update.org/update.min.js";
-       document.body.appendChild(e);
-      };
-      try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
-      catch(e){window.attachEvent("onload", $buo_f)}
-</script>
-{% endblock %}
+    var $buoop = {
+      vs: {i: 13, f: 25, o: 15, s: 6, c: 30},
+      unsupported: false,
+      mobile: false,
+      api: 4
+    };
 
+    function $buo_f() {
+      var e = document.createElement("script");
+      e.src = "//browser-update.org/update.min.js";
+      document.body.appendChild(e);
+    };
+    try {
+      document.addEventListener("DOMContentLoaded", $buo_f, false)
+    }
+    catch (e) {
+      window.attachEvent("onload", $buo_f)
+    }
+  </script>{% endblock %}
 {% block head_fonts %}
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
-        rel="stylesheet">
-{% endblock %}
-
+        rel="stylesheet">{% endblock %}
 {% block body_header %}
   <header>
     <div class="constraint-wrapper">
@@ -48,9 +46,7 @@
         <h1 class="header-welcome">We are Missouri S&T - ACM</h1>
       </div>
     </div>
-  </header>
-{% endblock %}
-
+  </header>{% endblock %}
 {% block body_navigation %}
   <div class="top-bar"></div> <!-- mobile menu bar -->
   <div id="menu-wrapper"><!-- mobile menu -->
@@ -84,35 +80,39 @@
   <div class="pseudo-nav"></div>
   <nav><!-- desktop nav -->
     <ul class="nav-link-wrapper">
-      <li class="nav-home nav-button"><a href="{% url "home:index" %}" title="Home">
-                <img src="{% static "home/img/core/home-icon.png" %}"/>
+      <li class="nav-home nav-button"><a href="{% url "home:index" %}"
+                                         title="Home">
+        <img src="{% static "home/img/core/home-icon.png" %}"/>
         <span>Home</span>
       </a></li>
-      <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}" title="Sponsors">
-                <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
+      <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
+                                             title="Sponsors">
+        <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
         <span>Sponsors</span>
       </a>
-      <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}" title="Calendar">
-                <img src="{% static "home/img/core/calendar-icon.png" %}"/>
+      <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}"
+                                             title="Calendar">
+        <img src="{% static "home/img/core/calendar-icon.png" %}"/>
         <span>Calendar</span>
       </a></li>
-      <li class="nav-media nav-button"><a href="{% url "home:media" %}" title="Media">
-                <img src="{% static "home/img/core/media-icon.png" %}"/>
+      <li class="nav-media nav-button"><a href="{% url "home:media" %}"
+                                          title="Media">
+        <img src="{% static "home/img/core/media-icon.png" %}"/>
         <span>Media</span>
       </a></li>
-      <li class="nav-officers nav-button"><a href="{% url "home:officers" %}" title="Officers">
-                <img src="{% static "home/img/core/officers-icon.png" %}"/>
+      <li class="nav-officers nav-button"><a href="{% url "home:officers" %}"
+                                             title="Officers">
+        <img src="{% static "home/img/core/officers-icon.png" %}"/>
         <span>Officers</span>
       </a></li>
-      <li class="nav-login nav-button"><a href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
-             title="Login">
-                <img src="{% static "home/img/core/login-icon.png" %}"/>
+      <li class="nav-login nav-button"><a
+        href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+        title="Login">
+        <img src="{% static "home/img/core/login-icon.png" %}"/>
         <span>Log In</span>
       </a></li>
     </ul>
-  </nav><!-- desktop nav -->
-{% endblock %}
-
+  </nav><!-- desktop nav -->{% endblock %}
 {% block body_footer %}
   <footer>
     <img src="{% static "core/img/mstacm-logo.png" %}"/>
@@ -124,5 +124,4 @@
       <a href="{% url "home:officers" %}">Officers</a>
     </div>
     <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
-  </footer>
-{% endblock %}
+  </footer>{% endblock %}

@@ -1,8 +1,21 @@
-.main-section {
-    background-color: white;
-    padding-bottom: 20px;
+.nav-calendar a span {
+  color: #4d4d4d !important;
 }
+
+.nav-calendar:hover a span {
+  color: #4d4d4d !important;
+}
+
+.nav-calendar:after {
+  transform: scaleX(.8);
+}
+
+.main-section {
+  background-color: white;
+  padding-bottom: 20px;
+}
+
 iframe {
-    width: 100%;
-    height: 600px;
+  width: 100%;
+  height: 600px;
 }
