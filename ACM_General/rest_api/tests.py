@@ -195,7 +195,7 @@ class EventsTestCase(TestCase):
             self.assertEqual(response.json()[k], event[k])
 
         ##
-        # Testing "PUT" or modifying a user
+        # Testing "PUT" or modifying a event
         # NOTE: This test requires the data to be sent in a special way due to
         #       how the django client does put requests.
         ##
@@ -209,7 +209,7 @@ class EventsTestCase(TestCase):
         self.assertEqual(response.json()["title"], "test1")
 
         ##
-        # Testing delete capability
+        # Testing delete capability of an Event
         ##
         event_id = response.json()['id']
         response = self.client.get(reverse('rest_api:event-list'))
