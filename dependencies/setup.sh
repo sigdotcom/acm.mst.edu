@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root" 
     exit 1
@@ -30,18 +32,19 @@ pip3 install -r requirements.txt
 ###
 # Preparing the database
 ###
--u postgres psql -c "drop database django_acmgeneral"
--u postgres psql -c "create database django_acmgeneral"
--u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
--u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
--u postgres psql -c "alter user djangouser createdb"
+sudo -u postgres psql -c "drop database django_acmgeneral"
+sudo -u postgres psql -c "create database django_acmgeneral"
+sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
+sudo -u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
+sudo -u postgres psql -c "alter user djangouser createdb"
 
 ###
 # Putting the main repository in /var/django/
 ###
 mkdir -p /var/django/
 cd ../../
-rsync -a --delete acm.mst.edu/ /var/django/$BUILD_URL/
+rsync -av --delete acm.mst.edu/ /var/django/$BUILD_URL/
+
 cd /var/django/$BUILD_URL/dependencies
 
 ###
