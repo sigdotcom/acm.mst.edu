@@ -3,98 +3,62 @@
 {% load static %}
 
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/index.css" %}" />
+  <link rel="stylesheet" href="{% static "/home/css/index.css" %}"/>
 {% endblock %}
 
 {% block body_content %}
-	<div class="main-section">
-        <!--<div class="content-wrapper">-->
-        <!--Template-->
-        <!--<div class="event-wrapper">
-                <div class="event-card">
-                    <a href="link_to_photo" class="flyer-space">
-                        <img src="link_to_photo" %}" />
-                    </a>
-                    <div class="flyer-info">
-                        <h2>Title</h2>
-                        <p>Abstract</p>
-                        <div><a href="">Learn More</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-{#        <div class="event-wrapper">#}
-{#            <div class="event-card">#}
-{#                <a href="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" class="flyer-space">#}
-{#                    <img src="{% static  "../../static/home/img/index/2017-4-15 Programming Cup.png" %}" />#}
-{#                </a>#}
-{#                <div class="flyer-info">#}
-{#                    <h2>SIG-Comp Presents: ACM Programming Cup</h2>#}
-{#                    <p>Test your programming might against other S&T students battling for greatness in the ACM Programming Cup. See the flier for more details.</p>#}
-{#                    <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship">Learn More</a></div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-        <div class="event-wrapper">
+  <main>
+    <!--Template-->
+    <!--<div class="event-wrapper">
             <div class="event-card">
-                <a href="{% static  "../../static/home/img/index/2017-04-19-Cantenna.png" %}" class="flyer-space">
-                    <img src="{% static  "../../static/home/img/index/2017-04-19-Cantenna.png" %}" />
+                <a href="link_to_photo" class="flier-space">
+                    <img src="link_to_photo" %}" />
                 </a>
-                <div class="flyer-info">
-                    <h2>SIG-Security Presents: Cantenna Build</h2>
-                    <p>Build a directional, external antenna for your computer out of a metal can! Then, bring your new cantenna to the wireless security audit on April 20th where we race around Rolla searching for unsecured wireless networks. Everyone is welcome, but ACM members get priority.</p>
-                    <div><a href="https://acmsigsec.mst.edu/talks.html">Learn More</a></div>
+                <div class="flier-info">
+                    <h2>Title</h2>
+                    <p>Abstract</p>
+                    <div><a href="" class="acm-btn">Learn More</a></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="sig-section">
-        <div class="sig-section-header">
-            <h2>Check out the Special Interest Groups on their Websites.</h2>
+    </div>-->
+    <div class="event-wrapper">
+      <div class="event-card">
+        <a
+          href="{% static "../../static/home/img/index/2017-4-15 Programming Cup.png" %}"
+          class="flier-space">
+          <img
+            src="{% static "../../static/home/img/index/2017-4-15 Programming Cup.png" %}"/>
+        </a>
+        <div class="flier-info">
+          <h2>SIG-Comp Presents: ACM Programming Cup</h2>
+          <p>Test your programming might against other S&T students battling for
+            greatness in the ACM Programming Cup. See the flier for more
+            details.</p>
+          <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship"
+                  class="acm-btn">Learn More</a></div>
         </div>
-        <div class="sig-section-body">
-            <div class="sig-link-card">
-                <a class="sig-link" href="http://mst.orgsync.com/org/acmw/">
-                    <!--<img src="">-->
-                </a>
-                <h3>ACM-W</h3>
-            </div>
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Comp</h3>-->
-            <!--</div>-->
-            <div class="sig-link-card">
-                <a class="sig-link" href="https://acmsigsec.mst.edu/">
-                    <!--<img src="">-->
-                </a>
-                <h3>SIG-Sec</h3>
-            </div>
-            <div class="sig-link-card">
-                <a class="sig-link" href="http://siggame.io/">
-                    <!--<img src="">-->
-                </a>
-                <h3>SIG-Game</h3>
-            </div>
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG.com</h3>-->
-            <!--</div>-->
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Lounge</h3>-->
-            <!--</div>-->
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Tutor</h3>-->
-            <!--</div>-->
-        </div>
+      </div>
     </div>
+    <div class="event-wrapper">
+      <div class="event-card">
+        <a
+          href="{% static "../../static/home/img/index/2017-04-19-Cantenna.png" %}"
+          class="flier-space">
+          <img
+            src="{% static "../../static/home/img/index/2017-04-19-Cantenna.png" %}"/>
+        </a>
+        <div class="flier-info">
+          <h2>SIG-Security Presents: Cantenna Build</h2>
+          <p>Build a directional, external antenna for your computer out of a
+            metal can! Then, bring your new cantenna to the wireless security
+            audit on April 20th where we race around Rolla searching for
+            unsecured wireless networks. Everyone is welcome, but ACM members
+            get priority.</p>
+          <div><a href="https://acmsigsec.mst.edu/talks.html" class="acm-btn">Learn
+            More</a></div>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock %}

@@ -47,7 +47,7 @@ class ViewTestCase(TestCase):
         super().setUp()
 
     def test_view_integrity(self):
-        response=self.client.get('43214321432141')
+        response = self.client.get('43214321432141')
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, '404.html')
 
