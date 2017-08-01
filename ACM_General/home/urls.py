@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'calendar/', views.calendar, name="calendar"),
     url(r'media/', views.media, name="media"),
     url(r'officers/', views.officers, name="officers"),
+    url(r'membership/', views.membership, name="membership"),
 ]

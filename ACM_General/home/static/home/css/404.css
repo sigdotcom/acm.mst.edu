@@ -1,66 +1,62 @@
-body,html {
-    margin: 0;
-    height:100%;
+body, html {
+  margin: 0;
+  height: 100%;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -moz-font-feature-settings: "liga" on;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .top-content {
-    /*margin: auto;*/
-    width: 100%;
-    display: flex;
-    background-color: #241234;
-    align-items: flex-end;
-    height:50%;
+  /*margin: auto;*/
+  width: 100%;
+  display: flex;
+  background-color: #f1f1f1;
+  align-items: flex-end;
+  height: 50%;
 }
+
 .bottom-content {
-    /*margin: auto;*/
-    width: 100%;
-    display: flex;
-    background-color: #F0F0F0;
-    align-items: flex-start;
-    height:50%;
+  /*margin: auto;*/
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  align-items: flex-start;
+  height: 50%;
 }
+
 .container {
-    width:700px;
-    margin: 0 auto;
-    padding: 0 5px;
+  width: 700px;
+  margin: 0 auto;
+  padding: 0 5px;
 }
 
 h1 {
-    width: 700px;
-    padding: 0 5px;
-    color: white;
-    margin: 0 auto;
-    font-size: 200px;
-    font-weight: lighter;
-    line-height: 190px;
+  width: 700px;
+  padding: 0 5px;
+  color: #4d4d4d;
+  margin: 0 auto;
+  font-size: 200px;
+  font-weight: lighter;
+  line-height: 190px;
 }
+
 h2 {
-    font-weight: normal;
+  font-weight: normal;
 }
+
 a {
-    background-color: #e9654c;
-    text-decoration: none;
-    color:white;
-    font-size: 16px;
-    padding: 10px 26px;
-    border-radius: 20px;
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
+
 a:nth-of-type(2) {
-    margin-left: 10px;
-}
-a:hover {
-    background-color: #d55d46;
+  margin-left: 10px;
 }

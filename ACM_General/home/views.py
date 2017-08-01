@@ -32,7 +32,14 @@ def media(request):
 
 
 def officers(request):
-    return(render(
+    return (render(
         request,
         'home/officers.html',
+    ))
+
+
+def membership(request):
+    return (render(
+        request,
+        'home/membership.html',
     ))
