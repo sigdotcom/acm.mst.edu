@@ -1,14 +1,15 @@
-{% extends 'core/base.html' %}{% load static %}
+{% extends 'core/wireframe.html' %}{% load static %}
 {% block html_tag %}
   <html class="no-js" lang="en">{% endblock %}
 {% block head_title %}
-  <title> ACM | General </title>{% endblock %}
+  <title> ACM </title>{% endblock %}
 
 {% block head_base_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet"
         href="{% static "/home/css/main.css" %}"/>{% endblock %}
 {% block head_javascript %}
+{# Code that follows is for IE browsers, it will just show them that they should get a real browser #}
   <script>
     var $buoop = {
       vs: {i: 13, f: 25, o: 15, s: 6, c: 30},
@@ -89,7 +90,7 @@
                                              title="Sponsors">
         <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
         <span>Sponsors</span>
-      </a>
+      </a></li>
       <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}"
                                              title="Calendar">
         <img src="{% static "home/img/core/calendar-icon.png" %}"/>
@@ -115,7 +116,7 @@
   </nav><!-- desktop nav -->{% endblock %}
 {% block body_footer %}
   <footer>
-    <img src="{% static "core/img/mstacm-logo.png" %}"/>
+    <img src="{% static "core/img/mstacm-logo-trans-new.png" %}"/>
     <div class="footer-nav">
       <a href="{% url "home:index" %}">Home</a>
       <a href="{% url "home:sponsors" %}">Sponsors</a>
