@@ -4,7 +4,7 @@ if [ "`basename $(pwd)`" != "Dependencies" ]; then
 fi
 
 if [[ $# -ne 1 ]]; then
-    echo "usage: setup.sh [dev, live]"
+    echo "usage: setup.sh {dev, live, vagrant}"
     exit 1;
 fi
 
@@ -12,6 +12,9 @@ if [[ $1 == "dev" ]]; then
     BUILD_URL="dev.kevinschoonover.me"
 elif [[ $1 == "live" ]]; then
     BUILD_URL="acm.mst.edu"
+else
+    echo "usage: setup.sh {dev, live, vagrant}"
+    exit 1;
 fi
 
 ###
