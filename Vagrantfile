@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
   $migrate = <<-MIGRATE
     cd /vagrant
     pip3 install -r dependencies/requirements.txt
-    cp Dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
+    cp dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
     cd ACM_General/
     python3 manage.py makemigrations accounts core events home payments rest_api sigs thirdparty_auth --noinput
     python3 manage.py collectstatic --noinput
