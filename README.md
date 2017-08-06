@@ -11,7 +11,7 @@ below.
 
 ### Cloning the Repo
 Before you can setup the environment, first you must clone the repository onto
-your local machine. In order to do this you must install
+your local machine. In order to do this, you must install
 [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). If
 you are on Windows, you might want to consider installing `Git Bash` (there
 should be an option during the git installation to include Git Bash). After
@@ -38,7 +38,7 @@ In order to use Vagrant you must download the following tools:
 1. [Vagrant](https://www.vagrantup.com/downloads.html)
 2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-*NOTE*: while you do not need VirtualBox specifically, only certain virtualization 
+**NOTE**: while you do not need VirtualBox specifically, only certain virtualization 
 providers are supported by Vagrant (like VMWare).
 
 #### Running Vagrant
@@ -47,9 +47,9 @@ In order to use Vagrant, open the terminal in any OS, navigate to the root git
 directory (you should see the `Vagrantfile` file), and type `vagrant up`.
 `vagrant up` will start the VM, provision it, and then run the setup script
 within the VM. Open your web browser and put `http://localhost:8000` as the URL.
-If you see a site which looks like [https://acm.mst.edu](http://acm.mst.edu)
-everything setup correctly. One of the great features about Vagrant is that now
-you can edit the file locally and the changes will be reflected in the
+If you see a site which looks like [https://acm.mst.edu](http://acm.mst.edu),
+everything was setup correctly. One of the great features of Vagrant is that
+now you can edit the file locally and the changes will be reflected in the
 virtual machine. For example, if you edit the `view.py` of any app within the
 project, those edits will be transferred to the VM. When you refresh your
 browser the webpage should reflect those changes.
@@ -101,9 +101,9 @@ box. A good tutorial article on how to do these can be located
 . Browse to the `PuTTY` section for specific instructions. This article also
 shows more information on Git Bash.
 
-If you can successfully ssh into the box, continue running the commands listed
-in the [Running Vagrant](#running-vagrant) section beneath the `vagrant ssh`
-command.
+If you can successfully ssh into the box then continue running the commands
+listed in the [Running Vagrant](#running-vagrant) section beneath the `vagrant
+ssh` command.
 
 
 ### Native Linux or Virtual Machine
