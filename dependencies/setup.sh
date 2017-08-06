@@ -60,7 +60,7 @@ rsync -av --delete acm.mst.edu/ $INSTALLATION_DIR/$BUILD_URL/
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
 ###
-# Moving he propeer configuration files into place.
+# Moving the proper configuration files into place.
 ###
 # WARNING: This -n will not quash any existing files so if you're looking for a
 #          complete overwrite remove these flags
