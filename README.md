@@ -2,63 +2,48 @@
 
 Welcome to the ACM-General Django Project!
 
-## Installation
+## Setting Up Your Environment 
+In order to set up a production-like environment, we have two main options:
+1. Develop using [Vagrant](https://www.vagrantup.com/).
+2. Use a linux computer or virtual machine.
+
+For some more information about each of these options, refer to the sections
+below.
+
 ### Vagrant
-Vagrant is a development tool we use to help ease the burden of configuring the different components of the project. With Vagrant, we don't have to worry about installing various things such as Django, Python3, postgreSQL, etc onto our local computer. Although we do recommend installing Python and Django if you haven't already so that you can practice with them in case you aren't familiar with them. Using Vagrant simply makes it so that when testing the website, all required components will be installed on a virtual machine and the website will be locally hosted for further viewing & testing.
+Vagrant provides a very simple and high fidelity way of interacting with the
+codebase in a standardized way. The goal of Vagrant is to make development
+easier by automatically provisioning a production like environment within a
+virtual machine. 
 
-#### Requirements
-1. [Virtualbox](https://virtualbox.org)
-  + Or another virtualization tool, but `virtualbox` works nicely with vagrant. (We suggest using VirtualBox unless you have previous experience with other virtualization tools).
-2. [Vagrant](https://vagrantup.com)
-  + Download the version compatible with your host operating system.
+In order to use Vagrant you must download the following tools:
+1. [Vagrant](https://www.vagrantup.com/downloads.html)
+2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads). 
 
-After satisfying these requirements, clone the repository down into the directory of your choosing using the command:
+Note: while you do not need VirtualBox specifically, only certain virtualization
+providers are supported by Vagrant (like VMWare).
+
+In order to use Vagrant, open the terminal in any OS, navigate to the root GIT
+directory (you should see the `Vagrantfile` file) and type `vagrant up`.
+`vagrant up` will start the VM, provision it, and then run the setup script
+within the VM. Open your web browser and put `http://localhost:8000` as the URL.
+If you see a site which looks like [http://acm.mst.edu](http://acm.mst.edu),
+everything went correctly. One of the great features about Vagrant is that now
+you can edit the file locally and the changes will be reflected in the
+virtual machine. For example, if you edit the `view.py` of any app within the
+project, those edits will be transferred to the VM. When you refresh the
+webpage should reflect those changes.
+
+For changes that cannot be auto refreshed by Django (changes to the static
+files, app migrations, etc.), you can do these changes manually (in the future,
+we hope to make a command to do this). To refresh the app, do the following
+commands in the folder where you can see the `Vagrantfile`:
+
 ```bash
-$ git clone https://github.com/MST-ACM/acm.mst.edu.git
-
-# Or if you have a ssh key linked to your computer
-$ git clone git@github.com:MST-ACM/acm.mst.edu.git
+vagrant ssh # This allows you to directly access the VM through ssh
+sudo su # This changes you to the root user
+tmux attach # This attaches you to the tmux session which is running the Django server
+<C-c> # Hit control-C to kill the server, don't type <C-c>
+... # Run whatever command you need to affect the server ./manage.py collectstatic./manage.py migrate, etc.
+./manage.py runserver 0.0.0.0:8000
 ```
-
-Then change to the directory in which the Vagrant file is located and run the following command: (This will initialize and provision the vagrant box; this may take some time)
-```bash
-$ vagrant up
-```
-After running `vagrant up`, you should be ready to start developing and working on the website! To access the site running on your computer locally, open up a web browser and enter `localhost:8000` into the address bar.
-
-Here are some additional commands that allow you to interact with Vagrant more and that you'll most likely need to use:
-```bash
-$ vagrant reload --provision # this will restart and reprovision the vm
-
-$ vagrant halt # this will shutdown the vm
-
-$ vagrant status # this will report the current status of the vm
-
-$ vagrant destroy # this will delete the vm
-
-$ vagrant up # this will, of course, build the vm if it has been destroyed
-```
-
-## Apps
-In order to see detailed information about each of the apps, please see the readme in each of the app directories.
-1. [Core](ACM_General/core/)
-  + This app handles the core components of the ACM\_General project such as the base templates, global static css documents, and a variety of other generic needs which the project requires
-2. [Accounts](ACM_General/accounts/)
-  + This app handles the main components of the account features of the project such as login, logout, registering of a user, and authenticating users.
-  + This is where the custom authentication backend and custom BaseUser are stored.
-3. [Events](ACM_General/events/)
-  + This app handles the main event components of the project such as registering an event and registering for an event.
-  + This app is also able to list out events in some organized fashion.
-4. [Home](ACM_General/home/)
-  + This app handles the main index of the project and the homepage.
-5. [Payments](ACM_General/payments/)
-  + This app handles transactions done with Stripe.
-6. [Rest Api](ACM_General/rest_api/)
-  + This app is used for interacting with the Django REST framework.
-7. [Sigs](ACM_General/sigs/)
-  + This app is used for creation and management of the different Special Interest Groups inside of ACM.
-8. [Third Party Authentication](ACM_General/thirdparty_auth/)
-  + This app handles third party authentication services which allow users to sign-in to the acm.mst.edu by using sites such as Google and Github.
-
-## Contributing
-Please contact [acm@mst.edu](acm@mst.edu) if you wish to contribute to this project.
