@@ -417,7 +417,7 @@ main {
   
   box-shadow: inset 0 -4px 0 0 #65b593;
   
-  transition: .3s ease-in-out;
+  transition: .2s ease-in-out;
 }
 .acm-btn:hover {
   box-shadow: inset 0 -40px 0 0 #65b593;
