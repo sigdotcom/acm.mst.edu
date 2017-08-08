@@ -1,4 +1,6 @@
 # ACM-General Django Project
+[![Coverage Status](https://coveralls.io/repos/github/sigdotcom/acm.mst.edu/badge.svg?branch=feature%2Ftravis)](https://coveralls.io/github/sigdotcom/acm.mst.edu?branch=feature%2Ftravis)
+
 Welcome to the ACM-General Django Project!
 
 ## Setting Up Your Environment 
