@@ -50,8 +50,7 @@ main .content-wrapper h2 a {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 1px solid #ddd;
-  filter: contrast(70%);
+  background-color: #efefef;
   overflow: hidden;
   position: relative;
 }
