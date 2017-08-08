@@ -1,11 +1,14 @@
-<!DOCTYPE html>{% load static %}
+{% load static %}
+<!DOCTYPE html>
 {% block html_tag %}
-  <html lang='en'>{% endblock %}
+  <html lang='en'>
+{% endblock %}
     <head>
   {% block head_defaultContent %}
     {% block head_http-equiv %}
-      <meta http-equiv="x-ua-compatible" content="ie=edge"/>{% endblock %}
-    {% block head_viewport %}
+      <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    {% endblock %}
+    {% block head_viewport %} {# TODO: Consider squashing all default head elements that are no going to be changed into one #}
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link rel="apple-touch-icon" sizes="180x180"
             href="{% static "/home/img/apple-touch-icon.png" %}">
@@ -20,25 +23,32 @@
       <meta name="theme-color" content="#ffffff">
       <!--[if lt IE 9]>
 				<script src="lib/js/html5shiv.js"></script>
-				<![endif]-->{% endblock %}
+				<![endif]-->
+    {% endblock %}
     {% block head_charset %}
-      <meta charset="utf-8"/>{% endblock %}
+      <meta charset="utf-8"/>
+    {% endblock %}
     {% block head_keywords %}
       <meta name="keywords" content="acmmst, mstacm, ACM General, ACM"/>
     {% endblock %}
     {% block head_description %}
-      <meta name="description" content="ACM-General Site"/>{% endblock %}
+      <meta name="description" content="ACM-General Site"/>
+    {% endblock %}
     {% block head_author %}
-      <meta name="author" content="ACM-MST SIG.com"/>{% endblock %}
+      <meta name="author" content="ACM-MST SIG.com"/>
+    {% endblock %}
     {% block head_robots %}
-      <meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
+      <meta name="robots" content="NONE,NOARCHIVE"/>
+    {% endblock %}
     {% block head_base_stylesheets %}{% endblock %}
     {% block head_stylesheets %}{% endblock %}
     {% block head_javascript %}{% endblock %}
     {% block head_extra-descriptors %}{% endblock %}
     {% block head_fonts %}{% endblock %}
     {% block head_title %}
-      <title> ACM </title>{% endblock %}{% endblock %}
+      <title> ACM </title>
+    {% endblock %}
+  {% endblock %}
   {% block head_main %}{% endblock %}
 </head>
 

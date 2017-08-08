@@ -28,21 +28,24 @@ hr {
 }
 
 .pay-area {
-  width: 660px;
+  width: 100%;
   margin: 0 auto;
   padding-bottom: 50px;
   display: flex;
+  justify-content: center;
+}
+.pay-area__spacer {
+  width: 10%;
+  height: 40px;
 }
 .pay-area__card {
   width: 280px;
   height: 350px;
-  margin: 0 50px 0 0;
   background-color: #76d3ab;
   display: flex;
   flex-direction: column;
 }
-.pay-area__card:nth-of-type(2) {
-  margin: 0 0 0 50px;
+.pay-area__card--year {
   background-color: #2da1d8;
 }
 .pay-area__title {
@@ -78,30 +81,30 @@ hr {
 .pay-area__btn {
   width: 150px;
   margin:0 auto;
-  padding: 12px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 12px;
   font-size: 1.2rem;
 }
 .pay-area__btn--semester {
   background: #67b895; /* Old browsers */
-  background: -moz-linear-gradient(top, #67b895 0%, #67b895 90%, #589e80 90%, #589e80 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #67b895 0%, #67b895 90%, #589e80 90%, #589e80 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #67b895 0%, #67b895 90%, #589e80 90%, #589e80 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67b895', endColorstr='#589e80', GradientType=0); /* IE6-9 */
+  box-shadow: inset 0 -4px 0 0 #589e80;
+}
+.pay-area__btn--semester:hover {
+  box-shadow: inset 0 -50px 0 0 #589e80;
 }
 .pay-area__btn--year {
   background: #288ebf; /* Old browsers */
-  background: -moz-linear-gradient(top, #288ebf 0%, #288ebf 90%, #227aa4 90%, #227aa4 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #288ebf 0%, #288ebf 90%, #227aa4 90%, #227aa4 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #288ebf 0%, #288ebf 90%, #227aa4 90%, #227aa4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#288ebf', endColorstr='#227aa4', GradientType=0); /* IE6-9 */
+  box-shadow: inset 0 -4px 0 0 #227aa4;
+}
+.pay-area__btn--year:hover {
+  box-shadow: inset 0 -50px 0 0 #227aa4;
 }
 .details__perk {
-  height: 220px;
+  height: 240px;
+  margin: 0 10px;
   padding:1px 0;
   background-color: white;
-}
-.details__perk:nth-of-type(even) {
-  background-color: #f1f1f1;
 }
 .details__top-link {
   font-size: .9rem;
@@ -109,5 +112,38 @@ hr {
 }
 .spice-link {
   color: #76d3ab;
-  text-shadow: 0 0 0 rgba(0,0,0,1);
+  font-weight: bold;
+}
+
+@media (max-width: 641px) { /*SMARTPHONE*/
+  .perks {
+    flex-direction: column;
+  }
+  .perks__perk {
+    margin: auto;
+    width: 70%;
+    margin-bottom: 20px;
+  }
+  .perks__title {
+    font-size: 1.8rem;
+    margin:  0 0 15px 0;
+  }
+  .perks__perk:nth-of-type(even) {
+    text-align: right;
+  }
+  .perks__details-link {
+    font-size: 1.3rem;
+  }
+  
+  .pay-area {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1090px) {
+  .perks {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
