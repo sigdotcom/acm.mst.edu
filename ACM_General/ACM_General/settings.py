@@ -25,7 +25,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 ###
 # Stripe Keys
-## These values are set in /Dependencies/env_vars.template and copied into
+## These values are set in /dependencies/env_vars.template and copied into
 ## /etc/uwsgi/apps-availabble/.
 ###
 STRIPE_PRIV_KEY = os.environ.get('STRIPE_PRIV_KEY', None)
