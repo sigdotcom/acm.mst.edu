@@ -48,39 +48,14 @@
   </main>
 
   <script>
-    var elem = document.querySelector('.m-p-g');
+    var elem = document.querySelector('.m-p-g'); {# Selects block of photos #}
 
     document.addEventListener('DOMContentLoaded', function () {
       var gallery = new MaterialPhotoGallery(elem);
-    });
+    }); {# Applies the neccesary classes to each child #}
   </script>
 
-
-  {#    <a href="{% static "/home/img/media/ctf.jpg" %}" style="background-image: {% static "/home/img/media/ctf.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/ctf.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/ctf_1.jpg" %}" style="background-image: {% static "/home/img/media/ctf_1.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/ctf_1.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/sigsec.jpg" %}" style="background-image: {% static "/home/img/media/sigsec.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/sigsec.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/sigcomp.jpg" %}" style="background-image: {% static "/home/img/media/sigcomp.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/sigcomp.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/intropython.jpg" %}" style="background-image: {% static "/home/img/media/intropython.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/intropython.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/network_talk.jpg" %}" style="background-image: {% static "/home/img/media/network_talk.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/network_talk.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/sigcomp_1.jpg" %}" style="background-image: {% static "/home/img/media/sigcomp_1.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/sigcomp_1.jpg" %}" />#}
-  {#    </a>#}
-  {#    <a href="{% static "/home/img/media/icpc.jpg" %}" style="background-image: {% static "/home/img/media/icpc.jpg" %}">#}
-  {#        <img class="media-picture" src="{% static "/home/img/media/icpc.jpg" %}" />#}
-  {#    </a>#}
-
+  {# JS library that controls this page's media display #}
   <script
     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
 
