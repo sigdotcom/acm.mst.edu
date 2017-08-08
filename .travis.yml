@@ -1,8 +1,5 @@
 language: python
 
-addons:
-  firefox: "latest"
-
 services:
   - postgresql
 
