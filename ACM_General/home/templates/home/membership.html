@@ -1,11 +1,9 @@
 {% extends 'home/base.html' %}
-
 {% load static %}
 
 {% block head_title %}
   <title> ACM | Membership </title>
 {% endblock %}
-
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/membership.css" %}"/>
 {% endblock %}
@@ -50,7 +48,8 @@
             Buy Semester
           </form>
         </div>
-        <div class="pay-area__card">
+        <div class="pay-area__spacer"></div>
+        <div class="pay-area__card pay-area__card--year">
           <h1 class="pay-area__title">Year</h1>
           <div class="pay-area__price">20</div>
           <div class="pay-area__disclaimer">all perks are included</div>
@@ -141,5 +140,4 @@
               handler.close();
             });
           </script>
-
 {% endblock %}
