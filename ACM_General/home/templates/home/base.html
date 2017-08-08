@@ -1,13 +1,15 @@
-{% extends 'core/wireframe.html' %}{% load static %}
-{% block html_tag %}
-  <html class="no-js" lang="en">{% endblock %}
+{% extends 'core/wireframe.html' %}
+{% load static %}
+
 {% block head_title %}
-  <title> ACM </title>{% endblock %}
+  <title> ACM </title>
+{% endblock %}
 
 {% block head_base_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet"
-        href="{% static "/home/css/main.css" %}"/>{% endblock %}
+        href="{% static "/home/css/main.css" %}"/>
+{% endblock %}
 {% block head_javascript %}
 {# Code that follows is for IE browsers, it will just show them that they should get a real browser #}
   <script>
@@ -29,10 +31,13 @@
     catch (e) {
       window.attachEvent("onload", $buo_f)
     }
-  </script>{% endblock %}
+  </script>
+{% endblock %}
 {% block head_fonts %}
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
-        rel="stylesheet">{% endblock %}
+        rel="stylesheet">
+{% endblock %}
+
 {% block body_header %}
   <header>
     <div class="constraint-wrapper">
@@ -47,7 +52,8 @@
         <h1 class="header-welcome">We are Missouri S&T - ACM</h1>
       </div>
     </div>
-  </header>{% endblock %}
+  </header>
+{% endblock %}
 {% block body_navigation %}
   <div class="top-bar"></div> <!-- mobile menu bar -->
   <div id="menu-wrapper"><!-- mobile menu -->
@@ -113,7 +119,8 @@
         <span>Log In</span>
       </a></li>
     </ul>
-  </nav><!-- desktop nav -->{% endblock %}
+  </nav><!-- desktop nav -->
+{% endblock %}
 {% block body_footer %}
   <footer>
     <img src="{% static "core/img/mstacm-logo-trans-new.png" %}"/>
@@ -125,4 +132,5 @@
       <a href="{% url "home:officers" %}">Officers</a>
     </div>
     <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
-  </footer>{% endblock %}
+  </footer>
+{% endblock %}

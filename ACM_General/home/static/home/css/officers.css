@@ -10,34 +10,25 @@
   transform: scaleX(.8);
 }
 
-@media (max-width: 450px) {
-  .btn {
-    font-size: 0.7em;
-  }
-}
-
-@media (max-width: 900px) {
+@media (max-width: 800px) {
   .cards__item {
     width: 100% !important;
-  }
-  
-  .card {
-    width: 100%;
   }
 }
 
 .link_zone {
   display: flex;
+  width: 100%;
 }
 
 .btn {
-  padding: 8px 0;
-}
-
-.btn--block {
   display: block;
-  width: 31%;
-  margin: 0 1.1666666px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  border-right: 2px #ddd solid;
+}
+.btn:last-of-type {
+  border: none;
 }
 
 .cards {
@@ -49,25 +40,25 @@
 }
 
 .cards__item {
-  display: flex;
-  padding: 1rem;
-  width: 50%;
+  margin: 1rem;
+  width: calc(50% - 2rem);
+  list-style: none;
 }
 
 .card {
-  /*background-color: #f1f1f1;*/
+  border: 1px solid #ddd;
   display: flex;
-  flex-direction: row;
-  max-height: 270px;
+  flex-direction: column;
+  height: 190px;
   width: 100%;
 }
 
 .card__content {
+  position: relative;
+  width: 100%;
   display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  padding: 1rem;
-  width: 60%;
+  padding: 10px;
+  flex-grow: 2;
 }
 
 .card__image {
@@ -75,18 +66,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   filter: contrast(70%);
-  overflow: hidden;
-  position: relative;
-  max-width: 155px;
-  min-width: 155px;
-  height: 100%;
+  width: 130px;
+  height: 130px;
 }
-
+.card__title {
+  font-size: 1rem;
+  margin: 4px 0;
+}
 .card__text {
-  flex: 1 1 auto;
   font-size: 0.875rem;
   line-height: 1.5;
-  margin-bottom: 1.25rem;
+  padding: 0  0 0 1rem;
 }
 
 .past_officers {
