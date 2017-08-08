@@ -24,14 +24,10 @@ before_script:
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE django_acmgeneral TO djangouser;" -U postgres
   - psql -c "ALTER USER djangouser CREATEDB;" -U postgres
   - cp dependencies/settings_local.template ACM_General/ACM_General/settings_local.py
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.15.0-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
   - cd ACM_General
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
 
 script:
-  - python3 manage.py test
+  - coverage run --source "." manage.py test
+
+after_success:
+  - coveralls
