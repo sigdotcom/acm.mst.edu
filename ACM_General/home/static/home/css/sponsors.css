@@ -30,7 +30,7 @@ main .content-wrapper h2 a {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0;
+  padding: 0 0 20px 0;
   justify-content: space-between;
   margin: 0 60px;
 }
@@ -84,7 +84,7 @@ main .content-wrapper h2 a {
   flex: 1 1 auto;
   font-size: 0.845rem;
   line-height: 1.5;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
 }
 
 @media (min-width: 641px) {

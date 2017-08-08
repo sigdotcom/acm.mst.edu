@@ -14,7 +14,7 @@
 
 .cards {
   list-style: none;
-  padding: 0;
+  padding: 0 0 20px 0;
   margin: 0 auto;
   max-width: 800px;
 }
