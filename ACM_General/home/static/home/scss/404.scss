@@ -1,10 +1,8 @@
-/* line 1, ../scss/404.scss */
 body, html {
   margin: 0;
   height: 100%;
 }
 
-/* line 6, ../scss/404.scss */
 body {
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
@@ -16,7 +14,6 @@ body {
   align-items: center;
 }
 
-/* line 17, ../scss/404.scss */
 .top-content {
   /*margin: auto;*/
   width: 100%;
@@ -26,7 +23,6 @@ body {
   height: 50%;
 }
 
-/* line 26, ../scss/404.scss */
 .bottom-content {
   /*margin: auto;*/
   width: 100%;
@@ -36,14 +32,12 @@ body {
   height: 50%;
 }
 
-/* line 35, ../scss/404.scss */
 .container {
   width: 700px;
   margin: 0 auto;
   padding: 0 5px;
 }
 
-/* line 41, ../scss/404.scss */
 h1 {
   width: 700px;
   padding: 0 5px;
@@ -54,18 +48,15 @@ h1 {
   line-height: 190px;
 }
 
-/* line 51, ../scss/404.scss */
 h2 {
   font-weight: normal;
 }
 
-/* line 55, ../scss/404.scss */
 a {
   position: relative;
   display: inline-block;
 }
 
-/* line 60, ../scss/404.scss */
 a:nth-of-type(2) {
   margin-left: 10px;
 }

@@ -1,24 +1,18 @@
-/* line 1, ../scss/index.scss */
 .nav-home a span {
   color: #4d4d4d !important;
 }
 
-/* line 5, ../scss/index.scss */
 .nav-home:hover a span {
   color: #4d4d4d !important;
 }
-
-/* line 8, ../scss/index.scss */
 .nav-home:after {
-  transform: scaleX(0.8);
+  transform: scaleX(.8);
 }
 
-/* line 12, ../scss/index.scss */
 .event-wrapper:nth-child(even) {
   background-color: #f1f1f1;
 }
 
-/* line 16, ../scss/index.scss */
 .event-card {
   margin: 0 auto;
   padding: 20px 0;
@@ -29,28 +23,23 @@
   display: flex;
 }
 
-/* line 26, ../scss/index.scss */
 .event-wrapper:nth-child(even) .event-card {
   flex-direction: row-reverse;
 }
 
-/* line 30, ../scss/index.scss */
 .flier-space {
   height: 100%;
   display: flex;
 }
 
-/* line 35, ../scss/index.scss */
 .flier-space img {
   height: 100%;
 }
 
-/* line 39, ../scss/index.scss */
 .event-wrapper:nth-child(even) .event-card .flier-space img {
   margin-left: 10px;
 }
 
-/* line 43, ../scss/index.scss */
 .flier-info {
   display: flex;
   flex-direction: column;
@@ -58,62 +47,52 @@
   margin-left: 20px;
 }
 
-/* line 50, ../scss/index.scss */
 .flier-info h2 {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, .87);
   font-weight: normal;
   line-height: 25px;
 }
 
-/* line 56, ../scss/index.scss */
 .flier-info p {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, .70);
   font-size: 16px;
   margin-bottom: 35px;
 }
 
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  /* line 64, ../scss/index.scss */
   .event-card {
     flex-direction: column;
     height: 750px;
   }
-
-  /* line 69, ../scss/index.scss */
+  
   .event-card .flier-space img {
     margin: auto !important;
   }
-
-  /* line 73, ../scss/index.scss */
+  
   .flier-info h2 {
     margin-left: 0;
     text-align: center;
   }
-
-  /* line 78, ../scss/index.scss */
+  
   .flier-info p {
     margin-left: 15px;
     margin-right: 15px;
   }
-
-  /* line 83, ../scss/index.scss */
+  
   .flier-info a {
     margin-left: 15px;
   }
-
-  /* line 87, ../scss/index.scss */
+  
   .event-wrapper:nth-child(even) .event-card {
     flex-direction: column !important;
   }
-
-  /* line 91, ../scss/index.scss */
+  
   .event-wrapper:nth-child(even) .flier-space {
     margin-right: 0;
     margin-left: 0 !important;
   }
-
-  /* line 96, ../scss/index.scss */
+  
   .flier-space {
     height: 400px;
     margin-right: 0;

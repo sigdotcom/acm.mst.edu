@@ -4,10 +4,11 @@
  * Usage: Include into every html file
  * Author: Clay McGinnis - ACM SIG.com
  */
+
 /* =========================================================================
  * General Styles
  * ========================================================================= */
-/* line 12, ../scss/main.scss */
+
 html {
   /* Fill full height and width */
   height: 100%;
@@ -27,7 +28,6 @@ html {
   -moz-font-feature-settings: "liga" on;
 }
 
-/* line 31, ../scss/main.scss */
 body {
   /* Fill full height and width */
   height: 100%;
@@ -37,7 +37,6 @@ body {
   top: 0;
 }
 
-/* line 40, ../scss/main.scss */
 *,
 *::before,
 *::after {
@@ -49,13 +48,12 @@ body {
  * Remove text-shadow in selection highlight
  * These selection rule sets have to be separate.
  */
-/* line 52, ../scss/main.scss */
+
 ::-moz-selection {
   background: #fff;
   text-shadow: none;
 }
 
-/* line 57, ../scss/main.scss */
 ::selection {
   background: #fff;
   text-shadow: none;
@@ -66,7 +64,7 @@ body {
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
-/* line 68, ../scss/main.scss */
+
 audio,
 canvas,
 iframe,
@@ -79,7 +77,7 @@ video {
 /*
  * Remove default fieldset styles.
  */
-/* line 81, ../scss/main.scss */
+
 fieldset {
   border: 0;
   margin: 0;
@@ -89,7 +87,7 @@ fieldset {
 /*
  * Allow only vertical resizing of textareas.
  */
-/* line 91, ../scss/main.scss */
+
 textarea {
   resize: vertical;
 }
@@ -97,7 +95,7 @@ textarea {
 /* =========================================================================
  * Browser Upgrade Prompt
  * ========================================================================= */
-/* line 99, ../scss/main.scss */
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -108,7 +106,7 @@ textarea {
 /* =========================================================================
  * Header Styles
  * ========================================================================= */
-/* line 110, ../scss/main.scss */
+
 body {
   background-image: url("../../home/img/core/sigcompcrop.png");
   background-position: center -10px;
@@ -117,7 +115,6 @@ body {
   background-attachment: scroll;
 }
 
-/* line 118, ../scss/main.scss */
 header {
   /* Allocate space */
   width: 100%;
@@ -127,7 +124,6 @@ header {
   /*background-color: #245623;*/
 }
 
-/* line 127, ../scss/main.scss */
 header .constraint-wrapper {
   /* Allocate space */
   height: 100%;
@@ -135,7 +131,6 @@ header .constraint-wrapper {
   /* Cosmetics */
 }
 
-/* line 134, ../scss/main.scss */
 header .header-acm-seal-wrapper {
   /* Allocate space */
   height: 50%;
@@ -145,7 +140,6 @@ header .header-acm-seal-wrapper {
   /* Cosmetics */
 }
 
-/* line 143, ../scss/main.scss */
 header .header-acm-seal {
   /* Allocate space */
   height: 70px;
@@ -155,7 +149,6 @@ header .header-acm-seal {
   /* Cosmetics */
 }
 
-/* line 152, ../scss/main.scss */
 header .header-acm-seal img {
   /* Allocate space */
   height: 100%;
@@ -163,7 +156,6 @@ header .header-acm-seal img {
   /* Cosmetics */
 }
 
-/* line 159, ../scss/main.scss */
 header .header-acm-seal h3 {
   /* Allocate space */
   margin: 0 0 0 10px;
@@ -175,7 +167,6 @@ header .header-acm-seal h3 {
   letter-spacing: .7px;
 }
 
-/* line 170, ../scss/main.scss */
 header .header-welcome-wrapper {
   /* Allocate space */
   height: 50%;
@@ -189,7 +180,6 @@ header .header-welcome-wrapper {
   /* Cosmetics */
 }
 
-/* line 183, ../scss/main.scss */
 header .header-welcome {
   /* Allocate space */
   /* Formatting */
@@ -204,14 +194,14 @@ header .header-welcome {
 /* =========================================================================
  * Navigation Styles
  * ========================================================================= */
-/* line 198, ../scss/main.scss */
+
 .pseudo-nav {
   height: 60px;
   width: 92vw;
   min-width: 1000px;
-  -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
+  -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
   margin: 0 auto;
   left: 0;
   right: 0;
@@ -219,7 +209,6 @@ header .header-welcome {
   z-index: 0;
 }
 
-/* line 212, ../scss/main.scss */
 nav {
   /* Allocate space */
   height: 90px;
@@ -234,7 +223,6 @@ nav {
   background-color: #fff;
 }
 
-/* line 226, ../scss/main.scss */
 nav .nav-link-wrapper {
   margin: 0 auto;
   padding: 0;
@@ -245,49 +233,45 @@ nav .nav-link-wrapper {
   display: flex;
 }
 
-/* line 236, ../scss/main.scss */
 .nav-button {
   text-align: center;
   text-decoration: none;
+  
   display: block;
+  
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 100%;
 }
 
-/* line 247, ../scss/main.scss */
 .nav-button:hover a span {
-  color: rgba(0, 0, 0, 0.55);
+  color: rgba(0, 0, 0, .55);
 }
 
-/* line 251, ../scss/main.scss */
 .nav-button:after {
   transition: all .25s ease-in-out;
   display: block;
   position: relative;
   top: -3px;
   content: '';
-  transform: scaleX(0.4);
+  transform: scaleX(.40);
   border-bottom: solid 3px #2da1d8;
 }
 
-/* line 261, ../scss/main.scss */
 .nav-button:hover:after {
   transform: scaleX(1);
   border-bottom: solid 3px #76d3ab;
 }
 
-/* line 266, ../scss/main.scss */
 .nav-button a {
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-decoration: none;
   height: 100%;
-  width: 100%;
+  width: 100%
 }
 
-/* line 275, ../scss/main.scss */
 .nav-button a:after {
   display: block;
   position: absolute;
@@ -296,43 +280,37 @@ nav .nav-link-wrapper {
   border-right: solid 2px #ddd;
 }
 
-/* line 283, ../scss/main.scss */
 .nav-button:first-of-type a:after {
   display: none;
 }
 
-/* line 287, ../scss/main.scss */
 .nav-button a img {
   height: 48px;
   width: 48px;
   margin: 0 auto;
 }
 
-/* line 293, ../scss/main.scss */
 .nav-button a span {
   transition: all .2s ease-in-out;
   font-size: .8em;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.42);
+  color: rgba(0, 0, 0, .42);
 }
 
 /* This section is for mobile menu */
-/* line 302, ../scss/main.scss */
+
 #menu-wrapper {
   display: none;
 }
 
-/* line 306, ../scss/main.scss */
 label {
   cursor: pointer;
 }
 
-/* line 310, ../scss/main.scss */
 label:focus {
   outline: none;
 }
 
-/* line 314, ../scss/main.scss */
 .menu {
   position: fixed;
   z-index: 1000;
@@ -345,7 +323,6 @@ label:focus {
   transition: transform 0.35s;
 }
 
-/* line 326, ../scss/main.scss */
 .menu label.menu-toggle {
   position: absolute;
   right: -60px;
@@ -358,12 +335,10 @@ label:focus {
   background: #f0f0f0 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/23px 21px no-repeat;
 }
 
-/* line 338, ../scss/main.scss */
 .menu ul li > label {
   background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50%/16px 16px no-repeat;
 }
 
-/* line 342, ../scss/main.scss */
 .menu ul li a, .menu ul li label {
   display: block;
   text-align: center;
@@ -374,43 +349,36 @@ label:focus {
   transition: background-color .1s;
 }
 
-/* line 352, ../scss/main.scss */
 .menu ul li a:hover, .menu ul li label:hover {
   color: #76d3ab;
   background-color: #f0f0f0;
 }
 
-/* line 357, ../scss/main.scss */
 .menu ul {
   margin-top: 0;
   padding-left: 0;
 }
 
-/* line 362, ../scss/main.scss */
 .menu ul li {
   list-style: none;
 }
 
 /* hide inputs */
-/* line 367, ../scss/main.scss */
 .menu-checkbox {
   display: none;
 }
 
 /* hide navigation icon for sublabels */
-/* line 372, ../scss/main.scss */
 .menu .menu label.menu-toggle {
   background: none;
 }
 
 /* fade in checked menu */
-/* line 377, ../scss/main.scss */
 .menu-checkbox:checked + .menu {
   transform: translate3d(0, 0, 0);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .45);
 }
 
-/* line 382, ../scss/main.scss */
 .top-bar {
   display: none;
   position: fixed;
@@ -418,40 +386,39 @@ label:focus {
   width: 100%;
   height: 56px;
   background-color: #F0F0F0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 4px 0;
+  box-shadow: rgba(0, 0, 0, .2) 0 4px 4px 0;
 }
 
 /* =========================================================================
  * Page Modifications
  * ========================================================================= */
-/* line 396, ../scss/main.scss */
+
 main {
   position: relative;
   z-index: 0;
   margin-top: -45px;
   padding-top: 65px;
-  -webkit-box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
+  -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
   background-color: white;
 }
 
-/* line 407, ../scss/main.scss */
 .acm-btn {
   display: inline-block;
   cursor: pointer;
   background: #76d3ab;
-  color: white;
+ color: white;
   text-align: center;
   height: 38px;
   line-height: 38px;
   padding: 0 20px;
   text-decoration: none;
+  
   box-shadow: inset 0 -4px 0 0 #65b593;
+  
   transition: .2s ease-in-out;
 }
-
-/* line 422, ../scss/main.scss */
 .acm-btn:hover {
   box-shadow: inset 0 -40px 0 0 #65b593;
 }
@@ -459,7 +426,7 @@ main {
 /* =========================================================================
  * Footer Styles
  * ========================================================================= */
-/* line 430, ../scss/main.scss */
+
 footer {
   position: relative;
   z-index: 10;
@@ -470,13 +437,11 @@ footer {
   background-color: #373C3F;
 }
 
-/* line 440, ../scss/main.scss */
 footer img {
   margin: 5px 0;
   height: 110px;
 }
 
-/* line 445, ../scss/main.scss */
 .footer-nav {
   height: 80px;
   width: 100%;
@@ -485,23 +450,19 @@ footer img {
   align-items: center;
 }
 
-/* line 453, ../scss/main.scss */
 .footer-nav a {
   margin: 0 2%;
   font-size: 14px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255,255,255,.8);
   transition: color .25s;
 }
-
-/* line 460, ../scss/main.scss */
 .footer-nav a:hover {
-  color: white;
+  color: rgba(255,255,255,1);
 }
 
-/* line 464, ../scss/main.scss */
 footer h5 {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255,255,255,.6);
   font-size: 14px;
   font-weight: normal;
 }
@@ -509,10 +470,11 @@ footer h5 {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+
 /*
  * Hide visually and from screen readers
  */
-/* line 478, ../scss/main.scss */
+
 .hidden {
   display: none !important;
 }
@@ -521,7 +483,7 @@ footer h5 {
  * Hide only visually, but have it available for screen readers:
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
-/* line 487, ../scss/main.scss */
+
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -538,7 +500,7 @@ footer h5 {
  * to be focusable when navigated to via the keyboard:
  * https://www.drupal.org/node/897638
  */
-/* line 504, ../scss/main.scss */
+
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -552,7 +514,7 @@ footer h5 {
 /*
  * Hide visually and from screen readers, but maintain layout
  */
-/* line 518, ../scss/main.scss */
+
 .invisible {
   visibility: hidden;
 }
@@ -560,14 +522,13 @@ footer h5 {
 /*
  * Set content to middle of screen and desired width for content
  */
-/* line 526, ../scss/main.scss */
+
 .constraint-wrapper {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
 }
 
-/* line 532, ../scss/main.scss */
 .content-wrapper {
   margin: 0 auto;
   width: 100%;
@@ -585,16 +546,13 @@ footer h5 {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-/* line 550, ../scss/main.scss */
+
 .clearfix:before,
 .clearfix:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
+  content: " "; /* 1 */
+  display: table; /* 2 */
 }
 
-/* line 556, ../scss/main.scss */
 .clearfix:after {
   clear: both;
 }
@@ -602,63 +560,56 @@ footer h5 {
 /* ==========================================================================
    Media Queries for Responsive Design.
    ========================================================================== */
+
 /*@media (max-width: 320px) {*/
 /*!*smartphones, iPhone, portrait 480x320 phones *!*/
 /*}*/
+
 @media (max-width: 414px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  /* line 570, ../scss/main.scss */
   footer {
     height: 110px;
     padding-top: 15px;
   }
-
-  /* line 575, ../scss/main.scss */
+  
   footer img {
     display: none;
   }
 }
+
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  /* line 582, ../scss/main.scss */
   header {
     margin-top: 56px;
     height: 300px;
   }
-
-  /* line 587, ../scss/main.scss */
+  
   .header-welcome {
     font-size: 28px;
   }
-
-  /* line 591, ../scss/main.scss */
+  
   nav {
     display: none;
   }
-
-  /* line 595, ../scss/main.scss */
+  
   .pseudo-nav {
     display: none;
   }
-
-  /* line 599, ../scss/main.scss */
+  
   #menu-wrapper {
     display: block;
   }
-
-  /* line 603, ../scss/main.scss */
+  
   .top-bar {
     top: 0;
     display: block;
   }
-
-  /* line 608, ../scss/main.scss */
+  
   main {
     margin-top: 0;
     padding-top: 10px;
   }
-
-  /* line 613, ../scss/main.scss */
+  
   main::before {
     display: block !important;
     content: '';
@@ -667,28 +618,29 @@ footer h5 {
     border-top: solid 4px #2da1d8;
   }
 }
+
 /*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
-  /* line 625, ../scss/main.scss */
   body {
     background-image: url("../../home/img/core/sigcomp.png");
     background-position: center -100px;
   }
-
-  /* line 630, ../scss/main.scss */
+  
   nav .nav-link-wrapper {
     margin: 0;
   }
 }
+
 /*@media (min-width:1281px) { !* hi-res laptops and desktops *! }*/
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid the additional HTTP request:
    http://www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
+
 @media print {
-  /* line 644, ../scss/main.scss */
   *,
   *:before,
   *:after,
@@ -701,69 +653,59 @@ footer h5 {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-
-  /* line 657, ../scss/main.scss */
+  
   a,
   a:visited {
     text-decoration: underline;
   }
-
-  /* line 662, ../scss/main.scss */
+  
   a[href]:after {
     content: " (" attr(href) ")";
   }
-
-  /* line 666, ../scss/main.scss */
+  
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
-
+  
   /*
    * Don't show links that are fragment identifiers,
    * or use the `javascript:` pseudo protocol
    */
-  /* line 674, ../scss/main.scss */
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
   }
-
-  /* line 679, ../scss/main.scss */
+  
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-
+  
   /*
    * Printing Tables:
    * http://css-discuss.incutio.com/wiki/Printing_Tables
    */
-  /* line 689, ../scss/main.scss */
   thead {
     display: table-header-group;
   }
-
-  /* line 693, ../scss/main.scss */
+  
   tr,
   img {
     page-break-inside: avoid;
   }
-
-  /* line 698, ../scss/main.scss */
+  
   img {
     max-width: 100% !important;
   }
-
-  /* line 702, ../scss/main.scss */
+  
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
-
-  /* line 709, ../scss/main.scss */
+  
   h2,
   h3 {
     page-break-after: avoid;

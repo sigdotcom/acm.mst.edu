@@ -1,40 +1,31 @@
-/* line 1, ../scss/sponsors.scss */
 .nav-sponsors a span {
   color: #4d4d4d !important;
 }
 
-/* line 5, ../scss/sponsors.scss */
 .nav-sponsors:hover a span {
   color: #4d4d4d !important;
 }
 
-/* line 9, ../scss/sponsors.scss */
 .nav-sponsors:after {
-  transform: scaleX(0.8);
+  transform: scaleX(.8);
 }
 
-/* line 13, ../scss/sponsors.scss */
 main .content-wrapper:nth-of-type(2) {
   padding-top: 20px;
 }
 
-/* line 17, ../scss/sponsors.scss */
 main .content-wrapper h1 {
   margin-top: 0;
 }
 
-/* line 21, ../scss/sponsors.scss */
 main .content-wrapper h2 {
   margin: 0;
 }
 
-/* line 25, ../scss/sponsors.scss */
 main .content-wrapper h2 a {
   display: inline;
   margin: 0;
 }
-
-/* line 29, ../scss/sponsors.scss */
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -44,12 +35,10 @@ main .content-wrapper h2 a {
   margin: 0 60px;
 }
 
-/* line 38, ../scss/sponsors.scss */
 .cards__card {
   margin-bottom: 1rem;
 }
 
-/* line 42, ../scss/sponsors.scss */
 .card__content {
   display: flex;
   flex: 1 1 auto;
@@ -57,7 +46,6 @@ main .content-wrapper h2 a {
   padding: 1rem;
 }
 
-/* line 49, ../scss/sponsors.scss */
 .card__image {
   background-position: center center;
   background-repeat: no-repeat;
@@ -67,36 +55,29 @@ main .content-wrapper h2 a {
   position: relative;
 }
 
-/* line 58, ../scss/sponsors.scss */
 .contain {
   background-size: contain;
 }
 
-/* line 62, ../scss/sponsors.scss */
 .card__image::before {
   content: "";
   display: block;
   padding-top: 50%;
 }
 
-/* line 68, ../scss/sponsors.scss */
 .card__title {
   font-size: 1.2rem;
   margin: 10px 0 0 0;
 }
 
-/* line 73, ../scss/sponsors.scss */
 .card__link {
   text-decoration: none;
   color: #76d3ab;
 }
-
-/* line 77, ../scss/sponsors.scss */
 .card__link:hover {
   text-decoration: underline;
 }
 
-/* line 81, ../scss/sponsors.scss */
 .card__text {
   color: rgba(0, 0, 0, 0.77);
   flex: 1 1 auto;
@@ -106,23 +87,17 @@ main .content-wrapper h2 a {
 }
 
 @media (min-width: 641px) {
-  /* line 90, ../scss/sponsors.scss */
   .cards__card {
     flex: 0 1 calc(50% - 1em);
   }
-
-  /* line 93, ../scss/sponsors.scss */
   .cards {
     margin: 0 40px;
   }
 }
 @media (min-width: 1040px) {
-  /* line 98, ../scss/sponsors.scss */
   .cards__card {
     flex: 0 1 calc(33.333333333% - 1em);
   }
-
-  /* line 101, ../scss/sponsors.scss */
   .cards {
     margin: 0;
   }
