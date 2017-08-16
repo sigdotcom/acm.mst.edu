@@ -4,17 +4,13 @@
  * Usage: Include into every html file
  * Author: Clay McGinnis - ACM SIG.com
  */
-
 /* =========================================================================
  * Imports
  * ========================================================================= */
-
-@import 'variables';
-
 /* =========================================================================
  * Enforced Defaults
  * ========================================================================= */
-
+/* line 18, ../scss/gridmain.scss */
 html {
   /* Fill full height and width */
   height: 100%;
@@ -22,18 +18,19 @@ html {
   margin: 0;
   padding: 0;
   /* Page-wide cosmetics */
-  background-color: $light-background;
+  background-color: #fff;
   /* Default font properties */
-  color: $top-text-color;
+  color: rgba(0, 0, 0, 0.87);
   font-size: 1em;
   line-height: 1.4;
-  font-family: $font-stack;
+  font-family: "Roboto", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
 }
 
+/* line 37, ../scss/gridmain.scss */
 body {
   /* Fill full height and width */
   height: 100%;
@@ -41,16 +38,12 @@ body {
   padding: 0;
   margin: 0;
   top: 0;
-
   display: grid;
   grid-template-columns: auto auto auto auto;
-  grid-template-areas:
-    'nav'
-    'header'
-    'main'
-    'footer';
+  grid-template-areas: 'nav' 'header' 'main' 'footer';
 }
 
+/* line 54, ../scss/gridmain.scss */
 *,
 *::before,
 *::after {
@@ -62,14 +55,15 @@ body {
  * Remove text-shadow in selection highlight
  * These selection rule sets have to be separate.
  */
-
+/* line 66, ../scss/gridmain.scss */
 ::-moz-selection {
-  background: $light-background;
+  background: #fff;
   text-shadow: none;
 }
 
+/* line 71, ../scss/gridmain.scss */
 ::selection {
-  background: $light-background;
+  background: #fff;
   text-shadow: none;
 }
 
@@ -78,7 +72,7 @@ body {
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
-
+/* line 82, ../scss/gridmain.scss */
 audio,
 canvas,
 iframe,
@@ -91,7 +85,7 @@ video {
 /*
  * Remove default fieldset styles.
  */
-
+/* line 95, ../scss/gridmain.scss */
 fieldset {
   border: 0;
   margin: 0;
@@ -101,7 +95,7 @@ fieldset {
 /*
  * Allow only vertical resizing of textareas.
  */
-
+/* line 105, ../scss/gridmain.scss */
 textarea {
   resize: vertical;
 }
@@ -109,7 +103,7 @@ textarea {
 /* =========================================================================
  * Browser Upgrade Prompt
  * ========================================================================= */
-
+/* line 113, ../scss/gridmain.scss */
 .browserupgrade {
   /* Allocate space */
   padding: 0.2em 0;
@@ -123,18 +117,14 @@ textarea {
 /* =========================================================================
  * Header Style [Mobile/Desktop]
  * ========================================================================= */
-
+/* line 127, ../scss/gridmain.scss */
 body {
-  background:
-          url("../../home/img/core/sigcompcrop.png")
-          top
-          no-repeat
-          fixed;
+  background: url("../../home/img/core/sigcompcrop.png") top no-repeat fixed;
 }
 
+/* line 135, ../scss/gridmain.scss */
 header {
   /* Allocate space */
-  //@extend .constraint-wrapper;
   width: 100%;
   height: 420px;
   /* Formatting */
@@ -142,6 +132,7 @@ header {
   /*background-color: #245623;*/
 }
 
+/* line 145, ../scss/gridmain.scss */
 .header__logo-wrapper {
   /* Allocate space */
   height: 50%;
@@ -151,6 +142,7 @@ header {
   /* Cosmetics */
 }
 
+/* line 154, ../scss/gridmain.scss */
 .header__logo {
   /* Allocate space */
   height: 70px;
@@ -160,6 +152,7 @@ header {
   /* Cosmetics */
 }
 
+/* line 163, ../scss/gridmain.scss */
 .header__logo img {
   /* Allocate space */
   height: 100%;
@@ -167,6 +160,7 @@ header {
   /* Cosmetics */
 }
 
+/* line 170, ../scss/gridmain.scss */
 .header__logo h3 {
   /* Allocate space */
   margin: 0 0 0 10px;
@@ -178,6 +172,7 @@ header {
   letter-spacing: .7px;
 }
 
+/* line 181, ../scss/gridmain.scss */
 .header__welcome-wrapper {
   /* Allocate space */
   height: 50%;
@@ -191,6 +186,7 @@ header {
   /* Cosmetics */
 }
 
+/* line 194, ../scss/gridmain.scss */
 .header__welcome {
   /* Allocate space */
   /* Formatting */
@@ -205,32 +201,37 @@ header {
 /* =========================================================================
  * Navigation Styles [Mobile]
  * ========================================================================= */
-
-// Disable Desktop Nav
+/* line 210, ../scss/gridmain.scss */
 .desktop-nav {
   display: none;
 }
+
+/* line 213, ../scss/gridmain.scss */
 .pseudo-nav {
   display: none;
 }
 
+/* line 217, ../scss/gridmain.scss */
 nav {
   z-index: 100;
   width: 100vw;
-  background: $light-footer;
+  background: #373C3F;
   height: 56px;
   overflow: hidden;
   position: fixed;
 }
 
+/* line 226, ../scss/gridmain.scss */
 label {
   cursor: pointer;
 }
 
+/* line 230, ../scss/gridmain.scss */
 label:focus {
   outline: none;
 }
 
+/* line 234, ../scss/gridmain.scss */
 .menu {
   position: fixed;
   z-index: 1000;
@@ -243,6 +244,7 @@ label:focus {
   transition: transform 0.35s;
 }
 
+/* line 246, ../scss/gridmain.scss */
 .menu label.menu-toggle {
   position: absolute;
   z-index: 10;
@@ -253,11 +255,11 @@ label:focus {
   padding: 19px 18px;
   display: block;
   text-indent: -9999px;
-  background: $light-footer;
+  background: #373C3F;
 }
 
-span
-{
+/* line 259, ../scss/gridmain.scss */
+span {
   display: block;
   width: 25px;
   height: 2px;
@@ -267,58 +269,63 @@ span
   border-radius: 3px;
   z-index: 1;
   transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
 
-#menuToggle span:first-child
-{
+/* line 275, ../scss/gridmain.scss */
+#menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2)
-{
+/* line 280, ../scss/gridmain.scss */
+#menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
 
+/* line 285, ../scss/gridmain.scss */
 .menu ul li a, .menu ul li label {
   display: block;
   text-align: center;
   padding: 0 20px;
   line-height: 56px;
   text-decoration: none;
-  color: $top-text-color;
+  color: rgba(0, 0, 0, 0.87);
   transition: all .1s ease-in-out;
 }
 
+/* line 295, ../scss/gridmain.scss */
 .menu ul li a:hover, .menu ul li label:hover {
   color: #76d3ab;
   background-color: #eee;
-  font-weight:bold;
+  font-weight: bold;
 }
 
+/* line 301, ../scss/gridmain.scss */
 .menu ul {
   margin-top: 0;
   padding-left: 0;
 }
 
+/* line 306, ../scss/gridmain.scss */
 .menu ul li {
   list-style: none;
 }
 
 /* hide inputs */
+/* line 311, ../scss/gridmain.scss */
 .menu-checkbox {
   display: none;
 }
 
 /* hide navigation icon for sublabels */
+/* line 316, ../scss/gridmain.scss */
 .menu .menu label.menu-toggle {
   background: none;
 }
 
 /* fade in checked menu */
+/* line 321, ../scss/gridmain.scss */
 .menu-checkbox:checked + .menu {
   transform: translate3d(0, 0, 0);
-  box-shadow: 0 0 8px rgba(0, 0, 0, .45);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
