@@ -7,7 +7,7 @@
 /* =========================================================================
  * General Styles
  * ========================================================================= */
-/* line 12, ../scss/main.scss */
+/* line 14, ../scss/main.scss */
 html {
   /* Fill full height and width */
   height: 100%;
@@ -27,7 +27,7 @@ html {
   -moz-font-feature-settings: "liga" on;
 }
 
-/* line 31, ../scss/main.scss */
+/* line 33, ../scss/main.scss */
 body {
   /* Fill full height and width */
   height: 100%;
@@ -37,7 +37,7 @@ body {
   top: 0;
 }
 
-/* line 40, ../scss/main.scss */
+/* line 42, ../scss/main.scss */
 *,
 *::before,
 *::after {
@@ -49,13 +49,13 @@ body {
  * Remove text-shadow in selection highlight
  * These selection rule sets have to be separate.
  */
-/* line 52, ../scss/main.scss */
+/* line 54, ../scss/main.scss */
 ::-moz-selection {
   background: #fff;
   text-shadow: none;
 }
 
-/* line 57, ../scss/main.scss */
+/* line 59, ../scss/main.scss */
 ::selection {
   background: #fff;
   text-shadow: none;
@@ -66,7 +66,7 @@ body {
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
-/* line 68, ../scss/main.scss */
+/* line 70, ../scss/main.scss */
 audio,
 canvas,
 iframe,
@@ -79,7 +79,7 @@ video {
 /*
  * Remove default fieldset styles.
  */
-/* line 81, ../scss/main.scss */
+/* line 83, ../scss/main.scss */
 fieldset {
   border: 0;
   margin: 0;
@@ -89,7 +89,7 @@ fieldset {
 /*
  * Allow only vertical resizing of textareas.
  */
-/* line 91, ../scss/main.scss */
+/* line 93, ../scss/main.scss */
 textarea {
   resize: vertical;
 }
@@ -97,7 +97,7 @@ textarea {
 /* =========================================================================
  * Browser Upgrade Prompt
  * ========================================================================= */
-/* line 99, ../scss/main.scss */
+/* line 101, ../scss/main.scss */
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -108,35 +108,23 @@ textarea {
 /* =========================================================================
  * Header Styles
  * ========================================================================= */
-/* line 110, ../scss/main.scss */
-body {
-  background-image: url("../../home/img/core/sigcompcrop.png");
-  background-position: center -10px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-}
-
-/* line 118, ../scss/main.scss */
+/* line 116, ../scss/main.scss */
 header {
   /* Allocate space */
   width: 100%;
   height: 420px;
+  background: url("../../home/img/core/sigcompcrop.png") top/cover repeat-y fixed #f1f1f1;
   /* Formatting */
   /* Cosmetics */
   /*background-color: #245623;*/
 }
-
-/* line 127, ../scss/main.scss */
+/* line 130, ../scss/main.scss */
 header .constraint-wrapper {
-  /* Allocate space */
   height: 100%;
-  /* Formatting */
-  /* Cosmetics */
 }
 
-/* line 134, ../scss/main.scss */
-header .header-acm-seal-wrapper {
+/* line 135, ../scss/main.scss */
+.header__logo-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
@@ -145,8 +133,8 @@ header .header-acm-seal-wrapper {
   /* Cosmetics */
 }
 
-/* line 143, ../scss/main.scss */
-header .header-acm-seal {
+/* line 144, ../scss/main.scss */
+.header__logo {
   /* Allocate space */
   height: 70px;
   /* Formatting */
@@ -155,28 +143,28 @@ header .header-acm-seal {
   /* Cosmetics */
 }
 
-/* line 152, ../scss/main.scss */
-header .header-acm-seal img {
+/* line 153, ../scss/main.scss */
+.header__logo img {
   /* Allocate space */
   height: 100%;
   /* Formatting */
   /* Cosmetics */
 }
 
-/* line 159, ../scss/main.scss */
-header .header-acm-seal h3 {
+/* line 160, ../scss/main.scss */
+.header__logo h3 {
   /* Allocate space */
   margin: 0 0 0 10px;
   /* Formatting */
   /* Cosmetics */
-  color: #fff;
+  color: white;
   font-weight: 500;
   font-size: 1em;
   letter-spacing: .7px;
 }
 
-/* line 170, ../scss/main.scss */
-header .header-welcome-wrapper {
+/* line 171, ../scss/main.scss */
+.header__welcome-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
@@ -189,13 +177,14 @@ header .header-welcome-wrapper {
   /* Cosmetics */
 }
 
-/* line 183, ../scss/main.scss */
-header .header-welcome {
+/* line 184, ../scss/main.scss */
+.header__welcome {
   /* Allocate space */
   /* Formatting */
   margin: 0;
+  text-align: right;
   /* Cosmetics */
-  color: #fff;
+  color: white;
   line-height: .8em;
   font-weight: normal;
   text-decoration: none;
@@ -204,11 +193,10 @@ header .header-welcome {
 /* =========================================================================
  * Navigation Styles
  * ========================================================================= */
-/* line 198, ../scss/main.scss */
+/* line 200, ../scss/main.scss */
 .pseudo-nav {
   height: 60px;
   width: 92vw;
-  min-width: 1000px;
   -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
@@ -217,14 +205,20 @@ header .header-welcome {
   right: 0;
   position: absolute;
   z-index: 0;
+  overflow-x: hidden;
 }
 
-/* line 212, ../scss/main.scss */
+/* line 214, ../scss/main.scss */
 nav {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* line 219, ../scss/main.scss */
+.nav__real {
   /* Allocate space */
   height: 90px;
   width: 92vw;
-  overflow: hidden;
   min-width: 1000px;
   /* Formatting */
   position: relative;
@@ -234,7 +228,7 @@ nav {
   background-color: #fff;
 }
 
-/* line 226, ../scss/main.scss */
+/* line 232, ../scss/main.scss */
 nav .nav-link-wrapper {
   margin: 0 auto;
   padding: 0;
@@ -245,7 +239,7 @@ nav .nav-link-wrapper {
   display: flex;
 }
 
-/* line 236, ../scss/main.scss */
+/* line 242, ../scss/main.scss */
 .nav-button {
   text-align: center;
   text-decoration: none;
@@ -255,12 +249,12 @@ nav .nav-link-wrapper {
   flex-basis: 100%;
 }
 
-/* line 247, ../scss/main.scss */
+/* line 253, ../scss/main.scss */
 .nav-button:hover a span {
   color: rgba(0, 0, 0, 0.55);
 }
 
-/* line 251, ../scss/main.scss */
+/* line 257, ../scss/main.scss */
 .nav-button:after {
   transition: all .25s ease-in-out;
   display: block;
@@ -271,13 +265,13 @@ nav .nav-link-wrapper {
   border-bottom: solid 3px #2da1d8;
 }
 
-/* line 261, ../scss/main.scss */
+/* line 267, ../scss/main.scss */
 .nav-button:hover:after {
   transform: scaleX(1);
   border-bottom: solid 3px #76d3ab;
 }
 
-/* line 266, ../scss/main.scss */
+/* line 272, ../scss/main.scss */
 .nav-button a {
   display: flex;
   justify-content: center;
@@ -287,7 +281,7 @@ nav .nav-link-wrapper {
   width: 100%;
 }
 
-/* line 275, ../scss/main.scss */
+/* line 281, ../scss/main.scss */
 .nav-button a:after {
   display: block;
   position: absolute;
@@ -296,19 +290,19 @@ nav .nav-link-wrapper {
   border-right: solid 2px #ddd;
 }
 
-/* line 283, ../scss/main.scss */
+/* line 289, ../scss/main.scss */
 .nav-button:first-of-type a:after {
   display: none;
 }
 
-/* line 287, ../scss/main.scss */
+/* line 293, ../scss/main.scss */
 .nav-button a img {
   height: 48px;
   width: 48px;
   margin: 0 auto;
 }
 
-/* line 293, ../scss/main.scss */
+/* line 299, ../scss/main.scss */
 .nav-button a span {
   transition: all .2s ease-in-out;
   font-size: .8em;
@@ -317,35 +311,42 @@ nav .nav-link-wrapper {
 }
 
 /* This section is for mobile menu */
-/* line 302, ../scss/main.scss */
+/* line 308, ../scss/main.scss */
 #menu-wrapper {
   display: none;
+  z-index: 100;
+  width: 100vw;
+  top: 0;
+  background: #373C3F;
+  height: 56px;
+  overflow: hidden;
+  position: fixed;
 }
 
-/* line 306, ../scss/main.scss */
+/* line 319, ../scss/main.scss */
 label {
   cursor: pointer;
 }
 
-/* line 310, ../scss/main.scss */
+/* line 323, ../scss/main.scss */
 label:focus {
   outline: none;
 }
 
-/* line 314, ../scss/main.scss */
+/* line 327, ../scss/main.scss */
 .menu {
   position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
-  background: #fff;
+  background: #f1f1f1;
   width: 240px;
   height: 100%;
   transform: translate3d(-240px, 0, 0);
   transition: transform 0.35s;
 }
 
-/* line 326, ../scss/main.scss */
+/* line 339, ../scss/main.scss */
 .menu label.menu-toggle {
   position: absolute;
   right: -60px;
@@ -353,78 +354,92 @@ label:focus {
   height: 56px;
   line-height: 0px;
   display: block;
-  padding: 0;
+  padding: 19px 18px;
   text-indent: -9999px;
-  background: #f0f0f0 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/23px 21px no-repeat;
+  background: #373C3F;
 }
 
-/* line 338, ../scss/main.scss */
+/* line 351, ../scss/main.scss */
+.menu span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+/* line 366, ../scss/main.scss */
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+
+/* line 370, ../scss/main.scss */
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+
+/* line 374, ../scss/main.scss */
 .menu ul li > label {
   background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50%/16px 16px no-repeat;
 }
 
-/* line 342, ../scss/main.scss */
+/* line 378, ../scss/main.scss */
 .menu ul li a, .menu ul li label {
   display: block;
   text-align: center;
   padding: 0 20px;
   line-height: 56px;
   text-decoration: none;
-  color: #000;
-  transition: background-color .1s;
+  color: rgba(0, 0, 0, 0.87);
+  transition: all .1s ease-in-out;
 }
 
-/* line 352, ../scss/main.scss */
+/* line 388, ../scss/main.scss */
 .menu ul li a:hover, .menu ul li label:hover {
   color: #76d3ab;
-  background-color: #f0f0f0;
+  background-color: #eee;
+  font-weight: bold;
 }
 
-/* line 357, ../scss/main.scss */
+/* line 394, ../scss/main.scss */
 .menu ul {
   margin-top: 0;
   padding-left: 0;
 }
 
-/* line 362, ../scss/main.scss */
+/* line 399, ../scss/main.scss */
 .menu ul li {
   list-style: none;
 }
 
 /* hide inputs */
-/* line 367, ../scss/main.scss */
+/* line 404, ../scss/main.scss */
 .menu-checkbox {
   display: none;
 }
 
 /* hide navigation icon for sublabels */
-/* line 372, ../scss/main.scss */
+/* line 409, ../scss/main.scss */
 .menu .menu label.menu-toggle {
   background: none;
 }
 
 /* fade in checked menu */
-/* line 377, ../scss/main.scss */
+/* line 414, ../scss/main.scss */
 .menu-checkbox:checked + .menu {
   transform: translate3d(0, 0, 0);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
 
-/* line 382, ../scss/main.scss */
-.top-bar {
-  display: none;
-  position: fixed;
-  z-index: 2;
-  width: 100%;
-  height: 56px;
-  background-color: #F0F0F0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 4px 0;
-}
-
 /* =========================================================================
  * Page Modifications
  * ========================================================================= */
-/* line 396, ../scss/main.scss */
+/* line 423, ../scss/main.scss */
 main {
   position: relative;
   z-index: 0;
@@ -434,9 +449,10 @@ main {
   -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
   background-color: white;
+  overflow-x: hidden;
 }
 
-/* line 407, ../scss/main.scss */
+/* line 435, ../scss/main.scss */
 .acm-btn {
   display: inline-block;
   cursor: pointer;
@@ -451,7 +467,7 @@ main {
   transition: .2s ease-in-out;
 }
 
-/* line 422, ../scss/main.scss */
+/* line 450, ../scss/main.scss */
 .acm-btn:hover {
   box-shadow: inset 0 -40px 0 0 #65b593;
 }
@@ -459,7 +475,7 @@ main {
 /* =========================================================================
  * Footer Styles
  * ========================================================================= */
-/* line 430, ../scss/main.scss */
+/* line 458, ../scss/main.scss */
 footer {
   position: relative;
   z-index: 10;
@@ -470,13 +486,13 @@ footer {
   background-color: #373C3F;
 }
 
-/* line 440, ../scss/main.scss */
+/* line 468, ../scss/main.scss */
 footer img {
   margin: 5px 0;
   height: 110px;
 }
 
-/* line 445, ../scss/main.scss */
+/* line 473, ../scss/main.scss */
 .footer-nav {
   height: 80px;
   width: 100%;
@@ -485,7 +501,7 @@ footer img {
   align-items: center;
 }
 
-/* line 453, ../scss/main.scss */
+/* line 481, ../scss/main.scss */
 .footer-nav a {
   margin: 0 2%;
   font-size: 14px;
@@ -494,12 +510,12 @@ footer img {
   transition: color .25s;
 }
 
-/* line 460, ../scss/main.scss */
+/* line 488, ../scss/main.scss */
 .footer-nav a:hover {
   color: white;
 }
 
-/* line 464, ../scss/main.scss */
+/* line 492, ../scss/main.scss */
 footer h5 {
   color: rgba(255, 255, 255, 0.6);
   font-size: 14px;
@@ -512,7 +528,7 @@ footer h5 {
 /*
  * Hide visually and from screen readers
  */
-/* line 478, ../scss/main.scss */
+/* line 506, ../scss/main.scss */
 .hidden {
   display: none !important;
 }
@@ -521,7 +537,7 @@ footer h5 {
  * Hide only visually, but have it available for screen readers:
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
-/* line 487, ../scss/main.scss */
+/* line 515, ../scss/main.scss */
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -538,7 +554,7 @@ footer h5 {
  * to be focusable when navigated to via the keyboard:
  * https://www.drupal.org/node/897638
  */
-/* line 504, ../scss/main.scss */
+/* line 532, ../scss/main.scss */
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -552,7 +568,7 @@ footer h5 {
 /*
  * Hide visually and from screen readers, but maintain layout
  */
-/* line 518, ../scss/main.scss */
+/* line 546, ../scss/main.scss */
 .invisible {
   visibility: hidden;
 }
@@ -560,14 +576,14 @@ footer h5 {
 /*
  * Set content to middle of screen and desired width for content
  */
-/* line 526, ../scss/main.scss */
+/* line 554, ../scss/main.scss */
 .constraint-wrapper {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
 }
 
-/* line 532, ../scss/main.scss */
+/* line 560, ../scss/main.scss */
 .content-wrapper {
   margin: 0 auto;
   width: 100%;
@@ -585,7 +601,7 @@ footer h5 {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-/* line 550, ../scss/main.scss */
+/* line 578, ../scss/main.scss */
 .clearfix:before,
 .clearfix:after {
   content: " ";
@@ -594,7 +610,7 @@ footer h5 {
   /* 2 */
 }
 
-/* line 556, ../scss/main.scss */
+/* line 584, ../scss/main.scss */
 .clearfix:after {
   clear: both;
 }
@@ -607,58 +623,58 @@ footer h5 {
 /*}*/
 @media (max-width: 414px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  /* line 570, ../scss/main.scss */
+  /* line 598, ../scss/main.scss */
   footer {
     height: 110px;
     padding-top: 15px;
   }
 
-  /* line 575, ../scss/main.scss */
+  /* line 603, ../scss/main.scss */
   footer img {
     display: none;
   }
 }
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  /* line 582, ../scss/main.scss */
+  /* line 610, ../scss/main.scss */
   header {
     margin-top: 56px;
     height: 300px;
   }
 
-  /* line 587, ../scss/main.scss */
+  /* line 615, ../scss/main.scss */
   .header-welcome {
     font-size: 28px;
   }
 
-  /* line 591, ../scss/main.scss */
+  /* line 619, ../scss/main.scss */
   nav {
     display: none;
   }
 
-  /* line 595, ../scss/main.scss */
+  /* line 623, ../scss/main.scss */
   .pseudo-nav {
     display: none;
   }
 
-  /* line 599, ../scss/main.scss */
+  /* line 627, ../scss/main.scss */
   #menu-wrapper {
     display: block;
   }
 
-  /* line 603, ../scss/main.scss */
+  /* line 631, ../scss/main.scss */
   .top-bar {
     top: 0;
     display: block;
   }
 
-  /* line 608, ../scss/main.scss */
+  /* line 636, ../scss/main.scss */
   main {
     margin-top: 0;
     padding-top: 10px;
   }
 
-  /* line 613, ../scss/main.scss */
+  /* line 641, ../scss/main.scss */
   main::before {
     display: block !important;
     content: '';
@@ -670,13 +686,7 @@ footer h5 {
 /*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
-  /* line 625, ../scss/main.scss */
-  body {
-    background-image: url("../../home/img/core/sigcomp.png");
-    background-position: center -100px;
-  }
-
-  /* line 630, ../scss/main.scss */
+  /* line 654, ../scss/main.scss */
   nav .nav-link-wrapper {
     margin: 0;
   }
@@ -688,7 +698,7 @@ footer h5 {
    http://www.phpied.com/delay-loading-your-print-css/
    ========================================================================== */
 @media print {
-  /* line 644, ../scss/main.scss */
+  /* line 668, ../scss/main.scss */
   *,
   *:before,
   *:after,
@@ -702,18 +712,18 @@ footer h5 {
     text-shadow: none !important;
   }
 
-  /* line 657, ../scss/main.scss */
+  /* line 681, ../scss/main.scss */
   a,
   a:visited {
     text-decoration: underline;
   }
 
-  /* line 662, ../scss/main.scss */
+  /* line 686, ../scss/main.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 666, ../scss/main.scss */
+  /* line 690, ../scss/main.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
@@ -722,13 +732,13 @@ footer h5 {
    * Don't show links that are fragment identifiers,
    * or use the `javascript:` pseudo protocol
    */
-  /* line 674, ../scss/main.scss */
+  /* line 698, ../scss/main.scss */
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
   }
 
-  /* line 679, ../scss/main.scss */
+  /* line 703, ../scss/main.scss */
   pre,
   blockquote {
     border: 1px solid #999;
@@ -739,23 +749,23 @@ footer h5 {
    * Printing Tables:
    * http://css-discuss.incutio.com/wiki/Printing_Tables
    */
-  /* line 689, ../scss/main.scss */
+  /* line 713, ../scss/main.scss */
   thead {
     display: table-header-group;
   }
 
-  /* line 693, ../scss/main.scss */
+  /* line 717, ../scss/main.scss */
   tr,
   img {
     page-break-inside: avoid;
   }
 
-  /* line 698, ../scss/main.scss */
+  /* line 722, ../scss/main.scss */
   img {
     max-width: 100% !important;
   }
 
-  /* line 702, ../scss/main.scss */
+  /* line 726, ../scss/main.scss */
   p,
   h2,
   h3 {
@@ -763,7 +773,7 @@ footer h5 {
     widows: 3;
   }
 
-  /* line 709, ../scss/main.scss */
+  /* line 733, ../scss/main.scss */
   h2,
   h3 {
     page-break-after: avoid;

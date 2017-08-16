@@ -9,6 +9,8 @@
  * General Styles
  * ========================================================================= */
 
+@import "variables";
+
 html {
   /* Fill full height and width */
   height: 100%;
@@ -108,30 +110,29 @@ textarea {
  * ========================================================================= */
 
 body {
-  background-image: url("../../home/img/core/sigcompcrop.png");
-  background-position: center -10px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+
 }
 
 header {
   /* Allocate space */
+  //@extend .constraint-wrapper;
   width: 100%;
   height: 420px;
+  background:
+          url("../../home/img/core/sigcompcrop.png")
+          top / cover
+          repeat-y
+          fixed
+          #f1f1f1;
   /* Formatting */
   /* Cosmetics */
   /*background-color: #245623;*/
+  .constraint-wrapper {
+    height: 100%;
+  }
 }
 
-header .constraint-wrapper {
-  /* Allocate space */
-  height: 100%;
-  /* Formatting */
-  /* Cosmetics */
-}
-
-header .header-acm-seal-wrapper {
+.header__logo-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
@@ -140,7 +141,7 @@ header .header-acm-seal-wrapper {
   /* Cosmetics */
 }
 
-header .header-acm-seal {
+.header__logo {
   /* Allocate space */
   height: 70px;
   /* Formatting */
@@ -149,25 +150,25 @@ header .header-acm-seal {
   /* Cosmetics */
 }
 
-header .header-acm-seal img {
+.header__logo img {
   /* Allocate space */
   height: 100%;
   /* Formatting */
   /* Cosmetics */
 }
 
-header .header-acm-seal h3 {
+.header__logo h3 {
   /* Allocate space */
   margin: 0 0 0 10px;
   /* Formatting */
   /* Cosmetics */
-  color: #fff;
+  color: white;
   font-weight: 500;
   font-size: 1em;
   letter-spacing: .7px;
 }
 
-header .header-welcome-wrapper {
+.header__welcome-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
@@ -180,12 +181,13 @@ header .header-welcome-wrapper {
   /* Cosmetics */
 }
 
-header .header-welcome {
+.header__welcome {
   /* Allocate space */
   /* Formatting */
   margin: 0;
+  text-align: right;
   /* Cosmetics */
-  color: #fff;
+  color: white;
   line-height: .8em;
   font-weight: normal;
   text-decoration: none;
@@ -198,7 +200,6 @@ header .header-welcome {
 .pseudo-nav {
   height: 60px;
   width: 92vw;
-  min-width: 1000px;
   -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
   -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
@@ -207,13 +208,18 @@ header .header-welcome {
   right: 0;
   position: absolute;
   z-index: 0;
+  overflow-x: hidden;
 }
 
 nav {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.nav__real {
   /* Allocate space */
   height: 90px;
   width: 92vw;
-  overflow: hidden;
   min-width: 1000px;
   /* Formatting */
   position: relative;
@@ -301,6 +307,13 @@ nav .nav-link-wrapper {
 
 #menu-wrapper {
   display: none;
+  z-index: 100;
+  width: 100vw;
+  top: 0;
+  background: $light-footer;
+  height: 56px;
+  overflow: hidden;
+  position: fixed;
 }
 
 label {
@@ -316,7 +329,7 @@ label:focus {
   z-index: 1000;
   top: 0;
   left: 0;
-  background: #fff;
+  background: #f1f1f1;
   width: 240px;
   height: 100%;
   transform: translate3d(-240px, 0, 0);
@@ -330,9 +343,32 @@ label:focus {
   height: 56px;
   line-height: 0px;
   display: block;
-  padding: 0;
+  padding: 19px 18px;
   text-indent: -9999px;
-  background: #f0f0f0 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/23px 21px no-repeat;
+  background: $light-footer;
+}
+
+.menu span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
 }
 
 .menu ul li > label {
@@ -345,13 +381,14 @@ label:focus {
   padding: 0 20px;
   line-height: 56px;
   text-decoration: none;
-  color: #000;
-  transition: background-color .1s;
+  color: $top-text-color;
+  transition: all .1s ease-in-out;
 }
 
 .menu ul li a:hover, .menu ul li label:hover {
   color: #76d3ab;
-  background-color: #f0f0f0;
+  background-color: #eee;
+  font-weight:bold;
 }
 
 .menu ul {
@@ -379,16 +416,6 @@ label:focus {
   box-shadow: 0 0 8px rgba(0, 0, 0, .45);
 }
 
-.top-bar {
-  display: none;
-  position: fixed;
-  z-index: 2;
-  width: 100%;
-  height: 56px;
-  background-color: #F0F0F0;
-  box-shadow: rgba(0, 0, 0, .2) 0 4px 4px 0;
-}
-
 /* =========================================================================
  * Page Modifications
  * ========================================================================= */
@@ -402,6 +429,7 @@ main {
   -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
   background-color: white;
+  overflow-x: hidden;
 }
 
 .acm-btn {
@@ -622,10 +650,6 @@ footer h5 {
 /*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
-  body {
-    background-image: url("../../home/img/core/sigcomp.png");
-    background-position: center -100px;
-  }
   
   nav .nav-link-wrapper {
     margin: 0;
