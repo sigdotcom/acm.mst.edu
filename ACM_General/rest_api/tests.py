@@ -132,6 +132,7 @@ class AccountsTestCase(TestCase):
 class EventsTestCase(TestCase):
     def setUp(self):
         super().setUp()
+        self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
                         id='test',
@@ -163,10 +164,7 @@ class EventsTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = './test_data/test_image.jpg'
-        # self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
-        self.image2 = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
-
 
     def test_events_rest_actions(self):
         event={
@@ -182,19 +180,6 @@ class EventsTestCase(TestCase):
             "hosting_sig": self.sig.id,
         }
 
-        event2={
-            "date_hosted": timezone.now(),
-            "date_expire": timezone.now(),
-            "title": "test1",
-            "description": "test",
-            "location": "test",
-            "presenter": "test",
-            "cost": 3.00,
-            "flier": self.image2,
-            "creator": self.user.id,
-            "hosting_sig": self.sig.id,
-        }
-
         ##
         # Testing standard views with initial created model
         ##
@@ -202,7 +187,6 @@ class EventsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('rest_api:event-detail', kwargs={'pk':self.event.id}))
         self.assertEqual(response.status_code, 200)
-
 
         ##
         # Testing creating a new event
@@ -217,11 +201,16 @@ class EventsTestCase(TestCase):
         # NOTE: This test requires the data to be sent in a special way due to
         #       how the django client does put requests.
         ##
-        client = APIClient()
+
+        # Resets the image pointer to be pointing at the beginning of the image
+        # file rather than the end which would cause an error with the 'put'
+        # command.
+        self.image.seek(0)
+
         event['title'] = "test1"
-        response = client.put(
+        response = self.client.put(
             reverse('rest_api:event-detail', kwargs={'pk':response.json()['id']}),
-            event2,
+            event,
             format="multipart"
         )
         self.assertEqual(response.status_code, 200)
