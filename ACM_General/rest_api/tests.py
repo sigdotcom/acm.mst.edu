@@ -12,11 +12,13 @@ from events.models import Event
 from django.core.files.uploadedfile import SimpleUploadedFile
 import tempfile
 from django.conf import settings
+from rest_framework.test import APIClient
 
 # Create your tests here.
 class AccountsTestCase(TestCase):
     def setUp(self):
         super().setUp()
+        self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
                         id='test',
@@ -160,8 +162,11 @@ class EventsTestCase(TestCase):
                                                     )
 
         # Sets up image variable for creating Event
-        image_path = 'test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        image_path = './test_data/test_image.jpg'
+        # self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image2 = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+
 
     def test_events_rest_actions(self):
         event={
@@ -173,6 +178,19 @@ class EventsTestCase(TestCase):
             "presenter": "test",
             "cost": 3.00,
             "flier": self.image,
+            "creator": self.user.id,
+            "hosting_sig": self.sig.id,
+        }
+
+        event2={
+            "date_hosted": timezone.now(),
+            "date_expire": timezone.now(),
+            "title": "test1",
+            "description": "test",
+            "location": "test",
+            "presenter": "test",
+            "cost": 3.00,
+            "flier": self.image2,
             "creator": self.user.id,
             "hosting_sig": self.sig.id,
         }
@@ -199,11 +217,12 @@ class EventsTestCase(TestCase):
         # NOTE: This test requires the data to be sent in a special way due to
         #       how the django client does put requests.
         ##
+        client = APIClient()
         event['title'] = "test1"
-        response = self.client.put(
+        response = client.put(
             reverse('rest_api:event-detail', kwargs={'pk':response.json()['id']}),
-            data=json.dumps(event, default=str, ensure_ascii=False),
-            content_type='application/json'
+            event2,
+            format="multipart"
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["title"], "test1")
