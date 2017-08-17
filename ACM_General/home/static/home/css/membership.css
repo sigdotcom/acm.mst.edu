@@ -1,4 +1,6 @@
 /* line 1, ../scss/membership.scss */
+/* TODO: Add documentation on semantic class naming http://getbem.com/ */
+
 .perks-header {
   text-align: center;
   font-weight: normal;
