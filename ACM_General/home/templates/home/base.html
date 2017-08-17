@@ -30,6 +30,11 @@ function $buo_f(){
 try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
 catch(e){window.attachEvent("onload", $buo_f)}
 </script>
+{# puts user agent into the html used in ie 10's case#}
+  <script>
+    var doc = document.documentElement;
+    doc.setAttribute('data-useragent', navigator.userAgent);
+  </script>
 {% endblock %}
 {% block head_fonts %}
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
@@ -84,11 +89,12 @@ catch(e){window.attachEvent("onload", $buo_f)}
 
   <nav><!-- desktop nav -->
       <ul class="nav-link-wrapper">
-        <li class="nav-home nav-button"><a href="{% url "home:index" %}"
-                                           title="Home">
-          <img src="{% static "home/img/core/home-icon.png" %}"/>
-          <span>Home</span>
-        </a></li>
+        <li class="nav-home nav-button">
+          <a href="{% url "home:index" %}" title="Home">
+            <img src="{% static "home/img/core/home-icon.png" %}"/>
+            <span>Home</span>
+          </a>
+        </li>
         <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
                                                title="Sponsors">
           <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
@@ -130,4 +136,5 @@ catch(e){window.attachEvent("onload", $buo_f)}
     </div>
     <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
   </footer>
+
 {% endblock %}

@@ -22,11 +22,15 @@
 
 .cards__card {
   list-style: none;
+  display: -ms-flexbox;
+    display: -webkit-flex;
   display: flex;
   height: 200px;
   margin: 1rem auto 0 auto;
 }
 .cards__card:nth-of-type(even) {
+  -webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
 
@@ -34,6 +38,8 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  -webkit-filter: contrast(70%);
   filter: contrast(70%);
   display: block;
   width: 180px;

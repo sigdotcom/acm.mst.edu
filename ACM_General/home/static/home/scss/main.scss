@@ -118,6 +118,7 @@ header {
   //@extend .constraint-wrapper;
   width: 100%;
   height: 420px;
+  padding-bottom: 45px;
   background:
           url("../../home/img/core/sigcompcrop.png")
           top / cover
@@ -145,7 +146,10 @@ header {
   /* Allocate space */
   height: 70px;
   /* Formatting */
-  display: flex;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
   align-items: center;
   /* Cosmetics */
 }
@@ -174,8 +178,12 @@ header {
   width: 100%;
   padding: 0 20px 20px 0;
   /* Formatting */
-  display: flex;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: end;
   align-items: flex-end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   float: right;
   /* Cosmetics */
@@ -197,57 +205,38 @@ header {
  * Navigation Styles
  * ========================================================================= */
 
-.pseudo-nav {
-  height: 60px;
-  width: 92vw;
-  -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  position: absolute;
-  z-index: 0;
-  overflow-x: hidden;
-}
-
 nav {
-  width: 100%;
-  overflow-x: hidden;
-}
 
-.nav__real {
-  /* Allocate space */
+  width: 86vw;
   height: 90px;
-  width: 92vw;
-  min-width: 1000px;
-  /* Formatting */
+
   position: relative;
   z-index: 10;
-  margin: 0 auto 0 auto;
-  /* Cosmetics */
+  margin: -45px auto 0 auto;
+
   background-color: #fff;
 }
 
 nav .nav-link-wrapper {
-  margin: 0 auto;
+  margin: -45px auto 0 auto;
+  position: relative;
   padding: 0;
   list-style: none;
   max-width: 1000px;
-  width: calc(100vw - 17px);
+  width: 100%;
   height: 100%;
-  display: flex;
 }
 
 .nav-button {
+  float: left;
+  height: 100%;
+  //margin-top: -45px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
   
-  display: block;
-  
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 100%;
+  display: inline-block;
+  width: 16.6666666666666666666666666666666666666666666666666666%
 }
 
 .nav-button:hover a span {
@@ -258,7 +247,6 @@ nav .nav-link-wrapper {
   transition: all .25s ease-in-out;
   display: block;
   position: relative;
-  top: -3px;
   content: '';
   transform: scaleX(.40);
   border-bottom: solid 3px #2da1d8;
@@ -270,30 +258,22 @@ nav .nav-link-wrapper {
 }
 
 .nav-button a {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   text-decoration: none;
-  height: 100%;
-  width: 100%
-}
-
-.nav-button a:after {
+  height: 87px;
   display: block;
-  position: absolute;
-  content: '';
-  height: 50px;
-  border-right: solid 2px #ddd;
+  width: 100%;
 }
 
-.nav-button:first-of-type a:after {
-  display: none;
+.nav-button a * {
+  display: block;
 }
 
 .nav-button a img {
   height: 48px;
   width: 48px;
-  margin: 0 auto;
+  box-sizing: content-box;
+  margin: 0 auto 0 auto;
+  padding-top: 10px;
 }
 
 .nav-button a span {
@@ -301,6 +281,7 @@ nav .nav-link-wrapper {
   font-size: .8em;
   font-weight: bold;
   color: rgba(0, 0, 0, .42);
+  padding-bottom: 12px;
 }
 
 /* This section is for mobile menu */
@@ -421,21 +402,15 @@ label:focus {
  * ========================================================================= */
 
 main {
-  position: relative;
-  z-index: 0;
-  margin-top: -45px;
-  padding-top: 65px;
-  -webkit-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
-  -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
+  padding: 10px 0;
   background-color: white;
-  overflow-x: hidden;
 }
 
 .acm-btn {
   display: inline-block;
   cursor: pointer;
   background: #76d3ab;
+  white-space: nowrap;
  color: white;
   text-align: center;
   height: 38px;
@@ -459,21 +434,33 @@ footer {
   position: relative;
   z-index: 10;
   height: 220px;
-  display: flex;
-  flex-direction: column;
+  -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
   align-items: center;
   background-color: #373C3F;
 }
 
 footer img {
   margin: 5px 0;
-  height: 110px;
+  max-height: 100px;
+  height: auto;
+  width: auto;
 }
 
 .footer-nav {
-  height: 80px;
+  height: 60px;
   width: 100%;
-  display: flex;
+  white-space: nowrap;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
   justify-content: center;
   align-items: center;
 }
@@ -609,6 +596,7 @@ footer h5 {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   header {
     margin-top: 56px;
+    padding-bottom: 0;
     height: 300px;
   }
   

@@ -24,21 +24,26 @@
 /* line 23, ../scss/officers.scss */
 .cards__card {
   list-style: none;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   height: 200px;
   margin: 1rem auto 0 auto;
 }
 
-/* line 29, ../scss/officers.scss */
+/* line 31, ../scss/officers.scss */
 .cards__card:nth-of-type(even) {
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
 
-/* line 33, ../scss/officers.scss */
+/* line 37, ../scss/officers.scss */
 .card__image {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  -webkit-filter: contrast(70%);
   filter: contrast(70%);
   display: block;
   width: 180px;
@@ -47,25 +52,25 @@
   border-radius: 50%;
 }
 
-/* line 45, ../scss/officers.scss */
+/* line 51, ../scss/officers.scss */
 .card__content {
   height: 100%;
   padding: 1rem;
 }
 
-/* line 50, ../scss/officers.scss */
+/* line 56, ../scss/officers.scss */
 .card__name {
   margin: 0;
 }
 
-/* line 53, ../scss/officers.scss */
+/* line 59, ../scss/officers.scss */
 .card__titles {
   margin: 0;
   font-size: .96rem;
   color: rgba(0, 0, 0, 0.8);
 }
 
-/* line 58, ../scss/officers.scss */
+/* line 64, ../scss/officers.scss */
 .card__text {
   margin: 10px 0;
   font-size: .86rem;
