@@ -12,7 +12,7 @@
   <main>
     <div class="content-wrapper">
       <ul class="cards">
-        <!--<li class="cards__item">
+        <!--<li class="cards__card">
             <div class="card">
                 <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
                 <div class="card__content">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </li> -->
-        <!-- <li class="cards__item">
+        <!-- <li class="cards__card">
             <div class="card">
 {#                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
                 <div class="card__content">
@@ -40,56 +40,47 @@
                 </div>
             </div>
         </li> -->
-        <li class="cards__item">
-          <div class="card">
-
-            <div class="card__content">
-              <div class="card__image"
-                   style="background-image: url({% static "home/img/officers/current/secretary.jpg" %})"></div>
-
-              <div class="card__text">
-                <h5 class="card__title">Dalton Cole | Secretary, SIG-Comp
-                  Chair</h5>
-                Year - PhD<br>
-                Length of Service - 3 Years<br>
-                SIG - ACM General, SIG-Comp
-              </div>
+        <li class="cards__card">
+          <div class="card__image"
+               style="background-image: url({% static "home/img/officers/current/secretary.jpg" %})"></div>
+          <div class="card__content">
+            <h3 class="card__name">Dalton Cole</h3>
+            <h5 class="card__titles">Secretary and SIG-Comp Chair</h5>
+            <div class="card__text">
+              Year - PhD<br>
+              Length of Service - 3 Years<br>
+              {# TODO: make this start of service and put like august, 2014 #}
+              Involvement - ACM General, SIG-Comp
             </div>
-            <div class="link_zone">
-              <a href="https://github.com/drc14"
-                 class="acm-btn btn">GitHub</a>
+            <div class="card__links">
               <a href="https://www.linkedin.com/in/daltoncole1/"
-                 class="acm-btn btn">LinkedIn</a>
+                 class="acm-btn">LinkedIn</a>
               <a href="mailto:drcgy5@mst.edu"
-                 class="acm-btn btn">Email</a>
+                 class="acm-btn">Email</a>
             </div>
           </div>
         </li>
-        <li class="cards__item">
-          <div class="card">
 
-            <div class="card__content">
-              <div class="card__image"
-                   style="background-image: url({% static "home/img/officers/current/treasurer.jpg" %})"></div>
-
-              <div class="card__text">
-                <h5 class="card__title">Henry Wong | Treasurer</h5>
-                Year - Freshman<br>
-                Length of Service - 3 Months<br>
-                SIG - ACM General, SIG-Game
-              </div>
+        <li class="cards__card">
+          <div class="card__image"
+               style="background-image: url({% static "home/img/officers/current/treasurer.jpg" %})"></div>
+          <div class="card__content">
+            <h3 class="card__name">Henry Wong</h3>
+            <h5 class="card__titles">Treasurer</h5>
+            <div class="card__text">
+              Year - Freshman<br>
+              Length of Service - 3 Months<br>
+              Involvement - ACM General, SIG-Game
             </div>
-            <div class="link_zone">
-              <a href="https://github.com/henrycwong"
-                 class="acm-btn btn">GitHub</a>
+            <div class="card__links">
               <a href="https://linkedin/in/henrycwong"
-                 class="acm-btn btn">LinkedIn</a>
+                 class="acm-btn">LinkedIn</a>
               <a href="mailto:hcwqk7@mst.edu"
-                 class="acm-btn btn">Email</a>
+                 class="acm-btn">Email</a>
             </div>
           </div>
         </li>
-        <!--<li class="cards__item">
+        <!--<li class="cards__card">
             <div class="card">
                 <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
                 <div class="card__content">
@@ -103,35 +94,33 @@
                 </div>
             </div>
         </li>-->
-        <li class="cards__item">
-          <div class="card">
+        <li class="cards__card">
 
-            <div class="card__content">
+
               <div class="card__image"
                    style="background-image: url({% static "home/img/officers/current/SIG.com-chair.jpg" %})"></div>
+               <div class="card__content">
 
-              <div class="card__text">
-                <h5 class="card__title">Kevin Schoonover | SIG.com Chair,
+                <h3 class="card__name">Kevin Schoonover</h3>
+                 <h5 class="card__titles">SIG.com Chair,
                   System
                   Administrator
                 </h5>
+                 <div class="card__text">
                 Year - Freshman<br>
                 Length of Service - 6 Months<br>
                 SIG - SIG.com, ACM-General
               </div>
-            </div>
-            <div class="link_zone">
-              <a href="https://github.com/kevinschoonover"
-                 class="acm-btn btn btn--block card__btn">GitHub</a>
+            <div class="card__links">
               <a href="https://www.linkedin.com/in/schoonoverkevin/"
-                 class="acm-btn btn btn--block card__btn">LinkedIn</a>
+                 class="acm-btn">LinkedIn</a>
               <a href="mailto:ksyh3@mst.edu"
-                 class="acm-btn btn btn--block card__btn">Email</a>
+                 class="acm-btn">Email</a>
             </div>
 
           </div>
         </li>
-        <!--<li class="cards__item">
+        <!--<li class="cards__card">
             <div class="card">
                 <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
                 <div class="card__content">
@@ -145,7 +134,7 @@
                 </div>
             </div>
         </li>-->
-        <!--<li class="cards__item">
+        <!--<li class="cards__card">
             <div class="card">
                 <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
                 <div class="card__content">
@@ -160,10 +149,7 @@
             </div>
         </li>-->
       </ul>
-      {#            This a tag below should expand and make more info about past officers appear#}
-      {#            <a href="#" class="past_officers">#}
-      {#                Past Officers#}
-      {#            </a>#}
+      {# Below should expand and make more info about past officers appear #}
     </div>
   </main>
 {% endblock %}

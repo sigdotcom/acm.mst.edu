@@ -9,25 +9,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
   flex-direction: column;
   align-items: center;
 }
 
 .top-content {
-  /*margin: auto;*/
   width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   background-color: #f1f1f1;
+  -ms-flex-align: end;
   align-items: flex-end;
   height: 50%;
 }
 
 .bottom-content {
-  /*margin: auto;*/
   width: 100%;
-  display: flex;
+  display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
   background-color: #fff;
+  -ms-flex-align: start;
   align-items: flex-start;
   height: 50%;
 }

@@ -9,6 +9,8 @@
  * General Styles
  * ========================================================================= */
 
+@import "variables";
+
 html {
   /* Fill full height and width */
   height: 100%;
@@ -108,30 +110,30 @@ textarea {
  * ========================================================================= */
 
 body {
-  background-image: url("../../home/img/core/sigcompcrop.png");
-  background-position: center -10px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+
 }
 
 header {
   /* Allocate space */
+  //@extend .constraint-wrapper;
   width: 100%;
   height: 420px;
+  padding-bottom: 45px;
+  background:
+          url("../../home/img/core/sigcompcrop.png")
+          top / cover
+          repeat-y
+          fixed
+          #f1f1f1;
   /* Formatting */
   /* Cosmetics */
   /*background-color: #245623;*/
+  .constraint-wrapper {
+    height: 100%;
+  }
 }
 
-header .constraint-wrapper {
-  /* Allocate space */
-  height: 100%;
-  /* Formatting */
-  /* Cosmetics */
-}
-
-header .header-acm-seal-wrapper {
+.header__logo-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
@@ -140,52 +142,60 @@ header .header-acm-seal-wrapper {
   /* Cosmetics */
 }
 
-header .header-acm-seal {
+.header__logo {
   /* Allocate space */
   height: 70px;
   /* Formatting */
-  display: flex;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
   align-items: center;
   /* Cosmetics */
 }
 
-header .header-acm-seal img {
+.header__logo img {
   /* Allocate space */
   height: 100%;
   /* Formatting */
   /* Cosmetics */
 }
 
-header .header-acm-seal h3 {
+.header__logo h3 {
   /* Allocate space */
   margin: 0 0 0 10px;
   /* Formatting */
   /* Cosmetics */
-  color: #fff;
+  color: white;
   font-weight: 500;
   font-size: 1em;
   letter-spacing: .7px;
 }
 
-header .header-welcome-wrapper {
+.header__welcome-wrapper {
   /* Allocate space */
   height: 50%;
   width: 100%;
   padding: 0 20px 20px 0;
   /* Formatting */
-  display: flex;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: end;
   align-items: flex-end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   float: right;
   /* Cosmetics */
 }
 
-header .header-welcome {
+.header__welcome {
   /* Allocate space */
   /* Formatting */
   margin: 0;
+  text-align: right;
   /* Cosmetics */
-  color: #fff;
+  color: white;
   line-height: .8em;
   font-weight: normal;
   text-decoration: none;
@@ -195,53 +205,38 @@ header .header-welcome {
  * Navigation Styles
  * ========================================================================= */
 
-.pseudo-nav {
-  height: 60px;
-  width: 92vw;
-  min-width: 1000px;
-  -webkit-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  -moz-box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, .30);
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  position: absolute;
-  z-index: 0;
-}
-
 nav {
-  /* Allocate space */
+
+  width: 86vw;
   height: 90px;
-  width: 92vw;
-  overflow: hidden;
-  min-width: 1000px;
-  /* Formatting */
+
   position: relative;
   z-index: 10;
-  margin: 0 auto 0 auto;
-  /* Cosmetics */
+  margin: -45px auto 0 auto;
+
   background-color: #fff;
 }
 
 nav .nav-link-wrapper {
-  margin: 0 auto;
+  margin: -45px auto 0 auto;
+  position: relative;
   padding: 0;
   list-style: none;
   max-width: 1000px;
-  width: calc(100vw - 17px);
+  width: 100%;
   height: 100%;
-  display: flex;
 }
 
 .nav-button {
+  float: left;
+  height: 100%;
+  //margin-top: -45px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
   
-  display: block;
-  
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 100%;
+  display: inline-block;
+  width: 16.6666666666666666666666666666666666666666666666666666%
 }
 
 .nav-button:hover a span {
@@ -252,7 +247,6 @@ nav .nav-link-wrapper {
   transition: all .25s ease-in-out;
   display: block;
   position: relative;
-  top: -3px;
   content: '';
   transform: scaleX(.40);
   border-bottom: solid 3px #2da1d8;
@@ -264,30 +258,22 @@ nav .nav-link-wrapper {
 }
 
 .nav-button a {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   text-decoration: none;
-  height: 100%;
-  width: 100%
-}
-
-.nav-button a:after {
+  height: 87px;
   display: block;
-  position: absolute;
-  content: '';
-  height: 50px;
-  border-right: solid 2px #ddd;
+  width: 100%;
 }
 
-.nav-button:first-of-type a:after {
-  display: none;
+.nav-button a * {
+  display: block;
 }
 
 .nav-button a img {
   height: 48px;
   width: 48px;
-  margin: 0 auto;
+  box-sizing: content-box;
+  margin: 0 auto 0 auto;
+  padding-top: 10px;
 }
 
 .nav-button a span {
@@ -295,12 +281,20 @@ nav .nav-link-wrapper {
   font-size: .8em;
   font-weight: bold;
   color: rgba(0, 0, 0, .42);
+  padding-bottom: 12px;
 }
 
 /* This section is for mobile menu */
 
 #menu-wrapper {
   display: none;
+  z-index: 100;
+  width: 100vw;
+  top: 0;
+  background: $light-footer;
+  height: 56px;
+  overflow: hidden;
+  position: fixed;
 }
 
 label {
@@ -316,7 +310,7 @@ label:focus {
   z-index: 1000;
   top: 0;
   left: 0;
-  background: #fff;
+  background: #f1f1f1;
   width: 240px;
   height: 100%;
   transform: translate3d(-240px, 0, 0);
@@ -330,9 +324,32 @@ label:focus {
   height: 56px;
   line-height: 0px;
   display: block;
-  padding: 0;
+  padding: 19px 18px;
   text-indent: -9999px;
-  background: #f0f0f0 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50%/23px 21px no-repeat;
+  background: $light-footer;
+}
+
+.menu span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
 }
 
 .menu ul li > label {
@@ -345,13 +362,14 @@ label:focus {
   padding: 0 20px;
   line-height: 56px;
   text-decoration: none;
-  color: #000;
-  transition: background-color .1s;
+  color: $top-text-color;
+  transition: all .1s ease-in-out;
 }
 
 .menu ul li a:hover, .menu ul li label:hover {
   color: #76d3ab;
-  background-color: #f0f0f0;
+  background-color: #eee;
+  font-weight:bold;
 }
 
 .menu ul {
@@ -379,28 +397,12 @@ label:focus {
   box-shadow: 0 0 8px rgba(0, 0, 0, .45);
 }
 
-.top-bar {
-  display: none;
-  position: fixed;
-  z-index: 2;
-  width: 100%;
-  height: 56px;
-  background-color: #F0F0F0;
-  box-shadow: rgba(0, 0, 0, .2) 0 4px 4px 0;
-}
-
 /* =========================================================================
  * Page Modifications
  * ========================================================================= */
 
 main {
-  position: relative;
-  z-index: 0;
-  margin-top: -45px;
-  padding-top: 65px;
-  -webkit-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
-  -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, .30);
+  padding: 10px 0;
   background-color: white;
 }
 
@@ -408,6 +410,7 @@ main {
   display: inline-block;
   cursor: pointer;
   background: #76d3ab;
+  white-space: nowrap;
  color: white;
   text-align: center;
   height: 38px;
@@ -417,7 +420,7 @@ main {
   
   box-shadow: inset 0 -4px 0 0 #65b593;
   
-  transition: .3s ease-in-out;
+  transition: .2s ease-in-out;
 }
 .acm-btn:hover {
   box-shadow: inset 0 -40px 0 0 #65b593;
@@ -431,21 +434,33 @@ footer {
   position: relative;
   z-index: 10;
   height: 220px;
-  display: flex;
-  flex-direction: column;
+  -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
   align-items: center;
   background-color: #373C3F;
 }
 
 footer img {
   margin: 5px 0;
-  height: 110px;
+  max-height: 100px;
+  height: auto;
+  width: auto;
 }
 
 .footer-nav {
-  height: 80px;
+  height: 60px;
   width: 100%;
-  display: flex;
+  white-space: nowrap;
+  display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
   justify-content: center;
   align-items: center;
 }
@@ -581,6 +596,7 @@ footer h5 {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   header {
     margin-top: 56px;
+    padding-bottom: 0;
     height: 300px;
   }
   
@@ -622,10 +638,6 @@ footer h5 {
 /*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
-  body {
-    background-image: url("../../home/img/core/sigcomp.png");
-    background-position: center -100px;
-  }
   
   nav .nav-link-wrapper {
     margin: 0;

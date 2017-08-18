@@ -11,26 +11,29 @@
         href="{% static "/home/css/main.css" %}"/>
 {% endblock %}
 {% block head_javascript %}
+{# TODO: REMOVE THIS BEFORE PRODUCTION #}
+  <script type="text/javascript" src="http://livejs.com/live.js"></script>
 {# Code that follows is for IE browsers, it will just show them that they should get a real browser #}
+ <script>
+var $buoop = {
+  vs:{i:9,f:47,o:45,s:9,c:42},
+  reminder: 0,
+  unsecure:true,
+  mobile:false,
+  api:4
+};
+function $buo_f(){
+ var e = document.createElement("script");
+ e.src = "//browser-update.org/update.min.js";
+ document.body.appendChild(e);
+};
+try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+catch(e){window.attachEvent("onload", $buo_f)}
+</script>
+{# puts user agent into the html used in ie 10's case#}
   <script>
-    var $buoop = {
-      vs: {i: 13, f: 25, o: 15, s: 6, c: 30},
-      unsupported: false,
-      mobile: false,
-      api: 4
-    };
-
-    function $buo_f() {
-      var e = document.createElement("script");
-      e.src = "//browser-update.org/update.min.js";
-      document.body.appendChild(e);
-    };
-    try {
-      document.addEventListener("DOMContentLoaded", $buo_f, false)
-    }
-    catch (e) {
-      window.attachEvent("onload", $buo_f)
-    }
+    var doc = document.documentElement;
+    doc.setAttribute('data-useragent', navigator.userAgent);
   </script>
 {% endblock %}
 {% block head_fonts %}
@@ -40,26 +43,25 @@
 
 {% block body_header %}
   <header>
-    <div class="constraint-wrapper">
-      <div class="header-acm-seal-wrapper">
-        <div class="header-acm-seal">
+  <div class="constraint-wrapper">
+      <div class="header__logo-wrapper">
+        <div class="header__logo">
           <img src="{% static "/home/img/core/acm.png" %}">
           <h3>Association for<br>Computing Machinery</h3>
         </div>
       </div>
 
-      <div class="header-welcome-wrapper">
-        <h1 class="header-welcome">We are Missouri S&T - ACM</h1>
+      <div class="header__welcome-wrapper">
+        <h1 class="header__welcome">We are Missouri S&T - ACM</h1>
       </div>
     </div>
   </header>
 {% endblock %}
 {% block body_navigation %}
-  <div class="top-bar"></div> <!-- mobile menu bar -->
   <div id="menu-wrapper"><!-- mobile menu -->
     <input type="checkbox" id="menu" name="menu" class="menu-checkbox">
     <div class="menu">
-      <label class="menu-toggle" for="menu"><span>Toggle</span></label>
+      <label class="menu-toggle" for="menu"><span></span><span></span><span></span></label>
       <ul>
         <li>
           <a href="{% url "home:index" %}">Home</a>
@@ -84,41 +86,42 @@
     </div>
   </div><!-- mobile menu -->
 
-  <div class="pseudo-nav"></div>
+
   <nav><!-- desktop nav -->
-    <ul class="nav-link-wrapper">
-      <li class="nav-home nav-button"><a href="{% url "home:index" %}"
-                                         title="Home">
-        <img src="{% static "home/img/core/home-icon.png" %}"/>
-        <span>Home</span>
-      </a></li>
-      <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
-                                             title="Sponsors">
-        <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
-        <span>Sponsors</span>
-      </a></li>
-      <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}"
-                                             title="Calendar">
-        <img src="{% static "home/img/core/calendar-icon.png" %}"/>
-        <span>Calendar</span>
-      </a></li>
-      <li class="nav-media nav-button"><a href="{% url "home:media" %}"
-                                          title="Media">
-        <img src="{% static "home/img/core/media-icon.png" %}"/>
-        <span>Media</span>
-      </a></li>
-      <li class="nav-officers nav-button"><a href="{% url "home:officers" %}"
-                                             title="Officers">
-        <img src="{% static "home/img/core/officers-icon.png" %}"/>
-        <span>Officers</span>
-      </a></li>
-      <li class="nav-login nav-button"><a
-        href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
-        title="Login">
-        <img src="{% static "home/img/core/login-icon.png" %}"/>
-        <span>Log In</span>
-      </a></li>
-    </ul>
+      <ul class="nav-link-wrapper">
+        <li class="nav-home nav-button">
+          <a href="{% url "home:index" %}" title="Home">
+            <img src="{% static "home/img/core/home-icon.png" %}"/>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
+                                               title="Sponsors">
+          <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
+          <span>Sponsors</span>
+        </a></li>
+        <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}"
+                                               title="Calendar">
+          <img src="{% static "home/img/core/calendar-icon.png" %}"/>
+          <span>Calendar</span>
+        </a></li>
+        <li class="nav-media nav-button"><a href="{% url "home:media" %}"
+                                            title="Media">
+          <img src="{% static "home/img/core/media-icon.png" %}"/>
+          <span>Media</span>
+        </a></li>
+        <li class="nav-officers nav-button"><a href="{% url "home:officers" %}"
+                                               title="Officers">
+          <img src="{% static "home/img/core/officers-icon.png" %}"/>
+          <span>Officers</span>
+        </a></li>
+        <li class="nav-login nav-button"><a
+          href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+          title="Login">
+          <img src="{% static "home/img/core/login-icon.png" %}"/>
+          <span>Log In</span>
+        </a></li>
+      </ul>
   </nav><!-- desktop nav -->
 {% endblock %}
 {% block body_footer %}
@@ -133,4 +136,5 @@
     </div>
     <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
   </footer>
+
 {% endblock %}

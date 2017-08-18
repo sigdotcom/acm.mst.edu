@@ -1,0 +1,324 @@
+/*
+ * Document: static/home/gridmain.css
+ * Description: baseline css for project
+ * Usage: Include into every html file
+ * Author: Clay McGinnis - ACM SIG.com
+ */
+
+/* =========================================================================
+ * Imports
+ * ========================================================================= */
+
+@import 'variables';
+
+/* =========================================================================
+ * Enforced Defaults
+ * ========================================================================= */
+
+html {
+  /* Fill full height and width */
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* Page-wide cosmetics */
+  background-color: $light-background;
+  /* Default font properties */
+  color: $top-text-color;
+  font-size: 1em;
+  line-height: 1.4;
+  font-family: $font-stack;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+}
+
+body {
+  /* Fill full height and width */
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  top: 0;
+
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-areas:
+    'nav'
+    'header'
+    'main'
+    'footer';
+}
+
+*,
+*::before,
+*::after {
+  /* Unified box-sizing */
+  box-sizing: border-box;
+}
+
+/*
+ * Remove text-shadow in selection highlight
+ * These selection rule sets have to be separate.
+ */
+
+::-moz-selection {
+  background: $light-background;
+  text-shadow: none;
+}
+
+::selection {
+  background: $light-background;
+  text-shadow: none;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* =========================================================================
+ * Browser Upgrade Prompt
+ * ========================================================================= */
+
+.browserupgrade {
+  /* Allocate space */
+  padding: 0.2em 0;
+  margin: 0.2em 0;
+  /* Formatting */
+  /* Cosmetics */
+  background: #ccc;
+  color: #000;
+}
+
+/* =========================================================================
+ * Header Style [Mobile/Desktop]
+ * ========================================================================= */
+
+body {
+  background:
+          url("../../home/img/core/sigcompcrop.png")
+          top
+          no-repeat
+          fixed;
+}
+
+header {
+  /* Allocate space */
+  //@extend .constraint-wrapper;
+  width: 100%;
+  height: 420px;
+  /* Formatting */
+  /* Cosmetics */
+  /*background-color: #245623;*/
+}
+
+.header__logo-wrapper {
+  /* Allocate space */
+  height: 50%;
+  width: 100%;
+  padding: 20px 0 0 20px;
+  /* Formatting */
+  /* Cosmetics */
+}
+
+.header__logo {
+  /* Allocate space */
+  height: 70px;
+  /* Formatting */
+  display: flex;
+  align-items: center;
+  /* Cosmetics */
+}
+
+.header__logo img {
+  /* Allocate space */
+  height: 100%;
+  /* Formatting */
+  /* Cosmetics */
+}
+
+.header__logo h3 {
+  /* Allocate space */
+  margin: 0 0 0 10px;
+  /* Formatting */
+  /* Cosmetics */
+  color: white;
+  font-weight: 500;
+  font-size: 1em;
+  letter-spacing: .7px;
+}
+
+.header__welcome-wrapper {
+  /* Allocate space */
+  height: 50%;
+  width: 100%;
+  padding: 0 20px 20px 0;
+  /* Formatting */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  float: right;
+  /* Cosmetics */
+}
+
+.header__welcome {
+  /* Allocate space */
+  /* Formatting */
+  margin: 0;
+  /* Cosmetics */
+  color: white;
+  line-height: .8em;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+/* =========================================================================
+ * Navigation Styles [Mobile]
+ * ========================================================================= */
+
+// Disable Desktop Nav
+.desktop-nav {
+  display: none;
+}
+.pseudo-nav {
+  display: none;
+}
+
+nav {
+  z-index: 100;
+  width: 100vw;
+  background: $light-footer;
+  height: 56px;
+  overflow: hidden;
+  position: fixed;
+}
+
+label {
+  cursor: pointer;
+}
+
+label:focus {
+  outline: none;
+}
+
+.menu {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background: #f1f1f1;
+  width: 240px;
+  height: 100%;
+  transform: translate3d(-240px, 0, 0);
+  transition: transform 0.35s;
+}
+
+.menu label.menu-toggle {
+  position: absolute;
+  z-index: 10;
+  right: -60px;
+  width: 60px;
+  height: 56px;
+  line-height: 0px;
+  padding: 19px 18px;
+  display: block;
+  text-indent: -9999px;
+  background: $light-footer;
+}
+
+span
+{
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+.menu ul li a, .menu ul li label {
+  display: block;
+  text-align: center;
+  padding: 0 20px;
+  line-height: 56px;
+  text-decoration: none;
+  color: $top-text-color;
+  transition: all .1s ease-in-out;
+}
+
+.menu ul li a:hover, .menu ul li label:hover {
+  color: #76d3ab;
+  background-color: #eee;
+  font-weight:bold;
+}
+
+.menu ul {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.menu ul li {
+  list-style: none;
+}
+
+/* hide inputs */
+.menu-checkbox {
+  display: none;
+}
+
+/* hide navigation icon for sublabels */
+.menu .menu label.menu-toggle {
+  background: none;
+}
+
+/* fade in checked menu */
+.menu-checkbox:checked + .menu {
+  transform: translate3d(0, 0, 0);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .45);
+}
