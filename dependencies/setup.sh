@@ -21,7 +21,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 INSTALLATION_DIR="/var/django"
-ROOT_DIR="../../"
+ROOT_DIR="../"
 
 if [[ $1 == "dev" ]]; then
     BUILD_URL="dev.kevinschoonover.me"
@@ -55,7 +55,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 mkdir -p $INSTALLATION_DIR
 cd $ROOT_DIR
 echo "Current Directory = `pwd`"
-rsync -av --delete acm.mst.edu/ $INSTALLATION_DIR/$BUILD_URL/
+rsync -av --delete . $INSTALLATION_DIR/$BUILD_URL/
 
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
