@@ -103,6 +103,8 @@ python3 manage.py migrate --noinput
 cd ../docs/
 make html
 cd ..
+echo `pwd`
+echo `ls`
 compass compile
 
 ###
