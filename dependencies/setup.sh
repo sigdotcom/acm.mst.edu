@@ -83,6 +83,10 @@ cd ../ACM_General
 # www-data needs to own the directory for special nginx interactions
 ###
 chown www-data:www-data -R $INSTALLATION_DIR 
+j
+cd ..
+compass compile
+cd -
 
 ###
 # Generating the django migrations from scratch.
@@ -102,10 +106,6 @@ python3 manage.py migrate --noinput
 ###
 cd ../docs/
 make html
-cd ..
-echo `pwd`
-echo `ls`
-compass compile
 
 ###
 # Restarting the two services necessary to make it run.
