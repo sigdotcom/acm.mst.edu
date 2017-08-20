@@ -21,7 +21,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 INSTALLATION_DIR="/var/django"
-ROOT_DIR="../../"
+ROOT_DIR="../"
 
 if [[ $1 == "dev" ]]; then
     BUILD_URL="dev.kevinschoonover.me"
@@ -54,8 +54,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p $INSTALLATION_DIR
 cd $ROOT_DIR
-echo "Current Directory = `pwd`"
-rsync -av --delete acm.mst.edu/ $INSTALLATION_DIR/$BUILD_URL/
+rsync -az --delete . $INSTALLATION_DIR/$BUILD_URL/
 
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
@@ -83,6 +82,9 @@ cd ../ACM_General
 # www-data needs to own the directory for special nginx interactions
 ###
 chown www-data:www-data -R $INSTALLATION_DIR 
+cd ..
+compass compile
+cd -
 
 ###
 # Generating the django migrations from scratch.
@@ -102,8 +104,6 @@ python3 manage.py migrate --noinput
 ###
 cd ../docs/
 make html
-cd ..
-compass compile
 
 ###
 # Restarting the two services necessary to make it run.
