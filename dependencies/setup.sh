@@ -54,8 +54,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p $INSTALLATION_DIR
 cd $ROOT_DIR
-echo "Current Directory = `pwd`"
-rsync -av --delete . $INSTALLATION_DIR/$BUILD_URL/
+rsync -az --delete . $INSTALLATION_DIR/$BUILD_URL/
 
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
@@ -83,7 +82,6 @@ cd ../ACM_General
 # www-data needs to own the directory for special nginx interactions
 ###
 chown www-data:www-data -R $INSTALLATION_DIR 
-j
 cd ..
 compass compile
 cd -
