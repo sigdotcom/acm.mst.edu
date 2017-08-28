@@ -1,70 +1,60 @@
 {% extends "home/base.html" %}
-
 {% load static %}
 
 {% block head_title %}
-    <title> ACM | Media </title>
+  <title> ACM | Media </title>
 {% endblock %}
 
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/media.css" %}" />
+  <link rel="stylesheet" href="{% static "/home/css/media.css" %}"/>
 {% endblock %}
 
 {% block body_content %}
-<div class="main-section">
+  <main class="clearfix">
     <div class="content-wrapper">
-        <div class="m-p-g">
-            <div class="m-p-g__thumbs" data-google-image-layout data-max-height="350">
-                <img src="{% static "/home/img/media/ctf.jpg" %}" data-full="{% static "/home/img/media/ctf.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/ctf_1.jpg" %}" data-full="{% static "/home/img/media/ctf_1.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/sigsec.jpg" %}" data-full="{% static "/home/img/media/sigsec.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/sigcomp.jpg" %}" data-full="{% static "/home/img/media/sigcomp.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/intropython.jpg" %}" data-full="{% static "/home/img/media/intropython.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/network_talk.jpg" %}" data-full="{% static "/home/img/media/network_talk.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/sigcomp_1.jpg" %}" data-full="{% static "/home/img/media/sigcomp_1.jpg" %}" class="m-p-g__thumbs-img" />
-                <img src="{% static "/home/img/media/icpc.jpg" %}" data-full="{% static "/home/img/media/icpc.jpg" %}"  class="m-p-g__thumbs-img" />
-            </div>
-
-            <div class="m-p-g__fullscreen"></div>
+      <div class="m-p-g">
+        <div class="m-p-g__thumbs" data-google-image-layout
+             data-max-height="350">
+          <img src="{% static "/home/img/media/ctf.jpg" %}"
+               data-full="{% static "/home/img/media/ctf.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/ctf_1.jpg" %}"
+               data-full="{% static "/home/img/media/ctf_1.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/sigsec.jpg" %}"
+               data-full="{% static "/home/img/media/sigsec.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/sigcomp.jpg" %}"
+               data-full="{% static "/home/img/media/sigcomp.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/intropython.jpg" %}"
+               data-full="{% static "/home/img/media/intropython.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/network_talk.jpg" %}"
+               data-full="{% static "/home/img/media/network_talk.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/sigcomp_1.jpg" %}"
+               data-full="{% static "/home/img/media/sigcomp_1.jpg" %}"
+               class="m-p-g__thumbs-img"/>
+          <img src="{% static "/home/img/media/icpc.jpg" %}"
+               data-full="{% static "/home/img/media/icpc.jpg" %}"
+               class="m-p-g__thumbs-img"/>
         </div>
+
+        <div class="m-p-g__fullscreen"></div>
+      </div>
     </div>
-</div>
+  </main>
 
-<script>
-	var elem = document.querySelector('.m-p-g');
+  <script>
+    var elem = document.querySelector('.m-p-g'); {# Selects block of photos #}
 
-	document.addEventListener('DOMContentLoaded', function() {
-		var gallery = new MaterialPhotoGallery(elem);
-	});
-</script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var gallery = new MaterialPhotoGallery(elem);
+    }); {# Applies the neccesary classes to each child #}
+  </script>
 
-
-{#    <a href="{% static "/home/img/media/ctf.jpg" %}" style="background-image: {% static "/home/img/media/ctf.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/ctf.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/ctf_1.jpg" %}" style="background-image: {% static "/home/img/media/ctf_1.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/ctf_1.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/sigsec.jpg" %}" style="background-image: {% static "/home/img/media/sigsec.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/sigsec.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/sigcomp.jpg" %}" style="background-image: {% static "/home/img/media/sigcomp.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/sigcomp.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/intropython.jpg" %}" style="background-image: {% static "/home/img/media/intropython.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/intropython.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/network_talk.jpg" %}" style="background-image: {% static "/home/img/media/network_talk.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/network_talk.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/sigcomp_1.jpg" %}" style="background-image: {% static "/home/img/media/sigcomp_1.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/sigcomp_1.jpg" %}" />#}
-{#    </a>#}
-{#    <a href="{% static "/home/img/media/icpc.jpg" %}" style="background-image: {% static "/home/img/media/icpc.jpg" %}">#}
-{#        <img class="media-picture" src="{% static "/home/img/media/icpc.jpg" %}" />#}
-{#    </a>#}
-
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
-
-
+  {# JS library that controls this page's media display #}
+  <script
+    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
 {% endblock %} 

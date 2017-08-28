@@ -3,14 +3,14 @@
 {% for event in upcoming_events %}
     <div class="event-wrapper">
         <div class="event-card">
-            <a href="{{ event.flier.url }}" class="flyer-space">
+            <a href="{{ event.flier.url }}" class="flier-space">
                 <img src="{{ event.flier.url }}" />
             </a>
             <div class="flyer-info">
                 <h2>{{ event.title }}</h2>
                 <p>{{ event.description }}</p>
                 {% if event.link %}
-                    <div><a href="{{ event.link }}">Learn More</a></div>
+                    <div><a href="{{ event.link }}" class="acm-btn">Learn More</a></div>
                 {% endif %}
             </div>
         </div>

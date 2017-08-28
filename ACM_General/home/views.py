@@ -2,6 +2,7 @@ from django.shortcuts import render
 from events.models import Event
 from django.utils import timezone
 
+
 # Create your views here.
 
 
@@ -20,28 +21,45 @@ def index(request):
 
 
 def sponsors(request):
-    return(render(
-        request,
-        'home/sponsors.html',
-    ))
+    return (
+        render(
+            request,
+            'home/sponsors.html',
+        )
+    )
 
 
 def calendar(request):
-    return(render(
-        request,
-        'home/calendar.html',
-    ))
+    return (
+        render(
+            request,
+            'home/calendar.html',
+        )
+    )
 
 
 def media(request):
-    return(render(
-        request,
-        'home/media.html',
-    ))
+    return (
+        render(
+            request,
+            'home/media.html',
+        )
+    )
 
 
 def officers(request):
-    return(render(
-        request,
-        'home/officers.html',
-    ))
+    return (
+        render(
+            request,
+            'home/officers.html',
+        )
+    )
+
+
+def membership(request):
+    return (
+        render(
+            request,
+            'home/membership.html',
+        )
+    )

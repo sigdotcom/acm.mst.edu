@@ -1,66 +1,64 @@
 {% extends 'home/base.html' %}
-
 {% load static %}
 
 {% block head_stylesheets %}
-	<link rel="stylesheet" href="{% static "home/css/normalize.css" %}" />
-	<link rel="stylesheet" href="{% static "home/css/main.css" %}" />
 	<link rel="stylesheet" href="{% static "home/css/index.css" %}" />
-	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {% endblock %}
 
 {% block body_content %}
+  <main>
+	<!--   NOTE: I'm not sure if this 'main-section' is relevant anymore & what the new
+	             'main' tag just above does.
+
 	<div class="main-section">
+		 Events go here
 		{% include "home/upcoming-events.html" %}
-		<!-- Events go here -->
-    </div>
-    <div class="sig-section">
-        <div class="sig-section-header">
-            <h2>Check out the Special Interest Groups on their Websites.</h2>
+	</div>
+	-->
+	{% include "home/upcoming-events.html" %}
+
+	<!--
+		The two events below are just being kept here for demonstration purposes but
+	    can be most likely removed on the final build since the line above should take
+		care of it for you.
+	-->
+    <div class="event-wrapper">
+      <div class="event-card">
+        <a
+          href="{% static "../../static/home/img/index/2017-04-19-Cantenna.png" %}"
+          class="flier-space">
+          <img
+            src="{% static "../../static/home/img/index/2017-04-19-Cantenna.png" %}"/>
+        </a>
+        <div class="flier-info">
+          <h2>SIG-Security Presents: Cantenna Build</h2>
+          <p>Build a directional, external antenna for your computer out of a
+            metal can! Then, bring your new cantenna to the wireless security
+            audit on April 20th where we race around Rolla searching for
+            unsecured wireless networks. Everyone is welcome, but ACM members
+            get priority.</p>
+          <div><a href="https://acmsigsec.mst.edu/talks.html" class="acm-btn">Learn
+            More</a></div>
         </div>
-        <div class="sig-section-body">
-            <div class="sig-link-card">
-                <a class="sig-link" href="http://mst.orgsync.com/org/acmw/">
-                    <!--<img src="">-->
-                </a>
-                <h3>ACM-W</h3>
-            </div>
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Comp</h3>-->
-            <!--</div>-->
-            <div class="sig-link-card">
-                <a class="sig-link" href="https://acmsigsec.mst.edu/">
-                    <!--<img src="">-->
-                </a>
-                <h3>SIG-Sec</h3>
-            </div>
-            <div class="sig-link-card">
-                <a class="sig-link" href="http://siggame.io/">
-                    <!--<img src="">-->
-                </a>
-                <h3>SIG-Game</h3>
-            </div>
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG.com</h3>-->
-            <!--</div>-->
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Lounge</h3>-->
-            <!--</div>-->
-            <!--<div class="sig-link-card">-->
-                <!--<a class="sig-link" href="#">-->
-                    <!--&lt;!&ndash;<img src="">&ndash;&gt;-->
-                <!--</a>-->
-                <!--<h3>SIG-Tutor</h3>-->
-            <!--</div>-->
-        </div>
+      </div>
     </div>
+	<div class="event-wrapper">
+      <div class="event-card">
+        <a
+          href="{% static "../../static/home/img/index/2017-4-15 Programming Cup.png" %}"
+          class="flier-space">
+          <img
+            src="{% static "../../static/home/img/index/2017-4-15 Programming Cup.png" %}"/>
+        </a>
+        <div class="flier-info">
+          <h2>SIG-Comp Presents: ACM Programming Cup</h2>
+          <p>Test your programming might against other S&T students battling for
+            greatness in the ACM Programming Cup. See the flier for more
+            details.</p>
+          <div><a href="mailto:acm@mst.com?Subject=ACM Sponsorship"
+                  class="acm-btn">Learn More</a></div>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock %}

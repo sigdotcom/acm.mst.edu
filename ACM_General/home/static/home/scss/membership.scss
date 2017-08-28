@@ -1,0 +1,149 @@
+.perks-header {
+  text-align: center;
+  font-weight: normal;
+  color: rgba(0,0,0,.87);
+}
+hr {
+  width: 250px;
+  height: 3px;
+  background-color: #76d3ab;
+  border: none;
+  margin-bottom: 40px;
+}
+
+.perks {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+.perks__perk {
+  width: 33.333333333333%;
+}
+.perks__title {
+  font-size: 1.1rem;
+}
+.perks__details-link {
+  font-size: .9rem;
+  color: #2da1d8;
+}
+
+.pay-area {
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+.pay-area__spacer {
+  width: 10%;
+  height: 40px;
+}
+.pay-area__card {
+  width: 280px;
+  height: 350px;
+  background-color: #76d3ab;
+  display: flex;
+  flex-direction: column;
+}
+.pay-area__card--year {
+  background-color: #2da1d8;
+}
+.pay-area__title {
+  color: white;
+  text-align: center;
+  font-weight: normal;
+}
+.pay-area__price {
+  color: white;
+  font-size: 6em;
+  line-height: 90px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.pay-area__card:nth-of-type(1) .pay-area__price {
+  letter-spacing: -6px;
+}
+.pay-area__price:before {
+  content: '$';
+  font-size: .6em;
+  top: -25px;
+  position: relative;
+}
+.pay-area__disclaimer {
+  color: #e4f2ec;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.pay-area__card:nth-of-type(2) .pay-area__disclaimer {
+  color: #d3e7f0;
+}
+.pay-area__btn {
+  width: 150px;
+  margin:0 auto;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 12px;
+  font-size: 1.2rem;
+}
+.pay-area__btn--semester {
+  background: #67b895; /* Old browsers */
+  box-shadow: inset 0 -4px 0 0 #589e80;
+}
+.pay-area__btn--semester:hover {
+  box-shadow: inset 0 -50px 0 0 #589e80;
+}
+.pay-area__btn--year {
+  background: #288ebf; /* Old browsers */
+  box-shadow: inset 0 -4px 0 0 #227aa4;
+}
+.pay-area__btn--year:hover {
+  box-shadow: inset 0 -50px 0 0 #227aa4;
+}
+.details__perk {
+  height: 240px;
+  margin: 0 10px;
+  padding:1px 0;
+  background-color: white;
+}
+.details__top-link {
+  font-size: .9rem;
+  color: #2da1d8;
+}
+.spice-link {
+  color: #76d3ab;
+  font-weight: bold;
+}
+
+@media (max-width: 641px) { /*SMARTPHONE*/
+  .perks {
+    flex-direction: column;
+  }
+  .perks__perk {
+    margin: auto;
+    width: 70%;
+    margin-bottom: 20px;
+  }
+  .perks__title {
+    font-size: 1.8rem;
+    margin:  0 0 15px 0;
+  }
+  .perks__perk:nth-of-type(even) {
+    text-align: right;
+  }
+  .perks__details-link {
+    font-size: 1.3rem;
+  }
+  
+  .pay-area {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1090px) {
+  .perks {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

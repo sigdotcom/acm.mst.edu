@@ -13,3 +13,8 @@ settings_local.py
 docs/_build/
 docs/apps/
 fliers/
+ACM_General/home/static/home/css
+*.aux
+*.pdf
+*.out
+*.toc
