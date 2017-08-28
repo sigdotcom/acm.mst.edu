@@ -154,7 +154,14 @@ display: flex;
   /* Cosmetics */
 }
 
-.header__logo img {
+.header__logo a {
+  /* Allocate space */
+  height: 100%;
+  /* Formatting */
+  /* Cosmetics */
+}
+
+.header__logo a img {
   /* Allocate space */
   height: 100%;
   /* Formatting */

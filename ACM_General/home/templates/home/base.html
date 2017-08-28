@@ -46,7 +46,9 @@ catch(e){window.attachEvent("onload", $buo_f)}
   <div class="constraint-wrapper">
       <div class="header__logo-wrapper">
         <div class="header__logo">
-          <img src="{% static "/home/img/core/acm.png" %}">
+          <a href="{% url "home:index" %}">
+            <img src="{% static "/home/img/core/acm.png" %}">
+          </a>
           <h3>Association for<br>Computing Machinery</h3>
         </div>
       </div>
