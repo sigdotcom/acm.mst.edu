@@ -176,7 +176,7 @@ display: flex;
   /* Allocate space */
   height: 50%;
   width: 100%;
-  padding: 0 20px 20px 0;
+  padding: 0 20px 20px 20px;
   /* Formatting */
   display: -ms-flexbox;
 display: -webkit-flex;
@@ -402,7 +402,7 @@ label:focus {
  * ========================================================================= */
 
 main {
-  padding: 10px 0;
+  padding: 10px 0 0 0;
   background-color: white;
 }
 
@@ -597,7 +597,7 @@ footer h5 {
   header {
     margin-top: 56px;
     padding-bottom: 0;
-    height: 300px;
+    height: 250px;
   }
   
   .header-welcome {
