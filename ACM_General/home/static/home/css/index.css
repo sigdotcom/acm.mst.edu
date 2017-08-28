@@ -25,16 +25,15 @@
   width: 100%;
   box-sizing: content-box;
   max-width: 1000px;
-  height: 440px;
   display: flex;
 }
 
-/* line 26, ../scss/index.scss */
+/* line 25, ../scss/index.scss */
 .event-wrapper:nth-child(even) .event-card {
   flex-direction: row-reverse;
 }
 
-/* line 30, ../scss/index.scss */
+/* line 29, ../scss/index.scss */
 .flier-space {
   height: 100%;
   display: -ms-flexbox;
@@ -45,18 +44,18 @@
   flex-shrink: 0;
 }
 
-/* line 40, ../scss/index.scss */
+/* line 39, ../scss/index.scss */
 .flier-space img {
-  height: 100%;
+  height: 400px;
   flex-shrink: 0;
 }
 
-/* line 45, ../scss/index.scss */
+/* line 44, ../scss/index.scss */
 .event-wrapper:nth-child(even) .event-card .flier-space img {
   margin-left: 10px;
 }
 
-/* line 49, ../scss/index.scss */
+/* line 48, ../scss/index.scss */
 .flier-info {
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -70,14 +69,14 @@
   margin-left: 20px;
 }
 
-/* line 62, ../scss/index.scss */
+/* line 61, ../scss/index.scss */
 .flier-info h2 {
   color: rgba(0, 0, 0, 0.87);
   font-weight: normal;
   line-height: 25px;
 }
 
-/* line 68, ../scss/index.scss */
+/* line 67, ../scss/index.scss */
 .flier-info p {
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
@@ -86,103 +85,101 @@
 
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  /* line 76, ../scss/index.scss */
+  /* line 75, ../scss/index.scss */
   .event-card {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
-    height: 750px;
   }
 
-  /* line 83, ../scss/index.scss */
+  /* line 81, ../scss/index.scss */
   .event-card .flier-space img {
     margin: auto !important;
   }
 
-  /* line 87, ../scss/index.scss */
+  /* line 85, ../scss/index.scss */
   .flier-info {
     margin: 0;
   }
 
-  /* line 91, ../scss/index.scss */
+  /* line 89, ../scss/index.scss */
   .flier-info h2 {
     margin-left: 0;
     text-align: center;
   }
 
-  /* line 96, ../scss/index.scss */
+  /* line 94, ../scss/index.scss */
   .flier-info p {
     margin-left: 15px;
     margin-right: 15px;
   }
 
-  /* line 101, ../scss/index.scss */
+  /* line 99, ../scss/index.scss */
   .flier-info a {
     margin-left: 15px;
   }
 
-  /* line 105, ../scss/index.scss */
+  /* line 103, ../scss/index.scss */
   .event-wrapper:nth-child(even) .event-card {
     flex-direction: column !important;
     -webkit-flex-direction: column !important;
     -ms-flex-direction: column !important;
   }
 
-  /* line 111, ../scss/index.scss */
+  /* line 109, ../scss/index.scss */
   .event-wrapper:nth-child(even) .flier-space {
     margin-right: 0;
     margin-left: 0 !important;
   }
 
-  /* line 116, ../scss/index.scss */
+  /* line 114, ../scss/index.scss */
   .flier-space {
     height: 400px;
     margin-right: 0;
   }
 }
-/* line 123, ../scss/index.scss */
+/* line 121, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .event-card {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-flex-align: center;
-  height: 750px;
 }
-/* line 131, ../scss/index.scss */
+/* line 128, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .event-card .flier-space img {
   margin: auto !important;
 }
-/* line 135, ../scss/index.scss */
+/* line 132, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .flier-info {
   max-width: 600px;
   margin: auto;
 }
-/* line 140, ../scss/index.scss */
+/* line 137, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .flier-info h2 {
   margin-left: 0;
   text-align: center;
 }
-/* line 145, ../scss/index.scss */
+/* line 142, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .flier-info p {
   margin-left: 15px;
   margin-right: 15px;
 }
-/* line 150, ../scss/index.scss */
+/* line 147, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .flier-info a {
   margin-left: 15px;
 }
-/* line 154, ../scss/index.scss */
+/* line 151, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .event-wrapper:nth-child(even) .event-card {
   flex-direction: column !important;
   -webkit-flex-direction: column !important;
   -ms-flex-direction: column !important;
 }
-/* line 160, ../scss/index.scss */
+/* line 157, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .event-wrapper:nth-child(even) .flier-space {
   margin-right: 0;
   margin-left: 0 !important;
 }
-/* line 165, ../scss/index.scss */
+/* line 162, ../scss/index.scss */
 html[data-useragent*='MSIE 10.0'] .flier-space {
   height: 400px;
   margin-right: 0;
