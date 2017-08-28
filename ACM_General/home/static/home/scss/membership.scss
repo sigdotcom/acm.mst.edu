@@ -12,7 +12,11 @@ hr {
 }
 
 .perks {
+  display: -ms-flexbox;
+    display: -webkit-flex;
   display: flex;
+  -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-bottom: 60px;
 }
@@ -31,7 +35,11 @@ hr {
   width: 100%;
   margin: 0 auto;
   padding-bottom: 50px;
+  display: -ms-flexbox;
+    display: -webkit-flex;
   display: flex;
+  -webkit-justify-content: center;
+    -ms-flex-pack: center;
   justify-content: center;
 }
 .pay-area__spacer {
@@ -42,7 +50,11 @@ hr {
   width: 280px;
   height: 350px;
   background-color: #76d3ab;
+  display: -ms-flexbox;
+    display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
+    -ms-flex-direction: column;
   flex-direction: column;
 }
 .pay-area__card--year {
@@ -117,6 +129,8 @@ hr {
 
 @media (max-width: 641px) { /*SMARTPHONE*/
   .perks {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   .perks__perk {
@@ -136,7 +150,11 @@ hr {
   }
   
   .pay-area {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
   }
 }
