@@ -215,6 +215,7 @@ display: flex;
 nav {
 
   width: 86vw;
+  min-width:1000px;
   height: 90px;
 
   position: relative;
@@ -243,7 +244,7 @@ nav .nav-link-wrapper {
   cursor: pointer;
   
   display: inline-block;
-  width: 16.6666666666666666666666666666666666666666666666666666%
+  width: 14.28571428571%;
 }
 
 .nav-button:hover a span {
@@ -599,7 +600,7 @@ footer h5 {
   }
 }
 
-@media (max-width: 641px) {
+@media (max-width: 750px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   header {
     margin-top: 56px;
@@ -610,8 +611,7 @@ footer h5 {
   .header-welcome {
     font-size: 28px;
   }
-  
-  nav {
+     nav {
     display: none;
   }
   
@@ -627,7 +627,7 @@ footer h5 {
     top: 0;
     display: block;
   }
-  
+ 
   main {
     margin-top: 0;
     padding-top: 10px;
@@ -648,6 +648,13 @@ footer h5 {
   
   nav .nav-link-wrapper {
     margin: 0;
+  }
+}
+
+@media (max-width:1000px) {
+  nav {
+    width: 100%;
+    min-width: 0;
   }
 }
 

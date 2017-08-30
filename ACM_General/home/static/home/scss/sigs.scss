@@ -13,9 +13,9 @@
   display: flex;
   flex-wrap: wrap;
   list-style:none;
-  padding: 0 0 20px 0;
-  justify-content: space-between;
-  margin: 0 60px;
+  justify-content:space-evenly;
+  margin: 0 2%;
+  padding: 0;
 }
 
 .sigs__sig {
@@ -23,8 +23,10 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-color: #efefef;
-  flex:1 1;
+  width: 100%;
+  height: 100%;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .sigs__sig:hover:after {
@@ -32,6 +34,9 @@
 }
 
 .sigs__sig:hover .sigs__link {
+  opacity: 1;
+}
+.sigs__sig:hover .sigs__link-warn {
   opacity: 1;
 }
 
@@ -46,14 +51,18 @@
 }
  
 .sigs__desc {
-  font-size: 1.3em;
+  font-size: 1.5em;
   color: #fff;
 }
 .sigs__link-warn {
   color: #76d3ab;
-  font-size: 1.6em;
-  padding-top: 20px;
+  font-size: 1.8em;
+  padding-top: 40px;
   font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 2px black;
+  opacity: 0;
+  transition: ease-in-out .2s all;
 }
 
 .sigs__sig::after {
@@ -64,10 +73,10 @@
   background: rgba(55,60,63,.6);
 }
 
-
-@media (min-width: 641px) {
+@media (min-width: 450px) {
   .sigs__sig {
-    flex: 0 1 calc(50% - 1em);
+    height:424px;
+    width:424px;
   }
   .sigs__link {
     opacity: 0;
