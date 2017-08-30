@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block head_title %}
+  <title> ACM | SIGs</title>
+{% endblock %}
+{% block head_stylesheets %}
+  <link rel="stylesheet" href="{% static "/home/css/sigs.css" %}"/>
+{% endblock %}
+
+{% block body_content %}
+  <main>
+   <div class="content-wrapper">
+     <ul class="sigs">
+       <li class="sigs__sig" style="background-image: url({% static "home/img/sigs/SIGdotCOM.png" %})">
+         <a class="sigs__link" href="http://sig.com">
+           <div class="sigs__desc">SIG.com is the only SIG focused solely on web development. They develop this very website!</div>
+           <div class="sigs__link-warn">Click anywhere to view their website!</div>
+         </a>
+       </li>
+       <li class="sigs__sig" style="background-image: url(/static/home/img/sigs/SIGdotCOM.png)">
+         <a class="sigs__link" href="http://sig.com">
+           <div class="sigs__desc">SIG.com is the only SIG focused solely on web development. They develop this very website!</div>
+           <div class="sigs__link-warn">Click anywhere to view their website!</div>
+         </a>
+       </li>
+     </ul>
+  </div>
+  </main>
+{% endblock %}
