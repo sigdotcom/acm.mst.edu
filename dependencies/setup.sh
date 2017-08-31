@@ -67,8 +67,8 @@ rsync -auz settings_local.template ../ACM_General/ACM_General/settings_local.py
 rsync -auz ACMGeneral_uwsgi.ini /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
 rsync -auz env_vars.template /etc/uwsgi/apps-available/env_vars.txt
 rsync -auz ssl-acm.mst.edu /etc/nginx/sites-available/ssl-acm.mst.edu
-sed -i "s#{{ BUILD_URL }}#'"$BUILD_URL"'#g" /etc/nginx/sites-available/ssl-acm.mst.edu
-sed -i "s#{{ INSTALLATION_DIR }}#'"$INSTALLATION_DIR"'#g" /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i "s#{{ BUILD_URL }}#"$BUILD_URL"#g" /etc/nginx/sites-available/ssl-acm.mst.edu
+sed -i "s#{{ INSTALLATION_DIR }}#"$INSTALLATION_DIR"#g" /etc/nginx/sites-available/ssl-acm.mst.edu
 sed -i "s#{{ BUILD_URL }}#$BUILD_URL#g" /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
 sed -i "s#{{ INSTALLATION_DIR }}#$INSTALLATION_DIR#g" /etc/uwsgi/apps-available/ACMGeneral_uwsgi.ini
 
