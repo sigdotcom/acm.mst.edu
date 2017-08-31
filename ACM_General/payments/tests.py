@@ -4,8 +4,8 @@ from django.conf import settings
 from django.urls import reverse
 from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+#from selenium import webdriver
+#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import stripe
 import time
 ##

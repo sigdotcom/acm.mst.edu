@@ -11,7 +11,7 @@ settings_local.py
 .*
 *.log*
 docs/_build/
-docs/apps/
+docs/app_rst_docs/
 fliers/
 ACM_General/home/static/home/css
 *.aux
