@@ -27,4 +27,4 @@ help:
 # a change to the python files, it will still create new files in case the
 # "SPHINX_APIDOC_OPTIONS" variable was changed.
 rst:
-	sphinx-apidoc -o apps/events/ ../ACM_General/events/ ../ACM_General/events/migrations/ --force
+	sphinx-apidoc -o app_rst_docs/ ../ACM_General/ ../ACM_General/*/migrations/ --force

@@ -51,9 +51,8 @@ Place Holder
 .. toctree::
    :hidden:
 
-   apps/events/events
-   apps/events/modules
-
+   app_rst_docs/modules
+   
 
 Indices and tables
 ==================
