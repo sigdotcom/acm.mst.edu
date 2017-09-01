@@ -52,11 +52,15 @@ server {
     }
 
     location /docs {
-        alias /{{ BUILD_URL }}/docs/_build/html/;
+        alias {{ INSTALLATION_DIR }}/{{ BUILD_URL }}/docs/_build/html/;
     } 
     
     location /security {
         return 301 https://acmsigsec.mst.edu;
+    }
+
+    location /presentations {
+        alias /var/www/html/presentations/;
     }
 
      #Django media
