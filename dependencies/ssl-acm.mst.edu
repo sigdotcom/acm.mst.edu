@@ -60,7 +60,7 @@ server {
     }
 
     location /presentations {
-        alias /var/www/html/presentations/;
+        alias /var/www/presentations/;
     }
 
      #Django media
