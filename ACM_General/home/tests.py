@@ -1,7 +1,7 @@
+# Django
 from django.urls import reverse
 from django.test import TestCase
 
-# Create your tests here.
 
 class HomeViewCase(TestCase):
     def setUp(self):
@@ -31,6 +31,3 @@ class HomeViewCase(TestCase):
         response = self.client.get(reverse('home:membership'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/membership.html')
-
-
-

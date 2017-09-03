@@ -1,9 +1,11 @@
-from accounts import models
+# Django
 from django.conf import settings
-from django.urls import reverse
 from django.test import TestCase, LiveServerTestCase
+from django.urls import reverse
 
-# Create your tests here.
+# local Django
+from accounts import models
+
 
 class ViewTestCase(LiveServerTestCase):
     def setUp(self):
@@ -123,4 +125,3 @@ class ViewTestCase(LiveServerTestCase):
         #       request to the Google API servers on line 137 of views.py
         #       as of 3/26/17.
         ##
-

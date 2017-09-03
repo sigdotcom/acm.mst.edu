@@ -1,6 +1,12 @@
-from django.conf.urls import url
+# third-party
 from rest_framework.urlpatterns import format_suffix_patterns
+
+# Django
+from django.conf.urls import url
+
+# local Django
 from . import views
+
 
 app_name = 'rest_api'
 urlpatterns = [

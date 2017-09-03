@@ -1,9 +1,14 @@
-from . import models
+# standard library
+import uuid
+
+# Django
 from django.db import IntegrityError
-from accounts.backends import UserBackend
 from django.test import TestCase
 from django.urls import reverse
-import uuid
+
+# local Django
+from . import models
+from accounts.backends import UserBackend
 
 
 class UserModelCase(TestCase):
@@ -271,4 +276,3 @@ class GroupModelTestCase(TestCase):
     TODO: Implement after Groups.
     """
     pass
-

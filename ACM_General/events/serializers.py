@@ -1,4 +1,7 @@
+# third-party
 from rest_framework import serializers
+
+# local Django
 from .models import Event
 
 

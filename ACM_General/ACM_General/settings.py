@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+# standard library
 import os
 import uuid
 
@@ -19,10 +20,10 @@ SECRET_KEY = uuid.uuid1()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_URL = '/media_files/'
+MEDIA_URL = 'media_files/'
 FLIERS_PATH = 'fliers'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_files')
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 # STATIC_ROOT = "/var/www/html"
 
 # Determines the max number of upcoming events that can appear on the homepage.

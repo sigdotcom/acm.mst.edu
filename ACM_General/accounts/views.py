@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+# Django
 from django.contrib.auth import logout
-
-# Create your views here.
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 
 def user_logout(request):

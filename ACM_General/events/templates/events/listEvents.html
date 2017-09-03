@@ -1,20 +1,21 @@
 {% extends "core/wireframe.html" %}
 
 {% block body_content %}
-    <p> Current Time is {{ currentTime }} </p>
-    <h1> Current Events </h1>
-    <ul>
-        {% for event in eventsList %}
-            {% if event.is_active %}
-                <li> {{ event.title }} | {{ event.date_expire }} | DateTime Created: {{ event.date_created }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+  <p> Current Time is {{ currentTime }} </p>
+  <h1> Current Events </h1>
 
-    <h1> All Events </h1>
-    <ul>
-        {% for event in eventsList %}
-            <li> {{ event.title}} | {{ event.date_expire }} </li>
-        {% endfor %}
-    </ul>
+  <ul>
+    {% for event in eventsList %}
+      {% if event.is_active %}
+        <li> {{ event.title }} | {{ event.date_expire }} | DateTime Created: {{ event.date_created }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <h1> All Events </h1>
+  <ul>
+    {% for event in eventsList %}
+      <li> {{ event.title}} | {{ event.date_expire }} </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

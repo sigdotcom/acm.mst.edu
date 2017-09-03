@@ -1,20 +1,26 @@
-from accounts.models import User
-from django.utils import timezone
-from django.urls import reverse
-from django.test import TestCase
-from events.models import Event
-from events.serializers import EventSerializer
+# standard library
 import json
-import uuid
-from sigs.models import SIG
-from payments.models import TransactionCategory, Product, Transaction
-from events.models import Event
-from django.core.files.uploadedfile import SimpleUploadedFile
 import tempfile
-from django.conf import settings
+import uuid
+
+# third-party
 from rest_framework.test import APIClient
 
-# Create your tests here.
+# Django
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
+from django.utils import timezone
+from django.urls import reverse
+
+# local Django
+from accounts.models import User
+from events.models import Event
+from events.serializers import EventSerializer
+from payments.models import TransactionCategory, Product, Transaction
+from sigs.models import SIG
+
+
 class AccountsTestCase(TestCase):
     def setUp(self):
         super().setUp()

@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block head_stylesheets %}
-	<link rel="stylesheet" href="{% static "home/css/index.css" %}" />
+  <link rel="stylesheet" href="{% static "home/css/index.css" %}" />
 {% endblock %}
 
 {% block body_content %}
   <main>
-	  <!-- This is where upcoming events are automatically added -->
-	  {% include "home/upcoming-events.html" %}
+    <!-- This is where upcoming events are automatically added -->
+	{% include "home/upcoming-events.html" %}
   </main>
 {% endblock %}

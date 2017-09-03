@@ -1,22 +1,28 @@
-from core.actions import is_valid_email
-from django.conf import settings
-from django.views import View
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.contrib.auth import authenticate, login
-from accounts.models import User
-import hashlib
-import os
-import requests
-import json
+# standard library
 import base64
-# Create your views here.
+import hashlib
+import json
+import os
 
+# third-party
+import requests
+
+# Django
+from django.conf import settings
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.views import View
+
+# local Django
+from accounts.models import User
+from core.actions import is_valid_email
 
 ###
 # TODO: Modular Authentication with support for different protocols
 #       As of right now the Views do not actually use the auth_backend
 #       parameter.
 ###
+
 class AuthorizationView(View):
     """
     @Desc: Default Social Authentication Class View which attempts to define

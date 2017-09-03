@@ -1,6 +1,9 @@
+# standard library
+import re
+
+# Django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-import re
 
 
 def is_valid_email(email):
@@ -23,4 +26,3 @@ def is_valid_email(email):
             return True
 
     return False
-

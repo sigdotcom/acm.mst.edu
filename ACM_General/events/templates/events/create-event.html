@@ -2,93 +2,76 @@
 {% load static %}
 
 {% block head_title %}
-    <title> Event Details </title>
+  <title> Event Details </title>
 {% endblock %}
 
 {% block head_stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static "events/css/create-event.css" %}" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+  <link rel="stylesheet" type="text/css" href="{% static "events/css/create-event.css" %}" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
 {% endblock %}
 
 {% block head_javascript %}
-    <script src="https://unpkg.com/flatpickr"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/flatpickr"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 {% endblock %}
 
 {% block body_header %}
-
-    <!--
-         The header on the Event Creation page. Items may seem like they're in reverse as to how they appear
-         on the page but that is because I have the items arranged in "row-reverse" order through using FlexBox
-         (tool used for arrangning items on page amongst other things; in the css file).
-    -->
-    <div class="header">
-        <div class="logo-name">
-            <a href="/">
-                Association for<br>Computing Machinery
-            </a>
-        </div>
-        <div class="header-items logo">
-            <a href="/">
-                <img src="{% static "home/img/core/acm.png" %}"></img>
-            </a>
-        </div>
-        <div class="header-items">
-            Create An Event
-        </div>
+  <!--
+    The header on the Event Creation page. Items may seem like they're in reverse as to how they appear
+    on the page but that is because I have the items arranged in "row-reverse" order through using FlexBox
+    (tool used for arrangning items on page amongst other things; in the css file).
+  -->
+  <div class="header">
+    <div class="logo-name">
+      <a href="/">
+        Association for<br>Computing Machinery
+      </a>
     </div>
+    <div class="header-items logo">
+      <a href="/">
+        <img src="{% static "home/img/core/acm.png" %}"></img>
+      </a>
+    </div>
+    <div class="header-items">
+      Create An Event
+    </div>
+  </div>
 {% endblock %}
 
 {% block body_content %}
-    {% for error in form.non_field_errors %}
-        <div class="error-message">
-            <strong>*{{ error }}</strong>
-        </div>
-    {% endfor %}
-
-    <!-- Each of the "Event Details" input fields -->
-    <div class="event-details">
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% include "events/form-template.html" %}
-            <input type="submit" value="Submit Event">
-        </form>
+  {% for error in form.non_field_errors %}
+    <div class="error-message">
+      <strong>*{{ error }}</strong>
     </div>
+  {% endfor %}
+
+  <!-- Each of the "Event Details" input fields -->
+  <div class="event-details">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include "events/form-template.html" %}
+      <input type="submit" value="Submit Event">
+    </form>
+  </div>
 {% endblock %}
 
 {% block body_scripts %}
-    <script>
+  <script>
+    // Adds the datetime picker "flatpickr"
+    var flatpickr_calendar = new flatpickr("#calendar", {
+      enableTime: true, // Adds time to be chosen by user
+      altInput: true   // Changes the way the datetime is displayed to the user (looks nicer)
+    });
 
-        // Adds the datetime picker "flatpickr"
-        var flatpickr_calendar = new flatpickr("#calendar", {
-                enableTime: true, // Adds time to be chosen by user
-                altInput: true   // Changes the way the datetime is displayed to the user (looks nicer)
-            }
-        );
-
-        // Makes the datetime fields required and also makes the datetime input fields, that have been filled
-        // out by flatpickr, unchangeable. This is essentially the same as having the "required" and "readonly"
-        // set on the datetime input fields. This can't be done with plain HTML though because when "readonly"
-        // is used in HTML on a field, "required" is then ignored.
-        $(".flatpickr-input").attr("required", true);
-        $(".flatpickr-input").attr("readonly", false);
-        $(".flatpickr-input").keydown(function(e){
-            e.preventDefault();
-        });
-
-        // Makes sure the date_expire is greater than the date_hosted
-        /*
-        $("input[type='submit']").click(function(e){
-            var date_expire = $("input[name='date_expire']").val();
-            var date_hosted = $("input[name='date_hosted']").val();
-
-            if (date_hosted > date_expire) {
-                alert("The hosted date can\'t be after the expire date!");
-                e.preventDefault();
-            }
-        });
-        */
-
-    </script>
+    // Makes the datetime fields required and also makes the datetime input fields, that have been filled
+    // out by flatpickr, unchangeable. This is essentially the same as having the "required" and "readonly"
+    // set on the datetime input fields. This can't be done with plain HTML though because when "readonly"
+    // is used in HTML on a field, "required" is then ignored.
+    $(".flatpickr-input").attr("required", true);
+    $(".flatpickr-input").attr("readonly", false);
+    $(".flatpickr-input").keydown(function(e){
+      e.preventDefault();
+    });
+  </script>
 {% endblock %}

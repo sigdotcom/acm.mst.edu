@@ -1,5 +1,9 @@
+# Django
 from django.conf.urls import url, include
+
+# local Django
 from events import views
+
 
 app_name = 'events'
 urlpatterns = [

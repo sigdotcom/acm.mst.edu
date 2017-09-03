@@ -1,5 +1,10 @@
+# third-party
 from rest_framework import serializers
+
+# Django
 from core.actions import is_valid_email
+
+# local Django
 from . import models
 
 
@@ -27,4 +32,3 @@ class UserSerializer(serializers.ModelSerializer):
         """
 
         return models.User.objects.create(**validated_data)
-

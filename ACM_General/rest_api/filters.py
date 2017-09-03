@@ -1,4 +1,7 @@
+# third-party
 import django_filters
+
+# local Django
 from accounts.models import User
 from events.models import Event
 from sigs.models import SIG

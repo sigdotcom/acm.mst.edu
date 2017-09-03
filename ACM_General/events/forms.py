@@ -1,9 +1,12 @@
-from .models import Event
+# Django
+from django.forms import ModelForm
 from django.forms.widgets import DateTimeInput, Textarea, TextInput
-from django import forms
+
+# local Django
+from .models import Event
 
 
-class EventForm(forms.ModelForm):
+class EventForm(ModelForm):
     """
     This class is used for combining the Event Class model with a form (ModelForm).
     """

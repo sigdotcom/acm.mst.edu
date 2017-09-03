@@ -1,9 +1,12 @@
-from django.shortcuts import render
-from .models import Event
-from accounts.models import User
-from .forms import EventForm
+# Django
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+
+# local Django
+from .forms import EventForm
+from .models import Event
 from accounts.backends import UserBackend
+from accounts.models import User
 
 
 def list_events(request):
@@ -22,8 +25,7 @@ def list_events(request):
 
 def create_event(request):
     """
-    This function is used for authenticating users who have permission to
-    create events as well as actually adding the created event to the database.
+    This view allows authenticated users to create events.
 
     :type request: Request object
     :param request: Request object that contains information from the user's POST/GET request.

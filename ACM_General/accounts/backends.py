@@ -1,4 +1,7 @@
+# future
 from __future__ import unicode_literals
+
+# local Django
 from .models import User
 
 
