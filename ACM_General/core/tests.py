@@ -10,11 +10,11 @@ class ActionsTestCase(TestCase):
     """
     def setUp(self):
         """
-        Ensures the tests are set up properly before execution. 
+        Ensures the tests are set up properly before execution.
         Initializes any required variables and data.
 
-        :rtype: None.
-        :return: None.
+        :rtype: None
+        :return: None
         """
         super().setUp()
 
@@ -22,8 +22,8 @@ class ActionsTestCase(TestCase):
         """
         Tests member functions within actions.py.
 
-        :rtype: None.
-        :return: None.
+        :rtype: None
+        :return: None
         """
         valid_domains = getattr(settings, 'ENFORCED_EMAIL_DOMAINS', None)
         self.assertIsNotNone(valid_domains)
@@ -53,14 +53,14 @@ class ViewTestCase(TestCase):
     """
     Testing correctness of core views.
     """
-    
+
     def setUp(self):
         """
         Ensures the tests are set up properly before execution.
         Initializes any required variables and data.
 
-        :rtype: None.
-        :return: None.
+        :rtype: None
+        :return: None
         """
         super().setUp()
 
@@ -70,8 +70,8 @@ class ViewTestCase(TestCase):
         For example, 404.html should be displayed when a non-existent
         url is requested.
 
-        :rtype: None.
-        :return: None.
+        :rtype: None
+        :return: None
         """
         response = self.client.get('43214321432141')
         self.assertEqual(response.status_code, 404)

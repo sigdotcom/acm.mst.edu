@@ -1,10 +1,9 @@
-"""
 from rest_framework import permissions
 
 
 class IsStaffOrReadOnly(permissions.BasePermission):
     """
-    Custom permission which only allows admins to edit data
+    Custom permission which only allows admins to edit data.
     """
 
     def has_object_permission(self, request, view, obj):
@@ -25,4 +24,3 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         return request.user.email == obj.email
-"""
