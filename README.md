@@ -43,6 +43,34 @@ In order to use Vagrant you must download the following tools:
 **NOTE**: while you do not need VirtualBox specifically, only certain virtualization 
 providers are supported by Vagrant (like VMWare).
 
+#### Installing Vagrant
+Here are some instructions for installing vagrant on various operating systems.
+
+##### Debian / Ubuntu
+1. Go to [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
+2. Click the `64-bit` option under the `Debian` download.
+3. Save the `*.deb` file onto your computer.
+4. `cd` into the directory containing the file downloaded. `cd` stands for
+   `change directory`; It changes your current directory to whatever directory
+   specified by the parameter. For example, `cd /tmp`.
+5. Run `sudo dpkg -i <deb_file_name>`.
+6. Run the command `vagrant` and if there is a help menu it has installed
+   successfully
+
+##### Windows
+1. Go to [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
+2. Click the `64-bit` option under the `Windows` download.
+3. Save the `.msi` file.
+4. Run the `.msi` file in the Downloads folder and follow the Vagrant prompts.
+5. At the end of the prompts, Vagrant should be downloaded
+
+##### Mac (Untested)
+1. Go to [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
+2. Click the `64-bit` option under the `Mac OS` download.
+3. Save the `.dmg` file.
+4. Run the `.dmg` file in the Downloads folder and follow the Vagrant prompts.
+5. At the end of the prompts, Vagrant should be downloaded
+
 #### Running Vagrant
 
 In order to use Vagrant, open the terminal in any OS, navigate to the root git 
@@ -115,6 +143,30 @@ directory of the git repository and run the following commands:
 ```
 cp ./dependencies/settings_local.template ./ACM_General/ACM_General/settings_local.py
 python3 ./ACM_General/manage.py runserver 0.0.0.0:8000
+```
+
+## Useful Django functions
+In the root Django project directory, there is a python executable called
+`manage.py`. The majority of the interactions with Django will be accomplished
+through this executable. A couple of notable `manage.py` commands are:
+```bash
+# This starts the Django webserver. Allows you to see the website if you browse
+# to localhost:8000 on any web browser.
+python3 manage.py runserver
+
+# This collects all static files such as css, images, or any other file located
+# in the various */static folders in the apps into a common directory where
+# Django can display it. Must be run before starting the server as the server
+# needs the static assets.
+python3 manage.py collectstatic
+
+# Whenever a developer makes a change to the database or a model, Django has a
+# intelligant way of converting the database to accommodate these changes called
+# migrations. makemigrations generates these.
+python3 manage.py makemigrations
+
+# Pushes the migrations created in makemigrations to the database.
+python3 manage.py migrate
 ```
 
 # Contributing
