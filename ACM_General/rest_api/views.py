@@ -19,7 +19,7 @@ class UserList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    @Desc: List all Users or create a new user.
+    List all Users or create a new user.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -27,18 +27,24 @@ class UserList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Lists all users.
-
-        @Returns: List of all users' details and a 200 response
+        Lists all users.
+        
+        :param request: Request for UserList information.
+        :type request: Request.
+        :rtype: Response.
+        :return: List of all users' details and a 200 response
                   if the queryset is not empty.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a new user.
-
-        @Returns: The newly created user's details and a 201 response
+        Creates a new user.
+        
+        :param request: Request to post user information.
+        :type request: Request.
+        :rtype: Response.
+        :return: The newly created user's details and a 201 response
                   if the user was creates successfully, otherwise 400.
         """ 
         return self.create(request, *args, **kwargs)
@@ -49,34 +55,43 @@ class UserDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a User instance.
+    Retrieve, updates, or delete a User instance.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Displays the requested user.
-
-        @Returns: The requested user's details and a 200 response
+        Displays the requested user.
+        
+        :param request: Request for user information.
+        :type request: Request.
+        :rtype: Response.
+        :return: The requested user's details and a 200 response
                   if the user is found, otherwise 404. 
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified user.
-
-        @Returns: The updated user's details and a 200 response if
+        Updates the specified user.
+        
+        :param request: Request to update user information.
+        :type request: Request.
+        :rtype: Response.
+        :return: The updated user's details and a 200 response if
                   successful, otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the user from the UserList.
-
-        @Returns: A 204 response if successful, otherwise 404.
+        Deletes the user from the UserList.
+        
+        :param request: Request to delete user information.
+        :type request: Request.
+        :rtype: Response.
+        :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
@@ -85,7 +100,7 @@ class EventList(mixins.ListModelMixin,
                 mixins.CreateModelMixin,
                 generics.GenericAPIView):
     """
-    @Desc: List all Events or create a new event.
+    List all Events or create a new event.
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -93,18 +108,24 @@ class EventList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Lists all Events.
-
-        @Returns: List of all Event details and a 200 response
+        Lists all Events.
+        
+        :param request: Request for EventList infomation.
+        :type request: Request.
+        :rtype: Response.
+        :return: List of all Event details and a 200 response
                   if queryset is not empty.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a new Event.
+        Creates a new Event.
 
-        @Returns: The created event's details and a 201 response 
+        :param request: Request to create new Event.
+        :type request: Request.
+        :rtype: Response.
+        :return: The created event's details and a 201 response 
                   if successful, otherwise 400.
         """
         return self.create(request, *args, **kwargs)
@@ -115,34 +136,43 @@ class EventDetail(mixins.RetrieveModelMixin,
                   mixins.DestroyModelMixin,
                   generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a Event instance.
+    Retrieve, updates, or delete a Event instance.
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieves the requested event.
+        Retrieves the requested event.
         
-        @Returns: The requested event's details and a 200 response
+        :param request: Request for Event details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The requested event's details and a 200 response
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified event.
+        Updates the specified event.
 
-        @Returns: The updated event's details and a 200 response
+        :param request: Request to update Event details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The updated event's details and a 200 response
                   if successful, otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the specified event.
-
-        @Returns: A 204 response if successful, otherwise 404.
+        Deletes the specified event.
+        
+        :param request: Request to delete Event.
+        :type request: Request.
+        :rtype: Response.
+        :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
@@ -151,7 +181,7 @@ class SIGList(mixins.ListModelMixin,
               mixins.CreateModelMixin,
               generics.GenericAPIView):
     """
-    @Desc: List all SIGs or create a new sig.
+    List all SIGs or create a new sig.
     """
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
@@ -159,18 +189,24 @@ class SIGList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Lists all SIGs' details.
+        Lists all SIGs' details.
 
-        @Returns: The list of all SIGs and a 200 response if
+        :param request: Request for SIGList details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The list of all SIGs and a 200 response if
                   the queryset is not empty.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a SIG.
+        Creates a SIG.
 
-        @Returns: The created SIG and a 201 response if successful, 
+        :param request: Request to create a SIG.
+        :type request: Request.
+        :rtype: Response.
+        :return: The created SIG and a 201 response if successful, 
                   otherwise 400.
         """
         return self.create(request, *args, **kwargs)
@@ -181,43 +217,53 @@ class SIGDetail(mixins.RetrieveModelMixin,
                 mixins.DestroyModelMixin,
                 generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a SIG instance.
+    Retrieve, updates, or delete a SIG instance.
     """
     queryset = SIG.objects.all()
     serializer_class = SIGSerializer
 
     def get_serializer_class(self):
         """
-        @Desc: Method to retrieve the SIGSerializer class used for 
-               data serialization.
-
-        @Returns: The class used in SIGDetail's data serialization.
+        Method to retrieve the SIGSerializer class used for 
+        data serialization.
+        
+        :rtype: SIGSerializer.
+        :return: The class used in SIGDetail's data serialization.
         """ 
         return self.serializer_class
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieve the specified SIG.
-
-        @Returns: The specified SIG's details and a 200 response
+        Retrieve the specified SIG.
+        
+        :param request: Request for SIG details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The specified SIG's details and a 200 response
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified SIG.
+        Updates the specified SIG.
 
-        @Returns: The updated SIG's details and a 200 response if successful
+        :param request: Request to update a SIG.
+        :type request: Request.
+        :rtype: Response.
+        :return: The updated SIG's details and a 200 response if successful
                   otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the specified SIG.
-
-        @Returns: A 204 response if successful, otherwise 404.
+        Deletes the specified SIG.
+        
+        :param request: Request to delete a SIG.
+        :type request: Request.
+        :rtype: Response.
+        :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
@@ -226,7 +272,7 @@ class TransactionList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    @Desc: Lists all Transactions or creates a new Transaction List.
+    Lists all Transactions or creates a new Transaction List.
     """
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
@@ -235,18 +281,24 @@ class TransactionList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Lists all Transactions.
-
-        @Returns: A list of all User Transactions and a 200 response
+        Lists all Transactions.
+        
+        :param request: Request for all Transaction details.
+        :type request: Request.
+        :rtype: Response.
+        :return: A list of all User Transactions and a 200 response
                   if the list is non empty.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a new User Transaction.
-
-        @Returns: The created Transaction and a 201 response 
+        Creates a new User Transaction.
+        
+        :param request: Request to create a new Transaction.
+        :type request: Request.
+        :rtype: Response.
+        :return: The created Transaction and a 201 response 
                   if successful, otherwise 400.
         """
         return self.create(request, *args, **kwargs)
@@ -257,34 +309,43 @@ class TransactionDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a Transaction.
+    Retrieve, updates, or delete a Transaction.
     """
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieves the specified Transaction.
+        Retrieves the specified Transaction.
 
-        @Returns: The specified Transaction and a 200 response 
+        :param request: Request to get Transaction details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The specified Transaction and a 200 response 
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified Transaction.
+        Updates the specified Transaction.
 
-        @Returns: The updated Transaction and a 200 response
+        :param request: Request to update a Transaction.
+        :type request: Request.
+        :rtype: Response.   
+        :return: The updated Transaction and a 200 response
                   if successful, otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the specified Transaction.
+        Deletes the specified Transaction.
 
-        @Returns: 204 response if succuessful, otherwise 404.
+        :param request: Request to delete a Transaction.
+        :type request: Request.
+        :rtype: Response.
+        :return: 204 response if succuessful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
@@ -293,7 +354,7 @@ class ProductList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    @Desc: List all Products or create a new Product.
+    List all Products or create a new Product.
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -301,18 +362,24 @@ class ProductList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieve the list of all Products
-
-        @Returns: List of all Products and a 200 response
+        Retrieve the list of all Products
+        
+        :param request: Request for all Product details.
+        :type request: Request.
+        :rtype: Response.
+        :return: List of all Products and a 200 response
                   if the queryset is not empty.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a new Product.
+        Creates a new Product.
 
-        @Returns: The created Product and a 201 response if successful,
+        :param request: Request to create a new Product.
+        :type request: Request.
+        :rtype: Response.
+        :return: The created Product and a 201 response if successful,
                   otherwise 400.
         """
         return self.create(request, *args, **kwargs)
@@ -323,34 +390,43 @@ class ProductDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a Product.
+    Retrieve, updates, or delete a Product.
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieve the specified Product.
+        Retrieve the specified Product.
 
-        @Returns: The specified Product and a 200 response
+        :param request: Request for a Products details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The specified Product and a 200 response
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified Product.
-
-        @Returns: The updated Product and a 200 response
+        Updates the specified Product.
+        
+        :param request: Request to update a Product's details.
+        :type request: Request.
+        :rtype: Response.
+        :return: The updated Product and a 200 response
                   if successful, otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the specified Product.
-
-        @Returns: A 204 response if successful, otherwise 404.
+        Deletes the specified Product.
+        
+        :param request: Request to delete a Product.
+        :type request: Request.
+        :rtype: Response.
+        :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
@@ -359,7 +435,7 @@ class CategoryList(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
     """
-    @Desc: List all Categories or create a new Category.
+    List all Categories or create a new Category.
     """
     queryset = TransactionCategory.objects.all()
     serializer_class = CategorySerializer
@@ -368,17 +444,23 @@ class CategoryList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieves the list of all Categroies.
+        Retrieves the list of all Categroies.
 
-        @Returns: List of all Categories and a 200 response if successful.
+        :param request: Request for all Category details.
+        :type request: Request.
+        :rtype: Response.
+        :return: List of all Categories and a 200 response if successful.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
-        @Desc: Creates a new Category.
+        Creates a new Category.
 
-        @Returns: The created Category's details and a 201 response
+        :param request: Request to create a Category.
+        :type request: Request.
+        :rtype: Response.
+        :return: The created Category's details and a 201 response
                   if successful, otherwise 400.
         """
         return self.create(request, *args, **kwargs)
@@ -389,34 +471,43 @@ class CategoryDetail(mixins.RetrieveModelMixin,
                  mixins.DestroyModelMixin,
                  generics.GenericAPIView):
     """
-    @Desc: Retrieve, updates, or delete a Category.
+    Retrieve, updates, or delete a Category.
     """
     queryset = TransactionCategory.objects.all()
     serializer_class = CategorySerializer
 
     def get(self, request, *args, **kwargs):
         """
-        @Desc: Retrieve the specified Category.
+        Retrieve the specified Category.
 
-        @Returns: The specified category and a 200 response
+        :param request: Request to get a Category's detais.
+        :type request: Request.
+        :rtype: Response.
+        :return: The specified category and a 200 response
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
-        @Desc: Updates the specified category.
+        Updates the specified category.
 
-        @Returns: The updated category and a 200 response
+        :param request: Request to update a Category's details.
+        :type: Request.
+        :rtype: Response.
+        :return: The updated category and a 200 response
                   if successful, otherwise 400.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
-        @Desc: Deletes the specified category.
+        Deletes the specified category.
 
-        @Returns: A 204 response if successful, otherwise 404.
+        :param request: Request to delete a Category.
+        :type: Request.
+        :rtype: Response.
+        :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
 
