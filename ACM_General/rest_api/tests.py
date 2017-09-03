@@ -155,7 +155,7 @@ class AccountsTestCase(TestCase):
 class EventsTestCase(TestCase):
     """
     Ensures Events behave as expected throughout their lifecycle.
-    This includes all basic CRUD functionality. 
+    This includes all basic functionality. 
     """
     def setUp(self):
         """
