@@ -155,7 +155,6 @@ class AccountsTestCase(TestCase):
 class EventsTestCase(TestCase):
     """
     Ensures Events behave as expected throughout their lifecycle.
-    This includes all basic functionality. 
     """
     def setUp(self):
         """
@@ -283,7 +282,6 @@ class EventsTestCase(TestCase):
 class SigsTestCase(TestCase):
     """
     Ensures that a SIG behaves as expected throughout it's lifecycle.
-    This includes all basic CRUD functionality.
     """
     def setUp(self):
         """
