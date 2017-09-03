@@ -12,7 +12,19 @@ from events.models import Event
 
 # Create your tests here.
 class AccountsTestCase(TestCase):
+    """
+    @Desc: Ensures that a user account behaves as expected throughout
+           various interactions they may have throughout the website.
+           This includes all basic functionality pertaining to 
+           data associated with the user, as well as the user itself.
+    """
     def setUp(self):
+        """
+        @Desc: Initializes all variables and data that is required to 
+               test Account functionality.
+
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -52,6 +64,12 @@ class AccountsTestCase(TestCase):
             }
 
     def test_accounts_rest_actions(self):
+        """
+        @Desc: Ensures that an Accounts interactions with each REST api
+               (post, get, put, destroy) results in expected behavior.
+
+        @Returns: None.
+        """
         user = self.user_data
 
         ##
@@ -118,6 +136,12 @@ class AccountsTestCase(TestCase):
         self.assertIsNotNone(response.json()[0])
 
     def test_serializer_validation(self):
+        """ 
+        @Desc: Ensures that the UserSerializer in accounts/serializers.py 
+               functions as intended.
+
+        @Returns: None.
+        """
         user = self.user_data
         user['email']="test@fail.com"
         response = self.client.post(reverse('rest_api:user-list'), user)
@@ -126,7 +150,19 @@ class AccountsTestCase(TestCase):
 
 
 class EventsTestCase(TestCase):
+    """
+    @Desc: Ensures Events behave as expected throughout their lifecycle.
+           This includes all basic CRUD functionality. 
+
+    """
     def setUp(self):
+        """
+        @Desc: Initializes all variables and data required to test Event 
+              functionality. 
+              
+
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -158,6 +194,12 @@ class EventsTestCase(TestCase):
                                                     )
 
     def test_events_rest_actions(self):
+        """
+        @Desc: Ensures that an event behaves as expected at each 
+               point in the REST api. 
+        
+        @Returns: None.
+        """
         event={
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
@@ -236,7 +278,16 @@ class EventsTestCase(TestCase):
 
 
 class SigsTestCase(TestCase):
+    """
+    @Desc: Ensures that a SIG behaves as expected throughout it's lifecycle.
+           This includes all basic CRUD functionality.
+    """
     def setUp(self):
+        """
+        @Desc: Initializes all variables and data required to test SIG functionality.
+        
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -268,6 +319,12 @@ class SigsTestCase(TestCase):
                                                     )
 
     def test_sigs_rest_actions(self):
+        """
+        @Desc: Ensures that a SIG behaves as expected at each
+               point in the REST api.
+               
+        @Returns: None.
+        """ 
         sig = {
             "id": "sig_test",
             "is_active": True,
@@ -347,7 +404,17 @@ class SigsTestCase(TestCase):
 
 
 class TransactionsTestCase(TestCase):
+    """
+    @Desc: Ensures a Transaction behaves as expected throughout all
+           points in it's lifecycle.
+    """
     def setUp(self):
+        """
+        @Desc: Initializes all variables and data required to test
+               Transaction functionality.
+
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -379,6 +446,11 @@ class TransactionsTestCase(TestCase):
                                                     )
 
     def test_transactions_rest_actions(self):
+        """
+        @Desc: Ensures a Transaction behaves as expected throughout all
+               points in the REST api.
+        @Returns: None.
+        """
         transaction = {
                     "description": "test",
                     "cost": 3,
@@ -464,7 +536,17 @@ class TransactionsTestCase(TestCase):
 
 
 class CategoryTestCase(TestCase):
+    """
+    @Desc: Ensures that Categories behave as expected throughout
+           all points in their lifecycle.
+    """
     def setUp(self):
+        """
+        @Desc: Initializes all variables and data required to 
+               test Category functionality.
+
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -496,6 +578,12 @@ class CategoryTestCase(TestCase):
                                                     )
 
     def test_category_rest_actions(self):
+        """
+        @Desc: Ensures that a Category behaves as expected at
+               each point in the REST api.
+               
+        @Returns: None.
+        """
         category = {
             "name": "test"
         }
@@ -571,7 +659,17 @@ class CategoryTestCase(TestCase):
 
 
 class ProductTestCase(TestCase):
+    """
+    @Desc: Ensures that a Product behaves as expected throughout all
+           points of its lifecycle.
+    """
     def setUp(self):
+        """
+        @Desc: Initialize all variables and data required to test
+               Product functinoality.
+
+        @Returns: None.
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -603,6 +701,12 @@ class ProductTestCase(TestCase):
                                                     )
 
     def test_product_rest_actions(self):
+        """
+        @Desc: Ensures that a Product behaves as expected at 
+               each point in the REST api.
+
+        @Returns: None.
+        """
         product = {
             "name": "test",
             "cost": 3.00,
