@@ -1,13 +1,21 @@
+# standard library
+import time
+
+# third-party
+import stripe
+#from selenium import webdriver
+#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+
+# Django
+from django.conf import settings
+from django.test import TestCase, LiveServerTestCase
+from django.urls import reverse
+
+# local Django
 from . import models
 from accounts.models import User
-from django.conf import settings
-from django.urls import reverse
-from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-import stripe
-import time
+
 ##
 # NOTE: Because all of the models in the Transactions apps are so closely
 #       linked, we need to test them all at once.

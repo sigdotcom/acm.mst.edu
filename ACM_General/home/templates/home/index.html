@@ -2,40 +2,12 @@
 {% load static %}
 
 {% block head_stylesheets %}
-  <link rel="stylesheet" href="{% static "/home/css/index.css" %}"/>
+  <link rel="stylesheet" href="{% static "home/css/index.css" %}" />
 {% endblock %}
 
 {% block body_content %}
   <main>
-    <!--Template-->
-    <!--<div class="event-wrapper">
-            <div class="event-card">
-                <a href="link_to_photo" class="flier-space">
-                    <img src="link_to_photo" %}" />
-                </a>
-                <div class="flier-info">
-                    <h2>Title</h2>
-                    <p>Abstract</p>
-                    <div><a href="" class="acm-btn">Learn More</a></div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    <div class="event-wrapper">
-      <div class="event-card">
-        <a
-          href="{% static "/home/img/index/sigdotcom-Intro_Meeting_FlyerQR.png" %}"
-          class="flier-space">
-          <img
-            src="{% static "/home/img/index/sigdotcom-Intro_Meeting_FlyerQR.png" %}"/>
-        </a>
-        <div class="flier-info">
-          <h2>SIG.com: Interest Meeting</h2>
-          <p>Want to help develop the site you are currently looking at or explore other interesting web development topics? Check out SIG.com's first interest meeting and learn what we are all about!</p>
-          <div><a href="mailto:acm@mst.com?Subject=SIG.com Interest Meeting"
-                  class="acm-btn">Learn More</a></div>
-        </div>
-      </div>
-    </div>
+    <!-- This is where upcoming events are automatically added -->
+	{% include "home/upcoming-events.html" %}
   </main>
 {% endblock %}

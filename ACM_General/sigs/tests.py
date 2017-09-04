@@ -1,9 +1,11 @@
-from . import models
-from accounts.models import User
+# Django
 from django.db import IntegrityError
 from django.test import TestCase
 
-# Create your tests here.
+# local Django
+from . import models
+from accounts.models import User
+
 
 class SIGManagerCase(TestCase):
     def setUp(self):
@@ -101,4 +103,3 @@ class SIGModelCase(TestCase):
         sig.save(update_fields=['is_active'])
         sig2 = models.SIG.objects.get(id='test')
         self.assertEqual(sig2.is_active, False)
-

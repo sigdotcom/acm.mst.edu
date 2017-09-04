@@ -1,5 +1,5 @@
 .. MST-ACM Website (acm.mst.edu) documentation master file, created by
-   sphinx-quickstart on Thu Mar 30 21:36:02 2017.
+   sphinx-quickstart on Mon Jun 19 11:38:24 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -14,9 +14,9 @@ developers a more foundational understanding of the acm.mst.edu website with
 some commentary into the reasoning behind functional descisions. This
 documentation is meant people for with out much fundamental knowledge of
 tools used; however, it will not explicitly describe anything explicitly
-mentioned in documentation such as models, managers, and views. 
+mentioned in documentation such as models, managers, and views.
 
-If you have any issues with the documentation or questions contact 
+If you have any issues with the documentation or questions contact
 ksyh3@mst.edu.
 
 Beginner's Guide
@@ -28,7 +28,7 @@ when they are first learning web development.
 
 Placeholder
 ------------
-This will be an 'intermediate guide' which will be a walk through of how the 
+This will be an 'intermediate guide' which will be a walk through of how the
 app handles user authentication, api, payments and other more advance SIG.com
 specific implementation.
 
@@ -42,10 +42,17 @@ Reference Manual
 -----------------
 The purpose of the Reference Manual is to give an in-depth description of each
 function, class, model, view, etc. which the project has.
+
 FAQ
 ----
 Place Holder
 
+
+.. toctree::
+   :hidden:
+
+   app_rst_docs/modules
+   
 
 Indices and tables
 ==================

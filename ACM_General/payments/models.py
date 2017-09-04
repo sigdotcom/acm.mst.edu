@@ -1,14 +1,20 @@
-from django.utils.translation import ugettext_lazy as _
-from django.db import models
+# standard library
+import uuid as uuid
+
+# third-party
+import stripe
+
+# Django
 from django.conf import settings
+from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+# local Django
+from . import managers
 from accounts.models import User
 from sigs.models import SIG
-import stripe
-import uuid as uuid
-from . import managers
 
-# Create your models here.
 
 class TransactionCategory(models.Model):
     """
@@ -149,4 +155,3 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.stripe_token
-

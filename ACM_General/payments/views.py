@@ -1,20 +1,25 @@
+# standard library
+import os
+
+# third-party
+import stripe
+
+# Django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect, Http404
-from django.views import View
 from django.shortcuts import render, get_object_or_404
-from . import models
-import stripe
-import os
+from django.views import View
 
-# Create your views here.
+# local Django
+from . import models
+
 
 class MembershipPayment(View):
     def get(self, request):
         """
         TODO: Docstring
         """
-
         return render(
                 request,
                 'payments/acm_membership.html',
@@ -61,4 +66,3 @@ class ProductHandler(View):
                                     )
 
         return HttpResponseRedirect('/')
-

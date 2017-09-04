@@ -1,0 +1,18 @@
+{% load tz %}
+
+{% for event in upcoming_events %}
+    <div class="event-wrapper">
+        <div class="event-card">
+            <a href="{{ event.flier.url }}" class="flier-space">
+                <img src="{{ event.flier.url }}" />
+            </a>
+            <div class="flier-info">
+                <h2>{{ event.title }}</h2>
+                <p>{{ event.description }}</p>
+                {% if event.link %}
+                    <div><a href="{{ event.link }}" class="acm-btn">Learn More</a></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

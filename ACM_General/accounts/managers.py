@@ -1,6 +1,7 @@
-from django.db import models
-from django.contrib.auth.base_user import BaseUserManager
+# Django
 from core.actions import is_valid_email
+from django.contrib.auth.base_user import BaseUserManager
+from django.db import models
 
 
 class UserManager(BaseUserManager):

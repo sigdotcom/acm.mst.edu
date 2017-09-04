@@ -1,7 +1,10 @@
-from . import actions
+# Django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
+
+# local Django
+from . import actions
 
 
 class ActionsTestCase(TestCase):
@@ -76,4 +79,3 @@ class ViewTestCase(TestCase):
         response = self.client.get('43214321432141')
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, '404.html')
-

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+# standard library
 import os
 import uuid
 
@@ -19,9 +20,14 @@ SECRET_KEY = uuid.uuid1()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = 'media_files/'
+FLIERS_PATH = 'fliers'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 # STATIC_ROOT = "/var/www/html"
+
+# Determines the max number of upcoming events that can appear on the homepage.
+MAX_HOME_FLIER_COUNT = 3
 
 ###
 # Stripe Keys
@@ -88,6 +94,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],

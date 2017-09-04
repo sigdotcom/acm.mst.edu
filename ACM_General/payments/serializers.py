@@ -1,4 +1,7 @@
+# third-party
 from rest_framework import serializers
+
+# local Django
 from . import models
 
 
@@ -18,4 +21,3 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
         fields = '__all__'
-

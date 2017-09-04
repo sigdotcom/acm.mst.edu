@@ -1,18 +1,17 @@
-###
-# Default Django Imports
-###
+# future
 from __future__ import unicode_literals
-from django.db import models
 
-###
-# Custom Django Imports
-###
-from django.contrib.auth.models import AbstractBaseUser
-from django.utils.translation import ugettext_lazy as _
-from . import managers
+# standard library
 import uuid as uuid
 
-# Create your models here.
+# Django
+from django.contrib.auth.models import AbstractBaseUser
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+# local Django
+from . import managers
+
 
 class User(AbstractBaseUser):
     """
@@ -25,8 +24,6 @@ class User(AbstractBaseUser):
       is_active - Whether or not a user accoutn should be considered 'active'
       is_admin - Stores whether or not the user can access the admin panel
       objects - Container for the User Manager
-
-
     """
     ##
     # TODO: Integrations.
@@ -92,4 +89,3 @@ class User(AbstractBaseUser):
         @Returns: The user's email
         """
         return self.email
-
