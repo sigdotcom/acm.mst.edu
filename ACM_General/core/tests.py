@@ -6,17 +6,24 @@ from django.test import TestCase
 
 class ActionsTestCase(TestCase):
     """
-    TODO: Docstring
+    Testing that various core actions work as intended.
     """
     def setUp(self):
         """
-        TODO: Docstring
+        Ensures the tests are set up properly before execution.
+        Initializes any required variables and data.
+
+        :rtype: None
+        :return: None
         """
         super().setUp()
 
     def test_actions_functions(self):
         """
-        TODO: Docstring
+        Tests member functions within actions.py.
+
+        :rtype: None
+        :return: None
         """
         valid_domains = getattr(settings, 'ENFORCED_EMAIL_DOMAINS', None)
         self.assertIsNotNone(valid_domains)
@@ -43,10 +50,29 @@ class ActionsTestCase(TestCase):
             actions.is_valid_email()
 
 class ViewTestCase(TestCase):
+    """
+    Testing correctness of core views.
+    """
+
     def setUp(self):
+        """
+        Ensures the tests are set up properly before execution.
+        Initializes any required variables and data.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
 
     def test_view_integrity(self):
+        """
+        Ensures that core views are raised under proper conditions.
+        For example, 404.html should be displayed when a non-existent
+        url is requested.
+
+        :rtype: None
+        :return: None
+        """
         response = self.client.get('43214321432141')
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, '404.html')
