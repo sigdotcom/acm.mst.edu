@@ -101,7 +101,7 @@ class ModelTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
 
         self.temp_dir = tempfile.TemporaryDirectory()
         settings.MEDIA_ROOT = self.temp_dir.name
@@ -180,7 +180,7 @@ class ViewTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
 
         # Have to specify the datetime formats since these datetimes are being done through the create-event page
         # rather than being created via the model or modelform.
@@ -270,7 +270,7 @@ class EventFormTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
 
         # Test data for filling the event form
         self.data = {
@@ -286,7 +286,7 @@ class EventFormTestCase(TestCase):
             'link': 'acm.mst.edu'
         }
 
-        self.image_data = {'flier': image}
+        self.image_data = {'flier': self.image}
         super().setUp()
 
     def test_event_form_with_valid_data(self):

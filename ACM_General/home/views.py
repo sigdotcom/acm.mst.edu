@@ -9,8 +9,8 @@ from events.models import Event
 
 def index(request):
     # Grabs the 3 nearest upcoming events that haven't expired yet
-    events = Event.objects.order_by('date_hosted').filter(date_expire__gte=timezone.now())
-    if len(events) > 2:
+    events = Event.objects.filter(date_expire__gte=timezone.now()).order_by('date_hosted')
+    if len(events) >= settings.MAX_HOME_FLIER_COUNT:
         events = events[:settings.MAX_HOME_FLIER_COUNT]
 
     return(render(
