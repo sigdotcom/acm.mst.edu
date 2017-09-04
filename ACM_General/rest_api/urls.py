@@ -49,7 +49,6 @@ urlpatterns = [
         views.CategoryDetail.as_view(),
         name='category-detail'
         ),
-
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
