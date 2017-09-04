@@ -86,7 +86,7 @@ class UserModelCase(TestCase):
 
 class ManagerTestCase(TestCase):
     """
-    @Desc - Testing the User Manager and all of its member functinos.
+    @Desc - Testing the User Manager and all of its member functions.
     """
     def setUp(self):
         super().setUp()

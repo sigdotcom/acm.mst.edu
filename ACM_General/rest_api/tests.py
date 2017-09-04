@@ -22,7 +22,20 @@ from sigs.models import SIG
 
 
 class AccountsTestCase(TestCase):
+    """
+    Ensures that a user account behaves as expected throughout
+    various interactions they may have throughout the website.
+    This includes all basic functionality pertaining to
+    data associated with the user, as well as the user itself.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data that is required to
+        test Account functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -63,6 +76,13 @@ class AccountsTestCase(TestCase):
             }
 
     def test_accounts_rest_actions(self):
+        """
+        Ensures that an Accounts interactions with each REST api
+        (post, get, put, destroy) results in expected behavior.
+
+        :rtype: None
+        :return: None
+        """
         user = self.user_data
 
         ##
@@ -129,6 +149,13 @@ class AccountsTestCase(TestCase):
         self.assertIsNotNone(response.json()[0])
 
     def test_serializer_validation(self):
+        """
+        Ensures that the UserSerializer in accounts/serializers.py
+        functions as intended.
+
+        :rtype: None
+        :return: None
+        """
         user = self.user_data
         user['email']="test@fail.com"
         response = self.client.post(reverse('rest_api:user-list'), user)
@@ -136,7 +163,18 @@ class AccountsTestCase(TestCase):
 
 
 class EventsTestCase(TestCase):
+    """
+    Ensures Events behave as expected throughout their lifecycle.
+    """
+
     def setUp(self):
+        """
+        Initializes all variables and data required to test Event
+        functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -173,6 +211,13 @@ class EventsTestCase(TestCase):
         self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
 
     def test_events_rest_actions(self):
+        """
+        Ensures that an event behaves as expected at each
+        point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         event={
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
@@ -254,7 +299,16 @@ class EventsTestCase(TestCase):
 
 
 class SigsTestCase(TestCase):
+    """
+    Ensures that a SIG behaves as expected throughout it's lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to test SIG functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -286,6 +340,13 @@ class SigsTestCase(TestCase):
                                                     )
 
     def test_sigs_rest_actions(self):
+        """
+        Ensures that a SIG behaves as expected at each
+        point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         sig = {
             "id": "sig_test",
             "is_active": True,
@@ -365,7 +426,18 @@ class SigsTestCase(TestCase):
 
 
 class TransactionsTestCase(TestCase):
+    """
+    Ensures a Transaction behaves as expected throughout all
+    points in it's lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to test
+        Transaction functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -397,6 +469,13 @@ class TransactionsTestCase(TestCase):
                                                     )
 
     def test_transactions_rest_actions(self):
+        """
+        Ensures a Transaction behaves as expected throughout all
+        points in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         transaction = {
                     "description": "test",
                     "cost": 3,
@@ -482,7 +561,18 @@ class TransactionsTestCase(TestCase):
 
 
 class CategoryTestCase(TestCase):
+    """
+    Ensures that Categories behave as expected throughout
+    all points in their lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to
+        test Category functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -514,6 +604,13 @@ class CategoryTestCase(TestCase):
                                                     )
 
     def test_category_rest_actions(self):
+        """
+        Ensures that a Category behaves as expected at
+        each point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         category = {
             "name": "test"
         }
@@ -589,7 +686,18 @@ class CategoryTestCase(TestCase):
 
 
 class ProductTestCase(TestCase):
+    """
+    Ensures that a Product behaves as expected throughout all
+    points of its lifecycle.
+    """
     def setUp(self):
+        """
+        Initialize all variables and data required to test
+        Product functinoality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -621,6 +729,13 @@ class ProductTestCase(TestCase):
                                                     )
 
     def test_product_rest_actions(self):
+        """
+        Ensures that a Product behaves as expected at
+        each point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         product = {
             "name": "test",
             "cost": 3.00,

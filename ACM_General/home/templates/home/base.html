@@ -9,32 +9,43 @@
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
 {% endblock %}
+
 {% block head_javascript %}
 {# TODO: REMOVE THIS BEFORE PRODUCTION #}
   <script type="text/javascript" src="http://livejs.com/live.js"></script>
-{# Code that follows is for IE browsers, it will just show them that they should get a real browser #}
- <script>
-var $buoop = {
-  vs:{i:9,f:47,o:45,s:9,c:42},
-  reminder: 0,
-  unsecure:true,
-  mobile:false,
-  api:4
-};
-function $buo_f(){
- var e = document.createElement("script");
- e.src = "//browser-update.org/update.min.js";
- document.body.appendChild(e);
-};
-try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
-catch(e){window.attachEvent("onload", $buo_f)}
-</script>
+  {# Adds google analytics tracking to the site #}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105827065-1', 'auto');
+    ga('send', 'pageview');
+
+    {# Code that follows is for IE browsers, it will just show them that they should get a real browser #}
+    var $buoop = {
+      vs:{i:9,f:47,o:45,s:9,c:42},
+      reminder: 0,
+      unsecure:true,
+      mobile:false,
+      api:4
+    };
+    function $buo_f(){
+      var e = document.createElement("script");
+      e.src = "//browser-update.org/update.min.js";
+      document.body.appendChild(e);
+    };
+    try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+    catch(e){window.attachEvent("onload", $buo_f)}
+  </script>
 {# puts user agent into the html used in ie 10's case#}
   <script>
     var doc = document.documentElement;
     doc.setAttribute('data-useragent', navigator.userAgent);
   </script>
 {% endblock %}
+
 {% block head_fonts %}
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
         rel="stylesheet">

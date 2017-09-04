@@ -54,7 +54,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p $INSTALLATION_DIR
 cd $ROOT_DIR
-rsync -az --delete . $INSTALLATION_DIR/$BUILD_URL/
+rsync -az --delete --exclude="migrations" . $INSTALLATION_DIR/$BUILD_URL/
 
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
@@ -89,13 +89,15 @@ cd -
 ###
 # Generating the django migrations from scratch.
 ###
-find .. -name migrations -type d -exec rm -rf {} \;
-for d in *; do
-    if [ -d "$d" ]; then
-        echo "Running $D"
-        python3 manage.py makemigrations "$d"
-    fi
-done
+if [[ $1 == "dev" ]]; then
+    find .. -name migrations -type d -exec rm -rf {} \;
+    for d in *; do
+        if [ -d "$d" ]; then
+            echo "Running $D"
+            python3 manage.py makemigrations "$d"
+        fi
+    done
+fi
 python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
 
