@@ -15,15 +15,15 @@ from . import managers
 
 class User(AbstractBaseUser):
     """
-     @Desc - Overloading of the base user class to enable email validation
-             as apposed to username validation in default django
-     @Fields -
-      id - 16 character UUID which uniquely identifies each user
-      email - Stores the user's email
-      date_joined - Stores when the user signs up
-      is_active - Whether or not a user accoutn should be considered 'active'
-      is_admin - Stores whether or not the user can access the admin panel
-      objects - Container for the User Manager
+    Overloading of the base user class to enable email validation
+    as apposed to username validation in default django.
+
+    id - 16 character UUID which uniquely identifies each user
+    email - Stores the user's email
+    date_joined - Stores when the user signs up
+    is_active - Whether or not a user accoutn should be considered 'active'
+    is_admin - Stores whether or not the user can access the admin panel
+    objects - Container for the User Manager
     """
     ##
     # TODO: Integrations.
@@ -74,18 +74,27 @@ class User(AbstractBaseUser):
 
     def get_full_name(self):
         """
-        @Returns: The user's full name
+        Returns the user's full name.
+
+        :rtype: String
+        :return: The user's full name.
         """
         return str(self.first_name) + " " + str(self.last_name)
 
     def get_short_name(self):
         """
-        @Returns: The user's email
+        Returns the user's email.
+
+        :rtype: String
+        :return: The user's email.
         """
         return self.email
 
     def __str__(self):
         """
-        @Returns: The user's email
+        Returns the user's email.
+
+        :rtype: String
+        :return: The user's email.
         """
         return self.email

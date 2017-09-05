@@ -25,18 +25,21 @@ from core.actions import is_valid_email
 
 class AuthorizationView(View):
     """
-    @Desc: Default Social Authentication Class View which attempts to define
-           the necessary elements for plug-and-play Social Authentication for
-           any format.
+    Default Social Authentication Class View which attempts to define
+    the necessary elements for plug-and-play Social Authentication for
+    any format.
     """
     http_method_names = ['get']
 
     def get(self, request, **kwargs):
         """
-        @Desc: OAuth authorization processing and transaction handler.
+        OAuth authorization processing and transaction handler.
 
-        @Returns: Prepared GET/POST redirect to the OAuth authentication
-                  endpoint.
+        :param request: Request for OAuth authorization.
+        :type request: Request 
+        :rtype: Response
+        :return: Prepared GET/POST redirect to the OAuth authentication
+                 endpoint.
         """
 
         if request.user.is_authenticated():
@@ -63,13 +66,17 @@ class AuthorizationView(View):
     @staticmethod
     def prepare_transaction(request, auth_data):
         """
-        @Desc: Prepares the POST/GET request parameters for the initial
-               authorization request for OAuth2. Also, Creates state comparator
-               which ensures transaction integrity between the server and a
-               specific client 'state'.
+        Prepares the POST/GET request parameters for the initial
+        authorization request for OAuth2. Also, Creates state comparator
+        which ensures transaction integrity between the server and a
+        specific client 'state'.
 
-        @Returns: Returns a dictonary of the necessay POST/GET parameters
-                  for an authorization request.
+        :param request: Request to prepare the POST/GET parameters needed for 
+                        the initial authorization request for OAuth2.
+        :type request: Request 
+        :rtype: Dictionary
+        :return: A dictonary of the necessay POST/GET parameters
+                 for an authorization request.
         """
         state = hashlib.sha256(os.urandom(1024)).hexdigest()
         request.session['state'] = state
@@ -88,21 +95,26 @@ class AuthorizationView(View):
 
 class TokenView(View):
     """
-    @Desc: Default Token Transaction View which handles the token OAuth
-           transaction as well as User registration/login for each User
-           authenticated
+    Default Token Transaction View which handles the token OAuth
+    transaction as well as User registration/login for each User
+    authenticated.
     """
     http_method_names = ['get']
     auth_type = 'oauth2'
 
     def get(self, request, **kwargs):
         """
-        @Desc: Google Callback URL which takes the POST data from google,
-               cleans the data to python datatypes, and creates/finds the user
-               with the data.
+        Google Callback URL which takes the POST data from google,
+        cleans the data to python datatypes, and creates/finds the user
+        with the data.
 
-               For furthur information, see Step 4 of:
-               https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
+        For furthur information, see Step 4 of:
+        https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
+
+        :param request: Request for the user with the POST data from google. 
+        :type request: Request 
+        :rtype: Response
+        :return: Request to post_auth with the newly cleaned data.
         """
         ###
         # Normalizing data from callback
@@ -148,11 +160,14 @@ class TokenView(View):
     @staticmethod
     def prepare_transaction(request, auth_data):
         """
-        @Desc: Preparing the GET/POST data necessary to perform the Token
-               Transaction.
+        Preparing the GET/POST data necessary to perform the Token
+        Transaction.
 
-        @Returns: Returns the GET/POST data necessary to perform the Token
-                  Transaction.
+        :param request: Request to prepare the Token Transaction data. 
+        :type request: Request
+        :rtype: Dictionary
+        :return: The GET/POST data necessary to perform the Token
+                 Transaction.
         """
         code = request.GET.get('code')
 
@@ -170,10 +185,14 @@ class TokenView(View):
     @staticmethod
     def clean_jwt(text):
         """
-        @Desc: Transforms text containing a JSON Web Token into a cleaned
-               python dictionary.
+        Transforms text containing a JSON Web Token into a cleaned
+        python dictionary.
 
-        @Returns: Returns the clean JSON Web Token as a python dictionary.
+        :param request: Request to transform a JSON Web Token into a
+                        python dictionary.
+        :type request: Request 
+        :rtype: Dictionary
+        :return: The clean JSON Web Token as a python dictionary.
         """
         json_data = json.loads(text)
         jwt_segments = json_data['id_token'].split('.')
@@ -185,10 +204,15 @@ class TokenView(View):
     @staticmethod
     def post_auth(request, cleaned_data):
         """
-        @Desc: Actions after the JSON Web Token has been cleaned and the rest
-               of the transaction has been properly authenticated. Should be
-               used to perform some post_auth action and then present some
-               template/redirect.
+        Actions after the JSON Web Token has been cleaned and the rest
+        of the transaction has been properly authenticated. Should be
+        used to perform some post_auth action and then present some
+        template/redirect.
+
+        :param request: Request to perform some post_auth action. 
+        :type request: Request
+        :rtype: Response
+        :return: A 200 response if successful, otherwise 400.
         """
         email = cleaned_data.get('email', None)
         first_name = cleaned_data.get('given_name', None)

@@ -16,7 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
     @staticmethod
     def validate_email(email):
         """
-        Ensure the domain of the email is mst.edu
+        Ensure the domain of the email is mst.edu.
+
+        :param email: The provided email.
+        :type email: String
+        :rtype: Boolean
+        :return: True if the email has a domain of mst.edu,
+                 otherwise Error. 
         """
 
         if is_valid_email(email):
@@ -28,7 +34,13 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Create and return an instance of the User model designated by the
-        validated_data if no ValidationErrors were raised
+        validated_data if no ValidationErrors were raised.
+
+        :param validated_data: Data used for the creation of a new 
+                               User instance..
+        :type validated_data: Dictionary (?)
+        :rtype: User 
+        :return: An instance of the User model defined by validated_data.
         """
 
         return models.User.objects.create(**validated_data)
