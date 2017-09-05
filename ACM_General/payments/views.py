@@ -16,6 +16,9 @@ from . import models
 
 
 class MembershipPayment(View):
+    """
+    View meant for displaying pages related to memberships.
+    """
     def get(self, request):
         """
         This view renders a page in which users can get more information about
@@ -32,6 +35,9 @@ class MembershipPayment(View):
 
 
 class ProductHandler(View):
+    """
+    View meant for handling requests related to products & transactions.
+    """
     def post(self, request, pk):
         """
         This view submits a Stripe transaction and its to the database.
