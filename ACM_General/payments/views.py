@@ -23,6 +23,9 @@ class MembershipPayment(View):
         """
         This view renders a page in which users can get more information about
         becoming a member of ACM.
+
+        :type request: Request object
+        :param request: Request object that contains information from the user's POST/GET request.
         """
         return render(
             request,
@@ -41,6 +44,9 @@ class ProductHandler(View):
     def post(self, request, pk):
         """
         This view submits a Stripe transaction and its to the database.
+
+        :type request: Request object
+        :param request: Request object that contains information from the user's POST/GET request.
 
         :raises: ValueError :- If the stripe token is empty or if the stripe
                                api key is invalid.
