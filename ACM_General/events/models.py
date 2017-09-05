@@ -44,7 +44,7 @@ class Event(models.Model):
     """
     objects = managers.EventManager()
 
-    #: An ACM member's user id; represented as a UUID field.
+    #: An ACM member's user id; represented as a UUIDfield.
     id = models.UUIDField(
         verbose_name=_('ACM User ID'),
         primary_key=True,

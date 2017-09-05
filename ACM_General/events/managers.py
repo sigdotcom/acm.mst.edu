@@ -3,14 +3,17 @@ from django.db import models
 
 
 class EventManager(models.Manager):
+    """
+    Used to automate the creation of events.
+    """
+
     def get_by_natural_key(self, title):
+        """
+        :returns: The event object that matches with the passed title variable (if there is one).
+        """
         return self.get(title=title)
 
     def _create_event(self, **kwargs):
-        """
-        @Raises - django.db.integrityError
-                  ValueError
-        """
         date_hosted=kwargs.get('date_hosted', None)
         date_expire=kwargs.get('date_expire', None)
 
@@ -30,4 +33,10 @@ class EventManager(models.Manager):
         return model;
 
     def create_event(self, **kwargs):
+        """
+        Checks the date_hosted and date_expire variable to make sure they
+        are valid and then saves the event to the database.
+
+        :raises: ValueError if date_hosted or date_expire are invalid.
+        """
         return self._create_event(**kwargs)

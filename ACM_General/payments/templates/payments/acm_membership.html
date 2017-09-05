@@ -17,24 +17,24 @@
 
 {% block body_content %}
 <div class="body-wrapper">
-    <div class="card">
-        <div class="logo"></div>
-        <div class="title">ACM Membership</div>
-        {% for product in products %}
-        <h3> {{ product.name }} </h3>
-        <p> Cost: {{ product.cost }} </p>
-        <form action="{% url "payments:product-handler" product.id %}" method="POST">
-            {% csrf_token %}
-            <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="{{ stripe_public_key }}"
-                data-name="Missouri S&amp;T - Association of Computing Machinery"
-                data-description="Widget"
-                data-image="{% static 'home/img/core/acm.png' %}"
-                data-locale="auto">
-            </script>
-        </form>
-        {% endfor %}
-    </div>
+  <div class="card">
+    <div class="logo"></div>
+    <div class="title">ACM Membership</div>
+    {% for product in products %}
+      <h3> {{ product.name }} </h3>
+      <p> Cost: {{ product.cost }} </p>
+      <form action="{% url "payments:product-handler" product.id %}" method="POST">
+        {% csrf_token %}
+        <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ stripe_public_key }}"
+        data-name="Missouri S&amp;T - Association of Computing Machinery"
+        data-description="Widget"
+        data-image="{% static 'home/img/core/acm.png' %}"
+        data-locale="auto">
+        </script>
+      </form>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
