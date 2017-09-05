@@ -7,7 +7,7 @@ SPHINXBUILD   = python3 -msphinx
 SPHINXPROJ    = MST-ACMWebsiteacmmstedu
 SOURCEDIR     = .
 BUILDDIR      = _build
-export SPHINX_APIDOC_OPTIONS=members,show-inheritance
+export SPHINX_APIDOC_OPTIONS=members,show-inheritance,private-members,special-members
 
 # Put it first so that "make" without argument is like "make help".
 help:
