@@ -74,7 +74,7 @@ class AuthorizationView(View):
         :param request: Request to prepare the POST/GET parameters needed for 
                         the initial authorization request for OAuth2.
         :type request: Request 
-        :rtype: Dictionary
+        :rtype: dict
         :return: A dictonary of the necessay POST/GET parameters
                  for an authorization request.
         """
@@ -165,7 +165,7 @@ class TokenView(View):
 
         :param request: Request to prepare the Token Transaction data. 
         :type request: Request
-        :rtype: Dictionary
+        :rtype: dict
         :return: The GET/POST data necessary to perform the Token
                  Transaction.
         """
@@ -191,7 +191,7 @@ class TokenView(View):
         :param request: Request to transform a JSON Web Token into a
                         python dictionary.
         :type request: Request 
-        :rtype: Dictionary
+        :rtype: dict
         :return: The clean JSON Web Token as a python dictionary.
         """
         json_data = json.loads(text)

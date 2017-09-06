@@ -79,7 +79,7 @@ class User(AbstractBaseUser):
         """
         Returns the user's full name.
 
-        :rtype: String
+        :rtype: str
         :return: The user's full name.
         """
         return str(self.first_name) + " " + str(self.last_name)
@@ -88,7 +88,7 @@ class User(AbstractBaseUser):
         """
         Returns the user's email.
 
-        :rtype: String
+        :rtype: str
         :return: The user's email.
         """
         return self.email
@@ -97,7 +97,7 @@ class User(AbstractBaseUser):
         """
         Returns the user's email.
 
-        :rtype: String
+        :rtype: str
         :return: The user's email.
         """
         return self.email

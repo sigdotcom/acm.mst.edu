@@ -17,7 +17,7 @@ class UserBackend(object):
         this function to be run on any to-be-logined user.
 
         :param email: User provided email address.
-        :type email: String
+        :type email: str
         :rtype: User
         :return: The User object posessing the given email, or None
                  if the email does not exist within the database.
@@ -47,7 +47,7 @@ class UserBackend(object):
 
         :param user: User object passed in for authentication.
         :type user: User 
-        :rtype: Boolean
+        :rtype: bool
         :return: True if the user has the is_active flag set.
                  Flase if the user's is_active flag is false.
         """
@@ -61,7 +61,7 @@ class UserBackend(object):
         given user_id.
 
         :param user_id: The UUID for which to find a user for. 
-        :type user_id: String 
+        :type user_id: str
         :rtype: User
         :return: The User object posessing the UUID or None, if the
                  UUID does not exist within the database.

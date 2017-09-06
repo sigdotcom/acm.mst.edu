@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
         django approach to this.
 
         :param email: The email of the user to search for.
-        :type email: String
+        :type email: str
         :rtype: User
         :return: The User who posseses the provided email.
         """
@@ -34,7 +34,7 @@ class UserManager(BaseUserManager):
         into it and returns the user. 
 
         :param email: The email of the user to create.
-        :type email: String
+        :type email: str
         :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.
@@ -62,7 +62,7 @@ class UserManager(BaseUserManager):
         should adhere at registration.
 
         :param email: The email of the user to create.
-        :type email: String
+        :type email: str
         :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.
@@ -80,7 +80,7 @@ class UserManager(BaseUserManager):
         the Django admin panel.
 
         :param email: The email of the user to create.
-        :type email: String
+        :type email: str
         :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.

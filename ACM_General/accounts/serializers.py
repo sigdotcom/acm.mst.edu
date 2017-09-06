@@ -19,8 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
         Ensure the domain of the email is mst.edu.
 
         :param email: The provided email.
-        :type email: String
-        :rtype: Boolean
+        :type email: str
+        :rtype: bool
         :return: True if the email has a domain of mst.edu,
                  otherwise Error. 
         """
@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         :param validated_data: Data used for the creation of a new 
                                User instance..
-        :type validated_data: Dictionary
+        :type validated_data: dict
         :rtype: User 
         :return: An instance of the User model defined by validated_data.
         """
