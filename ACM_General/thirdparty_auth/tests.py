@@ -8,7 +8,17 @@ from accounts import models
 
 
 class ViewTestCase(LiveServerTestCase):
+    """
+    Ensures that third party authorization methods behave as expected.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to test 
+        third party authorization functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user=models.User.objects.create(
                     email="test@mst.edu",
@@ -17,6 +27,13 @@ class ViewTestCase(LiveServerTestCase):
                 )
 
     def test_view_integrity(self):
+        """
+        Ensures that third party authorization methods are handled
+        correctly in the case of both proper and improper attempts.
+
+        :rtype: None
+        :return: None
+        """
         ##
         # Testing initial login fails because of callback url
         ##
