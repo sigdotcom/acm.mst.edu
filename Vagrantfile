@@ -29,19 +29,19 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   $updates = <<-UPDATE
-	apt-add-repository ppa:brightbox/ruby-ng
+    apt-add-repository ppa:brightbox/ruby-ng
     apt-get update
-    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common ruby2.2 ruby2.2-dev
-	gem install sass
-	gem install compass
-    apt update
-    apt install -y python3 python3-pip postgresql libpq-dev nfs-common
+    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common libjpeg-dev ruby2.2 ruby2.2-dev
+    pip3 install --upgrade pip
+    gem install sass
+    gem install compass
   UPDATE
 
   $db = <<-DB
     sudo -u postgres psql -c "create database django_acmgeneral"
     sudo -u postgres psql -c "create user djangouser with password 'djangoUserPassword'"
     sudo -u postgres psql -c "grant all privileges on database django_acmgeneral to djangouser"
+    sudo -u postgres psql -c "alter user djangouser createdb"
   DB
 
   $migrate = <<-MIGRATE
@@ -57,8 +57,8 @@ Vagrant.configure("2") do |config|
   $setup = <<-SETUP
     tmux new-session -d -s django 'cd /vagrant/ACM_General && python3 manage.py runserver 0.0.0.0:8000'
     tmux detach -s django
-	tmux new-session -d -s scss 'cd /vagrant && compass watch --poll'
-	tmux ls
+    tmux new-session -d -s scss 'cd /vagrant && compass watch --poll'
+    tmux ls
     tmux detach -s scss
   SETUP
 

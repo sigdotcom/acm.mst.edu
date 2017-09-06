@@ -1,13 +1,29 @@
-from . import models
+# standard library
+import uuid
+
+# Django
 from django.db import IntegrityError
-from accounts.backends import UserBackend
 from django.test import TestCase
 from django.urls import reverse
-import uuid
+
+# local Django
+from . import models
+from accounts.backends import UserBackend
 
 
 class UserModelCase(TestCase):
+    """
+    Testing that the User model behaves as intended.
+    """
     def setUp(self):
+        """
+        Ensures that tests are set up properly before execution.
+        Initializes any required variables and data. 
+        Creates two test Users.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         models.User.objects.create(
             email="test@mst.edu",
@@ -22,6 +38,13 @@ class UserModelCase(TestCase):
         )
 
     def test_duplicate_user_error(self):
+        """
+        Ensures that erroneous duplicate user creation is caught 
+        and handled properly.
+
+        :rtype: None
+        :return: None
+        """
         with self.assertRaises(IntegrityError):
             models.User.objects.create(
                 email="duplicate@mst.edu",
@@ -35,6 +58,12 @@ class UserModelCase(TestCase):
             )
 
     def test_can_retrieve_users(self):
+        """
+        Ensures that the ability to retrieve users is working as intended.
+
+        :rtype: None
+        :return: None
+        """
         self.assertIsNotNone(models.User.objects.get(email="test@mst.edu"))
         self.assertIsNotNone(models.User.objects.all())
 
@@ -51,6 +80,12 @@ class UserModelCase(TestCase):
             )
 
     def test_can_edit_user(self):
+        """
+        Ensures that the ability to edit users is working as intended.
+
+        :rtype: None
+        :return: None
+        """
         user = models.User.objects.get(email="test@mst.edu")
         self.assertIsNotNone(user)
         ##
@@ -62,6 +97,12 @@ class UserModelCase(TestCase):
         self.assertIsNotNone(models.User.objects.get(email="GETCHANGEDKID@mst.edu"))
 
     def test_user_model_member_functions(self):
+        """
+        Ensures that the user model member functions are working as intended.
+
+        :rtype: None
+        :return: None
+        """
         user = models.User.objects.create(
             email="johndoe@mst.edu",
             first_name="John",
@@ -81,12 +122,25 @@ class UserModelCase(TestCase):
 
 class ManagerTestCase(TestCase):
     """
-    @Desc - Testing the User Manager and all of its member functions.
+    Testing the User Manager and all of its member functions.
     """
     def setUp(self):
+        """
+        Ensures that tests are set up properly before execution.
+        Initializes any required variables and data.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
 
     def test_get_by_natural_key(self):
+        """
+        Ensures that the user can be retrieved by natural key.
+
+        :rtype: None
+        :return: None
+        """
         user = models.User.objects.create_user('testme@mst.edu')
         self.assertIsNotNone(
                 models.User.objects.get_by_natural_key('testme@mst.edu')
@@ -95,6 +149,12 @@ class ManagerTestCase(TestCase):
             models.User.objects.get_by_natural_key('notindatabase@mst.edu')
 
     def test_create_user_function(self):
+        """
+        Ensures that the create_user function is working as intended.
+
+        :rtype: None
+        :return: None
+        """
         self.assertIsNotNone(models.User.objects.create_user('testme@mst.edu'))
         with self.assertRaises(ValueError):
             models.User.objects.create_user('test@fail.com')
@@ -121,6 +181,12 @@ class ManagerTestCase(TestCase):
         self.assertEqual(user.is_staff, False)
 
     def test_create_superuser_function(self):
+        """
+        Ensures that the create_superuser function is working as intended.
+
+        :rtype: None
+        :return: None
+        """
         self.assertIsNotNone(models.User.objects.create_superuser('testadmin2@mst.edu'))
         with self.assertRaises(ValueError):
             models.User.objects.create_superuser('test@fail.com')
@@ -160,22 +226,27 @@ class ManagerTestCase(TestCase):
 
 class ViewTestCase(TestCase):
     """
-    @Desc - This Test Case evaluates each of the different facets of the views
-            in the accounts app.
+    Evaluates each of the different facets of the views in the accounts app.
     """
 
     def setUp(self):
         """
-        @Desc - Setup a global client in which all the test cases may use to
-                reduce redundancy.
+        Ensures that tests are set up properly before execution.
+        Initializes any required variables and data.
+
+        :rtype: None
+        :return: None
         """
         super().setUp()
 
     def test_status_codes(self):
         """
-        @Desc - Determines whether every view returns the proper response code
-                in the accounts app. Could determine in-view syntax errors or
-                initial procsesing errors.
+        Determines whether every view returns the proper response code
+        in the accounts app. Could determine in-view syntax errors or
+        initial processing errors.
+
+        :rtype: None
+        :return: None
         """
 
         response = self.client.get(reverse('accounts:user-logout'), follow=True)
@@ -196,9 +267,12 @@ class ViewTestCase(TestCase):
 
     def test_logout_system(self):
         """
-        @Desc - Determines whether or not the user logout is working properly
-                by creating a client, forcing the client to login, and then
-                visiting the logout page.
+        Determines whether or not the user logout is working properly
+        by creating a client, forcing the client to login, and then
+        visiting the logout page.
+
+        :rtype: None
+        :return: None
         """
         user = models.User.objects.create_user(email="testclient@mst.edu",
                                          first_name="Client",
@@ -213,14 +287,17 @@ class ViewTestCase(TestCase):
 
 class UserAuthBackendCase(TestCase):
     """
-    @Desc - This test case evalatues all of the different authentication
-            methodso which accounts.managers.UserBackend provides.
+    Evaluates all of the different authentication
+    methods which accounts.managers.UserBackend provides.
     """
 
     def setUp(self):
         """
-        @Desc - Creates a 'global' user for each function to run authentication
-                functions on as well as spare users in the database.
+        Creates a 'global' user for each function to run authentication
+        functions on as well as spare users in the database.
+
+        :rtype: None
+        :return: None
         """
         super().setUp()
         self.backend = UserBackend()
@@ -230,7 +307,10 @@ class UserAuthBackendCase(TestCase):
 
     def test_authenticate_function(self):
         """
-        @Desc - Tests the authenticate function in the Backend.
+        Ensures that the authenticate function in the Backend works as intended.
+
+        :rtype: None
+        :return: None
         """
 
 
@@ -244,7 +324,10 @@ class UserAuthBackendCase(TestCase):
 
     def test_user_can_authenticate_function(self):
         """
-        @Desc - Tests the user_can_authenticate function
+        Ensures that the user_can_authenticate function works as intended.
+
+        :rtype: None
+        :return: None
         """
         self.assertEqual(self.backend.user_can_authenticate(models.User.objects.get(email="test@mst.edu")), True)
         self.assertEqual(self.backend.user_can_authenticate(models.User.objects.get(email="test2@mst.edu")), False)
@@ -271,4 +354,3 @@ class GroupModelTestCase(TestCase):
     TODO: Implement after Groups.
     """
     pass
-

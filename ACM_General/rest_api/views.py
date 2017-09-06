@@ -1,3 +1,12 @@
+#third-party
+from rest_framework import mixins
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+# local Django
+from . import filters
 from accounts.models import User
 from accounts.serializers import UserSerializer
 from events.models import Event
@@ -6,13 +15,7 @@ from payments.models import Transaction, Product, TransactionCategory
 from payments.serializers import TransactionSerializer, ProductSerializer, CategorySerializer
 from sigs.models import SIG
 from sigs.serializers import SIGSerializer
-from rest_framework import mixins
-from rest_framework import generics
-from rest_framework import permissions
 # from rest_api.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from . import filters
 
 
 class UserList(mixins.ListModelMixin,
@@ -104,7 +107,7 @@ class EventList(mixins.ListModelMixin,
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    filter_class = filters.EventFilter
+    #filter_class = filters.EventFilter
 
     def get(self, request, *args, **kwargs):
         """
@@ -510,4 +513,3 @@ class CategoryDetail(mixins.RetrieveModelMixin,
         :return: A 204 response if successful, otherwise 404.
         """
         return self.destroy(request, *args, **kwargs)
-

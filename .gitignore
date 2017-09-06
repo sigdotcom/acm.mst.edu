@@ -11,8 +11,10 @@ settings_local.py
 .*
 *.log*
 docs/_build/
+docs/app_rst_docs/
+fliers/
+ACM_General/home/static/home/css
 *.aux
 *.pdf
 *.out
 *.toc
-ACM_General/home/static/home/css

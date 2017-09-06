@@ -1,6 +1,7 @@
-from django.db import models
-from django.contrib.auth.base_user import BaseUserManager
+# Django
 from core.actions import is_valid_email
+from django.contrib.auth.base_user import BaseUserManager
+from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -15,18 +16,32 @@ class UserManager(BaseUserManager):
 
     def get_by_natural_key(self, email):
         """
-        @Desc - This function allows for a intutive search of the user by
-                the user's email. Similary, this can be done by running
-                User.objects.get(email=foo); however, this more standarized,
-                django approach to this.
+        Allows for a intutive search of the user by
+        the user's email. Similary, this can be done by running
+        User.objects.get(email=foo); however, this more standarized,
+        django approach to this.
+
+        :param email: The email of the user to search for.
+        :type email: str
+        :rtype: User
+        :return: The User who posseses the provided email.
         """
         return self.get(email=email)
 
     def _create_user(self, email, **extra_fields):
         """
         Base create_user function that creates a user based on fields passed
-        into it and returns the user.  extra_fields must be a member variable
-        of the class which the Manager is apart of.
+        into it and returns the user. 
+
+        :param email: The email of the user to create.
+        :type email: str
+        :param \**extra_fields: Additional fields used to create the user.
+                               Items must be a member variable of the class
+                               for which the Manage is a part of.
+        :rtype: User
+        :return: The newly created User with attributes specified 
+                 in **extra_fields. If the email provided has not been
+                 whitelisted in ENFORCED_DOMAINS, return a ValueError.
         """
         if(is_valid_email(email)):
             email = self.normalize_email(email)
@@ -43,8 +58,17 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, **extra_fields):
         """
-        create_user creates a user based of 'default values' that every user
+        Creates a user based of 'default values' that every user
         should adhere at registration.
+
+        :param email: The email of the user to create.
+        :type email: str
+        :param \**extra_fields: Additional fields used to create the user.
+                               Items must be a member variable of the class
+                               for which the Manage is a part of.
+        :rtype: User
+        :return: Returns a User object created by universal
+                 'default values'.
         """
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
@@ -52,8 +76,17 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, **extra_fields):
         """
-        create_superuser creates a 'default' superuser which has access to
-        the django admin panel.
+        Creates a 'default' superuser which has access to
+        the Django admin panel.
+
+        :param email: The email of the user to create.
+        :type email: str
+        :param \**extra_fields: Additional fields used to create the user.
+                               Items must be a member variable of the class
+                               for which the Manage is a part of.
+        :rtype: User
+        :return: User object created by universal 'default values'
+                 that posseses access to the Django admin panel.
         """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)

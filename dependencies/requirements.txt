@@ -7,4 +7,5 @@ djangorestframework
 django-filter
 stripe
 selenium
+Pillow
 Sphinx

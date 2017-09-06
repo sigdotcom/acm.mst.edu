@@ -1,4 +1,7 @@
+# third-party
 import django_filters
+
+# local Django
 from accounts.models import User
 from events.models import Event
 from sigs.models import SIG
@@ -26,6 +29,8 @@ class UserFilter(django_filters.FilterSet):
         ]
 
 
+#TODO: Implement Filter for Events that allows ImageField
+'''
 class EventFilter(django_filters.FilterSet):
     """
     Allows for Events to be filtered based on specified
@@ -37,8 +42,7 @@ class EventFilter(django_filters.FilterSet):
         applies to. Generates filters for all Event fields.
         """
         model = Event
-        fields = '__all__'
-
+'''
 
 class SIGFilter(django_filters.FilterSet):
     """

@@ -1,8 +1,10 @@
+# Django
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+# local Django
 from . import managers
 
-# Create your models here.
 
 ##
 # To stop circular import errors and allow for djangos model resolution
