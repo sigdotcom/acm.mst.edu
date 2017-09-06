@@ -9,7 +9,7 @@ class TransactionCategoryManager(models.Manager):
     def get_by_natural_key(self, name):
         """
         :param name: The name of Transaction.
-        :type name: string
+        :type name: str
 
         :returns: The TransactionCategory object that matches with the passed
                   name variable (if there is one).
@@ -24,8 +24,9 @@ class TransactionCategoryManager(models.Manager):
     def create_category(self, name, **kwargs):
         """
         Used to create a Transaction Category and save it to the database.
+
         :param name: The name of Transaction.
-        :type name: string
+        :type name: str
 
         :returns: The created Transaction Category.
         """
@@ -39,7 +40,7 @@ class ProductManager(models.Manager):
     def get_by_natural_key(self, name):
         """
         :param name: The name of Product.
-        :type name: string
+        :type name: str
 
         :returns: The Product object that matches with the passed name variable
                   (if there is one).
@@ -54,8 +55,9 @@ class ProductManager(models.Manager):
     def create_product(self, name, **kwargs):
         """
         Used to create a Product and save it to the database.
+
         :param name: The name of Product.
-        :type name: string
+        :type name: str
 
         :returns: The created Product.
         """
@@ -68,8 +70,8 @@ class TransactionManager(models.Manager):
     """
     def get_by_natural_key(self, stripe_token):
         """
-        :param stripe_token: The stripe token.
-        :type stripe_token: stripe token object
+        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :type stripe_token: str
 
         :returns: The Transaction object that matches with the passed
                   stripe_token variable (if there is one).
@@ -91,8 +93,9 @@ class TransactionManager(models.Manager):
     def create_transaction(self, stripe_token, **kwargs):
         """
         Used to create a Transaction and save it to the database.
-        :param stripe_token: The stripe token.
-        :type stripe_token: stripe token object
+
+        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :type stripe_token: str
 
         :returns: The created transaction.
         """

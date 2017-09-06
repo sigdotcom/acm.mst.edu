@@ -37,6 +37,6 @@ class EventManager(models.Manager):
         Checks the date_hosted and date_expire variable to make sure they
         are valid and then saves the event to the database.
 
-        :raises: ValueError if date_hosted or date_expire are invalid.
+        :raises: ValueError if date_hosted or date_expire is invalid.
         """
         return self._create_event(**kwargs)

@@ -25,10 +25,10 @@ def get_path_for_flier(instance, filename):
     :type instance: Event object
     :param instance: An instance of the current Event being created
 
-    :type filename: string
+    :type filename: str
     :param filename: The filename of the image being used as a flier for the current event being created
 
-    :rtype: string
+    :rtype: str
     :returns: String that contains the generated path to save or collect the flier image.
 
     .. note::
@@ -44,7 +44,7 @@ class Event(models.Model):
     """
     objects = managers.EventManager()
 
-    #: An ACM member's user id; represented as a UUIDfield.
+    #: An ACM member's user id; represented as a UUIDField.
     id = models.UUIDField(
         verbose_name=_('ACM User ID'),
         primary_key=True,
