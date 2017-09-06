@@ -154,6 +154,8 @@ class Event(models.Model):
     def clean(self):
         """
         The clean function is used for making checks on the data posted to the form.
+
+        :raises ValidationError: if date_expire or date_hosted are invalid.
         """
 
         # Calls the original clean function

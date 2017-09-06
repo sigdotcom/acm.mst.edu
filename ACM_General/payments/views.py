@@ -48,9 +48,9 @@ class ProductHandler(View):
         :type request: Request object
         :param request: Request object that contains information from the user's POST/GET request.
 
-        :raises: ValueError :- If the stripe token is empty or if the stripe
+        :raises ValueError: If the stripe token is empty or if the stripe
                                api key is invalid.
-                 Http404 :- If an unauthenticated user attempts to access the
+        :raises Http404: If an unauthenticated user attempts to access the
                             page.
         """
         if request.user.is_authenticated() == False:
