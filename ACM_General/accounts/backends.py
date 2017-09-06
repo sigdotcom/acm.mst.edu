@@ -41,7 +41,7 @@ class UserBackend(object):
     def user_can_authenticate(user):
         """
         Checks for whether a user is active or not.
-        This function allows for users to be 'shut off' of opposed to
+        This function allows for users to be 'shut off' as opposed to
         deleted, forcing less clean-up and increased fidelity when user
         leaves.
 
@@ -64,7 +64,7 @@ class UserBackend(object):
         :type user_id: String 
         :rtype: User
         :return: The User object posessing the UUID or None, if the
-                 UUID does not exist withing the database.
+                 UUID does not exist within the database.
         """
         try:
             user = User.objects.get(pk=user_id)

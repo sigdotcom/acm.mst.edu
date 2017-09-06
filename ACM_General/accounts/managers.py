@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
 
         :param email: The email of the user to create.
         :type email: String
-        :param **extra_fields: Additional fields used to create the user.
+        :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.
         :rtype: User
@@ -63,7 +63,7 @@ class UserManager(BaseUserManager):
 
         :param email: The email of the user to create.
         :type email: String
-        :param **extra_fields: Additional fields used to create the user.
+        :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.
         :rtype: User
@@ -81,7 +81,7 @@ class UserManager(BaseUserManager):
 
         :param email: The email of the user to create.
         :type email: String
-        :param **extra_fields: Additional fields used to create the user.
+        :param \**extra_fields: Additional fields used to create the user.
                                Items must be a member variable of the class
                                for which the Manage is a part of.
         :rtype: User

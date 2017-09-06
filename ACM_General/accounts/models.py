@@ -18,51 +18,54 @@ class User(AbstractBaseUser):
     Overloading of the base user class to enable email validation
     as apposed to username validation in default django.
 
-    id - 16 character UUID which uniquely identifies each user
-    email - Stores the user's email
-    date_joined - Stores when the user signs up
-    is_active - Whether or not a user accoutn should be considered 'active'
-    is_admin - Stores whether or not the user can access the admin panel
-    objects - Container for the User Manager
     """
     ##
     # TODO: Integrations.
     ##
 
+    #: Container for the User Manager.
     objects = managers.UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    #: 16 character UUID which uniquely identifies each user.
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+
+    #: Stores the user's email.
     email = models.EmailField(
                 verbose_name=_('Email Address'),
                 help_text=_('A valid @mst.edu email address'),
                 unique=True,
                 db_index=True,
             )
+    #: Stores the user's first name.
     first_name = models.CharField(
                         verbose_name=_('First Name'),
                         max_length=30,
                  )
-
+    #: Stores the user's last name.
     last_name = models.CharField(
                         verbose_name=_('Last Name'),
                         max_length=30,
                 )
+    #: Stores when the user signs up.
     date_joined = models.DateTimeField(
                         verbose_name=_('Date Joined'),
                         auto_now_add=True,
                         editable=False,
                   )
+    #: Whether or not a user account should be considered 'active'.
     is_active = models.BooleanField(
                         verbose_name=_('Is Active'),
                         default=True,
                 )
+    #: Stores whether or not the user is staff.
     is_staff = models.BooleanField(
                         verbose_name=_('Is Staff'),
                         default=False,
                )
+    #: Stores whether or not the user can access the admin panel.
     is_superuser = models.BooleanField(
                         verbose_name=_('Is Superuser'),
                         default=False,

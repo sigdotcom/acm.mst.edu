@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         :param validated_data: Data used for the creation of a new 
                                User instance..
-        :type validated_data: Dictionary (?)
+        :type validated_data: Dictionary
         :rtype: User 
         :return: An instance of the User model defined by validated_data.
         """

@@ -9,12 +9,12 @@ from accounts import models
 
 class ViewTestCase(LiveServerTestCase):
     """
-    Ensures that third party authroization methods behave as expected.
+    Ensures that third party authorization methods behave as expected.
     """
     def setUp(self):
         """
         Initializes all variables and data required to test 
-        third party authorizarion functionality.
+        third party authorization functionality.
 
         :rtype: None
         :return: None

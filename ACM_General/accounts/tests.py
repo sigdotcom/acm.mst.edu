@@ -243,7 +243,7 @@ class ViewTestCase(TestCase):
         """
         Determines whether every view returns the proper response code
         in the accounts app. Could determine in-view syntax errors or
-        initial procsesing errors.
+        initial processing errors.
 
         :rtype: None
         :return: None
@@ -287,8 +287,8 @@ class ViewTestCase(TestCase):
 
 class UserAuthBackendCase(TestCase):
     """
-    Evalatues all of the different authentication
-    methodso which accounts.managers.UserBackend provides.
+    Evaluates all of the different authentication
+    methods which accounts.managers.UserBackend provides.
     """
 
     def setUp(self):
@@ -307,7 +307,7 @@ class UserAuthBackendCase(TestCase):
 
     def test_authenticate_function(self):
         """
-        Ensures that the authenticate function in the Backend works as inteded.
+        Ensures that the authenticate function in the Backend works as intended.
 
         :rtype: None
         :return: None
