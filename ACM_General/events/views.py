@@ -14,9 +14,10 @@ def list_events(request):
     This function is used for creating a view that lists out all of the events
     in an organized manner.
 
-    :type request: Request object
+    :type request: django.http.request.HttpRequest
     :param request: Request object that contains information from the user's POST/GET request.
 
+    :rtype: django.shortcuts.render
     :returns: An HTML rendered page of 'listEvents.html' that has all of the
              Event objects passed into it.
     """
@@ -27,9 +28,10 @@ def create_event(request):
     """
     This view allows authenticated users to create events.
 
-    :type request: Request object
+    :type request: django.http.request.HttpRequest
     :param request: Request object that contains information from the user's POST/GET request.
 
+    :rtype: django.shortcuts.render or django.http.HttpResponseRedirect
     :returns:
 
     - If the user is not a superuser, they will be redirected to a 404 error page.
