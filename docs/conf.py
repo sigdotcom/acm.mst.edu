@@ -57,8 +57,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'MST-ACM Website (acm.mst.edu)'
-copyright = '2017, Kevin Schoonover, Zachary Wileman'
-author = 'Kevin Schoonover, Zachary Wileman'
+copyright = '2017, SIG.com'
+author = 'SIG.com'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -138,7 +138,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'MST-ACMWebsiteacmmstedu.tex', 'MST-ACM Website (acm.mst.edu) Documentation',
-     'Kevin Schoonover, Zachary Wileman', 'manual'),
+     'SIG.com', 'manual'),
 ]
 
 
