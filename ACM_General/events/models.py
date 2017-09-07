@@ -161,7 +161,7 @@ class Event(models.Model):
 
         :raises ValidationError: if date_expire or date_hosted are invalid.
 
-        :rtype: None
+        :rtype: None*
         :returns: None, only raises a ValidationError if one existed.
         """
 

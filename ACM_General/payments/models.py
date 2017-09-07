@@ -50,7 +50,7 @@ class Product(models.Model):
     """
     objects = managers.ProductManager()
 
-    #: The id of the Product; represented as a UUID Field.
+    #: The id of the Product; represented as a UUIDField.
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
 
     #: The name of the Product; represented as CharField.
@@ -70,7 +70,7 @@ class Product(models.Model):
         editable=False,
     )
 
-    #: How much the transaction costed; represented as a DecimalField.
+    #: The cost of the transaction; represented as a DecimalField.
     cost = models.DecimalField(
         verbose_name=_('Transaction Cost'),
         help_text=_('How much the transaction costed.'),
@@ -121,7 +121,8 @@ class Transaction(models.Model):
     #: The id of the Transaction; represented as a UUIDField.
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
 
-    #: The date in which the transaction was created; represented
+    #: The date in which the transaction was created; represented as a
+    #: DateTimeField.
     date_created = models.DateTimeField(
         verbose_name=_('Date Created'),
         help_text=_('The date in which the transaction was created.'),

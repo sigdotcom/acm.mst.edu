@@ -11,9 +11,9 @@ class TransactionCategoryManager(models.Manager):
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: payments.models.TransactionCategory
+        :rtype: payments.models.TransactionCategory or None
         :returns: The TransactionCategory object that matches with the passed
-                  name variable (if there is one).
+                  name variable (if there is one) or None.
         """
         return self.get(name=name)
 
@@ -53,9 +53,9 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
-        :rtype: payments.models.Product
+        :rtype: payments.models.Product or None
         :returns: The Product object that matches with the passed name variable
-                  (if there is one).
+                  (if there is one) or None.
         """
         return self.get(name=name)
 
@@ -95,9 +95,9 @@ class TransactionManager(models.Manager):
         :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
-        :rtype: payments.models.Transaction
+        :rtype: payments.models.Transaction or None.
         :returns: The Transaction object that matches with the passed
-                  stripe_token variable (if there is one).
+                  stripe_token variable (if there is one) or None.
         """
         return self.get(stripe_token=stripe_token)
 

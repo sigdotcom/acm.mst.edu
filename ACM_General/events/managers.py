@@ -12,8 +12,9 @@ class EventManager(models.Manager):
         :param title: Title of the event
         :type title: str
 
-        :rtype: event.models.Event
-        :returns: The event object that matches with the passed title variable (if there is one).
+        :rtype: event.models.Event or None
+        :returns: The event object that matches with the passed title variable
+                  (if there is one) or None.
         """
         return self.get(title=title)
 
@@ -25,7 +26,7 @@ class EventManager(models.Manager):
         :raises ValueError: if date_hosted or date_expire is invalid.
 
         :rtype: event.models.Event
-        :returns: The event object that matches with the passed title variable (if there is one).
+        :returns: The event object that was created.
         """
         date_hosted=kwargs.get('date_hosted', None)
         date_expire=kwargs.get('date_expire', None)
@@ -47,9 +48,10 @@ class EventManager(models.Manager):
 
     def create_event(self, **kwargs):
         """
-        Calls the '_create_event' function.
+        Calls the '_create_event' public wrapper which a user can overwrite to
+        add extra functionality to the private function.
 
         :rtype: event.models.Event
-        :returns: The event object that matches with the passed title variable (if there is one).
+        :returns: The event object that was created.
         """
         return self._create_event(**kwargs)
