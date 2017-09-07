@@ -24,10 +24,10 @@ class MembershipPayment(View):
         This view renders a page in which users can get more information about
         becoming a member of ACM.
 
-        :type request: Request object
+        :type request: django.http.request.HttpRequest
         :param request: Request object that contains information from the user's POST/GET request.
 
-        :rtype: Html page
+        :rtype: django.shortcuts.render
         :returns: An html page which displays the Membership page.
         """
         return render(
@@ -48,7 +48,7 @@ class ProductHandler(View):
         """
         This view submits a Stripe transaction and its to the database.
 
-        :type request: Request object
+        :type request: django.http.request.HttpRequest
         :param request: Request object that contains information from the user's POST/GET request.
 
         :raises ValueError: If the stripe token is empty or if the stripe
@@ -56,7 +56,7 @@ class ProductHandler(View):
         :raises Http404: If an unauthenticated user attempts to access the
                             page.
 
-        :rtype: Html page
+        :rtype: django.http.HttpResponseRedirect or django.http.Http404
         :returns: Html page redirection to the index page or the 404 error page
                   (if the user was authenticated).
         """

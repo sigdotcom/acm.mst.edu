@@ -11,25 +11,34 @@ class TransactionCategoryManager(models.Manager):
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: TransactionCategory object
+        :rtype: payments.models.TransactionCategory
         :returns: The TransactionCategory object that matches with the passed
                   name variable (if there is one).
         """
         return self.get(name=name)
 
     def _create_category(self, name, **kwargs):
-        model = self.model(name=name, **kwargs)
-        model.save()
-        return model
-
-    def create_category(self, name, **kwargs):
         """
         Used to create a Transaction Category and save it to the database.
 
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: TransactionCategory object
+        :rtype: payments.models.TransactionCategory
+        :returns: The created Transaction Category.
+        """
+        model = self.model(name=name, **kwargs)
+        model.save()
+        return model
+
+    def create_category(self, name, **kwargs):
+        """
+        Used to create a Transaction Category and save it to the database. (calls '_create_category')
+
+        :param name: The name of Transaction.
+        :type name: str
+
+        :rtype: payments.models.TransactionCategory
         :returns: The created Transaction Category.
         """
         return self._create_category(name, **kwargs)
@@ -44,25 +53,34 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
-        :rtype: Product object
+        :rtype: payments.models.Product
         :returns: The Product object that matches with the passed name variable
                   (if there is one).
         """
         return self.get(name=name)
 
     def _create_product(self, name, **kwargs):
-        model = self.model(name=name, **kwargs)
-        model.save()
-        return model
-
-    def create_product(self, name, **kwargs):
         """
         Used to create a Product and save it to the database.
 
         :param name: The name of Product.
         :type name: str
 
-        :rtype: Product object
+        :rtype: payments.models.Product
+        :returns: The created Product.
+        """
+        model = self.model(name=name, **kwargs)
+        model.save()
+        return model
+
+    def create_product(self, name, **kwargs):
+        """
+        Used to create a Product and save it to the database (calls '_create_product').
+
+        :param name: The name of Product.
+        :type name: str
+
+        :rtype: payments.models.Product
         :returns: The created Product.
         """
         return self._create_product(name, **kwargs)
@@ -77,7 +95,7 @@ class TransactionManager(models.Manager):
         :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
-        :rtype: Transaction object
+        :rtype: payments.models.Transaction
         :returns: The Transaction object that matches with the passed
                   stripe_token variable (if there is one).
         """
@@ -93,7 +111,7 @@ class TransactionManager(models.Manager):
         :raises ValueError: If the transaction cost was less than or equal to
                             zero.
 
-        :rtype: Transaction object
+        :rtype: payments.models.Transaction
         :returns: The created transaction.
         """
         cost = kwargs.get('cost', None)
@@ -114,7 +132,7 @@ class TransactionManager(models.Manager):
         :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
-        :rtype: Transaction object
+        :rtype: payments.models.Transaction
         :returns: The created transaction.
         """
         return self._create_transaction(stripe_token, **kwargs)
