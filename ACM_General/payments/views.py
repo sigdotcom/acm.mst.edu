@@ -26,6 +26,9 @@ class MembershipPayment(View):
 
         :type request: Request object
         :param request: Request object that contains information from the user's POST/GET request.
+
+        :rtype: Html page
+        :returns: An html page which displays the Membership page.
         """
         return render(
             request,
@@ -52,6 +55,10 @@ class ProductHandler(View):
                                api key is invalid.
         :raises Http404: If an unauthenticated user attempts to access the
                             page.
+
+        :rtype: Html page
+        :returns: Html page redirection to the index page or the 404 error page
+                  (if the user was authenticated).
         """
         if request.user.is_authenticated() == False:
             raise Http404("Invalid User")

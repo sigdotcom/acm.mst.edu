@@ -148,6 +148,10 @@ class Event(models.Model):
         """
         Function used for checking whether or not an event has already expired
         (gone past the current date).
+
+        :rtype: bool
+        :returns: Bool value representing whether or not the event is
+                  considered 'active'.
         """
         return self.date_expire >= timezone.now()
 
@@ -156,6 +160,9 @@ class Event(models.Model):
         The clean function is used for making checks on the data posted to the form.
 
         :raises ValidationError: if date_expire or date_hosted are invalid.
+
+        :rtype: None
+        :returns: None, only raises a ValidationError if one existed.
         """
 
         # Calls the original clean function

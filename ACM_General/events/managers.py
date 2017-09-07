@@ -9,6 +9,7 @@ class EventManager(models.Manager):
 
     def get_by_natural_key(self, title):
         """
+        :rtype: Event object
         :returns: The event object that matches with the passed title variable (if there is one).
         """
         return self.get(title=title)
@@ -38,5 +39,8 @@ class EventManager(models.Manager):
         are valid and then saves the event to the database.
 
         :raises ValueError: if date_hosted or date_expire is invalid.
+        
+        :rtype: Event object
+        :returns: The event object that matches with the passed title variable (if there is one).
         """
         return self._create_event(**kwargs)

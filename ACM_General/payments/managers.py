@@ -11,6 +11,7 @@ class TransactionCategoryManager(models.Manager):
         :param name: The name of Transaction.
         :type name: str
 
+        :rtype: TransactionCategory object
         :returns: The TransactionCategory object that matches with the passed
                   name variable (if there is one).
         """
@@ -28,6 +29,7 @@ class TransactionCategoryManager(models.Manager):
         :param name: The name of Transaction.
         :type name: str
 
+        :rtype: TransactionCategory object
         :returns: The created Transaction Category.
         """
         return self._create_category(name, **kwargs)
@@ -42,6 +44,7 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
+        :rtype: Product object
         :returns: The Product object that matches with the passed name variable
                   (if there is one).
         """
@@ -59,6 +62,7 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
+        :rtype: Product object
         :returns: The created Product.
         """
         return self._create_product(name, **kwargs)
@@ -70,15 +74,28 @@ class TransactionManager(models.Manager):
     """
     def get_by_natural_key(self, stripe_token):
         """
-        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
+        :rtype: Transaction object
         :returns: The Transaction object that matches with the passed
                   stripe_token variable (if there is one).
         """
         return self.get(stripe_token=stripe_token)
 
     def _create_transaction(self, stripe_token, **kwargs):
+        """
+        The base function that gets called by 'create_transaction'.
+
+        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :type stripe_token: str
+
+        :raises ValueError: If the transaction cost was less than or equal to
+                            zero.
+
+        :rtype: Transaction object
+        :returns: The created transaction.
+        """
         cost = kwargs.get('cost', None)
 
         if(cost == None):
@@ -94,9 +111,10 @@ class TransactionManager(models.Manager):
         """
         Used to create a Transaction and save it to the database.
 
-        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
+        :rtype: Transaction object
         :returns: The created transaction.
         """
         return self._create_transaction(stripe_token, **kwargs)

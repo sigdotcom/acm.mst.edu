@@ -207,7 +207,12 @@ class Transaction(models.Model):
     @property
     def stripe_data(self):
         """
-        Retrieves data related to the stripe charge made.
+        Retrieves data related to the stripe charge made. More info here:
+        https://stripe.com/docs/api#retrieve_charge
+
+        :rtype: A Stripe Charge object
+        :returns: A charge if a valid identifier was provided, and raises an
+                  error otherwise.
         """
         return stripe.Charge.retrieve(
             self.stripe_token,
