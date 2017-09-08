@@ -20,6 +20,20 @@ class SIGManager(models.Manager):
         return self.get(id=id)
 
     def _create_sig(self, **kwargs):
+        
+
+        if not kwargs.get('founder'):
+            raise ValueError("create_sig() must have the keyword argument 'founder'")
+
+        if not kwargs.get('description'):
+            raise ValueError("create_sig() must have the keywork argument 'description'")
+
+        SIG = self.model(**kwargs)
+        SIG.save(using=self._db)
+
+        return SIG
+
+    def create_sig(self, **kwargs):
         r"""
         Creates a SIG
         
@@ -38,23 +52,4 @@ class SIGManager(models.Manager):
             * *chair* (''models.ForeignKey'') --
                 The current Chair of the SIG.
         """
-
-        if not kwargs.get('founder'):
-            raise ValueError("create_sig() must have the keyword argument 'founder'")
-
-        if not kwargs.get('description'):
-            raise ValueError("create_sig() must have the keywork argument 'description'")
-
-        SIG = self.model(**kwargs)
-        SIG.save(using=self._db)
-
-        return SIG
-
-    def create_sig(self, **kwargs):
-        """
-        Function wrapper for _create_sig(self, **kwargs)
-
-        Refer to _create_sig documentation.
-        """
-
         return self._create_sig(**kwargs)
