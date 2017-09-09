@@ -10,20 +10,18 @@ class SIGManager(models.Manager):
 
     def get_by_natural_key(self, id):
         """
-        Gets the SIG by it's id
+        Gets the SIG model by it's id
 
         :param id: The id of the SIG 
         :type id: int
-        :rtype: None
-        :return: None
+        :rtype: sigs.models.SIG
+        :return: Returns a SIG model object with the id equal to the input
+        specified id
         """
         return self.get(id=id)
 
     def _create_sig(self, **kwargs):
         
-
-        if not kwargs.get('founder'):
-            raise ValueError("create_sig() must have the keyword argument 'founder'")
 
         if not kwargs.get('description'):
             raise ValueError("create_sig() must have the keywork argument 'description'")
@@ -35,21 +33,21 @@ class SIGManager(models.Manager):
 
     def create_sig(self, **kwargs):
         r"""
-        Creates a SIG
+        Creates a SIG.
         
         :param \**kwargs: See below
         :Keyword Arguments:
-            * *founder* (''models.ForeignKey'') --
+            * *founder* (django.db.models.ForeignKey) --
                 The founder of the SIG
-            * *description* (''models.CharField'') --
+            * *description* (django.db.models.CharField) --
                 A summary of the SIG and its purpose.
-            * *id* (''models.CharField'') --
+            * *id* (django.db.models.CharField) --
                 Unique id for the SIG
-            * *is_active* (''models.BooleanField'') --
+            * *is_active* (django.db.models.BooleanField) --
                 A value that tells whether the SIG is active or not.
-            * *date_created* (''models.DateTimeField'') --
+            * *date_created* (django.db.models.DateTimeField) --
                 What date the SIG was created.
-            * *chair* (''models.ForeignKey'') --
+            * *chair* (django.db.models.ForeignKey) --
                 The current Chair of the SIG.
         """
         return self._create_sig(**kwargs)

@@ -9,13 +9,15 @@ from events.models import Event
 
 def index(request):
     """
-        Grabs the next 3 events that aren't past expiry,
-        then redirect to the index.
+    Renders the template for the index page. With that is also grabs next
+    events, the number of which depends on settings.MAX_HOME_FLIER_COUNT,
+    that aren't past expiry.
 
-        :param request: Request for index page with upcoming events.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the base url with events, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the index page.
     """
       
     events = Event.objects.filter(date_expire__gte=timezone.now()).order_by('date_hosted')
@@ -33,12 +35,14 @@ def index(request):
 
 def sponsors(request):
     """
-        Handles a request to see the sponsors page.
+    Handles a request to see the sponsors page.
 
-        :param request: Request for the sponsors page.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the sponsors page, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the sponsors page.
+
     """
     return (
         render(
@@ -50,12 +54,13 @@ def sponsors(request):
 
 def calendar(request):
     """
-        Handles a request to see the calendar page.
+    Handles a request to see the calendar page.
 
-        :param request: Request for the calendar page.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the calendar page, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the calendar page.
     """
     return (
         render(
@@ -67,12 +72,13 @@ def calendar(request):
 
 def media(request):
     """
-        Handles a request to see the media page.
+    Handles a request to see the media page.
 
-        :param request: Request for the media page.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the media page, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the media page.
     """
     return (
         render(
@@ -84,12 +90,13 @@ def media(request):
 
 def officers(request):
     """
-        Handles a request to see the officers page.
+    Handles a request to see the officers page.
 
-        :param request: Request for the officers page.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the officers page, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the officers page.
     """
     return (
         render(
@@ -101,12 +108,13 @@ def officers(request):
 
 def membership(request):
     """
-        Handles a request to see the membership page.
+    Handles a request to see the membership page.
 
-        :param request: Request for the membership page.
-        :type request: Request
-        :rtype: Response
-        :return: Redirect to the membership page, '/'.
+    :param request: Request object that contains information from the user's
+    POST/GET request.
+    :type request: django.http.request.HttpRequest
+    :rtype: django.shortcut.render
+    :return: The render template of the officers page.
     """
     return (
         render(

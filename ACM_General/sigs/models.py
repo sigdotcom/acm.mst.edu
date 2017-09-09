@@ -15,7 +15,7 @@ User = 'accounts.User'
 
 class SIG(models.Model):
     """
-    Model that stores all information for a SIG
+    Model that stores all information for a SIG.
     """
     objects = managers.SIGManager()
 
@@ -60,10 +60,10 @@ class SIG(models.Model):
 
     def __str__(self):
         """
-        Returns the id of the SIG
+        Returns the id of the SIG.
 
-        :rtype: models.CharField
-        :return: self.id
+        :rtype: django.db.models.CharField
+        :return: The ID of the SIG.
         """
         return self.id
 

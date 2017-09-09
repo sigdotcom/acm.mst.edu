@@ -111,8 +111,7 @@ class SIGModelCase(TestCase):
 
     def test_can_retrieve_sigs(self):
         """
-        Makes sure that the get function can both return a SIG and know when to
-        error.
+        Verifies the uniqueness consraint for SIG creation.
         
         :rtype: None
         :return: None
