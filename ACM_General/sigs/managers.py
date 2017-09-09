@@ -30,6 +30,9 @@ class SIGManager(models.Manager):
         :rtype: sigs.models.SIG
         """
 
+        if not kwargs.get('founder'):
+            raise ValueError("create_sig() must have the keyword argument 'founder'")
+
         if not kwargs.get('description'):
             raise ValueError("create_sig() must have the keywork argument 'description'")
 
