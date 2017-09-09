@@ -6,7 +6,7 @@ RED="\e[91m"
 RESET="\e[0m"
 
 if [[ $EUID -ne 0 ]]; then
-    echo -e "[${RED}ERROR${RESET}] This script must be run as root" 
+    echo -e "[${RED}ERROR${RESET}] This script must be run as root"
     exit 1
 fi
 
@@ -33,7 +33,7 @@ else
 fi
 
 ###
-# Installing all the necessary dependencies. 
+# Installing all the necessary dependencies.
 ###
 apt update
 apt upgrade -y
@@ -81,7 +81,7 @@ cd ../ACM_General
 ###
 # www-data needs to own the directory for special nginx interactions
 ###
-chown www-data:www-data -R $INSTALLATION_DIR 
+chown www-data:www-data -R $INSTALLATION_DIR
 cd ..
 compass compile
 cd -
@@ -105,6 +105,7 @@ python3 manage.py migrate --noinput
 # Creating the Sphinx documentation
 ###
 cd ../docs/
+make rst
 make html
 
 ###

@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
     def _create_user(self, email, **extra_fields):
         """
         Base create_user function that creates a user based on fields passed
-        into it and returns the user. 
+        into it and returns the user.
 
         :param email: The email of the user to create.
         :type email: str
@@ -39,8 +39,8 @@ class UserManager(BaseUserManager):
                                Items must be a member variable of the class
                                for which the Manage is a part of.
         :rtype: User
-        :return: The newly created User with attributes specified 
-                 in **extra_fields. If the email provided has not been
+        :return: The newly created User with attributes specified
+                 in \**extra_fields. If the email provided has not been
                  whitelisted in ENFORCED_DOMAINS, return a ValueError.
         """
         if(is_valid_email(email)):
