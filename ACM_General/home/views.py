@@ -14,12 +14,12 @@ def index(request):
     that aren't past expiry.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the index page.
     """
-      
+
     events = Event.objects.filter(date_expire__gte=timezone.now()).order_by('date_hosted')
     if len(events) >= settings.MAX_HOME_FLIER_COUNT:
         events = events[:settings.MAX_HOME_FLIER_COUNT]
@@ -38,7 +38,7 @@ def sponsors(request):
     Handles a request to see the sponsors page.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the sponsors page.
@@ -57,7 +57,7 @@ def calendar(request):
     Handles a request to see the calendar page.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the calendar page.
@@ -75,7 +75,7 @@ def media(request):
     Handles a request to see the media page.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the media page.
@@ -93,7 +93,7 @@ def officers(request):
     Handles a request to see the officers page.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the officers page.
@@ -111,7 +111,7 @@ def membership(request):
     Handles a request to see the membership page.
 
     :param request: Request object that contains information from the user's
-    POST/GET request.
+                    POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the officers page.

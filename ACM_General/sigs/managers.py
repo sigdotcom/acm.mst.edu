@@ -4,24 +4,31 @@ from django.db import models
 
 class SIGManager(models.Manager):
     """
-    This class contains functions to test all functions of SIG's
+    This class contains functions to test all functions of SIG's.
     """
     use_in_migrations = True
 
     def get_by_natural_key(self, id):
         """
-        Gets the SIG model by it's id
+        Gets the SIG model by it's id.
 
-        :param id: The id of the SIG 
+        :param id: The id of the SIG.
         :type id: int
-        :rtype: sigs.models.SIG
         :return: Returns a SIG model object with the id equal to the input
-        specified id
+                 specified id.
+        :rtype: sigs.models.SIG
         """
         return self.get(id=id)
 
     def _create_sig(self, **kwargs):
-        
+        """
+        Private method for creating a SIG.
+
+        :param \**kwargs: See sigs.managers.SIGManager.create_sig.
+
+        :return: A created SIG object.
+        :rtype: sigs.models.SIG
+        """
 
         if not kwargs.get('description'):
             raise ValueError("create_sig() must have the keywork argument 'description'")
@@ -34,7 +41,7 @@ class SIGManager(models.Manager):
     def create_sig(self, **kwargs):
         r"""
         Creates a SIG.
-        
+
         :param \**kwargs: See below
         :Keyword Arguments:
             * *founder* (django.db.models.ForeignKey) --
@@ -49,5 +56,8 @@ class SIGManager(models.Manager):
                 What date the SIG was created.
             * *chair* (django.db.models.ForeignKey) --
                 The current Chair of the SIG.
+
+        :return: A created SIG object.
+        :rtype: sigs.moels.SIG
         """
         return self._create_sig(**kwargs)
