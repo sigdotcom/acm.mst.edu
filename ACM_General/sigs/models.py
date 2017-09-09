@@ -19,7 +19,7 @@ class SIG(models.Model):
     """
     objects = managers.SIGManager()
 
-    #: Unique integer value used to identify a SIG.
+    #: A SIG's id; represented as a CharField.
     id = models.CharField(
         verbose_name=_('SIG ID'),
         help_text=_('The UUID of the Special Interest Group.'),
@@ -27,20 +27,20 @@ class SIG(models.Model):
         default='test',
         primary_key=True,
     )
-    #: Boolean that shows true if the SIG is currently active.
+    #: Is the SIG currently active; represented as a BooleanField.
     is_active = models.BooleanField(
         verbose_name=_('Is Active'),
         help_text=_('Whether or not the SIG is active'),
         default=True,
     )
-    #: The date and time that the SIG was created.
+    #: When the SIG was created; represented as a DateTimeField.
     date_created = models.DateTimeField(
         verbose_name=_('Date Created'),
         help_text=_('The date the SIG was created.'),
         auto_now_add=True,
         editable=False,
     )
-    #: The user that founded the SIG.
+    #: The user that founded the SIG; represented as a ForeignKey.
     founder = models.ForeignKey(
         User,
         verbose_name=_('SIG Founder'),
@@ -48,7 +48,7 @@ class SIG(models.Model):
         on_delete=models.CASCADE,
         related_name="founder",
     )
-    #: The user that is currently chair of the SIG.
+    #: The user that is currently chair of the SIG; represented as a ForeignKey.
     chair = models.ForeignKey(
         User,
         verbose_name=_('SIG Chair'),
@@ -56,7 +56,7 @@ class SIG(models.Model):
         on_delete=models.CASCADE,
         related_name="chair",
     )
-    #: A description of what the SIG is for.
+    #: A description of what the SIG is; represented as a CharField.
     description = models.CharField(
         verbose_name=_('Description'),
         help_text=_('A description of what the special'
