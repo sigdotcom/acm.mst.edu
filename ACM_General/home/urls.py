@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'media/', views.media, name="media"),
     url(r'officers/', views.officers, name="officers"),
     url(r'membership/', views.membership, name="membership"),
+    url(r'sigs/', views.sigs, name="sigs"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

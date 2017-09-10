@@ -122,3 +122,11 @@ def membership(request):
             'home/membership.html',
         )
     )
+    
+def sigs(request):
+    return (
+        render(
+            request,
+            'home/sigs.html',
+        )
+    )

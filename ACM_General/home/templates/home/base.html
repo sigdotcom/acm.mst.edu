@@ -79,6 +79,9 @@
           <a href="{% url "home:index" %}">Home</a>
         </li>
         <li>
+          <a href="{% url "home:sigs" %}">SIGs</a>
+        </li>
+        <li>
           <a href="{% url "home:sponsors" %}">Sponsors</a>
         </li>
         <li>
@@ -107,6 +110,13 @@
             <span>Home</span>
           </a>
         </li>
+        <li class="nav-sigs nav-button">
+          <a href="{% url "home:sigs" %}" title="SIGs">
+            <img src="{% static "home/img/core/sigs-icon.png" %}"/>
+            <span>SIGs</span>
+          </a>
+        </li>
+
         <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
                                                title="Sponsors">
           <img src="{% static "home/img/core/sponsors-icon.png" %}"/>

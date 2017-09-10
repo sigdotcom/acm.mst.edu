@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
