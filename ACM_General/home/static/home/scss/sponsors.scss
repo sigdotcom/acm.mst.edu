@@ -66,8 +66,8 @@ main .content-wrapper h2 a {
 }
 
 .card__title {
-  font-size: 1.2rem;
-  margin: 10px 0 0 0;
+  font-size: 1.3rem;
+  margin: 15px 0 0 0;
 }
 
 .card__link {
@@ -81,9 +81,15 @@ main .content-wrapper h2 a {
 .card__text {
   color: rgba(0, 0, 0, 0.77);
   flex: 1 1 auto;
-  font-size: 0.865rem;
+  font-size: 0.9rem;
   line-height: 1.5;
-  margin: 20px 0 0 0;
+  margin: 15px 0 0 0;
+}
+
+@media (max-width: 350px) {
+  .cards {
+    margin: 0 10px;
+  }
 }
 
 @media (min-width: 641px) {
@@ -91,7 +97,7 @@ main .content-wrapper h2 a {
     flex: 0 1 calc(50% - 1em);
   }
   .cards {
-    margin: 0 40px;
+    margin: 0 30px;
   }
 }
 @media (min-width: 1040px) {

@@ -76,12 +76,18 @@
   font-size: 1.1rem;
 }
 
+@media (max-width: 350px) {
+  .cards {
+    margin: 0 10px;
+  }
+}
+
 @media (min-width: 641px) {
   .cards__card {
     flex: 0 1 calc(50% - 1em);
   }
   .cards {
-    margin: 0 40px;
+    margin: 0 30px;
   }
 }
 @media (min-width: 1040px) {

@@ -464,6 +464,7 @@ footer img {
   height: 60px;
   width: 100%;
   white-space: nowrap;
+  flex-wrap: wrap;
   display: -ms-flexbox;
 display: -webkit-flex;
 display: flex;
@@ -605,17 +606,13 @@ footer h5 {
   header {
     margin-top: 56px;
     padding-bottom: 0;
-    height: 250px;
+    height: 230px;
   }
   
   .header-welcome {
     font-size: 28px;
   }
      nav {
-    display: none;
-  }
-  
-  .pseudo-nav {
     display: none;
   }
   
