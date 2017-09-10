@@ -30,13 +30,15 @@ If you are not familiar with git, please take a moment to look at some tutorials
 explaining git. Try [this one](https://try.github.io/).
 
 ### Vagrant
+Now that you have the repository cloned, you should see a Vagrantfile.
+
 Vagrant provides a very simple and high fidelity way of interacting with the
 codebase in a standardized way. The goal of Vagrant is to make development
 easier by automatically provisioning a production like environment within a
 virtual machine. 
 
 #### Dependencies
-In order to use Vagrant you must download the following tools:
+In order to use this Vagrantfile you must download the following tools:
 1. [Vagrant](https://www.vagrantup.com/downloads.html)
 2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
@@ -73,10 +75,13 @@ Here are some instructions for installing vagrant on various operating systems.
 
 #### Running Vagrant
 
-In order to use Vagrant, open the terminal in any OS, navigate to the root git 
-directory (you should see the `Vagrantfile` file), and type `vagrant up`.
+In order to use Vagrant, open the terminal/ command prompt in any OS, navigate to the directory
+ that includes the Vagrantfile and type `vagrant up`.
+
 `vagrant up` will start the VM, provision it, and then run the setup script
-within the VM. Open your web browser and put `http://localhost:8000` as the URL.
+within the VM.
+
+Open your web browser and put `http://localhost:8000` as the URL.
 If you see a site which looks like [https://acm.mst.edu](http://acm.mst.edu),
 everything was setup correctly. One of the great features of Vagrant is that
 now you can edit the file locally and the changes will be reflected in the

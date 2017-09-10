@@ -8,10 +8,19 @@ from accounts.models import User
 
 
 class SIGManagerCase(TestCase):
+    """
+    Tests for the SIGManager
+    """
     def setUp(self):
         super(TestCase, self).setUp()
 
     def test_get_by_natural_key_function(self):
+        """
+        Verifies that the function get_by_natural_key_function() is working
+
+        :rtype: None
+        :return: None
+        """
         user = User.objects.create_user('test@mst.edu')
         sig = models.SIG.objects.create_sig(
                                 id="sig_sec",
@@ -26,6 +35,12 @@ class SIGManagerCase(TestCase):
 
 
     def test_create_sig_function(self):
+        """
+        Verifies that the create_sig_function() function is working as intended
+
+        :rtype: None
+        :return: None
+        """
         user = User.objects.create_user('test@mst.edu')
 
         with self.assertRaises(ValueError):
@@ -48,11 +63,21 @@ class SIGManagerCase(TestCase):
         self.assertEqual(sig.chair, user)
 
 class SIGModelCase(TestCase):
+    """
+    Test suite for SIG models and their functions.
+    """
     def setUp(self):
         self.user = User.objects.create_user('test@mst.edu')
         super().setUp()
 
     def test_sig_model_member_functions(self):
+        """
+        Checks if the __str__ dunder function works inside of the SIG model.
+
+        :rtype: None
+        :return: None
+        """
+
         sig = models.SIG.objects.create_sig(
                                 id='test',
                                 description='test',
@@ -62,6 +87,13 @@ class SIGModelCase(TestCase):
         self.assertEqual(str(sig), sig.id)
 
     def test_sig_unique_constraint(self):
+        """
+        Verifies that you will get an error is trying to make two of the
+        same SIG
+
+        :rtype: None
+        :return: None
+        """
         sig = models.SIG.objects.create_sig(
                                 id='test',
                                 description='test',
@@ -78,6 +110,12 @@ class SIGModelCase(TestCase):
                         )
 
     def test_can_retrieve_sigs(self):
+        """
+        Verifies the uniqueness consraint for SIG creation.
+        
+        :rtype: None
+        :return: None
+        """
         sig = models.SIG.objects.create_sig(
                                 id='test',
                                 description='test',
@@ -92,6 +130,12 @@ class SIGModelCase(TestCase):
             models.SIG.objects.get(id='thisisntreal')
 
     def test_can_edit_sig(self):
+        """
+        Checks that the ability to edit works as normal
+
+        :rtype: None
+        :return: None
+        """
         sig = models.SIG.objects.create_sig(
                                 id='test',
                                 description='test',

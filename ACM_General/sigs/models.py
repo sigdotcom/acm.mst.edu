@@ -14,8 +14,12 @@ User = 'accounts.User'
 
 
 class SIG(models.Model):
+    """
+    Model that stores all information for a SIG.
+    """
     objects = managers.SIGManager()
 
+    #: A SIG's id; represented as a CharField.
     id = models.CharField(
         verbose_name=_('SIG ID'),
         help_text=_('The UUID of the Special Interest Group.'),
@@ -23,17 +27,20 @@ class SIG(models.Model):
         default='test',
         primary_key=True,
     )
+    #: Is the SIG currently active; represented as a BooleanField.
     is_active = models.BooleanField(
         verbose_name=_('Is Active'),
         help_text=_('Whether or not the SIG is active'),
         default=True,
     )
+    #: When the SIG was created; represented as a DateTimeField.
     date_created = models.DateTimeField(
         verbose_name=_('Date Created'),
         help_text=_('The date the SIG was created.'),
         auto_now_add=True,
         editable=False,
     )
+    #: The user that founded the SIG; represented as a ForeignKey.
     founder = models.ForeignKey(
         User,
         verbose_name=_('SIG Founder'),
@@ -41,6 +48,7 @@ class SIG(models.Model):
         on_delete=models.CASCADE,
         related_name="founder",
     )
+    #: The user that is currently chair of the SIG; represented as a ForeignKey.
     chair = models.ForeignKey(
         User,
         verbose_name=_('SIG Chair'),
@@ -48,6 +56,7 @@ class SIG(models.Model):
         on_delete=models.CASCADE,
         related_name="chair",
     )
+    #: A description of what the SIG is; represented as a CharField.
     description = models.CharField(
         verbose_name=_('Description'),
         help_text=_('A description of what the special'
@@ -56,6 +65,12 @@ class SIG(models.Model):
     )
 
     def __str__(self):
+        """
+        Returns the id of the SIG.
+
+        :rtype: django.db.models.CharField
+        :return: The ID of the SIG.
+        """
         return self.id
 
 
