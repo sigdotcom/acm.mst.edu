@@ -70,8 +70,6 @@ class HomeViewCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/sigs.html')
 
-
-
     def test_number_of_fliers_that_appear_on_home_page(self):
         '''
         On top of testing that the correct number of events appear on the homepage,
