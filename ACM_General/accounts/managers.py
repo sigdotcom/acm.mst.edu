@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
         """
         Allows for a intutive search of the user by
         the user's email. Similary, this can be done by running
-        User.objects.get(email=foo); however, this more standarized,
+        User.objects.get(email=foo); however, this is a more standarized,
         django approach to this.
 
         :param email: The email of the user to search for.

@@ -12,7 +12,17 @@ from sigs.models import SIG
 from events.models import Event
 
 class HomeViewCase(TestCase):
+    """
+    A class that tests whether pages function work
+    and verifies the events function as expected
+    """
     def setUp(self):
+        """
+        Sets up an testing event with test data and a super user.
+
+        :rtype: None
+        :return: None
+        """
         self.user = User.objects.create_superuser('test@mst.edu')
         self.sig = SIG.objects.create_sig(
             founder=self.user,
@@ -42,6 +52,13 @@ class HomeViewCase(TestCase):
         super().setUp()
 
     def test_view_responses(self):
+        """
+        Makes requests to each page of the site and asserts a 200 response code
+        (or success)
+
+        :rtype: None
+        :return: None
+        """
         response = self.client.get(reverse('home:index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')
@@ -71,11 +88,14 @@ class HomeViewCase(TestCase):
         self.assertTemplateUsed(response, 'home/sigs.html')
 
     def test_number_of_fliers_that_appear_on_home_page(self):
-        '''
-        On top of testing that the correct number of events appear on the homepage,
-        this test also makes sure that the correct number of events get added to the
-        database.
-        '''
+        """ 
+        On top of testing that the correct number of events appear on the
+        homepage, this test also makes sure that the correct number of events
+        get added to the database.
+        
+        :rtype: None
+        :return: None
+        """
         settings.MAX_HOME_FLIER_COUNT = 3
         number_of_events = 4
 
