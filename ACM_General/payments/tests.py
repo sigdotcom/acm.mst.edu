@@ -1,13 +1,21 @@
+# standard library
+import time
+
+# third-party
+import stripe
+#from selenium import webdriver
+#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+
+# Django
+from django.conf import settings
+from django.test import TestCase, LiveServerTestCase
+from django.urls import reverse
+
+# local Django
 from . import models
 from accounts.models import User
-from django.conf import settings
-from django.urls import reverse
-from django.test import TestCase, LiveServerTestCase
 from sigs.models import SIG
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-import stripe
-import time
+
 ##
 # NOTE: Because all of the models in the Transactions apps are so closely
 #       linked, we need to test them all at once.
@@ -18,51 +26,54 @@ class PaymentsManagerCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
 
     def test_create_manager(self):
         category = models.TransactionCategory.objects.create_category('test')
         self.assertIsNotNone(category)
+
         product = models.Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=category,
-                                        sig=self.sig,
-                                                                            )
+            'test',
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
         self.assertIsNotNone(product)
+
         transaction = models.Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        description="test",
-                                                        cost=3.00,
-                                                        category=category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            description="test",
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
         self.assertIsNotNone(transaction)
+
         with self.assertRaises(ValueError):
             models.Transaction.objects.create_transaction(
-                                                '3232',
-                                                category=category,
-                                                sig=self.sig,
-                                            )
+                '3232',
+                category=category,
+                sig=self.sig,
+            )
 
     def test_get_by_natural_key(self):
         category = models.TransactionCategory.objects.create_category('test')
         product = models.Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
         transaction = models.Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
         self.assertIsNotNone(models.TransactionCategory.objects.get_by_natural_key('test'))
         self.assertIsNotNone(models.Product.objects.get_by_natural_key('test'))
         self.assertIsNotNone(models.Transaction.objects.get_by_natural_key('3232'))
@@ -82,27 +93,27 @@ class PaymentsModelCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
 
 
     def test_model_member_functions(self):
         category = models.TransactionCategory.objects.create_category('test')
         product = models.Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
         transaction = models.Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=category,
+            sig=self.sig,
+        )
 
         self.assertEqual(str(category), 'test')
         self.assertEqual(str(product), 'test')
@@ -118,57 +129,61 @@ class PaymentsViewCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.category = models.TransactionCategory.objects.create_category('test')
         self.product = models.Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = models.Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
     def test_ensure_api_keys(self):
         self.assertIsNotNone(getattr(settings, 'STRIPE_PUB_KEY', None))
         self.assertIsNotNone(getattr(settings, 'STRIPE_PRIV_KEY', None))
 
     def test_view_integrity(self):
-        response=self.client.get(reverse('payments:acm-memberships'))
+        response = self.client.get(reverse('payments:acm-memberships'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'payments/acm_membership.html')
 
-        response=self.client.get(reverse('payments:product-handler',
-                                         kwargs={'pk':self.product.id}))
+        response = self.client.get(reverse(
+            'payments:product-handler',
+            kwargs={'pk':self.product.id})
+        )
         self.assertEqual(response.status_code, 405)
 
-        response=self.client.post(reverse('payments:product-handler',
-                                         kwargs={'pk':self.product.id}),
-                                  {'stripeToken': 'test'}
-                                )
+        response = self.client.post(reverse(
+            'payments:product-handler',
+            kwargs={'pk':self.product.id}),
+            {'stripeToken': 'test'}
+        )
         self.assertEqual(response.status_code, 404)
 
         self.client.force_login(self.user)
         with self.assertRaises(ValueError):
-            response=self.client.post(reverse('payments:product-handler',
-                                              kwargs={'pk':self.product.id}))
+            response = self.client.post(reverse(
+                'payments:product-handler',
+                kwargs={'pk':self.product.id})
+            )
 
         with self.settings(STRIPE_PRIV_KEY=""):
             with self.assertRaises(ValueError):
-                response=self.client.post(reverse(
-                                                'payments:product-handler',
-                                                kwargs={'pk':self.product.id}
-                                            ),
-                                          {'stripeToken':'test'}
-                                    )
+                response = self.client.post(reverse(
+                    'payments:product-handler',
+                    kwargs={'pk':self.product.id}),
+                    {'stripeToken':'test'}
+                )
 
         stripe_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
 

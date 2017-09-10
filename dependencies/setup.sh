@@ -6,7 +6,7 @@ RED="\e[91m"
 RESET="\e[0m"
 
 if [[ $EUID -ne 0 ]]; then
-    echo -e "[${RED}ERROR${RESET}] This script must be run as root" 
+    echo -e "[${RED}ERROR${RESET}] This script must be run as root"
     exit 1
 fi
 
@@ -33,7 +33,7 @@ else
 fi
 
 ###
-# Installing all the necessary dependencies. 
+# Installing all the necessary dependencies.
 ###
 apt update
 apt upgrade -y
@@ -54,7 +54,7 @@ sudo -u postgres psql -c "alter user djangouser createdb"
 ###
 mkdir -p $INSTALLATION_DIR
 cd $ROOT_DIR
-rsync -az --delete . $INSTALLATION_DIR/$BUILD_URL/
+rsync -az --delete --exclude="migrations" . $INSTALLATION_DIR/$BUILD_URL/
 
 cd $INSTALLATION_DIR/$BUILD_URL/dependencies
 
@@ -81,7 +81,7 @@ cd ../ACM_General
 ###
 # www-data needs to own the directory for special nginx interactions
 ###
-chown www-data:www-data -R $INSTALLATION_DIR 
+chown www-data:www-data -R $INSTALLATION_DIR
 cd ..
 compass compile
 cd -
@@ -89,13 +89,15 @@ cd -
 ###
 # Generating the django migrations from scratch.
 ###
-find .. -name migrations -type d -exec rm -rf {} \;
-for d in *; do
-    if [ -d "$d" ]; then
-        echo "Running $D"
-        python3 manage.py makemigrations "$d"
-    fi
-done
+if [[ $1 == "dev" ]]; then
+    find .. -name migrations -type d -exec rm -rf {} \;
+    for d in *; do
+        if [ -d "$d" ]; then
+            echo "Running $D"
+            python3 manage.py makemigrations "$d"
+        fi
+    done
+fi
 python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
 
@@ -103,6 +105,7 @@ python3 manage.py migrate --noinput
 # Creating the Sphinx documentation
 ###
 cd ../docs/
+make rst
 make html
 
 ###

@@ -1,19 +1,43 @@
-from accounts.models import User
+# standard library
+import json
+import tempfile
+import uuid
+
+# third-party
+from rest_framework.test import APIClient
+
+# Django
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
-from django.test import TestCase
+
+# local Django
+from accounts.models import User
 from events.models import Event
 from events.serializers import EventSerializer
-import json
-import uuid
-from sigs.models import SIG
 from payments.models import TransactionCategory, Product, Transaction
-from events.models import Event
+from sigs.models import SIG
 
-# Create your tests here.
+
 class AccountsTestCase(TestCase):
+    """
+    Ensures that a user account behaves as expected throughout
+    various interactions they may have throughout the website.
+    This includes all basic functionality pertaining to
+    data associated with the user, as well as the user itself.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data that is required to
+        test Account functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
+        self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
                         id='test',
@@ -52,6 +76,13 @@ class AccountsTestCase(TestCase):
             }
 
     def test_accounts_rest_actions(self):
+        """
+        Ensures that an Accounts interactions with each REST api
+        (post, get, put, destroy) results in expected behavior.
+
+        :rtype: None
+        :return: None
+        """
         user = self.user_data
 
         ##
@@ -118,16 +149,34 @@ class AccountsTestCase(TestCase):
         self.assertIsNotNone(response.json()[0])
 
     def test_serializer_validation(self):
+        """
+        Ensures that the UserSerializer in accounts/serializers.py
+        functions as intended.
+
+        :rtype: None
+        :return: None
+        """
         user = self.user_data
         user['email']="test@fail.com"
         response = self.client.post(reverse('rest_api:user-list'), user)
         self.assertEqual(response.status_code, 400)
 
 
-
 class EventsTestCase(TestCase):
+    """
+    Ensures Events behave as expected throughout their lifecycle.
+    """
+
     def setUp(self):
+        """
+        Initializes all variables and data required to test Event
+        functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
+        self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
                         id='test',
@@ -157,7 +206,18 @@ class EventsTestCase(TestCase):
                                                         sig=self.sig,
                                                     )
 
+        # Sets up image variable for creating Event
+        image_path = './test_data/test_image.jpg'
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+
     def test_events_rest_actions(self):
+        """
+        Ensures that an event behaves as expected at each
+        point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         event={
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
@@ -166,8 +226,9 @@ class EventsTestCase(TestCase):
             "location": "test",
             "presenter": "test",
             "cost": 3.00,
+            "flier": self.image,
             "creator": self.user.id,
-            "hosting_sig": self.sig.id
+            "hosting_sig": self.sig.id,
         }
 
         ##
@@ -178,7 +239,6 @@ class EventsTestCase(TestCase):
         response = self.client.get(reverse('rest_api:event-detail', kwargs={'pk':self.event.id}))
         self.assertEqual(response.status_code, 200)
 
-
         ##
         # Testing creating a new event
         ##
@@ -188,24 +248,27 @@ class EventsTestCase(TestCase):
             self.assertEqual(response.json()[k], event[k])
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a event
         # NOTE: This test requires the data to be sent in a special way due to
         #       how the django client does put requests.
         ##
+
+        # Resets the image pointer to be pointing at the beginning of the image
+        # file rather than the end which would cause an error with the 'put'
+        # command.
+        self.image.seek(0)
+
         event['title'] = "test1"
         response = self.client.put(
-                            reverse(
-                                'rest_api:event-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(event, default=str),
-                            content_type='application/json'
-                        )
+            reverse('rest_api:event-detail', kwargs={'pk':response.json()['id']}),
+            event,
+            format="multipart"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["title"], "test1")
 
         ##
-        # Testing delete capability
+        # Testing delete capability of an Event
         ##
         event_id = response.json()['id']
         response = self.client.get(reverse('rest_api:event-list'))
@@ -236,7 +299,16 @@ class EventsTestCase(TestCase):
 
 
 class SigsTestCase(TestCase):
+    """
+    Ensures that a SIG behaves as expected throughout it's lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to test SIG functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -268,6 +340,13 @@ class SigsTestCase(TestCase):
                                                     )
 
     def test_sigs_rest_actions(self):
+        """
+        Ensures that a SIG behaves as expected at each
+        point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         sig = {
             "id": "sig_test",
             "is_active": True,
@@ -347,7 +426,18 @@ class SigsTestCase(TestCase):
 
 
 class TransactionsTestCase(TestCase):
+    """
+    Ensures a Transaction behaves as expected throughout all
+    points in it's lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to test
+        Transaction functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -379,6 +469,13 @@ class TransactionsTestCase(TestCase):
                                                     )
 
     def test_transactions_rest_actions(self):
+        """
+        Ensures a Transaction behaves as expected throughout all
+        points in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         transaction = {
                     "description": "test",
                     "cost": 3,
@@ -464,7 +561,18 @@ class TransactionsTestCase(TestCase):
 
 
 class CategoryTestCase(TestCase):
+    """
+    Ensures that Categories behave as expected throughout
+    all points in their lifecycle.
+    """
     def setUp(self):
+        """
+        Initializes all variables and data required to
+        test Category functionality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -496,6 +604,13 @@ class CategoryTestCase(TestCase):
                                                     )
 
     def test_category_rest_actions(self):
+        """
+        Ensures that a Category behaves as expected at
+        each point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         category = {
             "name": "test"
         }
@@ -571,7 +686,18 @@ class CategoryTestCase(TestCase):
 
 
 class ProductTestCase(TestCase):
+    """
+    Ensures that a Product behaves as expected throughout all
+    points of its lifecycle.
+    """
     def setUp(self):
+        """
+        Initialize all variables and data required to test
+        Product functinoality.
+
+        :rtype: None
+        :return: None
+        """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -603,6 +729,13 @@ class ProductTestCase(TestCase):
                                                     )
 
     def test_product_rest_actions(self):
+        """
+        Ensures that a Product behaves as expected at
+        each point in the REST api.
+
+        :rtype: None
+        :return: None
+        """
         product = {
             "name": "test",
             "cost": 3.00,
@@ -679,4 +812,3 @@ class ProductTestCase(TestCase):
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
-

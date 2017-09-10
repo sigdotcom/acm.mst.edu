@@ -1,16 +1,23 @@
+# Django
+from django.conf import settings
 from django.shortcuts import render
+from django.utils import timezone
 
-
-# Create your views here.
+# local Django
+from events.models import Event
 
 
 def index(request):
-    return (
-        render(
-            request,
-            'home/index.html',
-        )
-    )
+    # Grabs the 3 nearest upcoming events that haven't expired yet
+    events = Event.objects.filter(date_expire__gte=timezone.now()).order_by('date_hosted')
+    if len(events) >= settings.MAX_HOME_FLIER_COUNT:
+        events = events[:settings.MAX_HOME_FLIER_COUNT]
+
+    return(render(
+        request,
+        'home/index.html',
+        {"upcoming_events": events}
+    ))
 
 
 def sponsors(request):

@@ -47,21 +47,6 @@ body {
 }
 
 /*
- * Remove text-shadow in selection highlight
- * These selection rule sets have to be separate.
- */
-
-::-moz-selection {
-  background: #fff;
-  text-shadow: none;
-}
-
-::selection {
-  background: #fff;
-  text-shadow: none;
-}
-
-/*
  * Remove the gap between audio, canvas, iframes,
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
@@ -242,7 +227,7 @@ nav .nav-link-wrapper {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  
+
   display: inline-block;
   width: 14.28571428571%;
 }
@@ -425,9 +410,9 @@ main {
   line-height: 38px;
   padding: 0 20px;
   text-decoration: none;
-  
+
   box-shadow: inset 0 -4px 0 0 #65b593;
-  
+
   transition: .2s ease-in-out;
 }
 .acm-btn:hover {
@@ -439,8 +424,6 @@ main {
  * ========================================================================= */
 
 footer {
-  position: relative;
-  z-index: 10;
   height: 220px;
   -webkit-flex-direction: column;
     -ms-flex-direction: column;
@@ -595,7 +578,7 @@ footer h5 {
     height: 110px;
     padding-top: 15px;
   }
-  
+
   footer img {
     display: none;
   }
@@ -608,28 +591,29 @@ footer h5 {
     padding-bottom: 0;
     height: 230px;
   }
-  
+
   .header-welcome {
     font-size: 28px;
   }
-     nav {
+
+  nav {
     display: none;
   }
-  
+
   #menu-wrapper {
     display: block;
   }
-  
+
   .top-bar {
     top: 0;
     display: block;
   }
- 
+
   main {
     margin-top: 0;
     padding-top: 10px;
   }
-  
+
   main::before {
     display: block !important;
     content: '';
@@ -642,7 +626,7 @@ footer h5 {
 /*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
-  
+
   nav .nav-link-wrapper {
     margin: 0;
   }
@@ -676,20 +660,20 @@ footer h5 {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-  
+
   a,
   a:visited {
     text-decoration: underline;
   }
-  
+
   a[href]:after {
     content: " (" attr(href) ")";
   }
-  
+
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
-  
+
   /*
    * Don't show links that are fragment identifiers,
    * or use the `javascript:` pseudo protocol
@@ -698,13 +682,13 @@ footer h5 {
   a[href^="javascript:"]:after {
     content: "";
   }
-  
+
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-  
+
   /*
    * Printing Tables:
    * http://css-discuss.incutio.com/wiki/Printing_Tables
@@ -712,23 +696,23 @@ footer h5 {
   thead {
     display: table-header-group;
   }
-  
+
   tr,
   img {
     page-break-inside: avoid;
   }
-  
+
   img {
     max-width: 100% !important;
   }
-  
+
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
-  
+
   h2,
   h3 {
     page-break-after: avoid;

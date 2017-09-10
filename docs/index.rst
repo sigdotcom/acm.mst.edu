@@ -1,0 +1,62 @@
+.. MST-ACM Website (acm.mst.edu) documentation master file, created by
+   sphinx-quickstart on Mon Jun 19 11:38:24 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+acm.mst.edu: MST-ACM Website
+=========================================================
+Release v\ |version|.
+
+Welcome
+-----------
+The purpose of this documentation is to provide future SIG.com memebers or
+developers a more foundational understanding of the acm.mst.edu website with
+some commentary into the reasoning behind functional descisions. This
+documentation is meant people for with out much fundamental knowledge of
+tools used; however, it will not explicitly describe anything explicitly
+mentioned in documentation such as models, managers, and views.
+
+If you have any issues with the documentation or questions contact
+ksyh3@mst.edu.
+
+Beginner's Guide
+----------------
+The purpose of the beginner's guide is to give an introduction to SIG.com and
+all of the tools, programming languages, and ideals which we use to create the
+websites. This also provides teaching materials and reference materials to use
+when they are first learning web development.
+
+Placeholder
+------------
+This will be an 'intermediate guide' which will be a walk through of how the
+app handles user authentication, api, payments and other more advance SIG.com
+specific implementation.
+
+Contribution Guide
+------------------
+The purpose of the Contribution Guide is to show users/members the best way to
+contribute to the project whether through adding to the actual website,
+creating fliers, or by doing presentations.
+
+Reference Manual
+-----------------
+The purpose of the Reference Manual is to give an in-depth description of each
+function, class, model, view, etc. which the project has.
+
+FAQ
+----
+Place Holder
+
+
+.. toctree::
+   :hidden:
+
+   app_rst_docs/modules
+   
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

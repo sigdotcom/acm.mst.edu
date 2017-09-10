@@ -1,15 +1,22 @@
+# standard library
+import re
+
+# Django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-import re
 
 
 def is_valid_email(email):
     """
-    @Desc: Ensures the any email passed into it adheres to the email domains
-           specified in the ENFORCED_EMAIL_DOMAINS field in the settings.
-
-    @Returns: If the email is valid, it returns true, otherwise it
-              returns false.
+    Ensures the any email passed into it adheres to the email domains
+    specified in the ENFORCED_EMAIL_DOMAINS field in the settings.
+    
+    :param email: The email to be validated.
+    :type email: str
+    :rtype: bool
+    :return: If the email is valid, it returns true, otherwise it
+             returns false.
+    :raise ImproperlyConfigured: Raises when encountering an invalid email.
     """
     valid_domains = getattr(settings, 'ENFORCED_EMAIL_DOMAINS', None)
 
@@ -23,4 +30,3 @@ def is_valid_email(email):
             return True
 
     return False
-

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # MST-ACM Website (acm.mst.edu) documentation build configuration file, created by
-# sphinx-quickstart on Thu Mar 30 21:36:02 2017.
+# sphinx-quickstart on Mon Jun 19 11:38:24 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -21,6 +21,10 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import django, os, sys
+sys.path.insert(0, os.path.abspath('../ACM_General'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ACM_General.settings'
+django.setup()
 
 # -- General configuration ------------------------------------------------
 
@@ -46,15 +50,15 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.txt'
+source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
 
 # General information about the project.
 project = 'MST-ACM Website (acm.mst.edu)'
-copyright = '2017, Kevin Schoonover'
-author = 'Kevin Schoonover'
+copyright = '2017, SIG.com'
+author = 'SIG.com'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -89,7 +93,7 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'bizstyle'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -134,7 +138,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'MST-ACMWebsiteacmmstedu.tex', 'MST-ACM Website (acm.mst.edu) Documentation',
-     'Kevin Schoonover', 'manual'),
+     'SIG.com', 'manual'),
 ]
 
 
@@ -158,6 +162,3 @@ texinfo_documents = [
      author, 'MST-ACMWebsiteacmmstedu', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
