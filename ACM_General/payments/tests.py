@@ -1,14 +1,15 @@
 # standard library
-import time
 
 # third-party
 import stripe
-#from selenium import webdriver
-#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium import webdriver
+# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 # Django
 from django.conf import settings
-from django.test import TestCase, LiveServerTestCase
+from django.test import TestCase
+# from django.test import LiveServerTestCase
+
 from django.urls import reverse
 
 # local Django
@@ -20,6 +21,7 @@ from sigs.models import SIG
 # NOTE: Because all of the models in the Transactions apps are so closely
 #       linked, we need to test them all at once.
 ##
+
 
 class PaymentsManagerCase(TestCase):
     def setUp(self):
@@ -62,27 +64,34 @@ class PaymentsManagerCase(TestCase):
 
     def test_get_by_natural_key(self):
         category = models.TransactionCategory.objects.create_category('test')
-        product = models.Product.objects.create_product(
+        models.Product.objects.create_product(
             'test',
             cost=3.00,
             category=category,
             sig=self.sig,
         )
-        transaction = models.Transaction.objects.create_transaction(
+
+        models.Transaction.objects.create_transaction(
             '3232',
             cost=3.00,
             category=category,
             sig=self.sig,
         )
-        self.assertIsNotNone(models.TransactionCategory.objects.get_by_natural_key('test'))
+        self.assertIsNotNone(
+            models.TransactionCategory.objects.get_by_natural_key('test')
+        )
         self.assertIsNotNone(models.Product.objects.get_by_natural_key('test'))
-        self.assertIsNotNone(models.Transaction.objects.get_by_natural_key('3232'))
+        self.assertIsNotNone(
+            models.Transaction.objects.get_by_natural_key('3232')
+        )
 
         with self.assertRaises(models.Transaction.DoesNotExist):
             models.Transaction.objects.get_by_natural_key('424242424242')
 
         with self.assertRaises(models.TransactionCategory.DoesNotExist):
-            models.TransactionCategory.objects.get_by_natural_key('thisdoesntexist')
+            models.TransactionCategory.objects.get_by_natural_key(
+                'thisdoesntexist'
+            )
 
         with self.assertRaises(models.Product.DoesNotExist):
             models.Product.objects.get_by_natural_key('thisdoesntexist')
@@ -98,7 +107,6 @@ class PaymentsModelCase(TestCase):
             founder=self.user,
             description='test',
         )
-
 
     def test_model_member_functions(self):
         category = models.TransactionCategory.objects.create_category('test')
@@ -124,6 +132,7 @@ class PaymentsModelCase(TestCase):
             with self.assertRaises(stripe.error.AuthenticationError):
                 transaction.stripe_data
 
+
 class PaymentsViewCase(TestCase):
     def setUp(self):
         super().setUp()
@@ -134,7 +143,9 @@ class PaymentsViewCase(TestCase):
             founder=self.user,
             description='test',
         )
-        self.category = models.TransactionCategory.objects.create_category('test')
+        self.category = models.TransactionCategory.objects.create_category(
+            'test'
+        )
         self.product = models.Product.objects.create_product(
             'test',
             cost=3.00,
@@ -159,13 +170,13 @@ class PaymentsViewCase(TestCase):
 
         response = self.client.get(reverse(
             'payments:product-handler',
-            kwargs={'pk':self.product.id})
+            kwargs={'pk': self.product.id})
         )
         self.assertEqual(response.status_code, 405)
 
         response = self.client.post(reverse(
             'payments:product-handler',
-            kwargs={'pk':self.product.id}),
+            kwargs={'pk': self.product.id}),
             {'stripeToken': 'test'}
         )
         self.assertEqual(response.status_code, 404)
@@ -174,18 +185,19 @@ class PaymentsViewCase(TestCase):
         with self.assertRaises(ValueError):
             response = self.client.post(reverse(
                 'payments:product-handler',
-                kwargs={'pk':self.product.id})
+                kwargs={'pk': self.product.id})
             )
 
         with self.settings(STRIPE_PRIV_KEY=""):
             with self.assertRaises(ValueError):
                 response = self.client.post(reverse(
                     'payments:product-handler',
-                    kwargs={'pk':self.product.id}),
-                    {'stripeToken':'test'}
+                    kwargs={'pk': self.product.id}),
+                    {'stripeToken': 'test'}
                 )
 
-        stripe_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
+        getattr(settings, 'STRIPE_PRIV_KEY', None)
+
 
 # Dropping selenium for now, will revisit
 '''
@@ -201,7 +213,9 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
                         founder=self.user,
                         description='test',
                     )
-        self.category = models.TransactionCategory.objects.create_category('test')
+        self.category = models.TransactionCategory.objects.create_category(
+            'test'
+        )
         self.product = models.Product.objects.create_product(
                                         'test',
                                         cost=3.00,
@@ -209,11 +223,20 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
                                         category=self.category,
                                         sig=self.sig,
                                     )
-        self.client.login(email='ksyh3@mst.edu') #Native django test client
+        self.client.login(email='ksyh3@mst.edu') # Native django test client
         cookie = self.client.cookies['sessionid']
-        self.driver.get(self.live_server_url)  #selenium will set cookie domain based on current page domain
-        self.driver.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
-        self.driver.refresh() #need to update page for logged in use
+        # selenium will set cookie domain based on current page domain
+        self.driver.get(self.live_server_url)
+        self.driver.add_cookie(
+            {
+                'name': 'sessionid',
+                'value': cookie.value,
+                'secure': False,
+                'path': '/'
+            }
+        )
+        # need to update page for logged in us
+        self.driver.refresh()
         self.maxDiff=None
 
     def tearDown(self):
@@ -230,7 +253,9 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
                                 reverse('payments:acm-memberships')
                             )
                         )
-        stripe_button = selenium.find_element_by_css_selector('button.stripe-button-el')
+        stripe_button = selenium.find_element_by_css_selector(
+            'button.stripe-button-el'
+        )
         stripe_button.click()
         time.sleep(2)
 
@@ -238,17 +263,26 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
         ## We switch context to the stripe iframe with name stripe_checkout_app
         selenium.switch_to.frame('stripe_checkout_app')
 
-        # Proceed through the Stripe workflow and redirect to a confirmation page
-        email_input= selenium.find_element_by_xpath("//input[@placeholder='Email']")
+        # Proceed through the Stripe workflow and redirect to a confirmation
+        # page
+        email_input= selenium.find_element_by_xpath(
+            "//input[@placeholder='Email']"
+        )
         email_input.send_keys('test@mst.edu')
 
-        card_input=selenium.find_element_by_xpath("//input[@placeholder='Card number']")
+        card_input=selenium.find_element_by_xpath(
+            "//input[@placeholder='Card number']"
+        )
         card_input.send_keys('4242424242424242')
 
-        expire_input=selenium.find_element_by_xpath("//input[@placeholder='MM / YY']")
+        expire_input=selenium.find_element_by_xpath(
+            "//input[@placeholder='MM / YY']"
+        )
         expire_input.send_keys('0250')
 
-        expire_input=selenium.find_element_by_xpath("//input[@placeholder='CVC']")
+        expire_input=selenium.find_element_by_xpath(
+            "//input[@placeholder='CVC']"
+        )
         expire_input.send_keys('4444')
 
         pay_button=selenium.find_element_by_xpath("//button")

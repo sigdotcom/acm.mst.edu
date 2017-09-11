@@ -23,6 +23,7 @@ from core.actions import is_valid_email
 #       parameter.
 ###
 
+
 class AuthorizationView(View):
     """
     Default Social Authentication Class View which attempts to define
@@ -36,7 +37,7 @@ class AuthorizationView(View):
         OAuth authorization processing and transaction handler.
 
         :param request: Request for OAuth authorization.
-        :type request: Request 
+        :type request: Request
         :rtype: Response
         :return: Prepared GET/POST redirect to the OAuth authentication
                  endpoint.
@@ -48,16 +49,19 @@ class AuthorizationView(View):
         auth_type = kwargs.get('auth_type', None)
         auth_provider = kwargs.get('auth_provider', None)
         try:
-            auth_data=getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+            auth_data = getattr(
+                settings,
+                'SOCIAL_AUTH_CONFIG'
+            )[auth_type][auth_provider]
         except:
-            auth_data=None
+            auth_data = None
 
         if auth_data is not None:
             data = self.prepare_transaction(request, auth_data)
             request = requests.post(
-                        'https://accounts.google.com/o/oauth2/v2/auth',
-                        data=data
-                      )
+                'https://accounts.google.com/o/oauth2/v2/auth',
+                data=data
+            )
 
             return HttpResponseRedirect(request.url)
         else:
@@ -71,9 +75,9 @@ class AuthorizationView(View):
         which ensures transaction integrity between the server and a
         specific client 'state'.
 
-        :param request: Request to prepare the POST/GET parameters needed for 
+        :param request: Request to prepare the POST/GET parameters needed for
                         the initial authorization request for OAuth2.
-        :type request: Request 
+        :type request: Request
         :rtype: dict
         :return: A dictonary of the necessay POST/GET parameters
                  for an authorization request.
@@ -111,33 +115,39 @@ class TokenView(View):
         For furthur information, see Step 4 of:
         https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
 
-        :param request: Request for the user with the POST data from google. 
-        :type request: Request 
+        :param request: Request for the user with the POST data from google.
+        :type request: Request
         :rtype: Response
         :return: Request to post_auth with the newly cleaned data.
         """
         ###
         # Normalizing data from callback
         ###
-        response_state=request.GET.get('state', None)
+        response_state = request.GET.get('state', None)
 
         try:
-            session_state=request.session['state']
+            session_state = request.session['state']
         except:
-            session_state=None
+            session_state = None
 
-        auth_type=kwargs.get('auth_type', None)
-        auth_provider=kwargs.get('auth_provider', None)
+        auth_type = kwargs.get('auth_type', None)
+        auth_provider = kwargs.get('auth_provider', None)
 
         try:
-            auth_data=getattr(settings, 'SOCIAL_AUTH_CONFIG')[auth_type][auth_provider]
+            auth_data = getattr(
+                settings,
+                'SOCIAL_AUTH_CONFIG'
+            )[auth_type][auth_provider]
         except:
-            auth_data=None
+            auth_data = None
 
         ###
         # Ensure state integrity of the user
         ###
-        if response_state != session_state or response_state == None or session_state == None:
+        if (
+            response_state != session_state or response_state is None or
+            session_state is None
+        ):
             raise Http404('Invalid Session State')
 
         if auth_data is None:
@@ -148,9 +158,9 @@ class TokenView(View):
         # TODO: Automatically generate goopleapi link as may change in future.
         ##
         token_request = requests.post(
-                            "https://www.googleapis.com/oauth2/v4/token",
-                            data=payload
-                       )
+            "https://www.googleapis.com/oauth2/v4/token",
+            data=payload
+        )
         if token_request.status_code == 200:
             cleaned_data = self.clean_jwt(token_request.text)
             return self.post_auth(request, cleaned_data)
@@ -163,7 +173,7 @@ class TokenView(View):
         Preparing the GET/POST data necessary to perform the Token
         Transaction.
 
-        :param request: Request to prepare the Token Transaction data. 
+        :param request: Request to prepare the Token Transaction data.
         :type request: Request
         :rtype: dict
         :return: The GET/POST data necessary to perform the Token
@@ -190,7 +200,7 @@ class TokenView(View):
 
         :param request: Request to transform a JSON Web Token into a
                         python dictionary.
-        :type request: Request 
+        :type request: Request
         :rtype: dict
         :return: The clean JSON Web Token as a python dictionary.
         """
@@ -209,7 +219,7 @@ class TokenView(View):
         used to perform some post_auth action and then present some
         template/redirect.
 
-        :param request: Request to perform some post_auth action. 
+        :param request: Request to perform some post_auth action.
         :type request: Request
         :rtype: Response
         :return: A 200 response if successful, otherwise 400.
@@ -220,7 +230,7 @@ class TokenView(View):
 
         if(is_valid_email(email)):
             ##
-            #TODO: Define get_or_create() in user manager
+            # TODO: Define get_or_create() in user manager
             ##
             User.objects.get_or_create(
                 email=email,
@@ -229,7 +239,7 @@ class TokenView(View):
             )
             user = authenticate(email=email)
         else:
-            user=None
+            user = None
 
         if user is not None:
             login(request, user)

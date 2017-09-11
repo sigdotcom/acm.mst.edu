@@ -19,24 +19,30 @@ SIG = 'sigs.SIG'
 
 def get_path_for_flier(instance, filename):
     """
-    Used to obtain a path based on an instance of the Event (try to make this a cross reference if you can)
-    object pasted into the function.
+    Used to obtain a path based on an instance of the Event (try to make this a
+    cross reference if you can) object pasted into the function.
 
     :type instance: Event object
     :param instance: An instance of the current Event being created
 
     :type filename: str
-    :param filename: The filename of the image being used as a flier for the current event being created
+    :param filename: The filename of the image being used as a flier for the
+                     current event being created
 
     :rtype: str
-    :returns: String that contains the generated path to save or collect the flier image.
+    :returns: String that contains the generated path to save or collect the
+              flier image.
 
     .. note::
 
-        This is done so that fliers can be stored in path that looks like: 'media_files/fliers/<date_hosted>/<filename>'.
-        (This makes it easier to find media uploaded about an Event).
+        This is done so that fliers can be stored in path that looks like:
+        'media_files/fliers/<date_hosted>/<filename>'.  (This makes it easier
+        to find media uploaded about an Event).
     """
-    return '{}/{}/{}'.format(settings.FLIERS_PATH, str(instance.date_hosted)[:10], filename)
+    return '{}/{}/{}'.format(
+        settings.FLIERS_PATH, str(instance.date_hosted)[:10], filename
+    )
+
 
 class Event(models.Model):
     """
@@ -72,7 +78,8 @@ class Event(models.Model):
         help_text=_('When the event is over.'),
     )
 
-    #: The user who created the event; represented as a ForeignKey of the User model.
+    #: The user who created the event; represented as a ForeignKey of the User
+    #: model.
     creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -97,7 +104,8 @@ class Event(models.Model):
         max_length=256,
     )
 
-    #: A description of what the event will consist of; represented as a CharField.
+    #: A description of what the event will consist of; represented as a
+    #: CharField.
     description = models.CharField(
         verbose_name=_('Event Description'),
         help_text=_('A description of what the event will consist of.'),
@@ -157,7 +165,8 @@ class Event(models.Model):
 
     def clean(self):
         """
-        The clean function is used for making checks on the data posted to the form.
+        The clean function is used for making checks on the data posted to the
+        form.
 
         :raises ValidationError: if date_expire or date_hosted are invalid.
 
@@ -171,19 +180,50 @@ class Event(models.Model):
         # Sets up a dictionary for storing individual field errors
         errors = {'date_expire': [], 'date_hosted': []}
 
-        # This is mostly done to catch errors when testing the EventForm with certain fields empty
+        # This is mostly done to catch errors when testing the EventForm with
+        # certain fields empty
         if not self.date_expire:
-            errors['date_expire'].append(ValidationError(_('Please fill out the expiration date field.')))
+            errors['date_expire'].append(
+                ValidationError(
+                    _('Please fill out the expiration date field.')
+                )
+            )
         if not self.date_hosted:
-            errors['date_hosted'].append(ValidationError(_('Please fill out the host date field.')))
+            errors['date_hosted'].append(
+                ValidationError(_('Please fill out the host date field.'))
+            )
 
-        # Checks that the datetimes given for the host and expire date are valid
+        # Checks that the datetimes given for the host and expire date are
+        # valid
         if self.date_expire and self.date_expire < timezone.now():
-            errors['date_expire'].append(ValidationError(_('The expiration date shouldn\'t be before the current date!')))
+            errors['date_expire'].append(
+                ValidationError(
+                    _(
+                        'The expiration date shouldn\'t be'
+                        ' before the current date!'
+                     )
+                )
+            )
         if self.date_hosted and self.date_hosted < timezone.now():
-            errors['date_hosted'].append(ValidationError(_('The host date shouldn\'t be before the current date!')))
-        if self.date_expire and self.date_hosted and self.date_expire < self.date_hosted:
-            errors['date_expire'].append(ValidationError(_('The expiration date shouldn\'t be before the host date!')))
+            errors['date_hosted'].append(
+                ValidationError(
+                    _(
+                        'The host date shouldn\'t be before the current date!'
+                    )
+                )
+            )
+        if (
+            self.date_expire and self.date_hosted and
+            self.date_expire < self.date_hosted
+        ):
+            errors['date_expire'].append(
+                ValidationError(
+                    _(
+                        'The expiration date shouldn\'t be'
+                        ' before the host date!'
+                    )
+                )
+            )
 
         # Returns errors if any occured
         if errors['date_expire'] or errors['date_hosted']:

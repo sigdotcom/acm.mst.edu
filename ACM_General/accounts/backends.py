@@ -46,7 +46,7 @@ class UserBackend(object):
         leaves.
 
         :param user: User object passed in for authentication.
-        :type user: User 
+        :type user: User
         :rtype: bool
         :return: True if the user has the is_active flag set.
                  Flase if the user's is_active flag is false.
@@ -60,7 +60,7 @@ class UserBackend(object):
         Fetches the user from the database whose id (UUID) matches the
         given user_id.
 
-        :param user_id: The UUID for which to find a user for. 
+        :param user_id: The UUID for which to find a user for.
         :type user_id: str
         :rtype: User
         :return: The User object posessing the UUID or None, if the

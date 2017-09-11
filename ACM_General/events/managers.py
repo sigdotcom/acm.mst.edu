@@ -28,8 +28,8 @@ class EventManager(models.Manager):
         :rtype: event.models.Event
         :returns: The event object that was created.
         """
-        date_hosted=kwargs.get('date_hosted', None)
-        date_expire=kwargs.get('date_expire', None)
+        date_hosted = kwargs.get('date_hosted', None)
+        date_expire = kwargs.get('date_expire', None)
 
         if date_hosted is None:
             raise ValueError('EventManager received an invalid date_hosted.')
@@ -44,7 +44,7 @@ class EventManager(models.Manager):
 
         model = self.model(**kwargs)
         model.save(using=self._db)
-        return model;
+        return model
 
     def create_event(self, **kwargs):
         """

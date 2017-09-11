@@ -7,7 +7,7 @@ import stripe
 # Django
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 # local Django
@@ -109,7 +109,6 @@ class Product(models.Model):
         return self.name
 
 
-
 class Transaction(models.Model):
     """
     The Transaction model will act as storage and classification of any ACM
@@ -189,7 +188,7 @@ class Transaction(models.Model):
     #: CharField.
     coupon_id = models.CharField(
         verbose_name=_('Transaction Stripe Token'),
-        help_text= _('The coupon which the user used in the transaction.'),
+        help_text=_('The coupon which the user used in the transaction.'),
         max_length=50,
         null=True,
         blank=True,
@@ -212,7 +211,8 @@ class Transaction(models.Model):
         .. _stripe-charge-link: https://stripe.com/docs/api#retrieve_charge
         .. ................................................................
 
-        Retrieves data related to the stripe charge made. More info `here <stripe-charge-link_>`_.
+        Retrieves data related to the stripe charge made.
+        More info `here <stripe-charge-link_>`_.
 
         :rtype: stripe.Charge
         :returns: A charge if a valid identifier was provided, and raises an
@@ -220,7 +220,7 @@ class Transaction(models.Model):
         """
         return stripe.Charge.retrieve(
             self.stripe_token,
-            api_key=getattr(settings, 'STRIPE_PRIV_KEY' , None)
+            api_key=getattr(settings, 'STRIPE_PRIV_KEY', None)
         )
 
     def __str__(self):

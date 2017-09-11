@@ -1,13 +1,10 @@
 # standard library
 import json
-import tempfile
-import uuid
 
 # third-party
 from rest_framework.test import APIClient
 
 # Django
-from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
@@ -16,7 +13,7 @@ from django.urls import reverse
 # local Django
 from accounts.models import User
 from events.models import Event
-from events.serializers import EventSerializer
+# from events.serializers import EventSerializer
 from payments.models import TransactionCategory, Product, Transaction
 from sigs.models import SIG
 
@@ -28,6 +25,7 @@ class AccountsTestCase(TestCase):
     This includes all basic functionality pertaining to
     data associated with the user, as well as the user itself.
     """
+
     def setUp(self):
         """
         Initializes all variables and data that is required to
@@ -40,40 +38,40 @@ class AccountsTestCase(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.user_data = {
-                "email": "test@mst.edu",
-                "first_name": "test",
-                "last_name": "test",
-                "is_active": True,
-                "is_staff": False,
-                "is_superuser": False
-            }
+            "email": "test@mst.edu",
+            "first_name": "test",
+            "last_name": "test",
+            "is_active": True,
+            "is_staff": False,
+            "is_superuser": False
+        }
 
     def test_accounts_rest_actions(self):
         """
@@ -90,7 +88,9 @@ class AccountsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:user-list'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:user-detail', kwargs={'pk':self.user.id}))
+        response = self.client.get(
+            reverse('rest_api:user-detail', kwargs={'pk': self.user.id})
+        )
         self.assertEqual(response.status_code, 200)
 
         ##
@@ -98,7 +98,7 @@ class AccountsTestCase(TestCase):
         ##
         response = self.client.post(reverse('rest_api:user-list'), user)
         self.assertEqual(response.status_code, 201)
-        for k,v in user.items():
+        for k, v in user.items():
             self.assertEqual(response.json()[k], v)
 
         ##
@@ -108,13 +108,13 @@ class AccountsTestCase(TestCase):
         ##
         user['email'] = "test1@mst.edu"
         response = self.client.put(
-                            reverse(
-                                'rest_api:user-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(user),
-                            content_type='application/json'
-                        )
+            reverse(
+                'rest_api:user-detail',
+                kwargs={'pk': response.json()['id']}
+            ),
+            data=json.dumps(user),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["email"], "test1@mst.edu")
 
@@ -126,18 +126,18 @@ class AccountsTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:user-detail',
-                                kwargs={'pk':user_id}
-                            )
-                        )
+            reverse(
+                'rest_api:user-detail',
+                kwargs={'pk': user_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:user-detail',
-                                kwargs={'pk':user_id}
-                            )
-                        )
+            reverse(
+                'rest_api:user-detail',
+                kwargs={'pk': user_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##
@@ -157,7 +157,7 @@ class AccountsTestCase(TestCase):
         :return: None
         """
         user = self.user_data
-        user['email']="test@fail.com"
+        user['email'] = "test@fail.com"
         response = self.client.post(reverse('rest_api:user-list'), user)
         self.assertEqual(response.status_code, 400)
 
@@ -179,36 +179,37 @@ class EventsTestCase(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
         # Sets up image variable for creating Event
         image_path = './test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
+            image_path, 'rb').read(), content_type='multipart/form-data')
 
     def test_events_rest_actions(self):
         """
@@ -218,7 +219,7 @@ class EventsTestCase(TestCase):
         :rtype: None
         :return: None
         """
-        event={
+        event = {
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
             "title": "test1",
@@ -236,7 +237,8 @@ class EventsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:event-list'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:event-detail', kwargs={'pk':self.event.id}))
+        response = self.client.get(
+            reverse('rest_api:event-detail', kwargs={'pk': self.event.id}))
         self.assertEqual(response.status_code, 200)
 
         ##
@@ -260,7 +262,8 @@ class EventsTestCase(TestCase):
 
         event['title'] = "test1"
         response = self.client.put(
-            reverse('rest_api:event-detail', kwargs={'pk':response.json()['id']}),
+            reverse('rest_api:event-detail',
+                    kwargs={'pk': response.json()['id']}),
             event,
             format="multipart"
         )
@@ -275,18 +278,18 @@ class EventsTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:event-detail',
-                                kwargs={'pk':event_id}
-                            )
-                        )
+            reverse(
+                'rest_api:event-detail',
+                kwargs={'pk': event_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:event-detail',
-                                kwargs={'pk':event_id}
-                            )
-                        )
+            reverse(
+                'rest_api:event-detail',
+                kwargs={'pk': event_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##
@@ -302,6 +305,7 @@ class SigsTestCase(TestCase):
     """
     Ensures that a SIG behaves as expected throughout it's lifecycle.
     """
+
     def setUp(self):
         """
         Initializes all variables and data required to test SIG functionality.
@@ -312,32 +316,32 @@ class SigsTestCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
     def test_sigs_rest_actions(self):
         """
@@ -360,19 +364,20 @@ class SigsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:sigs-list'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:sigs-detail', kwargs={'pk':self.sig.id}))
+        response = self.client.get(
+            reverse('rest_api:sigs-detail', kwargs={'pk': self.sig.id})
+        )
         self.assertEqual(response.status_code, 200)
-
 
         ##
         # Testing creating a new event
         ##
         response = self.client.post(
-                            reverse('rest_api:sigs-list'),
-                            data=json.dumps(sig, default=str),
-                            content_type='application/json'
+            reverse('rest_api:sigs-list'),
+            data=json.dumps(sig, default=str),
+            content_type='application/json'
 
-                        )
+        )
         self.assertEqual(response.status_code, 201)
         for k in sig:
             self.assertEqual(str(response.json()[k]), str(sig[k]))
@@ -384,13 +389,13 @@ class SigsTestCase(TestCase):
         ##
         sig["description"] = "sig-web"
         response = self.client.put(
-                            reverse(
-                                'rest_api:sigs-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(sig, default=str),
-                            content_type='application/json'
-                        )
+            reverse(
+                'rest_api:sigs-detail',
+                kwargs={'pk': response.json()['id']}
+            ),
+            data=json.dumps(sig, default=str),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["description"], "sig-web")
 
@@ -402,18 +407,18 @@ class SigsTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:sigs-detail',
-                                kwargs={'pk':sig_id}
-                            )
-                        )
+            reverse(
+                'rest_api:sigs-detail',
+                kwargs={'pk': sig_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:sigs-detail',
-                                kwargs={'pk':sig_id}
-                            )
-                        )
+            reverse(
+                'rest_api:sigs-detail',
+                kwargs={'pk': sig_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##
@@ -430,6 +435,7 @@ class TransactionsTestCase(TestCase):
     Ensures a Transaction behaves as expected throughout all
     points in it's lifecycle.
     """
+
     def setUp(self):
         """
         Initializes all variables and data required to test
@@ -441,32 +447,32 @@ class TransactionsTestCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
     def test_transactions_rest_actions(self):
         """
@@ -477,15 +483,15 @@ class TransactionsTestCase(TestCase):
         :return: None
         """
         transaction = {
-                    "description": "test",
-                    "cost": 3,
-                    "stripe_token": "test",
-                    "customer_id": "test",
-                    "coupon_id": "test",
-                    "subscription_id": "test",
-                    "category": self.category.id,
-                    "sig": self.sig.id,
-                    "user": self.user.id
+            "description": "test",
+            "cost": 3,
+            "stripe_token": "test",
+            "customer_id": "test",
+            "coupon_id": "test",
+            "subscription_id": "test",
+            "category": self.category.id,
+            "sig": self.sig.id,
+            "user": self.user.id
         }
 
         ##
@@ -494,20 +500,21 @@ class TransactionsTestCase(TestCase):
         response = self.client.get(reverse('rest_api:transaction-list'))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(
-                            reverse('rest_api:transaction-detail',
-                            kwargs={'pk':self.transaction.id})
-                    )
+            reverse(
+                'rest_api:transaction-detail',
+                kwargs={'pk': self.transaction.id}
+            )
+        )
         self.assertEqual(response.status_code, 200)
-
 
         ##
         # Testing creating a new event
         ##
         response = self.client.post(
-                            reverse('rest_api:transaction-list'),
-                            data=json.dumps(transaction, default=str),
-                            content_type='application/json'
-                        )
+            reverse('rest_api:transaction-list'),
+            data=json.dumps(transaction, default=str),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 201)
         for k in ('description', 'stripe_token'):
             self.assertEqual(str(response.json()[k]), str(transaction[k]))
@@ -519,13 +526,13 @@ class TransactionsTestCase(TestCase):
         ##
         transaction["description"] = "test"
         response = self.client.put(
-                            reverse(
-                                'rest_api:transaction-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(transaction, default=str),
-                            content_type='application/json'
-                        )
+            reverse(
+                'rest_api:transaction-detail',
+                kwargs={'pk': response.json()['id']}
+            ),
+            data=json.dumps(transaction, default=str),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["description"], "test")
 
@@ -537,18 +544,18 @@ class TransactionsTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:transaction-detail',
-                                kwargs={'pk':transaction_id}
-                            )
-                        )
+            reverse(
+                'rest_api:transaction-detail',
+                kwargs={'pk': transaction_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:transaction-detail',
-                                kwargs={'pk':transaction_id}
-                            )
-                        )
+            reverse(
+                'rest_api:transaction-detail',
+                kwargs={'pk': transaction_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##
@@ -565,6 +572,7 @@ class CategoryTestCase(TestCase):
     Ensures that Categories behave as expected throughout
     all points in their lifecycle.
     """
+
     def setUp(self):
         """
         Initializes all variables and data required to
@@ -576,32 +584,32 @@ class CategoryTestCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
     def test_category_rest_actions(self):
         """
@@ -620,19 +628,23 @@ class CategoryTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:category-list'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:category-detail', kwargs={'pk':self.category.id}))
+        response = self.client.get(
+            reverse(
+                'rest_api:category-detail',
+                kwargs={'pk': self.category.id}
+            )
+        )
         self.assertEqual(response.status_code, 200)
-
 
         ##
         # Testing creating a new event
         ##
         response = self.client.post(
-                            reverse('rest_api:category-list'),
-                            data=json.dumps(category, default=str),
-                            content_type='application/json'
+            reverse('rest_api:category-list'),
+            data=json.dumps(category, default=str),
+            content_type='application/json'
 
-                        )
+        )
         self.assertEqual(response.status_code, 201)
         for k in category:
             self.assertEqual(str(response.json()[k]), str(category[k]))
@@ -644,13 +656,13 @@ class CategoryTestCase(TestCase):
         ##
         category["name"] = "test1"
         response = self.client.put(
-                            reverse(
-                                'rest_api:category-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(category, default=str),
-                            content_type='application/json'
-                        )
+            reverse(
+                'rest_api:category-detail',
+                kwargs={'pk': response.json()['id']}
+            ),
+            data=json.dumps(category, default=str),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["name"], "test1")
 
@@ -662,18 +674,18 @@ class CategoryTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:category-detail',
-                                kwargs={'pk':category_id}
-                            )
-                        )
+            reverse(
+                'rest_api:category-detail',
+                kwargs={'pk': category_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:category-detail',
-                                kwargs={'pk':category_id}
-                            )
-                        )
+            reverse(
+                'rest_api:category-detail',
+                kwargs={'pk': category_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##
@@ -690,6 +702,7 @@ class ProductTestCase(TestCase):
     Ensures that a Product behaves as expected throughout all
     points of its lifecycle.
     """
+
     def setUp(self):
         """
         Initialize all variables and data required to test
@@ -701,32 +714,32 @@ class ProductTestCase(TestCase):
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.sig = SIG.objects.create_sig(
-                        id='test',
-                        chair=self.user,
-                        founder=self.user,
-                        description='test',
-                    )
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
         self.event = Event.objects.create_event(
-                        creator=self.user,
-                        hosting_sig=self.sig,
-                        title='test',
-                        date_hosted=timezone.now(),
-                        date_expire=timezone.now(),
-                    )
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
         self.transaction = Transaction.objects.create_transaction(
-                                                        '3232',
-                                                        cost=3.00,
-                                                        category=self.category,
-                                                        sig=self.sig,
-                                                    )
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
 
     def test_product_rest_actions(self):
         """
@@ -749,19 +762,23 @@ class ProductTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:product-list'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse('rest_api:product-detail', kwargs={'pk':self.product.id}))
+        response = self.client.get(
+            reverse(
+                'rest_api:product-detail',
+                kwargs={'pk': self.product.id}
+            )
+        )
         self.assertEqual(response.status_code, 200)
-
 
         ##
         # Testing creating a new event
         ##
         response = self.client.post(
-                            reverse('rest_api:product-list'),
-                            data=json.dumps(product, default=str),
-                            content_type='application/json'
+            reverse('rest_api:product-list'),
+            data=json.dumps(product, default=str),
+            content_type='application/json'
 
-                        )
+        )
         self.assertEqual(response.status_code, 201)
         for k in ('name', 'description'):
             self.assertEqual(str(response.json()[k]), str(product[k]))
@@ -773,13 +790,13 @@ class ProductTestCase(TestCase):
         ##
         product["name"] = "test1"
         response = self.client.put(
-                            reverse(
-                                'rest_api:product-detail',
-                                kwargs={'pk':response.json()['id']}
-                            ),
-                            data=json.dumps(product, default=str),
-                            content_type='application/json'
-                        )
+            reverse(
+                'rest_api:product-detail',
+                kwargs={'pk': response.json()['id']}
+            ),
+            data=json.dumps(product, default=str),
+            content_type='application/json'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["name"], "test1")
 
@@ -791,18 +808,18 @@ class ProductTestCase(TestCase):
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
-                            reverse(
-                                'rest_api:product-detail',
-                                kwargs={'pk':product_id}
-                            )
-                        )
+            reverse(
+                'rest_api:product-detail',
+                kwargs={'pk': product_id}
+            )
+        )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
-                            reverse(
-                                'rest_api:product-detail',
-                                kwargs={'pk':product_id}
-                            )
-                        )
+            reverse(
+                'rest_api:product-detail',
+                kwargs={'pk': product_id}
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
         ##

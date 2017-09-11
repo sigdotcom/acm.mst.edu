@@ -31,10 +31,14 @@ class SIGManager(models.Manager):
         """
 
         if not kwargs.get('founder'):
-            raise ValueError("create_sig() must have the keyword argument 'founder'")
+            raise ValueError(
+                "create_sig() must have the keyword argument 'founder'"
+            )
 
         if not kwargs.get('description'):
-            raise ValueError("create_sig() must have the keywork argument 'description'")
+            raise ValueError(
+                "create_sig() must have the keywork argument 'description'"
+            )
 
         SIG = self.model(**kwargs)
         SIG.save(using=self._db)

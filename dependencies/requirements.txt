@@ -9,3 +9,4 @@ stripe
 selenium
 Pillow
 Sphinx
+flake8

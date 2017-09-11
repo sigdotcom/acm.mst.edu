@@ -10,7 +10,7 @@ def is_valid_email(email):
     """
     Ensures the any email passed into it adheres to the email domains
     specified in the ENFORCED_EMAIL_DOMAINS field in the settings.
-    
+
     :param email: The email to be validated.
     :type email: str
     :rtype: bool
@@ -26,7 +26,7 @@ def is_valid_email(email):
     for domain in valid_domains:
         if re.fullmatch(r'.+\..+', domain) is None:
             raise ImproperlyConfigured('Emails much match the pattern foo.foo')
-        if(re.fullmatch(r'.+@'+domain, email)):
+        if(re.fullmatch(r'.+@' + domain, email)):
             return True
 
     return False
