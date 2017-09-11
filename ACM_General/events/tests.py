@@ -353,7 +353,7 @@ class EventFormTestCase(TestCase):
             'flier': ['This field is required.'],
         })
 
-    def test_event_form_with_both_expiration_and_host_date_before_current_time(self):
+    def test_event_form_with_expire_and_host_date_before_current_time(self):
         test_data = self.data
         test_data['date_hosted'] = datetime.min
         test_data['date_expire'] = datetime.min + timezone.timedelta(days=1)

@@ -38,13 +38,14 @@ class ViewTestCase(LiveServerTestCase):
         # Testing initial login fails because of callback url
         ##
         response = self.client.get(
-            reverse('thirdparty_auth:login',
+            reverse(
+                'thirdparty_auth:login',
                 kwargs={
                    'auth_type': 'oauth2',
                    'auth_provider': 'google'
                 }
             ),
-           follow=True
+            follow=True
         )
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertIn(response.status_code, (404, 400))
@@ -56,7 +57,8 @@ class ViewTestCase(LiveServerTestCase):
             self.user, backend='accounts.backends.UserBackend'
         )
         response = self.client.get(
-            reverse('thirdparty_auth:login',
+            reverse(
+                'thirdparty_auth:login',
                 kwargs={
                     'auth_type': 'oauth2',
                     'auth_provider': 'google'
@@ -73,11 +75,12 @@ class ViewTestCase(LiveServerTestCase):
         # Testing that invalid auth_provider gives 404
         ##
         response = self.client.get(
-            reverse('thirdparty_auth:login',
-               kwargs={
-                   'auth_type': 'oauth2',
-                   'auth_provider': 'test'
-               }
+            reverse(
+                'thirdparty_auth:login',
+                kwargs={
+                    'auth_type': 'oauth2',
+                    'auth_provider': 'test'
+                }
             )
         )
         self.assertEqual(response.status_code, 404)
@@ -87,7 +90,8 @@ class ViewTestCase(LiveServerTestCase):
         # integration tests without a fake google account.
         ##
         response = self.client.get(
-            reverse('thirdparty_auth:callback',
+            reverse(
+                'thirdparty_auth:callback',
                 kwargs={
                     'auth_type': 'oauth2',
                     'auth_provider': 'google',
@@ -101,7 +105,8 @@ class ViewTestCase(LiveServerTestCase):
         # Testing invalid auth_provider
         ##
         response = self.client.get(
-            reverse('thirdparty_auth:callback',
+            reverse(
+                'thirdparty_auth:callback',
                 kwargs={
                     'auth_type': 'oauth2',
                     'auth_provider': 'test',
@@ -119,7 +124,8 @@ class ViewTestCase(LiveServerTestCase):
         session['state'] = 'test'
         session.save()
         response = self.client.get(
-            reverse('thirdparty_auth:callback',
+            reverse(
+                'thirdparty_auth:callback',
                 kwargs={
                     'auth_type': 'oauth2',
                     'auth_provider': 'google',
@@ -134,7 +140,8 @@ class ViewTestCase(LiveServerTestCase):
         # Testing Session-state with a bad auth_provider
         ##
         response = self.client.get(
-            reverse('thirdparty_auth:callback',
+            reverse(
+                'thirdparty_auth:callback',
                 kwargs={
                     'auth_type': 'oauth2',
                     'auth_provider': 'test',
