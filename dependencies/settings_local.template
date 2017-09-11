@@ -14,14 +14,12 @@ STATIC_URL = '/static/'
 SOCIAL_AUTH_CONFIG = {
     'oauth2': {
         'google': {
-            'client_id':'',
-            'client_secret':'',
-            'redirect_uri':'',
+            'client_id': '',
+            'client_secret': '',
+            'redirect_uri': '',
         },
     },
 }
-
-
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

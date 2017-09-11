@@ -6,6 +6,7 @@ class TransactionCategoryManager(models.Manager):
     """
     Used to automate the creation of Transaction Categories.
     """
+
     def get_by_natural_key(self, name):
         """
         :param name: The name of Transaction.
@@ -33,7 +34,8 @@ class TransactionCategoryManager(models.Manager):
 
     def create_category(self, name, **kwargs):
         """
-        Used to create a Transaction Category and save it to the database. (calls '_create_category')
+        Used to create a Transaction Category and save it to the database.
+        (calls '_create_category')
 
         :param name: The name of Transaction.
         :type name: str
@@ -48,6 +50,7 @@ class ProductManager(models.Manager):
     """
     Used to automate the creation of Products.
     """
+
     def get_by_natural_key(self, name):
         """
         :param name: The name of Product.
@@ -75,7 +78,8 @@ class ProductManager(models.Manager):
 
     def create_product(self, name, **kwargs):
         """
-        Used to create a Product and save it to the database (calls '_create_product').
+        Used to create a Product and save it to the database (calls
+        '_create_product').
 
         :param name: The name of Product.
         :type name: str
@@ -90,6 +94,7 @@ class TransactionManager(models.Manager):
     """
     Used to automate the creation of Transactions.
     """
+
     def get_by_natural_key(self, stripe_token):
         """
         :param stripe_token: The stripe token associated with the Transaction.
@@ -105,7 +110,8 @@ class TransactionManager(models.Manager):
         """
         The base function that gets called by 'create_transaction'.
 
-        :param stripe_token: The stripe token associated with the transaction in the Payment model.
+        :param stripe_token: The stripe token associated with the transaction
+                             in the Payment model.
         :type stripe_token: str
 
         :raises ValueError: If the transaction cost was less than or equal to
@@ -116,11 +122,11 @@ class TransactionManager(models.Manager):
         """
         cost = kwargs.get('cost', None)
 
-        if(cost == None):
+        if cost is None:
             raise ValueError('create_transaction() value must be greater than'
                              ' zero')
 
-        transaction = self.model(stripe_token=stripe_token, **kwargs);
+        transaction = self.model(stripe_token=stripe_token, **kwargs)
         transaction.save(using=self._db)
 
         return transaction

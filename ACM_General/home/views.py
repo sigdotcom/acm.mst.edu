@@ -20,7 +20,10 @@ def index(request):
     :return: The render template of the index page.
     """
 
-    events = Event.objects.filter(date_expire__gte=timezone.now()).order_by('date_hosted')
+    events = Event.objects.filter(
+        date_expire__gte=timezone.now()
+    ).order_by('date_hosted')
+
     if len(events) >= settings.MAX_HOME_FLIER_COUNT:
         events = events[:settings.MAX_HOME_FLIER_COUNT]
 
@@ -122,7 +125,8 @@ def membership(request):
             'home/membership.html',
         )
     )
-    
+
+
 def sigs(request):
     return (
         render(

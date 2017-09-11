@@ -34,42 +34,42 @@ class User(AbstractBaseUser):
 
     #: Stores the user's email.
     email = models.EmailField(
-                verbose_name=_('Email Address'),
-                help_text=_('A valid @mst.edu email address'),
-                unique=True,
-                db_index=True,
-            )
+        verbose_name=_('Email Address'),
+        help_text=_('A valid @mst.edu email address'),
+        unique=True,
+        db_index=True,
+    )
     #: Stores the user's first name.
     first_name = models.CharField(
-                        verbose_name=_('First Name'),
-                        max_length=30,
-                 )
+        verbose_name=_('First Name'),
+        max_length=30,
+    )
     #: Stores the user's last name.
     last_name = models.CharField(
-                        verbose_name=_('Last Name'),
-                        max_length=30,
-                )
+        verbose_name=_('Last Name'),
+        max_length=30,
+    )
     #: Stores when the user signs up.
     date_joined = models.DateTimeField(
-                        verbose_name=_('Date Joined'),
-                        auto_now_add=True,
-                        editable=False,
-                  )
+        verbose_name=_('Date Joined'),
+        auto_now_add=True,
+        editable=False,
+    )
     #: Whether or not a user account should be considered 'active'.
     is_active = models.BooleanField(
-                        verbose_name=_('Is Active'),
-                        default=True,
-                )
+        verbose_name=_('Is Active'),
+        default=True,
+    )
     #: Stores whether or not the user is staff.
     is_staff = models.BooleanField(
-                        verbose_name=_('Is Staff'),
-                        default=False,
-               )
+        verbose_name=_('Is Staff'),
+        default=False,
+    )
     #: Stores whether or not the user can access the admin panel.
     is_superuser = models.BooleanField(
-                        verbose_name=_('Is Superuser'),
-                        default=False,
-                   )
+        verbose_name=_('Is Superuser'),
+        default=False,
+    )
 
     @property
     def is_admin(self):

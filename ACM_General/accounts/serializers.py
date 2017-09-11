@@ -22,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
         :type email: str
         :rtype: bool
         :return: True if the email has a domain of mst.edu,
-                 otherwise Error. 
+                 otherwise Error.
         """
 
         if is_valid_email(email):
@@ -36,10 +36,10 @@ class UserSerializer(serializers.ModelSerializer):
         Create and return an instance of the User model designated by the
         validated_data if no ValidationErrors were raised.
 
-        :param validated_data: Data used for the creation of a new 
+        :param validated_data: Data used for the creation of a new
                                User instance..
         :type validated_data: dict
-        :rtype: User 
+        :rtype: User
         :return: An instance of the User model defined by validated_data.
         """
 

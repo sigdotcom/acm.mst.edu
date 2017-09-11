@@ -25,6 +25,7 @@ before_script:
 
 script:
   - coverage run --source "." manage.py test
+  - flake8 ACM_General/ --exclude="ACM_General/settings*.py, manage.py"
 
 after_success:
   - coveralls

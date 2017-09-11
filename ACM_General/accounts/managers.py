@@ -1,7 +1,8 @@
 # Django
 from core.actions import is_valid_email
 from django.contrib.auth.base_user import BaseUserManager
-from django.db import models
+# Will be used if other managers return
+# from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -98,6 +99,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self._create_user(email, **extra_fields)
+
 
 '''
 class PermissionManager(models.Manager):

@@ -15,10 +15,11 @@ class UserModelCase(TestCase):
     """
     Testing that the User model behaves as intended.
     """
+
     def setUp(self):
         """
         Ensures that tests are set up properly before execution.
-        Initializes any required variables and data. 
+        Initializes any required variables and data.
         Creates two test Users.
 
         :rtype: None
@@ -39,7 +40,7 @@ class UserModelCase(TestCase):
 
     def test_duplicate_user_error(self):
         """
-        Ensures that erroneous duplicate user creation is caught 
+        Ensures that erroneous duplicate user creation is caught
         and handled properly.
 
         :rtype: None
@@ -74,10 +75,10 @@ class UserModelCase(TestCase):
             )
 
         models.User.objects.get(
-                email="test@mst.edu",
-                first_name="test_me",
-                last_name="test_please",
-            )
+            email="test@mst.edu",
+            first_name="test_me",
+            last_name="test_please",
+        )
 
     def test_can_edit_user(self):
         """
@@ -94,7 +95,9 @@ class UserModelCase(TestCase):
         self.assertEqual(user.email, "test@mst.edu")
         user.email = "GETCHANGEDKID@mst.edu"
         user.save(update_fields=['email'])
-        self.assertIsNotNone(models.User.objects.get(email="GETCHANGEDKID@mst.edu"))
+        self.assertIsNotNone(
+            models.User.objects.get(email="GETCHANGEDKID@mst.edu")
+        )
 
     def test_user_model_member_functions(self):
         """
@@ -124,6 +127,7 @@ class ManagerTestCase(TestCase):
     """
     Testing the User Manager and all of its member functions.
     """
+
     def setUp(self):
         """
         Ensures that tests are set up properly before execution.
@@ -141,10 +145,10 @@ class ManagerTestCase(TestCase):
         :rtype: None
         :return: None
         """
-        user = models.User.objects.create_user('testme@mst.edu')
+        models.User.objects.create_user('testme@mst.edu')
         self.assertIsNotNone(
-                models.User.objects.get_by_natural_key('testme@mst.edu')
-            )
+            models.User.objects.get_by_natural_key('testme@mst.edu')
+        )
         with self.assertRaises(models.User.DoesNotExist):
             models.User.objects.get_by_natural_key('notindatabase@mst.edu')
 
@@ -168,11 +172,11 @@ class ManagerTestCase(TestCase):
             user = models.User.objects.create_user('@mst.edu')
 
         user = models.User.objects.create_user(
-                                        'test@mst.edu',
-                                        first_name="Test",
-                                        last_name="Me",
-                                        is_active=True,
-                                    )
+            'test@mst.edu',
+            first_name="Test",
+            last_name="Me",
+            is_active=True,
+        )
         self.assertEqual(user.email, 'test@mst.edu')
         self.assertEqual(user.first_name, "Test")
         self.assertEqual(user.last_name, "Me")
@@ -187,7 +191,9 @@ class ManagerTestCase(TestCase):
         :rtype: None
         :return: None
         """
-        self.assertIsNotNone(models.User.objects.create_superuser('testadmin2@mst.edu'))
+        self.assertIsNotNone(
+            models.User.objects.create_superuser('testadmin2@mst.edu')
+        )
         with self.assertRaises(ValueError):
             models.User.objects.create_superuser('test@fail.com')
         with self.assertRaises(TypeError):
@@ -200,21 +206,21 @@ class ManagerTestCase(TestCase):
             models.User.objects.create_superuser('@mst.edu')
         with self.assertRaises(ValueError):
             models.User.objects.create_superuser(
-                                        'fdksalj@mst.edu',
-                                        is_staff=False
-                                )
+                'fdksalj@mst.edu',
+                is_staff=False
+            )
         with self.assertRaises(ValueError):
             models.User.objects.create_superuser(
-                                        'fdksalj@mst.edu',
-                                        is_superuser=False
-                                )
+                'fdksalj@mst.edu',
+                is_superuser=False
+            )
 
         user = models.User.objects.create_superuser(
-                                        'testadmin@mst.edu',
-                                        first_name="Test",
-                                        last_name="Me",
-                                        is_active=True,
-                                    )
+            'testadmin@mst.edu',
+            first_name="Test",
+            last_name="Me",
+            is_active=True,
+        )
 
         self.assertEqual(user.email, "testadmin@mst.edu")
         self.assertEqual(user.first_name, "Test")
@@ -249,7 +255,9 @@ class ViewTestCase(TestCase):
         :return: None
         """
 
-        response = self.client.get(reverse('accounts:user-logout'), follow=True)
+        response = self.client.get(
+            reverse('accounts:user-logout'), follow=True
+        )
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')
@@ -263,7 +271,6 @@ class ViewTestCase(TestCase):
         """
         TODO: Implement with Selenium
         """
-        pass
 
     def test_logout_system(self):
         """
@@ -275,14 +282,15 @@ class ViewTestCase(TestCase):
         :return: None
         """
         user = models.User.objects.create_user(email="testclient@mst.edu",
-                                         first_name="Client",
-                                         last_name="Client")
+                                               first_name="Client",
+                                               last_name="Client")
         self.assertIsNotNone(user)
         self.client.force_login(user, backend='accounts.backends.UserBackend')
         self.assertIsNotNone(self.client.session['_auth_user_id'])
         response = self.client.get(reverse('accounts:user-logout'))
         with self.assertRaises(KeyError):
             self.client.session['_auth_user_id']
+        self.assertEqual(response.status_code, 302)
 
 
 class UserAuthBackendCase(TestCase):
@@ -304,23 +312,29 @@ class UserAuthBackendCase(TestCase):
         models.User.objects.create_user("test@mst.edu")
         models.User.objects.create_user("test2@mst.edu", is_active=False)
 
-
     def test_authenticate_function(self):
         """
-        Ensures that the authenticate function in the Backend works as intended.
+        Ensures that the authenticate function in the Backend works as
+        intended.
 
         :rtype: None
         :return: None
         """
 
-
-        self.assertEqual(self.backend.authenticate(email="fail@mst.edu"), None)
+        self.assertEqual(
+            self.backend.authenticate(email="fail@mst.edu"), None
+        )
         self.assertIsNotNone(self.backend.authenticate(email="test@mst.edu"))
-        self.assertEqual(self.backend.authenticate(email="fail2@mst.edu"), None)
+        self.assertEqual(
+            self.backend.authenticate(email="fail2@mst.edu"), None
+        )
         self.assertEqual(self.backend.authenticate(), None)
-        models.User.objects.create_user('thisisatest@mst.edu', is_active=False)
-        self.assertEqual(self.backend.authenticate('thisisatest@mst.edu'), None)
-
+        models.User.objects.create_user(
+            'thisisatest@mst.edu', is_active=False
+        )
+        self.assertEqual(
+            self.backend.authenticate('thisisatest@mst.edu'), None
+        )
 
     def test_user_can_authenticate_function(self):
         """
@@ -329,8 +343,12 @@ class UserAuthBackendCase(TestCase):
         :rtype: None
         :return: None
         """
-        self.assertEqual(self.backend.user_can_authenticate(models.User.objects.get(email="test@mst.edu")), True)
-        self.assertEqual(self.backend.user_can_authenticate(models.User.objects.get(email="test2@mst.edu")), False)
+        self.assertEqual(self.backend.user_can_authenticate(
+            models.User.objects.get(email="test@mst.edu")), True
+        )
+        self.assertEqual(self.backend.user_can_authenticate(
+            models.User.objects.get(email="test2@mst.edu")), False
+        )
         with self.assertRaises(TypeError):
             self.assertEqual(self.backend.user_can_authenticate())
 
@@ -339,18 +357,18 @@ class UserAuthBackendCase(TestCase):
         self.assertIsNotNone(self.backend.get_user(user.id))
 
         self.assertEqual(
-                self.backend.get_user(uuid.uuid1()),
-                None
+            self.backend.get_user(uuid.uuid1()),
+            None
         )
+
 
 class PermissionModelTestCase(TestCase):
     """
     TODO: Implement after Permissions.
     """
-    pass
+
 
 class GroupModelTestCase(TestCase):
     """
     TODO: Implement after Groups.
     """
-    pass

@@ -11,11 +11,13 @@ from events.forms import EventForm
 from sigs.models import SIG
 from events.models import Event
 
+
 class HomeViewCase(TestCase):
     """
     A class that tests whether pages function work
     and verifies the events function as expected
     """
+
     def setUp(self):
         """
         Sets up an testing event with test data and a super user.
@@ -32,13 +34,17 @@ class HomeViewCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=open(image_path, 'rb').read(),
+            content_type='multipart/form-data'
+        )
 
         # Test data for filling the event form
         self.data = {
             'creator': self.user,
-            'date_hosted': timezone.now()+timezone.timedelta(days=1),
-            'date_expire': timezone.now()+timezone.timedelta(days=7),
+            'date_hosted': timezone.now() + timezone.timedelta(days=1),
+            'date_expire': timezone.now() + timezone.timedelta(days=7),
             'hosting_sig': self.sig,
             'title': 'Test Title',
             'description': 'Here is a test description',
@@ -88,11 +94,11 @@ class HomeViewCase(TestCase):
         self.assertTemplateUsed(response, 'home/sigs.html')
 
     def test_number_of_fliers_that_appear_on_home_page(self):
-        """ 
+        """
         On top of testing that the correct number of events appear on the
         homepage, this test also makes sure that the correct number of events
         get added to the database.
-        
+
         :rtype: None
         :return: None
         """
@@ -100,18 +106,20 @@ class HomeViewCase(TestCase):
         number_of_events = 4
 
         # Adds 4 events to the database
-        for i in range(1,number_of_events+1):
+        for i in range(1, number_of_events + 1):
             self.data['title'] = "Test Title {}".format(i)
-            self.data['date_hosted'] = timezone.now() + timezone.timedelta(days=i)
+            self.data['date_hosted'] = (
+                timezone.now() + timezone.timedelta(days=i)
+            )
             form = EventForm(self.data, self.image_data)
             if form.is_valid():
                 event = form.save(commit=False)
                 event.creator = self.user
                 event.save()
 
-            # Resets the image pointer to be pointing at the beginning of the image
-            # file rather than the end which would cause an error with the 'put'
-            # command.
+            # Resets the image pointer to be pointing at the beginning of the
+            # image file rather than the end which would cause an error with
+            # the 'put' command.
             self.image.seek(0)
 
         # Makes sure the correct number of events were added to the database.
