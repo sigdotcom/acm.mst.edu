@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 def user_logout(request):
     """
-    View called in order to log out a user followed by a 
+    View called in order to log out a user followed by a
     redirect to the base url.
 
     :param request: Request to log out a user.
@@ -16,6 +16,7 @@ def user_logout(request):
     """
     logout(request)
     return HttpResponseRedirect('/')
+
 
 def user_login(request):
     """

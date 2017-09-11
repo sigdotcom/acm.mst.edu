@@ -11,6 +11,7 @@ class SIGManagerCase(TestCase):
     """
     Tests for the SIGManager
     """
+
     def setUp(self):
         super(TestCase, self).setUp()
 
@@ -22,17 +23,16 @@ class SIGManagerCase(TestCase):
         :return: None
         """
         user = User.objects.create_user('test@mst.edu')
-        sig = models.SIG.objects.create_sig(
-                                id="sig_sec",
-                                founder=user,
-                                chair=user,
-                                description="test",
-                            )
+        models.SIG.objects.create_sig(
+            id="sig_sec",
+            founder=user,
+            chair=user,
+            description="test",
+        )
 
         self.assertIsNotNone(models.SIG.objects.get_by_natural_key("sig_sec"))
         with self.assertRaises(models.SIG.DoesNotExist):
             models.SIG.objects.get_by_natural_key("test")
-
 
     def test_create_sig_function(self):
         """
@@ -51,21 +51,23 @@ class SIGManagerCase(TestCase):
             models.SIG.objects.create_sig(id='test', founder=user)
 
         sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=user,
-                                chair=user,
-                        )
+            id='test',
+            description='test',
+            founder=user,
+            chair=user,
+        )
 
         self.assertEqual(sig.id, 'test')
         self.assertEqual(sig.description, 'test')
         self.assertEqual(sig.founder, user)
         self.assertEqual(sig.chair, user)
 
+
 class SIGModelCase(TestCase):
     """
     Test suite for SIG models and their functions.
     """
+
     def setUp(self):
         self.user = User.objects.create_user('test@mst.edu')
         super().setUp()
@@ -79,11 +81,11 @@ class SIGModelCase(TestCase):
         """
 
         sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=self.user,
-                                chair=self.user,
-                        )
+            id='test',
+            description='test',
+            founder=self.user,
+            chair=self.user,
+        )
         self.assertEqual(str(sig), sig.id)
 
     def test_sig_unique_constraint(self):
@@ -94,34 +96,34 @@ class SIGModelCase(TestCase):
         :rtype: None
         :return: None
         """
-        sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=self.user,
-                                chair=self.user,
-                        )
+        models.SIG.objects.create_sig(
+            id='test',
+            description='test',
+            founder=self.user,
+            chair=self.user,
+        )
 
         with self.assertRaises(IntegrityError):
-            sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=self.user,
-                                chair=self.user,
-                        )
+            models.SIG.objects.create_sig(
+                id='test',
+                description='test',
+                founder=self.user,
+                chair=self.user,
+            )
 
     def test_can_retrieve_sigs(self):
         """
         Verifies the uniqueness consraint for SIG creation.
-        
+
         :rtype: None
         :return: None
         """
-        sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=self.user,
-                                chair=self.user,
-                        )
+        models.SIG.objects.create_sig(
+            id='test',
+            description='test',
+            founder=self.user,
+            chair=self.user,
+        )
 
         self.assertIsNotNone(models.SIG.objects.get(id='test'))
         self.assertIsNotNone(models.SIG.objects.all())
@@ -137,11 +139,11 @@ class SIGModelCase(TestCase):
         :return: None
         """
         sig = models.SIG.objects.create_sig(
-                                id='test',
-                                description='test',
-                                founder=self.user,
-                                chair=self.user,
-                        )
+            id='test',
+            description='test',
+            founder=self.user,
+            chair=self.user,
+        )
         self.assertEqual(sig.is_active, True)
         sig.is_active = False
         sig.save(update_fields=['is_active'])

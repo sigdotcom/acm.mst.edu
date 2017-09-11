@@ -31,8 +31,8 @@ MAX_HOME_FLIER_COUNT = 3
 
 ###
 # Stripe Keys
-## These values are set in /dependencies/env_vars.template and copied into
-## /etc/uwsgi/apps-availabble/.
+# These values are set in /dependencies/env_vars.template and copied into
+# /etc/uwsgi/apps-availabble/.
 ###
 STRIPE_PRIV_KEY = os.environ.get('STRIPE_PRIV_KEY', None)
 STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY', None)
@@ -48,7 +48,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.backends.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.backends.DjangoFilterBackend',
+    )
 }
 
 
@@ -109,16 +111,20 @@ WSGI_APPLICATION = 'ACM_General.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.NumericPasswordValidator',
     },
 ]
 

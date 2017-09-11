@@ -1,9 +1,9 @@
-#third-party
+# third-party
 from rest_framework import mixins
 from rest_framework import generics
-from rest_framework import permissions
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+# from rest_framework import permissions
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
 
 # local Django
 from . import filters
@@ -12,7 +12,9 @@ from accounts.serializers import UserSerializer
 from events.models import Event
 from events.serializers import EventSerializer
 from payments.models import Transaction, Product, TransactionCategory
-from payments.serializers import TransactionSerializer, ProductSerializer, CategorySerializer
+from payments.serializers import TransactionSerializer, ProductSerializer
+from payments.serializers import CategorySerializer
+
 from sigs.models import SIG
 from sigs.serializers import SIGSerializer
 # from rest_api.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
@@ -107,7 +109,7 @@ class EventList(mixins.ListModelMixin,
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    #filter_class = filters.EventFilter
+    # filter_class = filters.EventFilter
 
     def get(self, request, *args, **kwargs):
         """
@@ -272,15 +274,15 @@ class SIGDetail(mixins.RetrieveModelMixin,
 
 
 class TransactionList(mixins.ListModelMixin,
-               mixins.CreateModelMixin,
-               generics.GenericAPIView):
+                      mixins.CreateModelMixin,
+                      generics.GenericAPIView):
     """
     Lists all Transactions or creates a new Transaction List.
     """
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
-    #filter_class = filters.UserFilter
+    # filter_class = filters.UserFilter
 
     def get(self, request, *args, **kwargs):
         """
@@ -308,9 +310,9 @@ class TransactionList(mixins.ListModelMixin,
 
 
 class TransactionDetail(mixins.RetrieveModelMixin,
-                 mixins.UpdateModelMixin,
-                 mixins.DestroyModelMixin,
-                 generics.GenericAPIView):
+                        mixins.UpdateModelMixin,
+                        mixins.DestroyModelMixin,
+                        generics.GenericAPIView):
     """
     Retrieve, updates, or delete a Transaction.
     """
@@ -354,14 +356,14 @@ class TransactionDetail(mixins.RetrieveModelMixin,
 
 
 class ProductList(mixins.ListModelMixin,
-               mixins.CreateModelMixin,
-               generics.GenericAPIView):
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
     """
     List all Products or create a new Product.
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    #filter_class = filters.UserFilter
+    # filter_class = filters.UserFilter
 
     def get(self, request, *args, **kwargs):
         """
@@ -389,9 +391,9 @@ class ProductList(mixins.ListModelMixin,
 
 
 class ProductDetail(mixins.RetrieveModelMixin,
-                 mixins.UpdateModelMixin,
-                 mixins.DestroyModelMixin,
-                 generics.GenericAPIView):
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
     """
     Retrieve, updates, or delete a Product.
     """
@@ -435,15 +437,15 @@ class ProductDetail(mixins.RetrieveModelMixin,
 
 
 class CategoryList(mixins.ListModelMixin,
-               mixins.CreateModelMixin,
-               generics.GenericAPIView):
+                   mixins.CreateModelMixin,
+                   generics.GenericAPIView):
     """
     List all Categories or create a new Category.
     """
     queryset = TransactionCategory.objects.all()
     serializer_class = CategorySerializer
 
-    #filter_class = filters.UserFilter
+    # filter_class = filters.UserFilter
 
     def get(self, request, *args, **kwargs):
         """
@@ -470,9 +472,9 @@ class CategoryList(mixins.ListModelMixin,
 
 
 class CategoryDetail(mixins.RetrieveModelMixin,
-                 mixins.UpdateModelMixin,
-                 mixins.DestroyModelMixin,
-                 generics.GenericAPIView):
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin,
+                     generics.GenericAPIView):
     """
     Retrieve, updates, or delete a Category.
     """

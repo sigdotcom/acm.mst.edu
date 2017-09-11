@@ -8,7 +8,8 @@ from .models import Event
 
 class EventForm(ModelForm):
     """
-    This class is used for combining the Event Class model with a form (ModelForm).
+    This class is used for combining the Event Class model with a form
+    (ModelForm).
     """
     class Meta:
         model = Event

@@ -11,6 +11,7 @@ class ActionsTestCase(TestCase):
     """
     Testing that various core actions work as intended.
     """
+
     def setUp(self):
         """
         Ensures the tests are set up properly before execution.
@@ -32,11 +33,13 @@ class ActionsTestCase(TestCase):
         self.assertIsNotNone(valid_domains)
 
         for domain in valid_domains:
-            self.assertEqual(actions.is_valid_email(r'test@'+domain), True)
+            self.assertEqual(actions.is_valid_email(r'test@' + domain), True)
             self.assertEqual(actions.is_valid_email(domain), False)
-            self.assertEqual(actions.is_valid_email(r'@'+domain), False)
+            self.assertEqual(actions.is_valid_email(r'@' + domain), False)
 
-        self.assertEqual(actions.is_valid_email('test@thisisntavalidemail.com'), False)
+        self.assertEqual(actions.is_valid_email(
+            'test@thisisntavalidemail.com'), False
+        )
         self.assertEqual(actions.is_valid_email('test'), False)
         self.assertEqual(actions.is_valid_email('@test.com'), False)
         self.assertEqual(actions.is_valid_email('.com'), False)
@@ -51,6 +54,7 @@ class ActionsTestCase(TestCase):
 
         with self.assertRaises(TypeError):
             actions.is_valid_email()
+
 
 class ViewTestCase(TestCase):
     """

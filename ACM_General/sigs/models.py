@@ -48,7 +48,8 @@ class SIG(models.Model):
         on_delete=models.CASCADE,
         related_name="founder",
     )
-    #: The user that is currently chair of the SIG; represented as a ForeignKey.
+    #: The user that is currently chair of the SIG; represented as a
+    #: ForeignKey.
     chair = models.ForeignKey(
         User,
         verbose_name=_('SIG Chair'),

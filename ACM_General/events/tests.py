@@ -1,14 +1,13 @@
 # standard library
 from datetime import datetime
 import os
-import shutil
 import tempfile
 
 # Django
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import transaction
-from django.db.utils import IntegrityError
+# from django.db.utils import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -47,7 +46,7 @@ class ManagerTestCase(TestCase):
                     hosting_sig=self.sig,
                     title='test',
                     date_hosted=timezone.now(),
-                    date_expire=timezone.now()-timezone.timedelta(days=1),
+                    date_expire=timezone.now() - timezone.timedelta(days=1),
                 )
 
         with transaction.atomic():
@@ -101,7 +100,11 @@ class ModelTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=open(image_path, 'rb').read(),
+            content_type='multipart/form-data'
+        )
 
         self.temp_dir = tempfile.TemporaryDirectory()
         settings.MEDIA_ROOT = self.temp_dir.name
@@ -122,19 +125,22 @@ class ModelTestCase(TestCase):
             location='test location',
         )
 
-        # This event model is correct besides the fact that by the time the 'is_active' function is called,
-        # it will notice that the host and expiration date fall before the current date (by some amount of
-        # micro-seconds) and will give a ValidationError; but this error is only raised if the clean method
-        # for the event model is called which is by default for models, not called. But for this scenario,
-        # that's okay since we're testing to make sure the 'is_active' method works correctly.
+        # This event model is correct besides the fact that by the time the
+        # 'is_active' function is called, it will notice that the host and
+        # expiration date fall before the current date (by some amount of
+        # micro-seconds) and will give a ValidationError; but this error is
+        # only raised if the clean method for the event model is called which
+        # is by default for models, not called. But for this scenario, that's
+        # okay since we're testing to make sure the 'is_active' method works
+        # correctly.
         self.assertFalse(event.is_active)
 
         event2 = models.Event.objects.create(
             creator=self.user,
             hosting_sig=self.sig,
             title='test',
-            date_hosted=timezone.now()+timezone.timedelta(hours=1),
-            date_expire=timezone.now()+timezone.timedelta(hours=2),
+            date_hosted=timezone.now() + timezone.timedelta(hours=1),
+            date_expire=timezone.now() + timezone.timedelta(hours=2),
             flier=self.image,
             description='Here is a test description',
             location='test location',
@@ -151,18 +157,25 @@ class ModelTestCase(TestCase):
             hosting_sig=self.sig,
             title='test',
             date_hosted=test_date,
-            date_expire=timezone.now()+timezone.timedelta(hours=2),
+            date_expire=timezone.now() + timezone.timedelta(hours=2),
             flier=self.image,
             description='Here is a test description',
             location='test location',
         )
 
-        # Cleans the model by calling clean_fields(), clean(), and validate_unique() methods
+        # Cleans the model by calling clean_fields(), clean(), and
+        # validate_unique() methods
         event.full_clean()
 
         # Checks that image is created inside the correct directory
         test_date = str(test_date)[:10]
-        self.assertTrue(os.path.exists('{}/{}/{}/test_image.jpg'.format(settings.MEDIA_ROOT, settings.FLIERS_PATH, test_date)))
+        self.assertTrue(
+            os.path.exists(
+                '{}/{}/{}/test_image.jpg'.format(
+                    settings.MEDIA_ROOT, settings.FLIERS_PATH, test_date
+                )
+            )
+        )
 
 
 class ViewTestCase(TestCase):
@@ -180,10 +193,15 @@ class ViewTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=open(image_path, 'rb').read(),
+            content_type='multipart/form-data'
+        )
 
-        # Have to specify the datetime formats since these datetimes are being done through the create-event page
-        # rather than being created via the model or modelform.
+        # Have to specify the datetime formats since these datetimes are being
+        # done through the create-event page rather than being created via the
+        # model or modelform.
         test_date1 = str(timezone.now() + timezone.timedelta(days=1))[:16]
         test_date2 = str(timezone.now() + timezone.timedelta(days=2))[:16]
 
@@ -244,14 +262,21 @@ class ViewTestCase(TestCase):
         invalid_data['title'] = ''
         invalid_data['flier'] = ''
 
-        # Sends the invalid event data and asserts that the create-event page is rendered again.
-        response = self.client.post(reverse('events:create-event'), invalid_data)
+        # Sends the invalid event data and asserts that the create-event page
+        # is rendered again.
+        response = self.client.post(
+            reverse('events:create-event'), invalid_data
+        )
         self.assertTemplateUsed(response, 'events/create-event.html')
 
-        # Asserts that the following errors appear in the form variable that is passed
-        # back to the create_event page.
-        self.assertFormError(response, 'form', 'title', 'This field is required.')
-        self.assertFormError(response, 'form', 'flier', 'This field is required.')
+        # Asserts that the following errors appear in the form variable that is
+        # passed back to the create_event page.
+        self.assertFormError(
+            response, 'form', 'title', 'This field is required.'
+        )
+        self.assertFormError(
+            response, 'form', 'flier', 'This field is required.'
+        )
 
         # Verifies that no Event objects have been added to the database
         self.assertEqual(models.Event.objects.count(), 0)
@@ -270,13 +295,17 @@ class EventFormTestCase(TestCase):
 
         # Sets up image variable for creating Event
         image_path = 'test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=open(image_path, 'rb').read(),
+            content_type='multipart/form-data'
+        )
 
         # Test data for filling the event form
         self.data = {
             'creator': self.user,
-            'date_hosted': timezone.now()+timezone.timedelta(days=1),
-            'date_expire': timezone.now()+timezone.timedelta(days=2),
+            'date_hosted': timezone.now() + timezone.timedelta(days=1),
+            'date_expire': timezone.now() + timezone.timedelta(days=2),
             'hosting_sig': self.sig,
             'title': 'Test Title',
             'description': 'Here is a test description',
@@ -309,8 +338,14 @@ class EventFormTestCase(TestCase):
         test_form = EventForm(test_data)
         self.assertFalse(test_form.is_valid())
         self.assertEqual(test_form.errors, {
-            'date_hosted': ['This field is required.', 'Please fill out the host date field.'],
-            'date_expire': ['This field is required.', 'Please fill out the expiration date field.'],
+            'date_hosted': [
+                'This field is required.',
+                'Please fill out the host date field.'
+            ],
+            'date_expire': [
+                'This field is required.',
+                'Please fill out the expiration date field.'
+            ],
             'hosting_sig': ['This field is required.'],
             'title': ['This field is required.'],
             'description': ['This field is required.'],
@@ -325,8 +360,12 @@ class EventFormTestCase(TestCase):
         test_form = EventForm(test_data, self.image_data)
         self.assertFalse(test_form.is_valid())
         self.assertEqual(test_form.errors, {
-            'date_hosted': ['The host date shouldn\'t be before the current date!'],
-            'date_expire': ['The expiration date shouldn\'t be before the current date!'],
+            'date_hosted': [
+                'The host date shouldn\'t be before the current date!'
+            ],
+            'date_expire': [
+                'The expiration date shouldn\'t be before the current date!'
+            ],
         })
 
     def test_event_form_with_expiration_date_before_host_date(self):
@@ -336,7 +375,9 @@ class EventFormTestCase(TestCase):
         test_form = EventForm(test_data, self.image_data)
         self.assertFalse(test_form.is_valid())
         self.assertEqual(test_form.errors, {
-            'date_hosted': ['The host date shouldn\'t be before the current date!'],
+            'date_hosted': [
+                'The host date shouldn\'t be before the current date!'
+            ],
             'date_expire': [
                 'The expiration date shouldn\'t be before the current date!',
                 'The expiration date shouldn\'t be before the host date!'
