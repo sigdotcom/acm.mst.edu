@@ -76,17 +76,18 @@ iframe:before {
   padding-top: 68%;
 }
 
-#calendar-title {
+.calendar-title {
   text-align: center;
   font-family: RobotoLight, Sans-Serif;
   color: rgba(0, 0, 0, 0.87);
 }
 
-#calendar-wrapper {
+.calendar-wrapper {
   display: block !important;
   position: relative;
   width: 100%;
   padding-top: 68%;
+  margin-bottom: 10px;
 }
 
 iframe {
@@ -97,7 +98,7 @@ iframe {
   height: 100%;
 }
 
-#agenda-wrapper {
+.agenda-wrapper {
   display: none !important;
   position: relative;
   width: 100%;
@@ -153,11 +154,11 @@ iframe {
 
 @media (max-width: 750px) {
 
-  #calendar-wrapper {
+  .calendar-wrapper {
     display: none !important;
   }
 
-  #agenda-wrapper {
+  .agenda-wrapper {
     display: block !important;
   }
 }

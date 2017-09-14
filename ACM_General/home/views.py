@@ -51,24 +51,6 @@ def sponsors(request):
         )
     )
 
-
-def calendar(request):
-    """
-    Handles a request to see the calendar page.
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
-    :return: The render template of the calendar page.
-    """
-    return (
-        render(
-            request,
-            'home/calendar.html',
-        )
-    )
-
-
 def media(request):
     """
     Handles a request to see the media page.
