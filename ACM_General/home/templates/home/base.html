@@ -47,8 +47,6 @@
 {% endblock %}
 
 {% block head_fonts %}
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
-        rel="stylesheet">
 {% endblock %}
 
 {% block body_header %}
@@ -85,9 +83,6 @@
           <a href="{% url "home:sponsors" %}">Sponsors</a>
         </li>
         <li>
-          <a href="{% url "home:calendar" %}">Calendar</a>
-        </li>
-        <li>
           <a href="{% url "home:media" %}">Media</a>
         </li>
         <li>
@@ -121,11 +116,6 @@
                                                title="Sponsors">
           <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
           <span>Sponsors</span>
-        </a></li>
-        <li class="nav-calendar nav-button"><a href="{% url "home:calendar" %}"
-                                               title="Calendar">
-          <img src="{% static "home/img/core/calendar-icon.png" %}"/>
-          <span>Calendar</span>
         </a></li>
         <li class="nav-media nav-button"><a href="{% url "home:media" %}"
                                             title="Media">

@@ -23,7 +23,7 @@ html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
-  font-family: 'Roboto', sans-serif;
+  font-family: RobotoRegular, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -229,7 +229,7 @@ nav .nav-link-wrapper {
   cursor: pointer;
 
   display: inline-block;
-  width: 14.28571428571%;
+  width: 16.666666666666666666%;
 }
 
 .nav-button:hover a span {

@@ -10,4 +10,19 @@ $top-text-color: rgba(0, 0, 0, 0.87);
 $split-text-color: rgba(0, 0, 0, 0.8);
 $sub-text-color: rgba(0, 0, 0, 0.7);
 
-$font-stack: 'Roboto', sans-serif;
+$font-stack: RobotoRegular, sans-serif;
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Light.ttf);
+  font-family: RobotoLight;
+}
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Regular.ttf);
+  font-family: RobotoRegular;
+}
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Bold.ttf);
+  font-family: RobotoBold;
+}

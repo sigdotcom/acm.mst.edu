@@ -12,13 +12,12 @@ def index(request):
     Renders the template for the index page. With that is also grabs next
     events, the number of which depends on settings.MAX_HOME_FLIER_COUNT,
     that aren't past expiry.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the index page.
-    """
+    """ 
 
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
@@ -39,13 +38,11 @@ def index(request):
 def sponsors(request):
     """
     Handles a request to see the sponsors page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
     :rtype: django.shortcut.render
     :return: The render template of the sponsors page.
-
     """
     return (
         render(
@@ -58,7 +55,6 @@ def sponsors(request):
 def calendar(request):
     """
     Handles a request to see the calendar page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
@@ -76,7 +72,6 @@ def calendar(request):
 def media(request):
     """
     Handles a request to see the media page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
@@ -94,7 +89,6 @@ def media(request):
 def officers(request):
     """
     Handles a request to see the officers page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
@@ -112,7 +106,6 @@ def officers(request):
 def membership(request):
     """
     Handles a request to see the membership page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest

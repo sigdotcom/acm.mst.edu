@@ -70,6 +70,34 @@
   margin-bottom: 35px;
 }
 
+iframe:before {
+  position: relative;
+  width: 100%;
+  padding-top: 68%;
+}
+
+#calendar-wrapper {
+  display: block !important;
+  position: relative;
+  width: 100%;
+  padding-top: 68%;
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#agenda-wrapper {
+  display: none !important;
+  position: relative;
+  width: 100%;
+  height: 550px;
+}
+
 @media (max-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .event-card {
@@ -114,6 +142,17 @@
   .flier-space {
     height: 400px;
     margin-right: 0;
+  }
+}
+
+@media (max-width: 750px) {
+
+  #calendar-wrapper {
+    display: none !important;
+  }
+
+  #agenda-wrapper {
+    display: block !important;
   }
 }
 
