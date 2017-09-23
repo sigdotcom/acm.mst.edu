@@ -1,3 +1,6 @@
+"""
+Contains all unit tests for the accounts app.
+"""
 # standard library
 import uuid
 
@@ -22,8 +25,8 @@ class UserModelCase(TestCase):
         Initializes any required variables and data.
         Creates two test Users.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         super().setUp()
         models.User.objects.create(
@@ -43,8 +46,8 @@ class UserModelCase(TestCase):
         Ensures that erroneous duplicate user creation is caught
         and handled properly.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         with self.assertRaises(IntegrityError):
             models.User.objects.create(
@@ -62,8 +65,8 @@ class UserModelCase(TestCase):
         """
         Ensures that the ability to retrieve users is working as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         self.assertIsNotNone(models.User.objects.get(email="test@mst.edu"))
         self.assertIsNotNone(models.User.objects.all())
@@ -84,8 +87,8 @@ class UserModelCase(TestCase):
         """
         Ensures that the ability to edit users is working as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         user = models.User.objects.get(email="test@mst.edu")
         self.assertIsNotNone(user)
@@ -103,8 +106,8 @@ class UserModelCase(TestCase):
         """
         Ensures that the user model member functions are working as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         user = models.User.objects.create(
             email="johndoe@mst.edu",
@@ -133,8 +136,8 @@ class ManagerTestCase(TestCase):
         Ensures that tests are set up properly before execution.
         Initializes any required variables and data.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         super().setUp()
 
@@ -142,8 +145,8 @@ class ManagerTestCase(TestCase):
         """
         Ensures that the user can be retrieved by natural key.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         models.User.objects.create_user('testme@mst.edu')
         self.assertIsNotNone(
@@ -156,8 +159,8 @@ class ManagerTestCase(TestCase):
         """
         Ensures that the create_user function is working as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         self.assertIsNotNone(models.User.objects.create_user('testme@mst.edu'))
         with self.assertRaises(ValueError):
@@ -188,8 +191,8 @@ class ManagerTestCase(TestCase):
         """
         Ensures that the create_superuser function is working as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         self.assertIsNotNone(
             models.User.objects.create_superuser('testadmin2@mst.edu')
@@ -240,8 +243,8 @@ class ViewTestCase(TestCase):
         Ensures that tests are set up properly before execution.
         Initializes any required variables and data.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         super().setUp()
 
@@ -251,8 +254,8 @@ class ViewTestCase(TestCase):
         in the accounts app. Could determine in-view syntax errors or
         initial processing errors.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
 
         response = self.client.get(
@@ -271,6 +274,7 @@ class ViewTestCase(TestCase):
         """
         TODO: Implement with Selenium
         """
+        pass
 
     def test_logout_system(self):
         """
@@ -278,8 +282,8 @@ class ViewTestCase(TestCase):
         by creating a client, forcing the client to login, and then
         visiting the logout page.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         user = models.User.objects.create_user(email="testclient@mst.edu",
                                                first_name="Client",
@@ -304,8 +308,8 @@ class UserAuthBackendCase(TestCase):
         Creates a 'global' user for each function to run authentication
         functions on as well as spare users in the database.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         super().setUp()
         self.backend = UserBackend()
@@ -317,10 +321,9 @@ class UserAuthBackendCase(TestCase):
         Ensures that the authenticate function in the Backend works as
         intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
-
         self.assertEqual(
             self.backend.authenticate(email="fail@mst.edu"), None
         )
@@ -340,8 +343,8 @@ class UserAuthBackendCase(TestCase):
         """
         Ensures that the user_can_authenticate function works as intended.
 
-        :rtype: None
         :return: None
+        :rtype: None
         """
         self.assertEqual(self.backend.user_can_authenticate(
             models.User.objects.get(email="test@mst.edu")), True
@@ -366,9 +369,11 @@ class PermissionModelTestCase(TestCase):
     """
     TODO: Implement after Permissions.
     """
+    pass
 
 
 class GroupModelTestCase(TestCase):
     """
     TODO: Implement after Groups.
     """
+    pass

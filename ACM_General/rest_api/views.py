@@ -77,6 +77,19 @@ class UserDetail(mixins.RetrieveModelMixin,
         """
         return self.retrieve(request, *args, **kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
+
+
     def put(self, request, *args, **kwargs):
         """
         Updates the specified user.
@@ -157,6 +170,18 @@ class EventDetail(mixins.RetrieveModelMixin,
                  if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
@@ -249,6 +274,18 @@ class SIGDetail(mixins.RetrieveModelMixin,
         """
         return self.retrieve(request, *args, **kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
+
     def put(self, request, *args, **kwargs):
         """
         Updates the specified SIG.
@@ -331,6 +368,18 @@ class TransactionDetail(mixins.RetrieveModelMixin,
         """
         return self.retrieve(request, *args, **kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
+
     def put(self, request, *args, **kwargs):
         """
         Updates the specified Transaction.
@@ -412,6 +461,18 @@ class ProductDetail(mixins.RetrieveModelMixin,
         """
         return self.retrieve(request, *args, **kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
+
     def put(self, request, *args, **kwargs):
         """
         Updates the specified Product.
@@ -492,6 +553,19 @@ class CategoryDetail(mixins.RetrieveModelMixin,
                   if successful, otherwise 404.
         """
         return self.retrieve(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Partially updates the specified event.
+
+        :param request: Request to update Event details.
+        :type request: Request
+        :rtype: Response
+        :return: The updated event's details and a 200 response
+                 if successful, otherwise 400.
+        """
+        return self.partial_update(request, *args, **kwargs)
+
 
     def put(self, request, *args, **kwargs):
         """
