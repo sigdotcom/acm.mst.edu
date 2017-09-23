@@ -1,16 +1,16 @@
-# What's it do?
-`gulpfile.js` looks through `ACM_General/app/static/app/scss/` for sass
-files to compile then drops them into `ACM_General/app/static/app/css/`
+# Functionality
+Compiles the sass files, and then drops the results into
+`ACM_Genera/*/static/*/css/` with the same full path as the scss
+folder.
 
-# What are the dependencies?
+# Dependencies
+- `nodejs`
 - `npm`
-From `npm` install
   - `gulp`
   - `gulp-sass`
   - `glob`
 
 Run `npm install --save-dev gulp gulp-sass glob`
 
-# How do I run it?
-Type `gulp` into the command line, that's it...
-
+# Use
+With `ACM_General` is the working directory type the command `gulp`.
