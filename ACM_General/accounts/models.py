@@ -1,3 +1,7 @@
+"""
+Contains User model which encapsulates each website 'User'.
+"""
+
 # future
 from __future__ import unicode_literals
 
@@ -19,10 +23,6 @@ class User(AbstractBaseUser):
     as apposed to username validation in default django.
 
     """
-    ##
-    # TODO: Integrations.
-    ##
-
     #: Container for the User Manager.
     objects = managers.UserManager()
 
@@ -73,14 +73,20 @@ class User(AbstractBaseUser):
 
     @property
     def is_admin(self):
+        """
+        Returns the user's admin status
+
+        :return: The user's admin status
+        :rtype: bool
+        """
         return self.is_superuser
 
     def get_full_name(self):
         """
         Returns the user's full name.
 
-        :rtype: str
         :return: The user's full name.
+        :rtype: str
         """
         return str(self.first_name) + " " + str(self.last_name)
 
@@ -88,8 +94,8 @@ class User(AbstractBaseUser):
         """
         Returns the user's email.
 
-        :rtype: str
         :return: The user's email.
+        :rtype: str
         """
         return self.email
 
@@ -97,7 +103,7 @@ class User(AbstractBaseUser):
         """
         Returns the user's email.
 
-        :rtype: str
         :return: The user's email.
+        :rtype: str
         """
         return self.email
