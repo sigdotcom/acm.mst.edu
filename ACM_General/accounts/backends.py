@@ -1,3 +1,6 @@
+"""
+Contains custom User authentication backends.
+"""
 # future
 from __future__ import unicode_literals
 
@@ -18,9 +21,10 @@ class UserBackend(object):
 
         :param email: User provided email address.
         :type email: str
-        :rtype: User
+
         :return: The User object posessing the given email, or None
                  if the email does not exist within the database.
+        :rtype: User
         """
 
         ###
@@ -47,9 +51,10 @@ class UserBackend(object):
 
         :param user: User object passed in for authentication.
         :type user: User
-        :rtype: bool
+
         :return: True if the user has the is_active flag set.
                  Flase if the user's is_active flag is false.
+        :rtype: bool
         """
 
         is_active = getattr(user, 'is_active', None)
@@ -62,9 +67,10 @@ class UserBackend(object):
 
         :param user_id: The UUID for which to find a user for.
         :type user_id: str
-        :rtype: User
+
         :return: The User object posessing the UUID or None, if the
                  UUID does not exist within the database.
+        :rtype: User
         """
         try:
             user = User.objects.get(pk=user_id)

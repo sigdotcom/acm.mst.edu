@@ -16,8 +16,9 @@ def index(request):
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
+
     :return: The render template of the index page.
+    :rtype: django.shortcut.render
     """
 
     events = Event.objects.filter(
@@ -43,32 +44,14 @@ def sponsors(request):
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
-    :return: The render template of the sponsors page.
 
+    :return: The render template of the sponsors page.
+    :rtype: django.shortcut.render
     """
     return (
         render(
             request,
             'home/sponsors.html',
-        )
-    )
-
-
-def calendar(request):
-    """
-    Handles a request to see the calendar page.
-
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
-    :return: The render template of the calendar page.
-    """
-    return (
-        render(
-            request,
-            'home/calendar.html',
         )
     )
 
@@ -80,8 +63,9 @@ def media(request):
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
+
     :return: The render template of the media page.
+    :rtype: django.shortcut.render
     """
     return (
         render(
@@ -98,8 +82,9 @@ def officers(request):
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
+
     :return: The render template of the officers page.
+    :rtype: django.shortcut.render
     """
     return (
         render(
@@ -112,12 +97,12 @@ def officers(request):
 def membership(request):
     """
     Handles a request to see the membership page.
-
     :param request: Request object that contains information from the user's
                     POST/GET request.
     :type request: django.http.request.HttpRequest
-    :rtype: django.shortcut.render
+
     :return: The render template of the officers page.
+    :rtype: django.shortcut.render
     """
     return (
         render(
@@ -128,6 +113,16 @@ def membership(request):
 
 
 def sigs(request):
+    """
+    Handles a request to see the sigs page.
+
+    :param request: Request object that contains information from the user's
+                    POST/GET request.
+    :type request: django.http.request.HttpRequest
+
+    :return: The render template of the sigs page.
+    :rtype: django.shortcut.render
+    """
     return (
         render(
             request,
