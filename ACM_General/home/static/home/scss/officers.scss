@@ -12,7 +12,7 @@
 
 
 
-.cards {
+.cards a span{
   list-style: none;
   padding: 0 0 20px 0;
   margin: 0 auto;
@@ -25,12 +25,14 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin: 1rem auto 0 auto;
+  margin: 1rem auto auto auto;
 }
 
 .acm-btn{
   width: 100px;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card__image {
@@ -42,7 +44,7 @@
   display: block;
   width: 180px;
   height: 180px;
-  margin: 10px 0;
+  margin-left: auto;
   border-radius: 50%;
 }
 
@@ -51,11 +53,12 @@
   padding: 1rem;
   display: flex;
   flex-direction: row;
+  margin-right: auto;
 }
 
 .card__name {
   display: block;
-  margin: 0;
+  margin: auto;
 }
 .card__titles {
   margin: 0;
@@ -63,9 +66,13 @@
   color: rgba(0,0,0,.8);
 }
 .card__text {
-  margin: 10px 0;
+  margin: 0px 10px 10px 10px;
+  width: 180px;
   font-size: .86rem;
   color: rgba(0,0,0,.77);
+}
+.card__links {
+  width: 100px;
 }
 .card_heading {
   height: 100%;
@@ -76,7 +83,6 @@
 }
 
 @media (max-width: 750px) {
-
   .card__content {
     -webkit-flex-direction: column !important;
     -ms-flex-direction: column !important;
@@ -99,6 +105,7 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
   }
 
   .card__content {
@@ -109,6 +116,10 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    margin:auto;
+  }
+  .card__image {
+    margin: auto;
   }
 
 }
