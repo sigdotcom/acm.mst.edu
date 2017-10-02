@@ -12,7 +12,7 @@
 
 
 
-.cards {
+.cards a span{
   list-style: none;
   padding: 0 0 20px 0;
   margin: 0 auto;
@@ -25,12 +25,14 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin: 1rem auto 0 auto;
+  margin: 1rem auto auto auto;
 }
-.cards__card:nth-of-type(even) {
-  -webkit-flex-direction: row-reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
+
+.acm-btn{
+  width: 100px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card__image {
@@ -42,17 +44,20 @@
   display: block;
   width: 180px;
   height: 180px;
-  margin: 10px 0;
+  margin-left: auto;
   border-radius: 50%;
 }
 
 .card__content {
   height: 100%;
   padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
 }
 
 .card__name {
-  margin: 0;
+  display: block;
 }
 .card__titles {
   margin: 0;
@@ -60,13 +65,24 @@
   color: rgba(0,0,0,.8);
 }
 .card__text {
-  margin: 10px 0;
+  margin: 0px 10px 10px 10px;
+  width: 180px;
   font-size: .86rem;
   color: rgba(0,0,0,.77);
 }
+.card__links {
+  width: 100px;
+}
+.card_heading {
+  height: 100%;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
 
-@media (max-width: 470px) {
-  .cards__card {
+}
+
+@media (max-width: 750px) {
+  .card__content {
     -webkit-flex-direction: column !important;
     -ms-flex-direction: column !important;
     flex-direction: column !important;
@@ -75,4 +91,34 @@
     -ms-flex-align: center;
     align-items: center;
   }
+
+}
+
+@media (max-width: 425px) {
+
+  .cards__card {
+    -webkit-flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    margin-top: 0;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card__content {
+    -webkit-flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    margin-top: 0;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin:auto;
+  }
+  .card__image {
+    margin: auto;
+  }
+
 }
