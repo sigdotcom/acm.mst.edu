@@ -10,3 +10,4 @@ selenium
 Pillow
 Sphinx
 flake8
+sphinx_rtd_theme
