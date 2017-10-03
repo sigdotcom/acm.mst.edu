@@ -89,6 +89,14 @@ class HomeViewCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/sigs.html')
 
+    def test_calendar_page(self):
+        response = self.client.get(reverse('home:calendar'), follow=True)
+        self.assertEqual(response.redirect_chain[0][1], 301)
+        self.assertTemplateUsed(response, 'home/index.html')
+        self.assertEqual(
+            response.redirect_chain[0][0], reverse("home:index")+"#calendar"
+        )
+
     def test_number_of_fliers_that_appear_on_home_page(self):
         """
         On top of testing that the correct number of events appear on the

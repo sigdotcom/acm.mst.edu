@@ -1,6 +1,6 @@
 # Django
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 
 # local Django
@@ -52,6 +52,27 @@ def sponsors(request):
         render(
             request,
             'home/sponsors.html',
+        )
+    )
+
+
+def calendar(request):
+    """
+    Handles a request to see the calendar page. Updated to redirect to the
+    front page.
+
+    :param request: Request object that contains information from the user's
+                    POST/GET request.
+    :type request: django.http.request.HttpRequest
+
+    :return: A redirect to the homepage with a `#calendar` anchor which will
+             automatically put the user's page onto the calendar.
+    :rtype: django.shortcut.redirect
+    """
+    return (
+        redirect(
+            reverse('home:index') + "#calendar",
+            permanent=True,
         )
     )
 
