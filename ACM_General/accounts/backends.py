@@ -1,5 +1,5 @@
 """
-Contains custom User authentication backends.
+Custom User authentication backends.
 """
 # future
 from __future__ import unicode_literals
@@ -10,26 +10,24 @@ from .models import User
 
 class UserBackend(object):
     """
-    Authencation backend which supports email as USERNAME_FIELD.
+    Authencation backend which authenticates based on a user's email. Used as
+    the main authentication method.
     """
 
     def authenticate(self, email=None):
         """
-        Authenticates whether or not a user is in the database based on
-        a given email. Necessary for login as Django requires
-        this function to be run on any to-be-logined user.
+        Authenticates whether or not a user is in the database based on a given
+        email. Necessary for login as Django requires this function to be run
+        on any to-be-logined user.
 
-        :param email: User provided email address.
+        :param email: :class:`~accounts.models.User` provided email address.
         :type email: str
 
-        :return: The User object posessing the given email, or None
-                 if the email does not exist within the database.
-        :rtype: User
+        :return: The :class:`~accounts.models.User` object posessing the given
+                 email, or None if the email does not exist within the
+                 database.
+        :rtype: :class:`~accounts.models.User` or None
         """
-
-        ###
-        # TODO: Find a better way to throw error at no email
-        ###
 
         try:
             user = User.objects.get(email=email)
@@ -44,13 +42,13 @@ class UserBackend(object):
     @staticmethod
     def user_can_authenticate(user):
         """
-        Checks for whether a user is active or not.
-        This function allows for users to be 'shut off' as opposed to
-        deleted, forcing less clean-up and increased fidelity when user
-        leaves.
+        Checks for whether a user is active or not.  This function allows for
+        users to be 'shut off' as opposed to deleted, forcing less clean-up and
+        increased fidelity when user leaves.
 
-        :param user: User object passed in for authentication.
-        :type user: User
+        :param user: :class:`~accounts.models.User` object passed in for
+                     authentication.
+        :type user: :class:`~accounts.models.User`
 
         :return: True if the user has the is_active flag set.
                  Flase if the user's is_active flag is false.
@@ -62,15 +60,15 @@ class UserBackend(object):
 
     def get_user(self, user_id):
         """
-        Fetches the user from the database whose id (UUID) matches the
-        given user_id.
+        Fetches the user from the database whose id (UUID) matches the given
+        user_id.
 
         :param user_id: The UUID for which to find a user for.
         :type user_id: str
 
-        :return: The User object posessing the UUID or None, if the
-                 UUID does not exist within the database.
-        :rtype: User
+        :return: The :class:`~accounts.models.User` object posessing the UUID
+                 or None if the UUID does not exist within the database.
+        :rtype: :class:`~accounts.models.User`
         """
         try:
             user = User.objects.get(pk=user_id)

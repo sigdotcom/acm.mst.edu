@@ -1,3 +1,6 @@
+"""
+Contains the models used for Events.
+"""
 # standard library
 import uuid
 
@@ -22,21 +25,21 @@ def get_path_for_flier(instance, filename):
     Used to obtain a path based on an instance of the Event (try to make this a
     cross reference if you can) object pasted into the function.
 
-    :type instance: Event object
-    :param instance: An instance of the current Event being created
+    :param instance: An instance of the current Event being created.
+    :type instance: :class:`~events.models.Event`
 
-    :type filename: str
     :param filename: The filename of the image being used as a flier for the
-                     current event being created
+                     current event being created.
+    :type filename: str
 
-    :rtype: str
-    :returns: String that contains the generated path to save or collect the
+    :return: String that contains the generated path to save or collect the
               flier image.
+    :rtype: str
 
     .. note::
 
         This is done so that fliers can be stored in path that looks like:
-        'media_files/fliers/<date_hosted>/<filename>'.  (This makes it easier
+        `media_files/fliers/<date_hosted>/<filename>`.  (This makes it easier
         to find media uploaded about an Event).
     """
     return '{}/{}/{}'.format(
@@ -154,12 +157,12 @@ class Event(models.Model):
     @property
     def is_active(self):
         """
-        Function used for checking whether or not an event has already expired
+        Checking whether or not an event has already expired
         (gone past the current date).
 
-        :rtype: bool
-        :returns: Bool value representing whether or not the event is
+        :return: Bool value representing whether or not the event is
                   considered 'active'.
+        :rtype: bool
         """
         return self.date_expire >= timezone.now()
 
@@ -168,10 +171,10 @@ class Event(models.Model):
         The clean function is used for making checks on the data posted to the
         form.
 
-        :raises ValidationError: if date_expire or date_hosted are invalid.
-
+        :return: None.
         :rtype: None
-        :returns: None
+
+        :raises ValidationError: if date_expire or date_hosted are invalid.
         """
 
         # Calls the original clean function

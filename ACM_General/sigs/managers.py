@@ -1,10 +1,13 @@
+"""
+Custom managers for the Sigs app's models.
+"""
 # Django
 from django.db import models
 
 
 class SIGManager(models.Manager):
     """
-    This class contains functions to test all functions of SIG's.
+    Handles database high abstraction database interaction for the SIG model.
     """
     use_in_migrations = True
 
@@ -14,9 +17,10 @@ class SIGManager(models.Manager):
 
         :param id: The id of the SIG.
         :type id: int
+
         :return: Returns a SIG model object with the id equal to the input
                  specified id.
-        :rtype: sigs.models.SIG
+        :rtype: :class:`sigs.models.SIG`
         """
         return self.get(id=id)
 
@@ -27,7 +31,7 @@ class SIGManager(models.Manager):
         :param \**kwargs: See sigs.managers.SIGManager.create_sig.
 
         :return: A created SIG object.
-        :rtype: sigs.models.SIG
+        :rtype: :class:`sigs.models.SIG`
         """
 
         if not kwargs.get('founder'):
@@ -65,6 +69,6 @@ class SIGManager(models.Manager):
                 The current Chair of the SIG.
 
         :return: A created SIG object.
-        :rtype: sigs.moels.SIG
+        :rtype: :class:`sigs.models.SIG`
         """
         return self._create_sig(**kwargs)

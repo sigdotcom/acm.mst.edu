@@ -1,3 +1,6 @@
+"""
+Contains unit tests for the thirdparty_auth.
+"""
 # Django
 from django.test import LiveServerTestCase
 from django.urls import reverse
@@ -13,11 +16,8 @@ class ViewTestCase(LiveServerTestCase):
 
     def setUp(self):
         """
-        Initializes all variables and data required to test
-        third party authorization functionality.
-
-        :rtype: None
-        :return: None
+        Initializes all variables and data required to test third party
+        authorization functionality.
         """
         super().setUp()
         self.user = models.User.objects.create(
@@ -28,11 +28,8 @@ class ViewTestCase(LiveServerTestCase):
 
     def test_view_integrity(self):
         """
-        Ensures that third party authorization methods are handled
-        correctly in the case of both proper and improper attempts.
-
-        :rtype: None
-        :return: None
+        Ensures that third party authorization methods are handled correctly in
+        the case of both proper and improper attempts.
         """
         ##
         # Testing initial login fails because of callback url

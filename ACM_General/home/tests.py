@@ -1,3 +1,7 @@
+"""
+Contains all unit tests for the Home app.
+"""
+
 # Django
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -21,9 +25,6 @@ class HomeViewCase(TestCase):
     def setUp(self):
         """
         Sets up an testing event with test data and a super user.
-
-        :rtype: None
-        :return: None
         """
         self.user = User.objects.create_superuser('test@mst.edu')
         self.sig = SIG.objects.create_sig(
@@ -61,9 +62,6 @@ class HomeViewCase(TestCase):
         """
         Makes requests to each page of the site and asserts a 200 response code
         (or success)
-
-        :rtype: None
-        :return: None
         """
         response = self.client.get(reverse('home:index'))
         self.assertEqual(response.status_code, 200)
@@ -102,9 +100,6 @@ class HomeViewCase(TestCase):
         On top of testing that the correct number of events appear on the
         homepage, this test also makes sure that the correct number of events
         get added to the database.
-
-        :rtype: None
-        :return: None
         """
         settings.MAX_HOME_FLIER_COUNT = 3
         number_of_events = 4
