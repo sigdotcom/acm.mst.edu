@@ -14,33 +14,6 @@ from django.views import View
 from . import models
 
 
-class MembershipPayment(View):
-    """
-    View meant for displaying pages related to memberships.
-    """
-
-    def get(self, request):
-        """
-        This view renders a page in which users can get more information about
-        becoming a member of ACM.
-
-        :type request: django.http.request.HttpRequest
-        :param request: Request object that contains information from the
-                        user's POST/GET request.
-
-        :rtype: django.shortcuts.render
-        :returns: An html page which displays the Membership page.
-        """
-        return render(
-            request,
-            'payments/acm_membership.html',
-            {
-                "products": models.Product.objects.all(),
-                "stripe_public_key": getattr(settings, 'STRIPE_PUB_KEY', None)
-            }
-        )
-
-
 class ProductHandler(View):
     """
     View meant for handling requests related to products & transactions.
