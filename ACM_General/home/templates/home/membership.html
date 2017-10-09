@@ -11,10 +11,40 @@
 {% block body_content %}
   <main>
     <div class="content-wrapper">
-      <h1 class="perks-header"><a name="top">Become a Member</a>
+      <h1 class="perks-header"><a name="top">ACM Membership Guarantees</a>
       </h1>
       <hr>
-     
+      <div class="perks">
+          <div class="perks__perk">
+            <img src="{% static "home/img/membership/tshirt-crew.svg" %}">
+            <div class="perks__content">
+              <h3 class="perks__title">Free Shirt</h3>
+              <hr>
+              <div class="perks__description">Free ACM shirt every year</div>
+          </div>
+        </div>
+          <div class="perks__perk">
+              <img src="{% static "home/img/membership/cash-usd.svg" %}">
+              <div class="perks__content">
+            <h3 class="perks__title">Discounts</h3>
+            <hr>
+            <div class="perks__description">Cheap entry to ACM events</div>
+          </div>
+        </div>
+          <div class="perks__perk">
+              <img src="{% static "home/img/membership/tie.svg" %}">
+              <div class="perks__content">
+            <h3 class="perks__title">ACM Dinner</h3>
+            <hr>
+            <div class="perks__description">Free dinner with business
+              professionals
+            </div>
+          </div>
+          </div>
+        </div>
+        <h1 class="perks-header"><a name="top">Become a Member</a>
+        </h1>
+        <hr>
       <div class="pay-area">
         <div class="pay-area__card">
           <h1 class="pay-area__title">Semester</h1>
@@ -36,34 +66,7 @@
           </form>
         </div>
       </div>
-    <div class="perks">
-      <div class="perks__perk">
-        <img src="{% static "home/img/membership/tshirt-crew.png" %}">
-        <div class="perks__content">
-          <h3 class="perks__title">Free Shirt</h3>
-          <hr>
-          <div class="perks__description">Free ACM shirt every year</div>
-      </div>
-    </div>
-      <div class="perks__perk">
-          <img src="{% static "home/img/membership/cash-usd.png" %}">
-          <div class="perks__content">
-        <h3 class="perks__title">Discounts</h3>
-        <hr>
-        <div class="perks__description">Cheap entry to ACM events</div>
-      </div>
-    </div>
-      <div class="perks__perk">
-          <img src="{% static "home/img/membership/tie.png" %}">
-          <div class="perks__content">
-        <h3 class="perks__title">ACM Dinner</h3>
-        <hr>
-        <div class="perks__description">Free dinner with business
-          professionals
-        </div>
-      </div>
-      </div>
-    </div>
+    
   </div>
   </main>
 
