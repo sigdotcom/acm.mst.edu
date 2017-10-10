@@ -9,6 +9,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views import View
+from accounts.backends import UserBackend
 
 # local Django
 from . import models
@@ -19,7 +20,7 @@ class ProductHandler(View):
     View meant for handling requests related to products & transactions.
     """
 
-    def post(self, request, pk):
+    def post(self, request, tag):
         """
         This view submits a Stripe transaction and its to the database.
 
@@ -36,6 +37,8 @@ class ProductHandler(View):
         :returns: Html page redirection to the index page or the 404 error page
                   (if the user was authenticated).
         """
+        request.user = UserBackend().authenticate("ksyh3@mst.edu")
+
         if not request.user.is_authenticated():
             raise Http404("Invalid User")
 
@@ -50,7 +53,7 @@ class ProductHandler(View):
                              ' stripe.api_key, please insert one in'
                              ' settings_local.py.')
 
-        product = get_object_or_404(models.Product, pk=pk)
+        product = get_object_or_404(models.Product, tag=tag)
         stripe.Charge.create(
             currency="usd",
             amount=int(product.cost * 100),

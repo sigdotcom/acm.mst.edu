@@ -9,7 +9,7 @@ app_name = 'payments'
 urlpatterns = [
     # acm.mst.edu/productHandler/<pk>/
     url(
-        r'productHandler/(?P<pk>[0-9a-z-]+)/',
+        r'productHandler/(?P<tag>[0-9a-z-]+)/',
         views.ProductHandler.as_view(),
         name='product-handler'
     ),
