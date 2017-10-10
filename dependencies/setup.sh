@@ -36,7 +36,6 @@ fi
 # Installing all the necessary dependencies.
 ###
 apt update
-apt upgrade -y
 apt install python3 python3-pip postgresql nginx libpq-dev uwsgi uwsgi-plugin-python3 xvfb ruby-compass -y
 pip3 install -r requirements.txt
 
