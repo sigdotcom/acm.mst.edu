@@ -43,21 +43,9 @@
           <h1 class="pay-area__title">Semester</h1>
           <div class="pay-area__price">11</div>
           <div class="pay-area__disclaimer">all perks are included</div>
-          <form action="{% url 'payments:product-handler' 'membership-semester' %}" method="POST">
-              {% csrf_token %}
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="{{ stripe_public_key }}"
-              data-amount="2000"
-              data-name="Missouri S&amp;T - Association of Computing Machinery"
-              data-description="Widget"
-              data-image="{% static 'home/img/acm.png' %}"
-              data-locale="auto">
-              </script>
-          </form>
-
-          <form id="semester-button" class="acm-btn pay-area__btn pay-area__btn--semester" action="{% url 'payments:product-handler' 1100 %}" method="POST">
+          <form id="semester-button" class="acm-btn pay-area__btn pay-area__btn--semester" action="{% url 'payments:product-handler' 'membership-semester' %}" method="POST">
             {% csrf_token %}
+            <input type="hidden" id="stripeToken" name="stripeToken">
             Buy Semester
           </form>
         </div>
@@ -66,17 +54,11 @@
           <h1 class="pay-area__title">Year</h1>
           <div class="pay-area__price">20</div>
           <div class="pay-area__disclaimer">all perks are included</div>
-          <form action="{% url 'payments:product-handler' '49b4e1a8-ac73-11e7-9f1c-d7200570e0dd' %}" method="POST">
-              {% csrf_token %}
-              <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="{{ stripe_public_key }}"
-              data-amount="2000"
-              data-name="Missouri S&amp;T - Association of Computing Machinery"
-              data-description="Widget"
-              data-image="{% static 'home/img/acm.png' %}"
-              data-locale="auto">
-              </script>
+          <form id="year-button" class="acm-btn pay-area__btn
+              pay-area__btn--year" action="{% url 'payments:product-handler' 'membership-year' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="stripeToken" name="stripeToken">
+            Buy Year
           </form>
         </div>
       </div>
@@ -121,23 +103,34 @@
       </div>
     </div>
   </main>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
           <script>
-            var handler = StripeCheckout.configure({
+            var semester_handler = StripeCheckout.configure({
               key: '{{ stripe_public_key }}',
               image: '{% static 'home/img/core/acm.png' %}',
               locale: 'auto',
               token: function(token) {
-                // You can access the token ID with `token.id`.
-                // Get the token ID to your server-side code for use.
-                console.log(token)
+                  console.log("Token: " + token);
+                  $("#stripeToken").val(token.id);
+                  $("#semester-button").submit();
+              }
+            });
+
+            var year_handler = StripeCheckout.configure({
+              key: '{{ stripe_public_key }}',
+              image: '{% static 'home/img/core/acm.png' %}',
+              locale: 'auto',
+              token: function(token) {
+                  console.log("Token: " + token);
+                  $("#stripeToken").val(token.id);
+                  $("#year-button").submit();
               }
             });
 
             document.getElementById('semester-button').addEventListener('click', function(e) {
               // Open Checkout with further options:
-              handler.open({
+              semester_handler.open({
                 name: 'Missouri S&T - Association of Computing Machinery',
                 description: 'Semester Membership',
                 zipCode: true,
@@ -148,7 +141,7 @@
 
             document.getElementById('year-button').addEventListener('click', function(e) {
               // Open Checkout with further options:
-              handler.open({
+              year_handler.open({
                 name: 'Missouri S&T - Association of Computing Machinery',
                 description: 'Year Membership',
                 zipCode: true,
@@ -159,7 +152,8 @@
 
             // Close Checkout on page navigation:
             window.addEventListener('popstate', function() {
-              handler.close();
+              semester_handler.close();
+              year_handler.close();
             });
           </script>
 {% endblock %}

@@ -54,6 +54,7 @@ class ProductHandler(View):
                              ' settings_local.py.')
 
         product = get_object_or_404(models.Product, tag=tag)
+        print("test")
         stripe.Charge.create(
             currency="usd",
             amount=int(product.cost * 100),
@@ -61,12 +62,12 @@ class ProductHandler(View):
             source=token,
         )
 
-        models.Transaction.objects.create_transaction(
+        print(models.Transaction.objects.create_transaction(
             token, user=request.user,
             cost=product.cost,
             sig=product.sig,
             category=product.category,
             description=product.description
-        )
+        ))
 
         return HttpResponseRedirect('/')
