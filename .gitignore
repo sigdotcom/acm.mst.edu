@@ -119,7 +119,6 @@ ACM_General/static/
 db.*
 settings_local.py
 .vagrant/
-.*
 *.log*
 docs/_build/
 docs/app_rst_docs/
