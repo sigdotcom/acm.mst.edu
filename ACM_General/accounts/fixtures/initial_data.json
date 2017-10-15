@@ -1,0 +1,32 @@
+[
+{
+    "model": "accounts.user",
+    "pk": "6e7c2cee-b1ff-11e7-af2d-7c7a91c0318b",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "email": "ksyh3@mst.edu",
+        "first_name": "Kevin",
+        "last_name": "Schoonover",
+        "date_joined": "2017-10-15T23:20:28.650Z",
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": "73865106-b1ff-11e7-9439-7c7a91c0318b",
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "email": "acm@mst.edu",
+        "first_name": "N/A",
+        "last_name": "N/A",
+        "date_joined": "2017-10-15T23:20:37.105Z",
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true
+    }
+}
+]
