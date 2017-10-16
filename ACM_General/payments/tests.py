@@ -182,11 +182,12 @@ class PaymentsViewCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         self.client.force_login(self.user)
-        with self.assertRaises(ValueError):
-            response = self.client.post(reverse(
-                'payments:product-handler',
-                kwargs={'tag': self.product.tag})
-            )
+        response = self.client.post(reverse(
+            'payments:product-handler',
+            kwargs={'tag': self.product.tag})
+        )
+        self.assertEqual(response.status_code, 404)
+
 
         with self.settings(STRIPE_PRIV_KEY=""):
             with self.assertRaises(ValueError):
