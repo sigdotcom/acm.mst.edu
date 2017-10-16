@@ -62,7 +62,7 @@ class ProductManager(models.Manager):
         """
         return self.get(name=name)
 
-    def _create_product(self, name, **kwargs):
+    def _create_product(self, tag, name, **kwargs):
         """
         Used to create a Product and save it to the database.
 
@@ -72,11 +72,11 @@ class ProductManager(models.Manager):
         :rtype: payments.models.Product
         :returns: The created Product.
         """
-        model = self.model(name=name, **kwargs)
+        model = self.model(tag=tag, name=name, **kwargs)
         model.save()
         return model
 
-    def create_product(self, name, **kwargs):
+    def create_product(self, tag, name, **kwargs):
         """
         Used to create a Product and save it to the database (calls
         '_create_product').
@@ -87,7 +87,7 @@ class ProductManager(models.Manager):
         :rtype: payments.models.Product
         :returns: The created Product.
         """
-        return self._create_product(name, **kwargs)
+        return self._create_product(tag, name, **kwargs)
 
 
 class TransactionManager(models.Manager):

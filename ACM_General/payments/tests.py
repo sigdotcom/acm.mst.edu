@@ -40,6 +40,7 @@ class PaymentsManagerCase(TestCase):
 
         product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=category,
             sig=self.sig,
@@ -65,6 +66,7 @@ class PaymentsManagerCase(TestCase):
     def test_get_by_natural_key(self):
         category = models.TransactionCategory.objects.create_category('test')
         models.Product.objects.create_product(
+            'test',
             'test',
             cost=3.00,
             category=category,
@@ -112,6 +114,7 @@ class PaymentsModelCase(TestCase):
         category = models.TransactionCategory.objects.create_category('test')
         product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=category,
             sig=self.sig,
@@ -148,6 +151,7 @@ class PaymentsViewCase(TestCase):
         )
         self.product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -164,19 +168,15 @@ class PaymentsViewCase(TestCase):
         self.assertIsNotNone(getattr(settings, 'STRIPE_PRIV_KEY', None))
 
     def test_view_integrity(self):
-        response = self.client.get(reverse('payments:acm-memberships'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'payments/acm_membership.html')
-
         response = self.client.get(reverse(
             'payments:product-handler',
-            kwargs={'pk': self.product.id})
+            kwargs={'tag': self.product.tag})
         )
         self.assertEqual(response.status_code, 405)
 
         response = self.client.post(reverse(
             'payments:product-handler',
-            kwargs={'pk': self.product.id}),
+            kwargs={'tag': self.product.tag}),
             {'stripeToken': 'test'}
         )
         self.assertEqual(response.status_code, 404)
@@ -185,22 +185,23 @@ class PaymentsViewCase(TestCase):
         with self.assertRaises(ValueError):
             response = self.client.post(reverse(
                 'payments:product-handler',
-                kwargs={'pk': self.product.id})
+                kwargs={'tag': self.product.tag})
             )
 
         with self.settings(STRIPE_PRIV_KEY=""):
             with self.assertRaises(ValueError):
                 response = self.client.post(reverse(
                     'payments:product-handler',
-                    kwargs={'pk': self.product.id}),
+                    kwargs={'tag': self.product.tag}),
                     {'stripeToken': 'test'}
                 )
 
-        getattr(settings, 'STRIPE_PRIV_KEY', None)
 
 
 # Dropping selenium for now, will revisit
 '''
+
+        getattr(settings, 'STRIPE_PRIV_KEY', None)
 class PaymentsIntegrationTestCase(LiveServerTestCase):
     def setUp(self):
         super().setUp()

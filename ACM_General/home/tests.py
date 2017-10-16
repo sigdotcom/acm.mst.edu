@@ -65,6 +65,10 @@ class HomeViewCase(TestCase):
         :rtype: None
         :return: None
         """
+        response = self.client.get(reverse('home:membership'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/membership.html')
+
         response = self.client.get(reverse('home:index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')

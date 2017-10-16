@@ -54,6 +54,7 @@ class AccountsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -195,6 +196,7 @@ class EventsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -332,6 +334,7 @@ class SigsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -362,10 +365,10 @@ class SigsTestCase(TestCase):
         ##
         # Testing standard views with initial created model
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(
-            reverse('rest_api:sigs-detail', kwargs={'pk': self.sig.id})
+            reverse('rest_api:sig-detail', kwargs={'pk': self.sig.id})
         )
         self.assertEqual(response.status_code, 200)
 
@@ -373,7 +376,7 @@ class SigsTestCase(TestCase):
         # Testing creating a new event
         ##
         response = self.client.post(
-            reverse('rest_api:sigs-list'),
+            reverse('rest_api:sig-list'),
             data=json.dumps(sig, default=str),
             content_type='application/json'
 
@@ -390,7 +393,7 @@ class SigsTestCase(TestCase):
         sig["description"] = "sig-web"
         response = self.client.put(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': response.json()['id']}
             ),
             data=json.dumps(sig, default=str),
@@ -403,19 +406,19 @@ class SigsTestCase(TestCase):
         # Testing delete capability
         ##
         sig_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
@@ -424,7 +427,7 @@ class SigsTestCase(TestCase):
         ##
         # Ensure it doesnt exist on the master list
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         with self.assertRaises(IndexError):
             self.assertEqual(response.json()[1], None)
         self.assertIsNotNone(response.json()[0])
@@ -462,6 +465,7 @@ class TransactionsTestCase(TestCase):
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
+            'test',
             'test',
             cost=3.00,
             category=self.category,
@@ -600,6 +604,7 @@ class CategoryTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -730,6 +735,7 @@ class ProductTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -750,6 +756,7 @@ class ProductTestCase(TestCase):
         :return: None
         """
         product = {
+            "tag": "name",
             "name": "test",
             "cost": 3.00,
             "description": "test",
@@ -765,7 +772,7 @@ class ProductTestCase(TestCase):
         response = self.client.get(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': self.product.id}
+                kwargs={'pk': self.product.tag}
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -792,7 +799,7 @@ class ProductTestCase(TestCase):
         response = self.client.put(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': response.json()['id']}
+                kwargs={'pk': response.json()['tag']}
             ),
             data=json.dumps(product, default=str),
             content_type='application/json'
@@ -803,7 +810,7 @@ class ProductTestCase(TestCase):
         ##
         # Testing delete capability
         ##
-        product_id = response.json()['id']
+        product_id = response.json()['tag']
         response = self.client.get(reverse('rest_api:product-list'))
         self.assertIsNotNone(response.json()[1])
 

@@ -31,13 +31,13 @@ urlpatterns = [
     ),
 
     # acm.mst.edu/web-api/sigs/
-    url('sigs/$', views.SIGList.as_view(), name='sigs-list'),
+    url('sigs/$', views.SIGList.as_view(), name='sig-list'),
 
     # acm.mst.edu/web-api/sigs/<pk>/
     url(
         'sigs/(?P<pk>[0-9a-z_-]+)/$',
         views.SIGDetail.as_view(),
-        name='sigs-detail'
+        name='sig-detail'
     ),
 
     # acm.mst.edu/web-api/transactions/
@@ -55,21 +55,21 @@ urlpatterns = [
     ),
 
     # acm.mst.edu/web-api/product/
-    url('product/$', views.ProductList.as_view(), name='product-list'),
+    url('products/$', views.ProductList.as_view(), name='product-list'),
 
     # acm.mst.edu/web-api/product/<pk>/
     url(
-        'product/(?P<pk>[0-9a-z_-]+)/$',
+        'products/(?P<pk>[0-9a-z_-]+)/$',
         views.ProductDetail.as_view(),
         name='product-detail'
     ),
 
     # acm.mst.edu/web-api/category/
-    url('category/$', views.CategoryList.as_view(), name='category-list'),
+    url('categories/$', views.CategoryList.as_view(), name='category-list'),
 
     # acm.mst.edu/web-api/category/<pk>/
     url(
-        'category/(?P<pk>[0-9a-z_-]+)/$',
+        'categories/(?P<pk>[0-9a-z_-]+)/$',
         views.CategoryDetail.as_view(),
         name='category-detail'
     ),

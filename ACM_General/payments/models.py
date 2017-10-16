@@ -56,6 +56,7 @@ class Product(models.Model):
         help_text=_('What the product will be refered by'),
         max_length=50,
         null=False,
+        primary_key=True,
     )
 
     #: The name of the Product; represented as CharField.
