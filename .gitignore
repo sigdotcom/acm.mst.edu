@@ -128,3 +128,6 @@ ACM_General/home/static/home/css
 *.pdf
 *.out
 *.toc
+node_modules
+package-lock.json
+package.json

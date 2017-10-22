@@ -11,9 +11,9 @@ from accounts.models import User
 from accounts.serializers import UserSerializer
 from events.models import Event
 from events.serializers import EventSerializer
-from payments.models import Transaction, Product, TransactionCategory
-from payments.serializers import TransactionSerializer, ProductSerializer
-from payments.serializers import CategorySerializer
+from products.models import Transaction, Product, TransactionCategory
+from products.serializers import TransactionSerializer, ProductSerializer
+from products.serializers import CategorySerializer
 
 from sigs.models import SIG
 from sigs.serializers import SIGSerializer

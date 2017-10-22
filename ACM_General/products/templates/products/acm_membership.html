@@ -8,7 +8,7 @@
 
 {% block head_stylesheets %}
 <link rel="stylesheet" href="{% static "/core/css/genericForm.css" %}" />
-<link rel="stylesheet" href="{% static "/payments/css/payments.css" %}" />
+<link rel="stylesheet" href="{% static "/products/css/products.css" %}" />
 {% endblock %}
 
 {% block head_javascript %}
@@ -23,7 +23,7 @@
     {% for product in products %}
       <h3> {{ product.name }} </h3>
       <p> Cost: {{ product.cost }} </p>
-      <form action="{% url "payments:product-handler" product.id %}" method="POST">
+      <form action="{% url "products:product-handler" product.id %}" method="POST">
         {% csrf_token %}
         <script
         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
