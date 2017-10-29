@@ -1,3 +1,6 @@
+"""
+Contains the views for the Events app.
+"""
 # Django
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -13,13 +16,13 @@ def list_events(request):
     This function is used for creating a view that lists out all of the events
     in an organized manner.
 
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`django.http.request.HttpRequest`
     :param request: Request object that contains information from the user's
                     POST/GET request.
 
-    :rtype: django.shortcuts.render
     :returns: An HTML rendered page of 'listEvents.html' that has all of the
              Event objects passed into it.
+    :rtype: `django.shortcuts.render`
     """
     return render(
         request,
@@ -32,11 +35,10 @@ def create_event(request):
     """
     This view allows authenticated users to create events.
 
-    :type request: django.http.request.HttpRequest
     :param request: Request object that contains information from the user's
                     POST/GET request.
+    :type request: :class:`django.http.request.HttpRequest`
 
-    :rtype: django.shortcuts.render or django.http.HttpResponseRedirect
     :returns:
 
     - If the user is not a superuser, they will be redirected to a 404 error
@@ -50,7 +52,9 @@ def create_event(request):
             - If the form is invalid, the user will be redirected back to the
               same create event page with same information that they filled
               out, but also with information that now explains the errors that
-              occured when they tried to submit their event.
+              occurred when they tried to submit their event.
+    :rtype: `django.shortcuts.render` or
+            :class:`django.http.HttpResponseRedirect`
     """
 
     # Used for testing purposes

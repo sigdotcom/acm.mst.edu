@@ -1,3 +1,7 @@
+"""
+Custom managers for handling different Payments models.
+"""
+
 # Django
 from django.db import models
 
@@ -9,12 +13,14 @@ class TransactionCategoryManager(models.Manager):
 
     def get_by_natural_key(self, name):
         """
+        Queries the database for a TransactionCategory based on category name.
+
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: payments.models.TransactionCategory or None
         :returns: The TransactionCategory object that matches with the passed
                   name variable (if there is one) or None.
+        :rtype: :class:`~payments.models.TransactionCategory` or None
         """
         return self.get(name=name)
 
@@ -25,8 +31,8 @@ class TransactionCategoryManager(models.Manager):
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: payments.models.TransactionCategory
         :returns: The created Transaction Category.
+        :rtype: :class:`~payments.models.TransactionCategory`
         """
         model = self.model(name=name, **kwargs)
         model.save()
@@ -34,14 +40,14 @@ class TransactionCategoryManager(models.Manager):
 
     def create_category(self, name, **kwargs):
         """
-        Used to create a Transaction Category and save it to the database.
-        (calls '_create_category')
+        Used to create a Transaction Category and save it to the database
+        (calls `_create_category`).
 
         :param name: The name of Transaction.
         :type name: str
 
-        :rtype: payments.models.TransactionCategory
         :returns: The created Transaction Category.
+        :rtype: :class:`~payments.models.TransactionCategory`
         """
         return self._create_category(name, **kwargs)
 
@@ -56,9 +62,9 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
-        :rtype: payments.models.Product or None
         :returns: The Product object that matches with the passed name variable
                   (if there is one) or None.
+        :rtype: :class:`~payments.models.Product` or None
         """
         return self.get(name=name)
 
@@ -69,8 +75,8 @@ class ProductManager(models.Manager):
         :param name: The name of Product.
         :type name: str
 
-        :rtype: payments.models.Product
         :returns: The created Product.
+        :rtype: :class:`payments.models.Product`
         """
         model = self.model(name=name, **kwargs)
         model.save()
@@ -79,13 +85,13 @@ class ProductManager(models.Manager):
     def create_product(self, name, **kwargs):
         """
         Used to create a Product and save it to the database (calls
-        '_create_product').
+        `_create_product`).
 
         :param name: The name of Product.
         :type name: str
 
-        :rtype: payments.models.Product
         :returns: The created Product.
+        :rtype: :class:`payments.models.Product`
         """
         return self._create_product(name, **kwargs)
 
@@ -97,28 +103,30 @@ class TransactionManager(models.Manager):
 
     def get_by_natural_key(self, stripe_token):
         """
+        Queries the database for a Transaction based on stripe token.
+
         :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
-        :rtype: payments.models.Transaction or None.
         :returns: The Transaction object that matches with the passed
                   stripe_token variable (if there is one) or None.
+        :rtype: :class:`payments.models.Transaction` or None
         """
         return self.get(stripe_token=stripe_token)
 
     def _create_transaction(self, stripe_token, **kwargs):
         """
-        The base function that gets called by 'create_transaction'.
+        The base function that gets called by `create_transaction`.
 
         :param stripe_token: The stripe token associated with the transaction
                              in the Payment model.
         :type stripe_token: str
 
+        :returns: The created transaction.
+        :rtype: :class:`payments.models.Transaction`
+
         :raises ValueError: If the transaction cost was less than or equal to
                             zero.
-
-        :rtype: payments.models.Transaction
-        :returns: The created transaction.
         """
         cost = kwargs.get('cost', None)
 
@@ -138,7 +146,7 @@ class TransactionManager(models.Manager):
         :param stripe_token: The stripe token associated with the Transaction.
         :type stripe_token: str
 
-        :rtype: payments.models.Transaction
         :returns: The created transaction.
+        :rtype: :class:`payments.models.Transaction`
         """
         return self._create_transaction(stripe_token, **kwargs)

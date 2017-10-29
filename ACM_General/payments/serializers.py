@@ -1,3 +1,7 @@
+"""
+Serializers utilized by ``rest_api`` to clean JSON into the various Payments
+models.
+"""
 # third-party
 from rest_framework import serializers
 

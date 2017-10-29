@@ -1,5 +1,5 @@
 """
-Contains urls for the accounts app.
+Contains urls for the ``/accounts/`` route.
 """
 # Django
 from django.conf.urls import url

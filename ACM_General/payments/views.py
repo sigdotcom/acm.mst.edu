@@ -1,3 +1,6 @@
+"""
+Contains all of the views for the Payments app.
+"""
 # standard library
 
 # third-party
@@ -24,12 +27,12 @@ class MembershipPayment(View):
         This view renders a page in which users can get more information about
         becoming a member of ACM.
 
-        :type request: django.http.request.HttpRequest
         :param request: Request object that contains information from the
                         user's POST/GET request.
+        :type request: :class:`~django.http.request.HttpRequest`
 
-        :rtype: django.shortcuts.render
         :returns: An html page which displays the Membership page.
+        :rtype: `django.shortcuts.render`
         """
         return render(
             request,
@@ -48,20 +51,20 @@ class ProductHandler(View):
 
     def post(self, request, pk):
         """
-        This view submits a Stripe transaction and its to the database.
+        This view submits a Stripe transaction to the database.
 
-        :type request: django.http.request.HttpRequest
         :param request: Request object that contains information from the
                         user's POST/GET request.
+        :type request: :class:`~django.http.request.HttpRequest`
 
-        :raises ValueError: If the stripe token is empty or if the stripe
-                               api key is invalid.
-        :raises Http404: If an unauthenticated user attempts to access the
-                            page.
-
-        :rtype: django.http.HttpResponseRedirect or django.http.Http404
         :returns: Html page redirection to the index page or the 404 error page
                   (if the user was authenticated).
+        :rtype: :class:`~django.http.HttpResponseRedirect`
+
+        :raises ValueError: If the stripe token is empty or if the stripe
+                               API key is invalid.
+        :raises django.http.Http404: If an unauthenticated user attempts to
+                                     access the page.
         """
         if not request.user.is_authenticated():
             raise Http404("Invalid User")

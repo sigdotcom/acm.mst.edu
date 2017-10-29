@@ -1,3 +1,6 @@
+"""
+Specifies all of the views for the routes ``/payments/``.
+"""
 # Django
 from django.conf.urls import url
 

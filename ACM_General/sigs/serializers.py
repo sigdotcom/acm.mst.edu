@@ -1,3 +1,7 @@
+"""
+SIG Serializer utilized by ``rest_api`` to clean JSON into a
+:class:`sigs.models.SIG` object.
+"""
 # third-party
 from rest_framework import serializers
 
