@@ -62,7 +62,7 @@ class ProductHandler(View):
         :rtype: :class:`~django.http.HttpResponseRedirect`
 
         :raises ValueError: If the stripe token is empty or if the stripe
-                               api key is invalid.
+                               API key is invalid.
         :raises django.http.Http404: If an unauthenticated user attempts to
                                      access the page.
         """

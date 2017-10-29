@@ -7,7 +7,7 @@ from django.db import models
 
 class SIGManager(models.Manager):
     """
-    Handles database high abstraction database interaction for the SIG model.
+    Handles high abstraction database interaction for the SIG model.
     """
     use_in_migrations = True
 

@@ -18,7 +18,7 @@ class UserBackend(object):
         """
         Authenticates whether or not a user is in the database based on a given
         email. Necessary for login as Django requires this function to be run
-        on any to-be-logined user.
+        on any to-be-logged-in user.
 
         :param email: :class:`~accounts.models.User` provided email address.
         :type email: str

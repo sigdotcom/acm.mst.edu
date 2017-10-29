@@ -75,7 +75,7 @@ class AccountsTestCase(TestCase):
 
     def test_accounts_rest_actions(self):
         """
-        Ensures that an Accounts interactions with each REST api (post, get,
+        Ensures that an Accounts interactions with each REST API (post, get,
         put, destroy) results in expected behavior.
         """
         user = self.user_data
@@ -331,7 +331,7 @@ class SigsTestCase(TestCase):
     def test_sigs_rest_actions(self):
         """
         Ensures that a SIG behaves as expected at each
-        point in the REST api.
+        point in the REST API.
         """
         sig = {
             "id": "sig_test",
@@ -456,7 +456,7 @@ class TransactionsTestCase(TestCase):
     def test_transactions_rest_actions(self):
         """
         Ensures a Transaction behaves as expected throughout all points in the
-        REST api.
+        REST API.
         """
         transaction = {
             "description": "test",
@@ -587,7 +587,7 @@ class CategoryTestCase(TestCase):
     def test_category_rest_actions(self):
         """
         Ensures that a Category behaves as expected at
-        each point in the REST api.
+        each point in the REST API.
         """
         category = {
             "name": "test"
@@ -711,7 +711,7 @@ class ProductTestCase(TestCase):
     def test_product_rest_actions(self):
         """
         Ensures that a Product behaves as expected at
-        each point in the REST api.
+        each point in the REST API.
         """
         product = {
             "name": "test",
