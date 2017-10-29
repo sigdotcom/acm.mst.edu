@@ -1,3 +1,6 @@
+"""
+Contains all the unit tests for the Payments app.
+"""
 # standard library
 
 # third-party

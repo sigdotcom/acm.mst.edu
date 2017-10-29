@@ -1,3 +1,6 @@
+"""
+Contains the urls for the route ``/social-auth/``.
+"""
 # Django
 from django.conf.urls import url
 

@@ -1,3 +1,6 @@
+"""
+Contains all of the models for the Payments app.
+"""
 # standard library
 import uuid as uuid
 
@@ -43,10 +46,10 @@ class TransactionCategory(models.Model):
 
 class Product(models.Model):
     """
-    The purpose of the Product class is to create a standard 'template' which
-    can be input into a transaction model in a standardized way. This allows
-    for miscellaneous transactions to still occur but still have a good way of
-    dealing with things such as ACM Memberships, Sponsorships, etc.
+    Creates a standard 'template' which can be input into a transaction model
+    in a standardized way. This allows for miscellaneous transactions to still
+    occur but still have a good way of dealing with things such as ACM
+    Memberships, Sponsorships, etc.
     """
     objects = managers.ProductManager()
 

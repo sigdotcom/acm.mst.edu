@@ -1,3 +1,6 @@
+"""
+Contains all unit tets for Events app.
+"""
 # standard library
 from datetime import datetime
 import os

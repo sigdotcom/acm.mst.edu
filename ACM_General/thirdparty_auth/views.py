@@ -37,10 +37,11 @@ class AuthorizationView(View):
         OAuth authorization processing and transaction handler.
 
         :param request: Request for OAuth authorization.
-        :type request: Request
-        :rtype: Response
+        :type request: :class:`django.http.request.HttpRequest`
+
         :return: Prepared GET/POST redirect to the OAuth authentication
                  endpoint.
+        :rtype: :class:`django.http.response.HttpResponse`
         """
 
         if request.user.is_authenticated():
@@ -77,7 +78,7 @@ class AuthorizationView(View):
 
         :param request: Request to prepare the POST/GET parameters needed for
                         the initial authorization request for OAuth2.
-        :type request: Request
+        :type request: :class:`django.http.request.HttpRequest`
         :rtype: dict
         :return: A dictonary of the necessay POST/GET parameters
                  for an authorization request.
@@ -116,9 +117,10 @@ class TokenView(View):
         https://developers.google.com/identity/protocols/OpenIDConnect#server-flow
 
         :param request: Request for the user with the POST data from google.
-        :type request: Request
-        :rtype: Response
+        :type request: :class:`django.http.request.HttpRequest`
+
         :return: Request to post_auth with the newly cleaned data.
+        :rtype: :class:`django.http.response.HttpResponse`
         """
         ###
         # Normalizing data from callback
@@ -174,10 +176,12 @@ class TokenView(View):
         Transaction.
 
         :param request: Request to prepare the Token Transaction data.
-        :type request: Request
-        :rtype: dict
+        :type request: :class:`django.http.request.HttpRequest`
+
         :return: The GET/POST data necessary to perform the Token
                  Transaction.
+        :rtype: :class:`django.http.response.HttpResponse`
+
         """
         code = request.GET.get('code')
 
@@ -200,10 +204,12 @@ class TokenView(View):
 
         :param request: Request to transform a JSON Web Token into a
                         python dictionary.
-        :type request: Request
-        :rtype: dict
+        :type request: :class:`django.http.request.HttpRequest`
+
         :return: The clean JSON Web Token as a python dictionary.
+        :rtype: :class:`django.http.response.HttpResponse`
         """
+
         json_data = json.loads(text)
         jwt_segments = json_data['id_token'].split('.')
         user_data = base64.urlsafe_b64decode(jwt_segments[1] + "==")
@@ -220,9 +226,11 @@ class TokenView(View):
         template/redirect.
 
         :param request: Request to perform some post_auth action.
-        :type request: Request
-        :rtype: Response
+        :type request: :class:`django.http.request.HttpRequest`
+
         :return: A 200 response if successful, otherwise 400.
+        :rtype: :class:`django.http.response.HttpResponse`
+
         """
         email = cleaned_data.get('email', None)
         first_name = cleaned_data.get('given_name', None)

@@ -1,3 +1,6 @@
+"""
+Contains all of the routes for ``/``.
+"""
 # Django
 from django.conf import settings
 from django.conf.urls import url
