@@ -27,7 +27,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 # STATIC_ROOT = "/var/www/html"
 
 # Determines the max number of upcoming events that can appear on the homepage.
-MAX_HOME_FLIER_COUNT = 3
+MAX_HOME_FLIER_COUNT = 2
 
 ###
 # Stripe Keys
