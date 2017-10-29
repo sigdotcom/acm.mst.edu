@@ -212,3 +212,37 @@ html[data-useragent*='MSIE 10.0'] {
     margin-right: 0;
   }
 }
+
+.about-section {
+  margin: 10px 20px 10px 20px;
+  align-items: center;
+}
+
+.about-section-title {
+  text-align: center;
+  font-family: RobotoLight, Sans-Serif;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.about-section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-section-box {
+  width: 95%;
+  max-width: 600px;
+  margin: 10px 20px 10px 20px;
+  padding: 0 20px 0 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+
+@media(min-width: 1000px){
+  .about-section-content {
+    display: flex;
+    flex-direction: row;
+  }
+}
