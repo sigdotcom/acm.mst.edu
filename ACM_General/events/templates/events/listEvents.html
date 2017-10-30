@@ -1,21 +1,31 @@
-{% extends "core/wireframe.html" %}
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block head_stylesheets %}
+  <link rel="stylesheet" href="{% static "events/css/list-events.css" %}">
+{% endblock %}
 
 {% block body_content %}
-  <p> Current Time is {{ currentTime }} </p>
-  <h1> Current Events </h1>
-
-  <ul>
-    {% for event in eventsList %}
-      {% if event.is_active %}
-        <li> {{ event.title }} | {{ event.date_expire }} | DateTime Created: {{ event.date_created }}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-
-  <h1> All Events </h1>
-  <ul>
-    {% for event in eventsList %}
-      <li> {{ event.title}} | {{ event.date_expire }} </li>
-    {% endfor %}
-  </ul>
+  <main>
+        {% for event in eventsList %}
+          {% if event.is_active %}
+    <div class="event-wrapper">
+      <div class="event-card">
+        <a class="flier-space" href="{{ event.flier.url }}">
+          <img src="{{ event.flier.url }}">
+        </a>
+        <div class="flier-info">
+          <h2>{{ event.title }}</h2>
+          <p>{{ event.description }}</p>
+          {% if event.link %}
+          <div>
+            <a href="{{ event.link }}" class="acm-btn">Learn More</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+          {% endif %}
+        {% endfor %}
+  </main>
 {% endblock %}
