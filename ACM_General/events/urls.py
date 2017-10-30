@@ -15,5 +15,5 @@ urlpatterns = [
     url('^$', views.list_events, name='events-list'),
 
     # acm.mst.edu/events/create/
-    url('create/$', views.create_event, name='create-event'),
+    url('^create/$', views.create_event, name='create-event'),
 ]
