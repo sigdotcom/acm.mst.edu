@@ -128,3 +128,4 @@ ACM_General/home/static/home/css
 *.pdf
 *.out
 *.toc
+.sass-cache/
