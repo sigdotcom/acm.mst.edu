@@ -1,5 +1,5 @@
 """
-Contains all unit tests for the Home app.
+Contains all unit tests for the Tools app.
 """
 
 # Django

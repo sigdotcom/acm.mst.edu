@@ -1,10 +1,10 @@
 # Django
-from django.conf import settings
-from django.shortcuts import render, redirect, reverse
-from django.utils import timezone
+# from django.conf import settings
+from django.shortcuts import render  # , redirect, reverse
+# from django.utils import timezone
 
 # local Django
-from events.models import Event
+# from events.models import Event
 
 
 def membership(request):
