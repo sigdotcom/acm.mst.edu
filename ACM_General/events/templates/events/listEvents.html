@@ -1,5 +1,6 @@
 {% extends 'home/base.html' %}
 {% load static %}
+{% load app_filters %}
 
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "events/css/list-events.css" %}">
@@ -9,6 +10,7 @@
   <main>
         {% for event in eventsList %}
           {% if event.is_active %}
+    <a name="{{ event.title | hyphenate }}"></a>
     <div class="event-wrapper">
       <div class="event-card">
         <a class="flier-space" href="../{{ event.flier.url }}">
@@ -16,7 +18,11 @@
         </a>
         <div class="flier-info">
           <h2>{{ event.title }}</h2>
-          <p>{{ event.description }}</p>
+          <p>{{ event.description | truncatechars:120 }}</p>
+          <div>
+            <strong>When:</strong> {{ event.date_hosted | date:"m/d/o h:i A" }} CST
+            <strong>Where:</strong> {{ event.location }}
+          </div>
           {% if event.link %}
           <div>
             <a href="{{ event.link }}" class="acm-btn">Learn More</a>

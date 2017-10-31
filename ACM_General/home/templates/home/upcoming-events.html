@@ -1,4 +1,5 @@
 {% load tz %}
+{% load app_filters %}
 
 {% for event in upcoming_events %}
     <div class="event-wrapper">
@@ -9,7 +10,7 @@
             <div class="flier-info">
                 <h2>{{ event.title }}</h2>
                 <p>{{ event.description|truncatechars:100 }}</p>
-                <div><a href="{% url "events:events-list" %}" class="acm-btn">See More</a></div>
+                <div><a href="{% url "events:events-list" %}#{{ event.title | hyphenate }}" class="acm-btn">See More</a></div>
             </div>
         </div>
     </div>
