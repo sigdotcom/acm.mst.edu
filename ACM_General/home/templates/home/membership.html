@@ -50,9 +50,11 @@
           <h1 class="pay-area__title">Semester</h1>
           <div class="pay-area__price">11</div>
           <div class="pay-area__disclaimer">all perks are included</div>
-          <form id="semester-button" class="acm-btn pay-area__btn pay-area__btn--semester" action="{% url 'payments:product-handler' 'membership-semester' %}" method="POST">
+          <form id="semester-button" class="acm-btn pay-area__btn pay-area__btn--semester" method="POST">
             {% csrf_token %}
             <input type="hidden" id="stripeToken" name="stripeToken">
+            <input type="hidden" name="type" value="semester">
+
             Buy Semester
           </form>
         </div>
@@ -62,9 +64,10 @@
           <div class="pay-area__price">20</div>
           <div class="pay-area__disclaimer">all perks are included</div>
           <form id="year-button" class="acm-btn pay-area__btn
-              pay-area__btn--year" action="{% url 'payments:product-handler' 'membership-year' %}" method="POST">
+              pay-area__btn--year" method="POST">
             {% csrf_token %}
             <input type="hidden" id="stripeToken" name="stripeToken">
+            <input type="hidden" name="type" value="year">
             Buy Year
           </form>
         </div>

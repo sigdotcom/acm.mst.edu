@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.conf import settings
+from django.views import View
 
 # local Django
 from events.models import Event
@@ -38,23 +39,59 @@ def index(request):
     )
 
 
-def sponsors(request):
-    """
-    Handles a request to see the sponsors page.
+class Sponsors(View):
+    def get(self, request):
+        """
+        Handles a request to see the sponsors page.
 
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: django.http.request.HttpRequest
+        :param request: Request object that contains information from the user's
+                        POST/GET request.
+        :type request: django.http.request.HttpRequest
 
-    :return: The render template of the sponsors page.
-    :rtype: django.shortcut.render
-    """
-    return (
-        render(
-            request,
-            'home/sponsors.html',
+        :return: The render template of the sponsors page.
+        :rtype: django.shortcut.render
+        """
+        return (
+            render(
+                request,
+                'home/sponsors.html',
+            )
         )
-    )
+
+    def post(self, request):
+        if not request.user.is_authenticated():
+            raise Http404("Invalid User")
+
+        token = request.POST.get("stripeToken", None)
+        membership_type = request.POST.get("type", None)
+        if token is None:
+            raise ValueError(
+                "ProductHandler view did not receive a stripe"
+                " token in the POST request."
+            )
+
+        stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
+        if stripe.api_key == "" or not stripe.api_key:
+            raise ValueError(
+                "ProductHandler view has an invalid"
+                " stripe.api_key, please insert one in"
+                " settings_local.py."
+            )
+
+        stripe.Charge.create(
+            currency="usd",
+            amount=int(self.product.cost * 100),
+            description=product.description,
+            source=token,
+        )
+
+        models.Transaction.objects.create_transaction(
+            token, user=request.user,
+            cost=self.product.cost,
+            sig=self.product.sig,
+            category=self.product.category,
+            description=self.product.description
+        )
 
 
 def calendar(request):
@@ -116,25 +153,61 @@ def officers(request):
     )
 
 
-def membership(request):
-    """
-    Handles a request to see the membership page.
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: django.http.request.HttpRequest
+class Membership(View):
+    def get(self, request):
+        """
+        Handles a request to see the membership page.
+        :param request: Request object that contains information from the user's
+                        POST/GET request.
+        :type request: django.http.request.HttpRequest
 
-    :return: The render template of the officers page.
-    :rtype: django.shortcut.render
-    """
-    return (
-        render(
-            request,
-            'home/membership.html',
-            {
-                "stripe_public_key": getattr(settings, "STRIPE_PUB_KEY", "")
-            },
+        :return: The render template of the officers page.
+        :rtype: django.shortcut.render
+        """
+        return (
+            render(
+                request,
+                'home/membership.html',
+                {
+                    "stripe_public_key": getattr(settings, "STRIPE_PUB_KEY", "")
+                },
+            )
         )
-    )
+
+    def post(self, request):
+        if not request.user.is_authenticated():
+            raise Http404("Invalid User")
+
+        token = request.POST.get("stripeToken", None)
+        membership_type = request.POST.get("type", None)
+        if token is None:
+            raise ValueError(
+                "ProductHandler view did not receive a stripe"
+                " token in the POST request."
+            )
+
+        stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
+        if stripe.api_key == "" or not stripe.api_key:
+            raise ValueError(
+                "ProductHandler view has an invalid"
+                " stripe.api_key, please insert one in"
+                " settings_local.py."
+            )
+
+        stripe.Charge.create(
+            currency="usd",
+            amount=int(self.product.cost * 100),
+            description=product.description,
+            source=token,
+        )
+
+        models.Transaction.objects.create_transaction(
+            token, user=request.user,
+            cost=self.product.cost,
+            sig=self.product.sig,
+            category=self.product.category,
+            description=self.product.description
+        )
 
 
 def sigs(request):
