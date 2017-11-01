@@ -16,5 +16,7 @@
     </div>
 {% endfor %}
 {% if num_events > 2 %}
-<a href="{% url "events:events-list" %}" class="events-link">More Events</a>
+<div class="content-wrapper">
+  <a href="{% url "events:events-list" %}" class="events-link">More Events</a>
+</div>
 {% endif %}
