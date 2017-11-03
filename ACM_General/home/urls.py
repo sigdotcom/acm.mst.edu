@@ -18,11 +18,11 @@ urlpatterns = [
     # https://acm.mst.edu/media/
     url(r'^media/$', views.media, name="media"),
     # https://acm.mst.edu/membership/
-    url(r'^membership/$', views.membership, name="membership"),
+    url(r'^membership/$', views.Membership.as_view(), name="membership"),
     # https://acm.mst.edu/officers/
     url(r'^officers/$', views.officers, name="officers"),
     # https://acm.mst.edu/sigs/
     url(r'^sigs/$', views.sigs, name="sigs"),
     # https://acm.mst.edu/sponsors/
-    url(r'^sponsors/$', views.sponsors, name="sponsors"),
+    url(r'^sponsors/$', views.Sponsors.as_view(), name="sponsors"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
