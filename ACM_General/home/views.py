@@ -1,15 +1,21 @@
 """
 Contains all of the view for the Home app.
 """
+# Third-party
+import stripe
+
 # Django
 from django.conf import settings
-from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.utils import timezone
-from django.conf import settings
 from django.views import View
 
 # local Django
+import accounts.models
 from events.models import Event
+import products.models
 
 
 def index(request):
@@ -157,6 +163,18 @@ def officers(request):
 
 
 class Membership(View):
+    def __init__(self):
+        self.membership_types = {
+            "semester": {
+                "tag": "membership-semester",
+                "delta": timezone.timedelta(weeks=24)
+            },
+            "year": {
+                "tag": "membership-year",
+                "delta": timezone.timedelta(weeks=52)
+            }
+        }
+
     def get(self, request):
         """
         Handles a request to see the membership page.
@@ -182,35 +200,65 @@ class Membership(View):
             raise Http404("Invalid User")
 
         token = request.POST.get("stripeToken", None)
-        membership_type = request.POST.get("type", None)
+
+
         if token is None:
             raise ValueError(
-                "ProductHandler view did not receive a stripe"
-                " token in the POST request."
+                "Stripe token not received from user's post."
             )
 
         stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
         if stripe.api_key == "" or not stripe.api_key:
             raise ValueError(
-                "ProductHandler view has an invalid"
-                " stripe.api_key, please insert one in"
-                " settings_local.py."
+                "Invalid stripe.api_key specified."
             )
 
-        stripe.Charge.create(
-            currency="usd",
-            amount=int(self.product.cost * 100),
-            description=product.description,
-            source=token,
+        mem_requested = request.POST.get("type", None)
+        mem_attributes = self.membership_types.get(mem_requested, None)
+
+        if mem_attributes is None:
+            raise Http404("Invalid membership type specified.")
+
+        product = get_object_or_404(
+            products.models.Product, tag=mem_attributes["tag"]
         )
 
-        models.Transaction.objects.create_transaction(
+        try:
+            stripe.Charge.create(
+                currency="usd",
+                amount=int(product.cost * 100),
+                description=product.description,
+                source=token,
+            )
+        except stripe.error.APIConnectionError as api_con_err:
+            messages.error(
+                request,
+                'Could not connect to Stripe payment server. Please try again'
+                ' later.'
+            )
+            return HttpResponseRedirect(reverse("home:membership"))
+        except stripe.error.CardError as card_err:
+            messages.error(
+                request,
+                'Received a card error from the Stripe payment server.'
+            )
+            return HttpResponseRedirect(reverse("home:membership"))
+        else:
+            request.user.update_mem_expiration(mem_attributes["delta"])
+
+        products.models.Transaction.objects.create_transaction(
             token, user=request.user,
-            cost=self.product.cost,
-            sig=self.product.sig,
-            category=self.product.category,
-            description=self.product.description
+            cost=product.cost,
+            sig=product.sig,
+            category=product.category,
+            description=product.description
         )
+
+        messages.success(
+            request,
+            'Successfully applied ACM Membership to account.'
+        )
+        return HttpResponseRedirect(reverse("home:index"))
 
 
 def sigs(request):

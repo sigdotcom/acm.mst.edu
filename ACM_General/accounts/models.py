@@ -100,9 +100,30 @@ class User(AbstractBaseUser):
         expiration_date = self.membership_expiration
 
         if not expiration_date is None:
-            return timezone.now() >= expiration_date
+            return timezone.now() <= expiration_date
         else:
             return False
+
+    def update_mem_expiration(self, time_delta):
+        """
+        Update the user's ACM expiration date to a new time_delta
+
+        :param time_delta: The amount of time to increase the membership
+                           expiration date.
+        :type time_delta: django.utils.timezone.timedelta
+
+        .. note::
+            This operation saves the user every time it is applied. This may
+            result in a performance bottleneck later, but the saving should be a
+            default action when applying this operation.
+        """
+        if not self.is_member:
+            self.membership_expiration = timezone.now() + time_delta
+        else:
+            self.membership_expiration += time_delta
+
+        self.save()
+
 
     def get_full_name(self):
         """
