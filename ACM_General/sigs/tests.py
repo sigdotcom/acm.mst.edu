@@ -1,3 +1,6 @@
+"""
+Contains all of the unit tests for the SIGs app.
+"""
 # Django
 from django.db import IntegrityError
 from django.test import TestCase
@@ -18,9 +21,6 @@ class SIGManagerCase(TestCase):
     def test_get_by_natural_key_function(self):
         """
         Verifies that the function get_by_natural_key_function() is working
-
-        :rtype: None
-        :return: None
         """
         user = User.objects.create_user('test@mst.edu')
         models.SIG.objects.create_sig(
@@ -37,9 +37,6 @@ class SIGManagerCase(TestCase):
     def test_create_sig_function(self):
         """
         Verifies that the create_sig_function() function is working as intended
-
-        :rtype: None
-        :return: None
         """
         user = User.objects.create_user('test@mst.edu')
 
@@ -75,9 +72,6 @@ class SIGModelCase(TestCase):
     def test_sig_model_member_functions(self):
         """
         Checks if the __str__ dunder function works inside of the SIG model.
-
-        :rtype: None
-        :return: None
         """
 
         sig = models.SIG.objects.create_sig(
@@ -92,9 +86,6 @@ class SIGModelCase(TestCase):
         """
         Verifies that you will get an error is trying to make two of the
         same SIG
-
-        :rtype: None
-        :return: None
         """
         models.SIG.objects.create_sig(
             id='test',
@@ -114,9 +105,6 @@ class SIGModelCase(TestCase):
     def test_can_retrieve_sigs(self):
         """
         Verifies the uniqueness consraint for SIG creation.
-
-        :rtype: None
-        :return: None
         """
         models.SIG.objects.create_sig(
             id='test',
@@ -134,9 +122,6 @@ class SIGModelCase(TestCase):
     def test_can_edit_sig(self):
         """
         Checks that the ability to edit works as normal
-
-        :rtype: None
-        :return: None
         """
         sig = models.SIG.objects.create_sig(
             id='test',

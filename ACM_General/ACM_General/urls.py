@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^events/', include('events.urls')),
     url(r'^products/', include('products.urls')),
     url(r'^', include('home.urls')),
+    url(r'^tools/', include('tools.urls')),
 ]

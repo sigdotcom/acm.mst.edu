@@ -1,3 +1,7 @@
+"""
+Contains RESTful features in which API users can filter data specific to their
+use-case.
+"""
 # third-party
 import django_filters
 
@@ -9,14 +13,13 @@ from sigs.models import SIG
 
 class UserFilter(django_filters.FilterSet):
     """
-    Allows for Users to be filtered based on specified
-    filtering options.
+    Allows for Users to be filtered based on specified filtering options.
     """
     class Meta:
         """
-        Defines for which model and fields the filter set
-        applies to. Generates filters for the id, email,
-        is_active, is_superuser, and last_login User fields.
+        Defines for which model and fields the filter set applies to. Generates
+        filters for the id, email, is_active, is_superuser, and last_login User
+        fields.
         """
         model = User
         fields = [
@@ -47,13 +50,12 @@ class EventFilter(django_filters.FilterSet):
 
 class SIGFilter(django_filters.FilterSet):
     """
-    Allows for SIGs to be filtered based on specified
-    filtering options.
+    Allows for SIGs to be filtered based on specified filtering options.
     """
     class Meta:
         """
-        Defines for which model and fields the filter set
-        applies to. Generates filters for all SIG fields.
+        Defines for which model and fields the filter set applies to. Generates
+        filters for all SIG fields.
         """
         model = SIG
         fields = '__all__'

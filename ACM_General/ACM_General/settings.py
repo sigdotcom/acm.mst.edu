@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
     'rest_framework',
+    'tools.apps.ToolsConfig',
 ]
 
 MIDDLEWARE = [

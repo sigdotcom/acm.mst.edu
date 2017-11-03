@@ -1,3 +1,6 @@
+"""
+Contains all of the unit tests for the rest_api app.
+"""
 # standard library
 import json
 
@@ -20,19 +23,16 @@ from sigs.models import SIG
 
 class AccountsTestCase(TestCase):
     """
-    Ensures that a user account behaves as expected throughout
-    various interactions they may have throughout the website.
-    This includes all basic functionality pertaining to
-    data associated with the user, as well as the user itself.
+    Ensures that a user account behaves as expected throughout various
+    interactions they may have throughout the website.  This includes all basic
+    functionality pertaining to data associated with the user, as well as the
+    user itself.
     """
 
     def setUp(self):
         """
         Initializes all variables and data that is required to
         test Account functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.client = APIClient()
@@ -76,11 +76,8 @@ class AccountsTestCase(TestCase):
 
     def test_accounts_rest_actions(self):
         """
-        Ensures that an Accounts interactions with each REST api
-        (post, get, put, destroy) results in expected behavior.
-
-        :rtype: None
-        :return: None
+        Ensures that an Accounts interactions with each REST API (post, get,
+        put, destroy) results in expected behavior.
         """
         user = self.user_data
 
@@ -151,11 +148,8 @@ class AccountsTestCase(TestCase):
 
     def test_serializer_validation(self):
         """
-        Ensures that the UserSerializer in accounts/serializers.py
+        Ensures that the :class:`~accounts.serializers.UserSerializer`
         functions as intended.
-
-        :rtype: None
-        :return: None
         """
         user = self.user_data
         user['email'] = "test@fail.com"
@@ -172,9 +166,6 @@ class EventsTestCase(TestCase):
         """
         Initializes all variables and data required to test Event
         functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.client = APIClient()
@@ -215,11 +206,8 @@ class EventsTestCase(TestCase):
 
     def test_events_rest_actions(self):
         """
-        Ensures that an event behaves as expected at each
-        point in the REST api.
-
-        :rtype: None
-        :return: None
+        Ensures that an event behaves as expected at each point in the REST
+        api.
         """
         event = {
             "date_hosted": timezone.now(),
@@ -311,9 +299,6 @@ class SigsTestCase(TestCase):
     def setUp(self):
         """
         Initializes all variables and data required to test SIG functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -349,10 +334,7 @@ class SigsTestCase(TestCase):
     def test_sigs_rest_actions(self):
         """
         Ensures that a SIG behaves as expected at each
-        point in the REST api.
-
-        :rtype: None
-        :return: None
+        point in the REST API.
         """
         sig = {
             "id": "sig_test",
@@ -441,11 +423,8 @@ class TransactionsTestCase(TestCase):
 
     def setUp(self):
         """
-        Initializes all variables and data required to test
-        Transaction functionality.
-
-        :rtype: None
-        :return: None
+        Initializes all variables and data required to test Transaction
+        functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -480,11 +459,8 @@ class TransactionsTestCase(TestCase):
 
     def test_transactions_rest_actions(self):
         """
-        Ensures a Transaction behaves as expected throughout all
-        points in the REST api.
-
-        :rtype: None
-        :return: None
+        Ensures a Transaction behaves as expected throughout all points in the
+        REST API.
         """
         transaction = {
             "description": "test",
@@ -524,9 +500,9 @@ class TransactionsTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(transaction[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         transaction["description"] = "test"
         response = self.client.put(
@@ -563,7 +539,7 @@ class TransactionsTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:transaction-list'))
         with self.assertRaises(IndexError):
@@ -573,17 +549,14 @@ class TransactionsTestCase(TestCase):
 
 class CategoryTestCase(TestCase):
     """
-    Ensures that Categories behave as expected throughout
-    all points in their lifecycle.
+    Ensures that Categories behave as expected throughout all points in their
+    life-cycle.
     """
 
     def setUp(self):
         """
-        Initializes all variables and data required to
-        test Category functionality.
-
-        :rtype: None
-        :return: None
+        Initializes all variables and data required to test Category
+        functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -619,10 +592,7 @@ class CategoryTestCase(TestCase):
     def test_category_rest_actions(self):
         """
         Ensures that a Category behaves as expected at
-        each point in the REST api.
-
-        :rtype: None
-        :return: None
+        each point in the REST API.
         """
         category = {
             "name": "test"
@@ -655,9 +625,9 @@ class CategoryTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(category[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         category["name"] = "test1"
         response = self.client.put(
@@ -694,7 +664,7 @@ class CategoryTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:category-list'))
         with self.assertRaises(IndexError):
@@ -704,17 +674,14 @@ class CategoryTestCase(TestCase):
 
 class ProductTestCase(TestCase):
     """
-    Ensures that a Product behaves as expected throughout all
-    points of its lifecycle.
+    Ensures that a Product behaves as expected throughout all points of its
+    life-cycle.
     """
 
     def setUp(self):
         """
         Initialize all variables and data required to test
-        Product functinoality.
-
-        :rtype: None
-        :return: None
+        Product functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -750,10 +717,7 @@ class ProductTestCase(TestCase):
     def test_product_rest_actions(self):
         """
         Ensures that a Product behaves as expected at
-        each point in the REST api.
-
-        :rtype: None
-        :return: None
+        each point in the REST API.
         """
         product = {
             "tag": "name",
@@ -791,9 +755,9 @@ class ProductTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(product[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         product["name"] = "test1"
         response = self.client.put(
@@ -830,7 +794,7 @@ class ProductTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:product-list'))
         with self.assertRaises(IndexError):

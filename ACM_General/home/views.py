@@ -1,3 +1,6 @@
+"""
+Contains all of the view for the Home app.
+"""
 # Django
 from django.conf import settings
 from django.shortcuts import render, redirect, reverse
@@ -17,10 +20,10 @@ def index(request):
 
     :param request: Request object that contains information from the user's
                     POST/GET request.
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`~django.http.request.HttpRequest`
 
     :return: The render template of the index page.
-    :rtype: django.shortcut.render
+    :rtype: `django.shortcut.render`
     """
 
     events = Event.objects.filter(
@@ -101,11 +104,11 @@ def calendar(request):
 
     :param request: Request object that contains information from the user's
                     POST/GET request.
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`~django.http.request.HttpRequest`
 
-    :return: A redirect to the homepage with a `#calendar` anchor which will
+    :return: A redirect to the homepage with a ``#calendar`` anchor which will
              automatically put the user's page onto the calendar.
-    :rtype: django.shortcut.redirect
+    :rtype: `django.shortcut.redirect`
     """
     return (
         redirect(
@@ -121,10 +124,10 @@ def media(request):
 
     :param request: Request object that contains information from the user's
                     POST/GET request.
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`django.http.request.HttpRequest`
 
     :return: The render template of the media page.
-    :rtype: django.shortcut.render
+    :rtype: `django.shortcut.render`
     """
     return (
         render(
@@ -140,10 +143,10 @@ def officers(request):
 
     :param request: Request object that contains information from the user's
                     POST/GET request.
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`django.http.request.HttpRequest`
 
     :return: The render template of the officers page.
-    :rtype: django.shortcut.render
+    :rtype: `django.shortcut.render`
     """
     return (
         render(
@@ -216,10 +219,10 @@ def sigs(request):
 
     :param request: Request object that contains information from the user's
                     POST/GET request.
-    :type request: django.http.request.HttpRequest
+    :type request: :class:`~django.http.request.HttpRequest`
 
     :return: The render template of the sigs page.
-    :rtype: django.shortcut.render
+    :rtype: `django.shortcut.render`
     """
     return (
         render(

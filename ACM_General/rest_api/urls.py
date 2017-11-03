@@ -1,3 +1,6 @@
+"""
+Contains the urls for the `/web_api/` route.
+"""
 # third-party
 from rest_framework.urlpatterns import format_suffix_patterns
 

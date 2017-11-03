@@ -21,8 +21,7 @@ from . import managers
 class User(AbstractBaseUser):
     """
     Overloading of the base user class to enable email validation
-    as apposed to username validation in default django.
-
+    as opposed to username validation in default django.
     """
     #: Container for the User Manager.
     objects = managers.UserManager()
