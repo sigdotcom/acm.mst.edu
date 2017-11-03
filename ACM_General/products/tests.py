@@ -43,6 +43,7 @@ class PaymentsManagerCase(TestCase):
 
         product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=category,
             sig=self.sig,
@@ -68,6 +69,7 @@ class PaymentsManagerCase(TestCase):
     def test_get_by_natural_key(self):
         category = models.TransactionCategory.objects.create_category('test')
         models.Product.objects.create_product(
+            'test',
             'test',
             cost=3.00,
             category=category,
@@ -115,6 +117,7 @@ class PaymentsModelCase(TestCase):
         category = models.TransactionCategory.objects.create_category('test')
         product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=category,
             sig=self.sig,
@@ -151,6 +154,7 @@ class PaymentsViewCase(TestCase):
         )
         self.product = models.Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -165,41 +169,6 @@ class PaymentsViewCase(TestCase):
     def test_ensure_api_keys(self):
         self.assertIsNotNone(getattr(settings, 'STRIPE_PUB_KEY', None))
         self.assertIsNotNone(getattr(settings, 'STRIPE_PRIV_KEY', None))
-
-    def test_view_integrity(self):
-        response = self.client.get(reverse('payments:acm-memberships'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'payments/acm_membership.html')
-
-        response = self.client.get(reverse(
-            'payments:product-handler',
-            kwargs={'pk': self.product.id})
-        )
-        self.assertEqual(response.status_code, 405)
-
-        response = self.client.post(reverse(
-            'payments:product-handler',
-            kwargs={'pk': self.product.id}),
-            {'stripeToken': 'test'}
-        )
-        self.assertEqual(response.status_code, 404)
-
-        self.client.force_login(self.user)
-        with self.assertRaises(ValueError):
-            response = self.client.post(reverse(
-                'payments:product-handler',
-                kwargs={'pk': self.product.id})
-            )
-
-        with self.settings(STRIPE_PRIV_KEY=""):
-            with self.assertRaises(ValueError):
-                response = self.client.post(reverse(
-                    'payments:product-handler',
-                    kwargs={'pk': self.product.id}),
-                    {'stripeToken': 'test'}
-                )
-
-        getattr(settings, 'STRIPE_PRIV_KEY', None)
 
 
 # Dropping selenium for now, will revisit
@@ -220,12 +189,13 @@ class PaymentsIntegrationTestCase(LiveServerTestCase):
             'test'
         )
         self.product = models.Product.objects.create_product(
-                                        'test',
-                                        cost=3.00,
-                                        description='test',
-                                        category=self.category,
-                                        sig=self.sig,
-                                    )
+            'test',
+            'test',
+            cost=3.00,
+            description='test',
+            category=self.category,
+            sig=self.sig,
+        )
         self.client.login(email='ksyh3@mst.edu') # Native django test client
         cookie = self.client.cookies['sessionid']
         # selenium will set cookie domain based on current page domain

@@ -17,7 +17,7 @@ from django.urls import reverse
 from accounts.models import User
 from events.models import Event
 # from events.serializers import EventSerializer
-from payments.models import TransactionCategory, Product, Transaction
+from products.models import TransactionCategory, Product, Transaction
 from sigs.models import SIG
 
 
@@ -143,8 +143,8 @@ class AccountsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:user-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
     def test_serializer_validation(self):
         """
@@ -411,8 +411,8 @@ class SigsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:sig-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class TransactionsTestCase(TestCase):
@@ -668,8 +668,8 @@ class CategoryTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:category-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class ProductTestCase(TestCase):
@@ -798,5 +798,5 @@ class ProductTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:product-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[3], None)
+        self.assertIsNotNone(response.json()[2])
