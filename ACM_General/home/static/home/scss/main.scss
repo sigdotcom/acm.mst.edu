@@ -24,7 +24,6 @@ html {
   font-size: 1em;
   line-height: 1.4;
   font-family: RobotoRegular, sans-serif;
-  letter-spacing: -0.6px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -105,6 +104,7 @@ body {
 
 header {
   /* Allocate space */
+  //@extend .constraint-wrapper;
   width: 100%;
   height: 420px;
   padding-bottom: 45px;
@@ -116,6 +116,7 @@ header {
           #f1f1f1;
   /* Formatting */
   /* Cosmetics */
+  /*background-color: #245623;*/
   .constraint-wrapper {
     height: 100%;
   }
@@ -135,8 +136,8 @@ header {
   height: 70px;
   /* Formatting */
   display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+display: -webkit-flex;
+display: flex;
   -ms-flex-align: center;
   align-items: center;
   /* Cosmetics */
@@ -174,8 +175,8 @@ header {
   padding: 0 20px 20px 20px;
   /* Formatting */
   display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+display: -webkit-flex;
+display: flex;
   -ms-flex-align: end;
   align-items: flex-end;
   -ms-flex-pack: end;
@@ -201,182 +202,139 @@ header {
  * ========================================================================= */
 
 nav {
-  /* Allocate space */
+
   width: 86vw;
   min-width:1000px;
   height: 90px;
-  /* Formatting */
+
   position: relative;
   z-index: 10;
   margin: -45px auto 0 auto;
-  /* Cosmetics */
+
   background-color: #fff;
 }
 
 nav .nav-link-wrapper {
-  /* Allocate space */
+  margin: -45px auto 0 auto;
+  position: relative;
+  padding: 0;
+  list-style: none;
   max-width: 1000px;
   width: 100%;
   height: 100%;
-  padding: 0;
-  /* Formatting */
-  margin: -45px auto 0 auto;
-  position: relative;
-  /* Cosmetics */
-  list-style: none;
 }
 
 .nav-button {
-  /* Allocate space */
-  height: 100%;
-  width: 16.666666666666666666%;
-  /* Formatting */
-  display: inline-block;
   float: left;
+  height: 100%;
+  //margin-top: -45px;
   text-align: center;
-  /* Cosmetics */
   text-decoration: none;
   cursor: pointer;
+
+  display: inline-block;
+  width: 16.666666666666666666%;
 }
 
 .nav-button:hover a span {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   color: rgba(0, 0, 0, .55);
 }
 
 .nav-button:after {
-  /* Allocate space */
-  transform: scaleX(.40);
-  /* Formatting */
+  transition: all .25s ease-in-out;
   display: block;
   position: relative;
   content: '';
-  /* Cosmetics */
-  transition: all .25s ease-in-out;
+  transform: scaleX(.40);
   border-bottom: solid 3px #2da1d8;
 }
 
 .nav-button:hover:after {
-  /* Allocate space */
   transform: scaleX(1);
-  /* Formatting */
-  /* Cosmetics */
   border-bottom: solid 3px #76d3ab;
 }
 
 .nav-button a {
-  /* Allocate space */
-  height: 87px;
-  width: 100%;
-  /* Formatting */
-  display: block;
-  /* Cosmetics */
   text-decoration: none;
+  height: 87px;
+  display: block;
+  width: 100%;
 }
 
 .nav-button a * {
-  /* Allocate space */
-  /* Formatting */
   display: block;
-  /* Cosmetics */
 }
 
 .nav-button a img {
-  /* Allocate space */
   height: 48px;
   width: 48px;
-  padding-top: 10px;
-  /* Formatting */
   box-sizing: content-box;
   margin: 0 auto 0 auto;
-  /* Cosmetics */
+  padding-top: 10px;
 }
 
 .nav-button a span {
-  /* Allocate space */
-  padding-bottom: 12px;
-  /* Formatting */
-  /* Cosmetics */
   transition: all .2s ease-in-out;
   font-size: .8em;
   font-weight: bold;
   color: rgba(0, 0, 0, .42);
+  padding-bottom: 12px;
 }
 
 /* This section is for mobile menu */
 
 #menu-wrapper {
-  /* Allocate space */
-  height: 56px;
-  width: 100vw;
-  /* Formatting */
   display: none;
   z-index: 100;
+  width: 100vw;
   top: 0;
+  background: $light-footer;
+  height: 56px;
   overflow: hidden;
   position: fixed;
-  /* Cosmetics */
-  background: $light-footer;
 }
 
 label {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   cursor: pointer;
 }
 
 label:focus {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   outline: none;
 }
 
 .menu {
-  /* Allocate space */
-  height: 100%;
-  width: 240px;
-  /* Formatting */
   position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
-  transform: translate3d(-240px, 0, 0);
-  /* Cosmetics */
   background: #f1f1f1;
+  width: 240px;
+  height: 100%;
+  transform: translate3d(-240px, 0, 0);
   transition: transform 0.35s;
 }
 
 .menu label.menu-toggle {
-  /* Allocate space */
-  height: 56px;
-  width: 60px;
-  padding: 19px 18px;
-  /* Formatting */
-  display: block;
   position: absolute;
   right: -60px;
-  /* Cosmetics */
+  width: 60px;
+  height: 56px;
   line-height: 0px;
+  display: block;
+  padding: 19px 18px;
   text-indent: -9999px;
   background: $light-footer;
 }
 
 .menu span {
-  /* Allocate space */
-  height: 2px;
-  width: 25px;
-  /* Formatting */
   display: block;
+  width: 25px;
+  height: 2px;
   margin-bottom: 5px;
   position: relative;
-  z-index: 1;
-  /* Cosmetics */
   background: #cdcdcd;
   border-radius: 3px;
+  z-index: 1;
   transform-origin: 4px 0px;
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
@@ -384,33 +342,21 @@ label:focus {
 }
 
 #menuToggle span:first-child {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   transform-origin: 0% 0%;
 }
 
 #menuToggle span:nth-last-child(2) {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   transform-origin: 0% 100%;
 }
 
 .menu ul li > label {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50%/16px 16px no-repeat;
 }
 
 .menu ul li a, .menu ul li label {
-  /* Allocate space */
-  padding: 0 20px;
-  /* Formatting */
   display: block;
-  /* Cosmetics */
   text-align: center;
+  padding: 0 20px;
   line-height: 56px;
   text-decoration: none;
   color: $top-text-color;
@@ -418,50 +364,32 @@ label:focus {
 }
 
 .menu ul li a:hover, .menu ul li label:hover {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
-  color: $acm-green;
+  color: #76d3ab;
   background-color: #eee;
   font-weight:bold;
 }
 
 .menu ul {
-  /* Allocate space */
-  padding-left: 0;
-  /* Formatting */
   margin-top: 0;
-  /* Cosmetics */
+  padding-left: 0;
 }
 
 .menu ul li {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   list-style: none;
 }
 
 /* hide inputs */
 .menu-checkbox {
-  /* Allocate space */
-  /* Formatting */
   display: none;
-  /* Cosmetics */
 }
 
 /* hide navigation icon for sublabels */
 .menu .menu label.menu-toggle {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   background: none;
 }
 
 /* fade in checked menu */
 .menu-checkbox:checked + .menu {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   transform: translate3d(0, 0, 0);
   box-shadow: 0 0 8px rgba(0, 0, 0, .45);
 }
@@ -471,34 +399,27 @@ label:focus {
  * ========================================================================= */
 
 main {
-  /* Allocate space */
   padding: 20px 0 0 0;
-  /* Formatting */
-  /* Cosmetics */
   background-color: white;
 }
 
 .acm-btn {
-  /* Allocate space */
-  height: 38px;
-  padding: 0 20px;
-  /* Formatting */
   display: inline-block;
-  white-space: nowrap;
-  /* Cosmetics */
   cursor: pointer;
-  background: $acm-green;
-  color: white;
+  background: #76d3ab;
+  white-space: nowrap;
+ color: white;
   text-align: center;
+  height: 38px;
   line-height: 38px;
+  padding: 0 20px;
   text-decoration: none;
+
   box-shadow: inset 0 -4px 0 0 #65b593;
+
   transition: .2s ease-in-out;
 }
 .acm-btn:hover {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   box-shadow: inset 0 -40px 0 0 #65b593;
 }
 
@@ -507,75 +428,12 @@ main {
  * ========================================================================= */
 
 footer {
-  /* Allocate space */
-  height: 220px;
-  /* Formatting */
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  /* Cosmetics */ 
+  height: 250px;
+  padding-bottom: 50px;
   background-color: #373C3F;
   position: relative;
 }
 
-footer img {
-  /* Allocate space */
-  height: auto;
-  max-height: 100px;
-  width: auto;
-  /* Formatting */
-  margin: 5px 0;
-  /* Cosmetics */
-}
-
-.footer-nav {
-  /* Allocate space */
-  height: 60px;
-  width: 100%;
-  /* Formatting */
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  align-items: center;
-  flex-wrap: wrap;
-  white-space: nowrap;
-  /* Cosmetics */
-  
-}
-
-.footer-nav a {
-  /* Allocate space */
-  /* Formatting */
-  margin: 0 2%;
-  /* Cosmetics */
-  font-size: 14px;
-  text-decoration: none;
-  color: rgba(255,255,255,.8);
-  transition: color .25s;
-}
-.footer-nav a:hover {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
-  color: rgba(255,255,255,1);
-}
-
-footer h5 {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
-  color: rgba(255,255,255,.6);
-  font-size: 14px;
-  font-weight: normal;
-=======
 .footer-wrapper {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
@@ -635,7 +493,6 @@ footer h5 {
   bottom: 0;
   left: 0;
   right: 0;
->>>>>>> dd61a3dd2d6880fe3d8f1b1b89336363c50371aa
 }
 
 /* ==========================================================================
@@ -647,9 +504,6 @@ footer h5 {
  */
 
 .hidden {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   display: none !important;
 }
 
@@ -659,17 +513,14 @@ footer h5 {
  */
 
 .visuallyhidden {
-  /* Allocate space */
-  height: 1px;
-  width: 1px;
-  padding: 0;
-  /* Formatting */
-  margin: -1px;
-  overflow: hidden;
-  position: absolute;
-  /* Cosmetics */
   border: 0;
   clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 /*
@@ -680,15 +531,12 @@ footer h5 {
 
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-  /* Allocate space */
+  clip: auto;
   height: auto;
-  width: auto;
-  /* Formatting */
   margin: 0;
   overflow: visible;
   position: static;
-  /* Cosmetics */
-  clip: auto;
+  width: auto;
 }
 
 /*
@@ -696,9 +544,6 @@ footer h5 {
  */
 
 .invisible {
-  /* Allocate space */
-  /* Formatting */
-  /* Cosmetics */
   visibility: hidden;
 }
 
@@ -707,21 +552,15 @@ footer h5 {
  */
 
 .constraint-wrapper {
-  /* Allocate space */
+  margin: 0 auto;
   width: 100%;
   max-width: 1200px;
-  /* Formatting */
-  margin: 0 auto;
-  /* Cosmetics */
 }
 
 .content-wrapper {
-  /* Allocate space */
+  margin: 0 auto;
   width: 100%;
   max-width: 1000px;
-  /* Formatting */
-  margin: 0 auto;
-  /* Cosmetics */
 }
 
 /*
@@ -784,76 +623,61 @@ footer h5 {
 @media (max-width: 750px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   header {
-    /* Allocate space */
-    height: 230px;
-    padding-bottom: 0;
-    /* Formatting */
     margin-top: 56px;
-    /* Cosmetics */
+    padding-bottom: 0;
+    height: 230px;
   }
 
   .header-welcome {
-    /* Allocate space */
-    /* Formatting */
-    /* Cosmetics */
     font-size: 28px;
   }
 
   nav {
-    /* Allocate space */
-    /* Formatting */
     display: none;
-    /* Cosmetics */
   }
 
   #menu-wrapper {
-    /* Allocate space */
-    /* Formatting */
     display: block;
-    /* Cosmetics */
+  }
+
+  .top-bar {
+    top: 0;
+    display: block;
   }
 
   main {
-    /* Allocate space */
-    padding-top: 10px;
-    /* Formatting */
     margin-top: 0;
-    /* Cosmetics */
+    padding-top: 10px;
   }
 
   main::before {
-    /* Allocate space */
-    /* Formatting */
     display: block !important;
     content: '';
     position: relative;
     top: -12px;
-    /* Cosmetics */
     border-top: solid 4px #2da1d8;
   }
   
   
 }
 
+/*@media (max-width:961px)  { !* tablet, landscape iPad, low-res laptops ands desktops *! }*/
 @media (max-width: 1090px) {
   /* big landscape tablets, laptops, and desktops */
+
   nav .nav-link-wrapper {
-    /* Allocate space */
-    /* Formatting */
     margin: 0;
-    /* Cosmetics */
   }
 }
 
 @media (max-width:1000px) {
   nav {
-    /* Allocate space */
     width: 100%;
     min-width: 0;
-    /* Formatting */
-    /* Cosmetics */
   }
 }
+
+/*@media (min-width:1281px) { !* hi-res laptops and desktops *! }*/
 
 /* ==========================================================================
    Print styles.
@@ -869,7 +693,8 @@ footer h5 {
   *:first-line {
     background: transparent !important;
     color: #000 !important;
-    /* Black prints faster: http://www.sanbeiji.com/archives/953 */
+    /* Black prints faster:
+                                      http://www.sanbeiji.com/archives/953 */
     box-shadow: none !important;
     text-shadow: none !important;
   }
