@@ -7,13 +7,15 @@ import stripe
 # Django
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import (
+    HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest,
+    HttpResponse
+)
+from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.views import View
 
 # local Django
-import accounts.models
 from events.models import Event
 import products.models
 
@@ -53,8 +55,8 @@ class Sponsors(View):
         """
         Handles a request to see the sponsors page.
 
-        :param request: Request object that contains information from the user's
-                        POST/GET request.
+        :param request: Request object that contains information from the
+                        user's POST/GET request.
         :type request: django.http.request.HttpRequest
 
         :return: The render template of the sponsors page.
@@ -65,41 +67,6 @@ class Sponsors(View):
                 request,
                 'home/sponsors.html',
             )
-        )
-
-    def post(self, request):
-        if not request.user.is_authenticated():
-            raise Http404("Invalid User")
-
-        token = request.POST.get("stripeToken", None)
-        membership_type = request.POST.get("type", None)
-        if token is None:
-            raise ValueError(
-                "ProductHandler view did not receive a stripe"
-                " token in the POST request."
-            )
-
-        stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
-        if stripe.api_key == "" or not stripe.api_key:
-            raise ValueError(
-                "ProductHandler view has an invalid"
-                " stripe.api_key, please insert one in"
-                " settings_local.py."
-            )
-
-        stripe.Charge.create(
-            currency="usd",
-            amount=int(self.product.cost * 100),
-            description=product.description,
-            source=token,
-        )
-
-        models.Transaction.objects.create_transaction(
-            token, user=request.user,
-            cost=self.product.cost,
-            sig=self.product.sig,
-            category=self.product.category,
-            description=self.product.description
         )
 
 
@@ -178,8 +145,8 @@ class Membership(View):
     def get(self, request):
         """
         Handles a request to see the membership page.
-        :param request: Request object that contains information from the user's
-                        POST/GET request.
+        :param request: Request object that contains information from the
+                        user's POST/GET request.
         :type request: django.http.request.HttpRequest
 
         :return: The render template of the officers page.
@@ -190,21 +157,23 @@ class Membership(View):
                 request,
                 'home/membership.html',
                 {
-                    "stripe_public_key": getattr(settings, "STRIPE_PUB_KEY", "")
+                    "stripe_public_key": getattr(
+                        settings, "STRIPE_PUB_KEY", ""
+                    ),
                 },
             )
         )
 
     def post(self, request):
         if not request.user.is_authenticated():
-            raise Http404("Invalid User")
+            return HttpResponseNotFound("Invalid User")
 
         token = request.POST.get("stripeToken", None)
 
-
         if token is None:
-            raise ValueError(
-                "Stripe token not received from user's post."
+            return HttpResponseBadRequest(
+                "ProductHandler view did not receive a stripe"
+                " token in the POST request."
             )
 
         stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
@@ -217,11 +186,19 @@ class Membership(View):
         mem_attributes = self.membership_types.get(mem_requested, None)
 
         if mem_attributes is None:
-            raise Http404("Invalid membership type specified.")
+            return HttpResponseBadRequest("Invalid membership type specified.")
 
-        product = get_object_or_404(
-            products.models.Product, tag=mem_attributes["tag"]
+        product = products.models.Product.objects.get(
+            tag=mem_attributes["tag"]
         )
+
+        # This case will only occur if self.membership_types is improperly set
+        if product is None:  # pragma: no cover
+            return HttpResponse(
+                "Unexpected error occurred. The backend returned an invalid "
+                "product. Please contact the administrator.",
+                status=500
+            )
 
         try:
             stripe.Charge.create(
@@ -230,7 +207,7 @@ class Membership(View):
                 description=product.description,
                 source=token,
             )
-        except stripe.error.APIConnectionError as api_con_err:
+        except stripe.error.APIConnectionError as con_err:  # pragma: no cover
             messages.error(
                 request,
                 'Could not connect to Stripe payment server. Please try again'
@@ -243,6 +220,12 @@ class Membership(View):
                 'Received a card error from the Stripe payment server.'
             )
             return HttpResponseRedirect(reverse("home:membership"))
+        except stripe.error.AuthenticationError as auth_err:
+            return HttpResponse(
+                "Unexpected error occurred. Invalid Stripe API key specified "
+                "by the backend. Please contact the administrator.",
+                status=500
+            )
         else:
             request.user.update_mem_expiration(mem_attributes["delta"])
 
