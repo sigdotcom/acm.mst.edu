@@ -1,5 +1,8 @@
 """
 Contains all the unit tests for the Payments app.
+
+All comments in this file are on reserve for the re-implementation of the
+selenium integration testing.
 """
 # standard library
 
@@ -13,7 +16,7 @@ from django.conf import settings
 from django.test import TestCase
 # from django.test import LiveServerTestCase
 
-from django.urls import reverse
+# from django.urls import reverse
 
 # local Django
 from . import models

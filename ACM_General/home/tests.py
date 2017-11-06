@@ -169,7 +169,7 @@ class MembershipViewTests(TestCase):
             data["type"] = mem_type
         return self.client.post(reverse("home:membership"), data, **kwargs)
 
-    def check_post_response(self, status_code, **kwargs): # pragma: no cover
+    def check_post_response(self, status_code, **kwargs):  # pragma: no cover
         """
         Asserts that the status_code passed is equal to that returned by the
         post.
@@ -179,7 +179,7 @@ class MembershipViewTests(TestCase):
         response = self.post_data(**kwargs)
         self.assertEqual(response.status_code, status_code)
 
-    def check_messages(self, message, **kwargs): # pragma: no cover
+    def check_messages(self, message, **kwargs):  # pragma: no cover
         """
         Check the request context to ensure a certain message has be posted.
 
