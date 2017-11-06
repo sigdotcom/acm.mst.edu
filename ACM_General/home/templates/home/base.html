@@ -146,17 +146,32 @@
   </nav><!-- desktop nav -->
 {% endblock %}
 {% block body_footer %}
-  <footer>
-    <img src="{% static "core/img/mstacm-logo-trans-new.png" %}"/>
-    <div class="footer-nav">
-      <a href="{% url "home:index" %}">Home</a>
-      <a href="{% url "home:sigs" %}">SIGs</a>
-      <a href="{% url "home:sponsors" %}">Sponsors</a>
-      <a href="{% url "home:media" %}">Media</a>
-      <a href="{% url "home:officers" %}">Officers</a>
-      <a href="https://www.acm.org/">About ACM</a>
+  <footer class="footer">
+    <div class="footer-wrapper">
+      <ul class="footer__nav">
+        <h4>Links:</h4>
+        <li><a href="{% url "home:index" %}">Home</a></li>
+        <li><a href="{% url "home:sponsors" %}">Sponsors</a></li>
+        <li><a href="{% url "home:media" %}">Media</a></li>
+        <li><a href="{% url "home:officers" %}">Officers</a></li>
+      </ul>
+      <ul class="footer__sigs">
+        <h4><a href="{% url "home:sigs" %}">SIGs:</a></h4>
+        <li><a href="https://discord.gg/eKtkR4k">SIG.com</a></li>
+        <li><a href="http://mst.orgsync.com/org/acmw/">ACM-W</a></li>
+        <li><a href="http://acmsigsec.mst.edu/">SIG-Security</a></li>
+        <li><a href="http://siggame.io/">SIG-Game</a></li>
+        <li><a href="https://discord.gg/ayjGE9t">SIG-Competition</a></li>
+      </ul>
+      <a href="https://github.com/sigdotcom"><img src="{% static "home/img/core/sigdotcomlogo.png" %}"/></a>
+      <ul>
+        <h4>Other:</h4>
+        <li><a href="https://github.com/sigdotcom/acm.mst.edu/blob/develop/LICENSE">License</a></li>
+        <li><a href="https://github.com/sigdotcom/acm.mst.edu">Source Code</a></li>
+        <li><a href="https://www.acm.org/">About ACM</a></li>
+      </ul>
     </div>
-    <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
+    <h5>@ 2017 Missouri S&amp;T SIG.com. All rights reserved.</h5>
   </footer>
 
 {% endblock %}

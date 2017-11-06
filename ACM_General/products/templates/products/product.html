@@ -1,0 +1,50 @@
+{% extends "core/wireframe.html" %}
+
+{% load staticfiles %}
+
+{% block head_title %}
+    <title>ACM | products</title>
+{% endblock %}
+
+{% block head_stylesheets %}
+        <link rel="stylesheet" href="{% static "products/css/products.css" %}" />
+{% endblock %}
+
+{% block body_content %}
+<div class="wrapper">
+  <div class="card">
+    <div class="logo"></div>
+    <div class="wrapper">
+      <div class="payment-container">
+        <h2> Semester Membership </h2>
+        <form action="{% url 'products:payment-callback' 1100 %}" method="POST">
+          {% csrf_token %}
+          <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_0FfWE5qxj6yqPUHQU1noRevQ"
+          data-amount="1100"
+          data-name="Missouri S&amp;T - Association of Computing Machinery"
+          data-description="Widget"
+          data-image="{% static 'home/img/core/acm.png' %}"
+          data-locale="auto">
+          </script>
+        </form>
+      </div>
+      <div class="payment-container">
+        <h2>Yearly Membership</h2>
+        <form action="{% url 'products:payment-callback' 2000 %}" method="POST">
+          {% csrf_token %}
+          <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_0FfWE5qxj6yqPUHQU1noRevQ"
+          data-amount="2000"
+          data-name="Missouri S&amp;T - Association of Computing Machinery"
+          data-description="Widget"
+          data-image="{% static 'home/img/acm.png' %}"
+          data-locale="auto">
+          </script>
+        </form>
+      </div>
+  </div>
+</div>
+{% endblock %}

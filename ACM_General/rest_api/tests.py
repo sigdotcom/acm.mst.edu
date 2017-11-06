@@ -17,7 +17,7 @@ from django.urls import reverse
 from accounts.models import User
 from events.models import Event
 # from events.serializers import EventSerializer
-from payments.models import TransactionCategory, Product, Transaction
+from products.models import TransactionCategory, Product, Transaction
 from sigs.models import SIG
 
 
@@ -54,6 +54,7 @@ class AccountsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -75,7 +76,7 @@ class AccountsTestCase(TestCase):
 
     def test_accounts_rest_actions(self):
         """
-        Ensures that an Accounts interactions with each REST api (post, get,
+        Ensures that an Accounts interactions with each REST API (post, get,
         put, destroy) results in expected behavior.
         """
         user = self.user_data
@@ -142,8 +143,8 @@ class AccountsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:user-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
     def test_serializer_validation(self):
         """
@@ -185,6 +186,7 @@ class EventsTestCase(TestCase):
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
+            'test',
             'test',
             cost=3.00,
             category=self.category,
@@ -317,6 +319,7 @@ class SigsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -331,7 +334,7 @@ class SigsTestCase(TestCase):
     def test_sigs_rest_actions(self):
         """
         Ensures that a SIG behaves as expected at each
-        point in the REST api.
+        point in the REST API.
         """
         sig = {
             "id": "sig_test",
@@ -344,10 +347,10 @@ class SigsTestCase(TestCase):
         ##
         # Testing standard views with initial created model
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(
-            reverse('rest_api:sigs-detail', kwargs={'pk': self.sig.id})
+            reverse('rest_api:sig-detail', kwargs={'pk': self.sig.id})
         )
         self.assertEqual(response.status_code, 200)
 
@@ -355,7 +358,7 @@ class SigsTestCase(TestCase):
         # Testing creating a new event
         ##
         response = self.client.post(
-            reverse('rest_api:sigs-list'),
+            reverse('rest_api:sig-list'),
             data=json.dumps(sig, default=str),
             content_type='application/json'
 
@@ -372,7 +375,7 @@ class SigsTestCase(TestCase):
         sig["description"] = "sig-web"
         response = self.client.put(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': response.json()['id']}
             ),
             data=json.dumps(sig, default=str),
@@ -385,19 +388,19 @@ class SigsTestCase(TestCase):
         # Testing delete capability
         ##
         sig_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
@@ -406,10 +409,10 @@ class SigsTestCase(TestCase):
         ##
         # Ensure it doesnt exist on the master list
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class TransactionsTestCase(TestCase):
@@ -442,6 +445,7 @@ class TransactionsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -456,7 +460,7 @@ class TransactionsTestCase(TestCase):
     def test_transactions_rest_actions(self):
         """
         Ensures a Transaction behaves as expected throughout all points in the
-        REST api.
+        REST API.
         """
         transaction = {
             "description": "test",
@@ -573,6 +577,7 @@ class CategoryTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -587,7 +592,7 @@ class CategoryTestCase(TestCase):
     def test_category_rest_actions(self):
         """
         Ensures that a Category behaves as expected at
-        each point in the REST api.
+        each point in the REST API.
         """
         category = {
             "name": "test"
@@ -663,8 +668,8 @@ class CategoryTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:category-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class ProductTestCase(TestCase):
@@ -697,6 +702,7 @@ class ProductTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -711,9 +717,10 @@ class ProductTestCase(TestCase):
     def test_product_rest_actions(self):
         """
         Ensures that a Product behaves as expected at
-        each point in the REST api.
+        each point in the REST API.
         """
         product = {
+            "tag": "name",
             "name": "test",
             "cost": 3.00,
             "description": "test",
@@ -729,7 +736,7 @@ class ProductTestCase(TestCase):
         response = self.client.get(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': self.product.id}
+                kwargs={'pk': self.product.tag}
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -756,7 +763,7 @@ class ProductTestCase(TestCase):
         response = self.client.put(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': response.json()['id']}
+                kwargs={'pk': response.json()['tag']}
             ),
             data=json.dumps(product, default=str),
             content_type='application/json'
@@ -767,7 +774,7 @@ class ProductTestCase(TestCase):
         ##
         # Testing delete capability
         ##
-        product_id = response.json()['id']
+        product_id = response.json()['tag']
         response = self.client.get(reverse('rest_api:product-list'))
         self.assertIsNotNone(response.json()[1])
 
@@ -791,5 +798,5 @@ class ProductTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:product-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[3], None)
+        self.assertIsNotNone(response.json()[2])

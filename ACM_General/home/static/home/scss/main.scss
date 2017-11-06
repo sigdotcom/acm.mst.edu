@@ -80,6 +80,10 @@ textarea {
   resize: vertical;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* =========================================================================
  * Browser Upgrade Prompt
  * ========================================================================= */
@@ -516,6 +520,7 @@ footer {
   display: flex;
   /* Cosmetics */ 
   background-color: #373C3F;
+  position: relative;
 }
 
 footer img {
@@ -570,6 +575,67 @@ footer h5 {
   color: rgba(255,255,255,.6);
   font-size: 14px;
   font-weight: normal;
+=======
+.footer-wrapper {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  //-ms-flex-align: center;
+  //align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 36px 10px 0 10px;
+}
+
+.footer-wrapper ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer-wrapper ul h3, .footer-wrapper ul h4, .footer-wrapper ul h4 a {
+  color: #76d3ab;
+  margin: 0 0 14px 0;
+}
+
+.footer-wrapper ul h4 a:hover {
+  text-decoration: underline;
+}
+
+.footer-wrapper ul li a {
+  color: rgba(255,255,255,0.6);
+  font-size: .94em;
+  font-weight: bold;
+  transition: color .14s ease-in-out;
+}
+
+.footer-wrapper ul li a:hover {
+  color: rgba(255,255,255,0.8);
+  font-size: .94em;
+  font-weight: bold;
+}
+
+.footer-wrapper ul li {
+  margin-bottom: 3px;
+}
+
+footer img {
+  height: 170px;
+}
+
+footer h5 {
+  color: rgba(255,255,255,0.4);
+  margin: 0 0 10px 0;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+>>>>>>> dd61a3dd2d6880fe3d8f1b1b89336363c50371aa
 }
 
 /* ==========================================================================
@@ -688,22 +754,31 @@ footer h5 {
 /*!*smartphones, iPhone, portrait 480x320 phones *!*/
 /*}*/
 
-@media (max-width: 414px) {
+@media (max-width: 554px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
   footer {
-    /* Allocate space */
-    height: 110px;
-    padding-top: 15px;
-    /* Formatting */
-    /* Cosmetics */
+    height: auto;
+  }
+  
+  .footer-wrapper {
+    flex-direction: column;
+  }
+
+  .footer-wrapper ul {
+    padding: 0 20%;
+    margin-top: 10px;
+    list-style: disc;
+  }
+
+  .footer-wrapper ul h4 {
+    text-align: center;
   }
 
   footer img {
-    /* Allocate space */
-    /* Formatting */
-    display: none;
-    /* Cosmetics */
+    margin: 0 auto;
+    display: block;
   }
+  
 }
 
 @media (max-width: 750px) {
@@ -756,6 +831,8 @@ footer h5 {
     /* Cosmetics */
     border-top: solid 4px #2da1d8;
   }
+  
+  
 }
 
 @media (max-width: 1090px) {
