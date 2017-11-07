@@ -11,6 +11,7 @@ import uuid as uuid
 # Django
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 # local Django
@@ -54,6 +55,14 @@ class User(AbstractBaseUser):
         auto_now_add=True,
         editable=False,
     )
+
+    #: Stores when the user's ACM Membership will expire; represented as a
+    #: DateTimeField.
+    membership_expiration = models.DateTimeField(
+        verbose_name=_('Membership Expiration Date'),
+        null=True
+    )
+
     #: Whether or not a user account should be considered 'active'.
     is_active = models.BooleanField(
         verbose_name=_('Is Active'),
@@ -79,6 +88,42 @@ class User(AbstractBaseUser):
         :rtype: bool
         """
         return self.is_superuser
+
+    @property
+    def is_member(self):
+        """
+        Whether or not a user is an ACM member
+
+        :return: The user's current membership status
+        :rtype: bool
+        """
+        expiration_date = self.membership_expiration
+
+        if not expiration_date is None:
+            return timezone.now() <= expiration_date
+        else:
+            return False
+
+    def update_mem_expiration(self, time_delta):
+        """
+        Update the user's ACM expiration date to a new time_delta
+
+        :param time_delta: The amount of time to increase the membership
+                           expiration date.
+        :type time_delta: django.utils.timezone.timedelta
+
+        .. note::
+            This operation saves the user every time it is applied. This may
+            result in a performance bottleneck later, but the saving should be a
+            default action when applying this operation.
+        """
+        if not self.is_member:
+            self.membership_expiration = timezone.now() + time_delta
+        else:
+            self.membership_expiration += time_delta
+
+        self.save()
+
 
     def get_full_name(self):
         """

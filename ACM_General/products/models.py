@@ -54,7 +54,12 @@ class Product(models.Model):
     objects = managers.ProductManager()
 
     #: The id of the Product; represented as a UUIDField.
-    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    tag = models.CharField(
+        primary_key=True,
+        verbose_name=_('Product Tag'),
+        help_text=_('Unique human-readable product identifier'),
+        max_length=50,
+    )
 
     #: The name of the Product; represented as CharField.
     name = models.CharField(

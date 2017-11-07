@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'django_filters',
     'home.apps.HomeConfig',
-    'payments.apps.PaymentsConfig',
+    'products.apps.ProductsConfig',
     'sigs.apps.SigsConfig',
     'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',

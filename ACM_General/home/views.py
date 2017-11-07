@@ -1,13 +1,23 @@
 """
 Contains all of the view for the Home app.
 """
+# Third-party
+import stripe
+
 # Django
 from django.conf import settings
+from django.contrib import messages
+from django.http import (
+    HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest,
+    HttpResponse
+)
 from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
+from django.views import View
 
 # local Django
 from events.models import Event
+import products.models
 
 
 def index(request):
@@ -40,23 +50,24 @@ def index(request):
     )
 
 
-def sponsors(request):
-    """
-    Handles a request to see the sponsors page.
+class Sponsors(View):
+    def get(self, request):
+        """
+        Handles a request to see the sponsors page.
 
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: :class:`~django.http.request.HttpRequest`
+        :param request: Request object that contains information from the
+                        user's POST/GET request.
+        :type request: django.http.request.HttpRequest
 
-    :return: The render template of the sponsors page.
-    :rtype: `django.shortcut.render`
-    """
-    return (
-        render(
-            request,
-            'home/sponsors.html',
+        :return: The render template of the sponsors page.
+        :rtype: django.shortcut.render
+        """
+        return (
+            render(
+                request,
+                'home/sponsors.html',
+            )
         )
-    )
 
 
 def calendar(request):
@@ -118,23 +129,119 @@ def officers(request):
     )
 
 
-def membership(request):
-    """
-    Handles a request to see the membership page.
+class Membership(View):
+    def __init__(self):
+        self.membership_types = {
+            "semester": {
+                "tag": "membership-semester",
+                "delta": timezone.timedelta(weeks=24)
+            },
+            "year": {
+                "tag": "membership-year",
+                "delta": timezone.timedelta(weeks=52)
+            }
+        }
 
-    :param request: Request object that contains information from the user's
-                    POST/GET request.
-    :type request: :class:`~django.http.request.HttpRequest`
+    def get(self, request):
+        """
+        Handles a request to see the membership page.
+        :param request: Request object that contains information from the
+                        user's POST/GET request.
+        :type request: django.http.request.HttpRequest
 
-    :return: The render template of the officers page.
-    :rtype: `django.shortcut.render`
-    """
-    return (
-        render(
-            request,
-            'home/membership.html',
+        :return: The render template of the officers page.
+        :rtype: django.shortcut.render
+        """
+        return (
+            render(
+                request,
+                'home/membership.html',
+                {
+                    "stripe_public_key": getattr(
+                        settings, "STRIPE_PUB_KEY", ""
+                    ),
+                },
+            )
         )
-    )
+
+    def post(self, request):
+        if not request.user.is_authenticated():
+            return HttpResponseNotFound("Invalid User")
+
+        token = request.POST.get("stripeToken", None)
+
+        if token is None:
+            return HttpResponseBadRequest(
+                "ProductHandler view did not receive a stripe"
+                " token in the POST request."
+            )
+
+        stripe.api_key = getattr(settings, 'STRIPE_PRIV_KEY', None)
+        if stripe.api_key == "" or not stripe.api_key:
+            raise ValueError(
+                "Invalid stripe.api_key specified."
+            )
+
+        mem_requested = request.POST.get("type", None)
+        mem_attributes = self.membership_types.get(mem_requested, None)
+
+        if mem_attributes is None:
+            return HttpResponseBadRequest("Invalid membership type specified.")
+
+        product = products.models.Product.objects.get(
+            tag=mem_attributes["tag"]
+        )
+
+        # This case will only occur if self.membership_types is improperly set
+        if product is None:  # pragma: no cover
+            return HttpResponse(
+                "Unexpected error occurred. The backend returned an invalid "
+                "product. Please contact the administrator.",
+                status=500
+            )
+
+        try:
+            stripe.Charge.create(
+                currency="usd",
+                amount=int(product.cost * 100),
+                description=product.description,
+                source=token,
+            )
+        except stripe.error.APIConnectionError as con_err:  # pragma: no cover
+            messages.error(
+                request,
+                'Could not connect to Stripe payment server. Please try again'
+                ' later.'
+            )
+            return HttpResponseRedirect(reverse("home:membership"))
+        except stripe.error.CardError as card_err:
+            messages.error(
+                request,
+                'Received a card error from the Stripe payment server.'
+            )
+            return HttpResponseRedirect(reverse("home:membership"))
+        except stripe.error.AuthenticationError as auth_err:
+            return HttpResponse(
+                "Unexpected error occurred. Invalid Stripe API key specified "
+                "by the backend. Please contact the administrator.",
+                status=500
+            )
+        else:
+            request.user.update_mem_expiration(mem_attributes["delta"])
+
+        products.models.Transaction.objects.create_transaction(
+            token, user=request.user,
+            cost=product.cost,
+            sig=product.sig,
+            category=product.category,
+            description=product.description
+        )
+
+        messages.success(
+            request,
+            'Successfully applied ACM Membership to account.'
+        )
+        return HttpResponseRedirect(reverse("home:index"))
 
 
 def sigs(request):
