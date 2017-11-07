@@ -19,7 +19,6 @@ from django.views import View
 from events.models import Event
 import products.models
 
-
 def index(request):
     """
     Renders the template for the index page. With that is also grabs next

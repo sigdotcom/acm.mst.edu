@@ -145,6 +145,21 @@
       </ul>
   </nav><!-- desktop nav -->
 {% endblock %}
+
+{% block body_messages %}
+{% if messages %}
+<ul class="messages">
+    {% for msg in messages %}       
+    <li>
+        <div class="alert alert-{{msg.level_tag}}" role="alert">
+        {{msg.message}}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block body_footer %}
   <footer class="footer">
     <div class="footer-wrapper">
