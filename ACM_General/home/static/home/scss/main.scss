@@ -409,12 +409,14 @@ label:focus {
   // border-radius: 10px;
   text-align: center;
   line-height: 60px;
-  margin: 10px;
+  margin: 15px;
   border: 2px solid lightgray;
   font-size: 1.05em;
 }
 
 .alert-warning {
+  background: rgba(255, 243, 0, 0.5);
+  color: rgb(175,163, 0)
 }
 
 .alert-success {

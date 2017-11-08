@@ -19,6 +19,8 @@ from django.views import View
 from events.models import Event
 import products.models
 
+# from accounts.backends import UserBackend
+
 def index(request):
     """
     Renders the template for the index page. With that is also grabs next
@@ -32,7 +34,7 @@ def index(request):
     :return: The render template of the index page.
     :rtype: `django.shortcut.render`
     """
-    # request.user = UserBackend().authenticate('cmm4hf@mst.edu')
+    # request.user = UserBackend().authenticate('acm@mst.edu')
 
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
