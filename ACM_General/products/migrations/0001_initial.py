@@ -35,6 +35,7 @@ class Migration(migrations.Migration):
                 ('date_created', models.DateTimeField(auto_now_add=True, help_text='The date in which the transaction was created.', verbose_name='Date Created')),
                 ('description', models.CharField(help_text='A description of the transaction.', max_length=500, verbose_name='Transaction Description')),
                 ('cost', models.DecimalField(decimal_places=2, help_text='How much the transaction costed.', max_digits=7, verbose_name='Transaction Cost')),
+                ('charge_id', models.CharField(help_text='The identifier associated with the stripe charge.', max_length=50, verbose_name='Stripe Charge ID')),
                 ('stripe_token', models.CharField(help_text='The token associated with the stripe payment.', max_length=50, verbose_name='Transaction Stripe Token')),
                 ('customer_id', models.CharField(help_text='The Customer ID associated with the user.', max_length=50, verbose_name='Transaction Customer ID')),
                 ('coupon_id', models.CharField(blank=True, help_text='The coupon which the user used in the transaction.', max_length=50, null=True, verbose_name='Transaction Stripe Token')),
@@ -61,7 +62,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transaction',
             name='user',
-            field=models.ForeignKey(help_text='The user which completed the transaction.', null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Transaction User'),
+            field=models.ForeignKey(help_text='The user which completed the transaction.', null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Transaction User'),
         ),
         migrations.AddField(
             model_name='product',

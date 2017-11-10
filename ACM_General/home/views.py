@@ -19,6 +19,7 @@ from django.views import View
 from events.models import Event
 import products.models
 
+
 def index(request):
     """
     Renders the template for the index page. With that is also grabs next
@@ -32,8 +33,6 @@ def index(request):
     :return: The render template of the index page.
     :rtype: `django.shortcut.render`
     """
-    # request.user = UserBackend().authenticate('cmm4hf@mst.edu')
-
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
     ).order_by('date_hosted')
@@ -205,7 +204,7 @@ class Membership(View):
             )
 
         try:
-            stripe.Charge.create(
+            charge = stripe.Charge.create(
                 currency="usd",
                 amount=int(product.cost * 100),
                 description=product.description,
@@ -235,6 +234,7 @@ class Membership(View):
 
         products.models.Transaction.objects.create_transaction(
             token, user=request.user,
+            charge_id=charge.id,
             cost=product.cost,
             sig=product.sig,
             category=product.category,
