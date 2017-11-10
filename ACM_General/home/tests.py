@@ -412,7 +412,7 @@ class MembershipViewTests(TestCase):
             # Ensure the charge has the same values
             ch = stripe.Charge.retrieve(transaction.charge_id)
             self.assertEqual(ch.amount / 100, transaction.cost)
-            self.assertEqual(ch.description, transaction.product)
+            self.assertEqual(ch.description, transaction.description)
 
             # Template + Messages
             self.check_response_messages(message_str, response)
