@@ -45,8 +45,6 @@ class AuthorizationView(View):
                  endpoint.
         :rtype: :class:`django.http.response.HttpResponse`
         """
-        # request.user = UserBackend().authenticate('cmm4hf@mst.edu')
-
         if request.user.is_authenticated():
             messages.warning(request, 'You are already authenticated.')
             return HttpResponseRedirect('/')
@@ -255,8 +253,10 @@ class TokenView(View):
 
         if user is not None:
             login(request, user)
-            messages.success(request, 'You have been logged in, ' +
-                             user.get_short_name() + '.')
+            messages.success(
+                request,
+                'You have been logged in, {}.'.format(user.get_shot_name())
+            )
         else:
             return HttpResponse('Error')
 

@@ -19,7 +19,6 @@ from django.views import View
 from events.models import Event
 import products.models
 
-# from accounts.backends import UserBackend
 
 def index(request):
     """
@@ -34,8 +33,6 @@ def index(request):
     :return: The render template of the index page.
     :rtype: `django.shortcut.render`
     """
-    # request.user = UserBackend().authenticate('acm@mst.edu')
-
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
     ).order_by('date_hosted')
