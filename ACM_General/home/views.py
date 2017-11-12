@@ -33,11 +33,11 @@ def index(request):
     :return: The render template of the index page.
     :rtype: `django.shortcut.render`
     """
-
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
     ).order_by('date_hosted')
 
+    num_events = len(events)
     if len(events) >= settings.MAX_HOME_FLIER_COUNT:
         events = events[:settings.MAX_HOME_FLIER_COUNT]
 
@@ -45,7 +45,10 @@ def index(request):
         render(
             request,
             'home/index.html',
-            {"upcoming_events": events}
+            {
+                "upcoming_events": events,
+                "num_events": num_events
+            }
         )
     )
 

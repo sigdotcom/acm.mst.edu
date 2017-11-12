@@ -17,6 +17,8 @@ from django.views import View
 from accounts.models import User
 from core.actions import is_valid_email
 
+from django.contrib import messages
+
 ###
 # TODO: Modular Authentication with support for different protocols
 #       As of right now the Views do not actually use the auth_backend
@@ -43,8 +45,8 @@ class AuthorizationView(View):
                  endpoint.
         :rtype: :class:`django.http.response.HttpResponse`
         """
-
         if request.user.is_authenticated():
+            messages.warning(request, 'You are already authenticated.')
             return HttpResponseRedirect('/')
 
         auth_type = kwargs.get('auth_type', None)
@@ -251,6 +253,10 @@ class TokenView(View):
 
         if user is not None:
             login(request, user)
+            messages.success(
+                request,
+                'You have been logged in, {}.'.format(user.get_shot_name())
+            )
         else:
             return HttpResponse('Error')
 

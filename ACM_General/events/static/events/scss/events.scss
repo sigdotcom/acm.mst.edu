@@ -15,10 +15,10 @@
 
 .event-card {
   margin: 0 auto;
-  padding: 0;
+  padding: 20px 0;
   width: 100%;
   box-sizing: content-box;
-  max-width: 800px;
+  max-width: 1000px;
   display: flex;
 }
 
@@ -37,9 +37,7 @@
 }
 
 .flier-space img {
-  height: 220px;
-  padding: 10px 0;
-  margin: 0;
+  height: 400px;
   flex-shrink: 0;
 }
 
@@ -58,21 +56,18 @@
   flex: 1 1 auto;
   justify-content: center;
   margin-left: 20px;
-  padding: 20px 0;
 }
 
 .flier-info h2 {
   color: rgba(0, 0, 0, .87);
   font-weight: normal;
-  line-height: 30px;
-  margin: 0;
+  line-height: 25px;
 }
 
 .flier-info p {
   color: rgba(0, 0, 0, .70);
   font-size: 16px;
-  height: 72px;
-  margin: 10px 0;
+  margin-bottom: 35px;
 }
 
 iframe:before {
@@ -83,8 +78,8 @@ iframe:before {
 
 .calendar-title {
   text-align: center;
+  font-family: RobotoLight, Sans-Serif;
   color: rgba(0, 0, 0, 0.87);
-  margin-top: 0;
 }
 
 .calendar-wrapper {
@@ -114,16 +109,22 @@ iframe {
 
 .events-link {
   display: block;
-  height: 60px;
-  line-height: 60px;
-  margin: 15px 5px;
+  padding: 10px 0;
+  margin: 15px 15px;
+  text-align: center;
+  font-size: 1.15em;
   font-weight: bold;
-  background: #288ebf;
-  box-shadow: inset 0 -6px 0 0 #227aa4;
+  color: #76d3ab;
+  text-decoration: none;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.06);
+  transition: all 150ms ease-in-out;
 }
 
 .events-link:hover {
-  box-shadow: inset 0 -60px 0 0 #227aa4;
+  text-decoration: underline;
+  color: #67bd98;
+  background: rgba(0,0,0,0.1);
 }
 
 @media (max-width: 641px) {
@@ -168,7 +169,7 @@ iframe {
   }
 
   .flier-space {
-    // height: 400px;
+    height: 400px;
     margin-right: 0;
   }
 }
@@ -227,7 +228,7 @@ html[data-useragent*='MSIE 10.0'] {
   }
 
   .flier-space {
-    // height: 400px;
+    height: 400px;
     margin-right: 0;
   }
 }

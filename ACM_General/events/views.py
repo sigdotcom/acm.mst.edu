@@ -8,6 +8,7 @@ from django.shortcuts import render
 # local Django
 from .forms import EventForm
 from .models import Event
+
 # from accounts.backends import UserBackend
 
 
@@ -58,7 +59,7 @@ def create_event(request):
     """
 
     # Used for testing purposes
-    # request.user = UserBackend().authenticate('zdw27f@mst.edu')
+    # request.user = UserBackend().authenticate('acm@mst.edu')
 
     # Temporary (until permissions are setup): makes sure the user attempting
     # to create an event is a superuser.

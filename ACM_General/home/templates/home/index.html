@@ -8,17 +8,18 @@
 {% block body_content %}	
   <main>
     <!-- This is where upcoming events are automatically added -->
+    {% if num_events != 0 %}
     {% include "home/upcoming-events.html" %}
+    {% else %}
     <div class="content-wrapper">
-      <h1 class="calendar-title" id="calendar">All Events</h1>
-    	<div class="calendar-wrapper">
-    		<iframe
-    	  	  src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=100&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago"
-       	 	style="border: 0" frameborder="0" scrolling="no"></iframe>
+      <div class="calendar-wrapper">
+        <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=100&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border: 0" frameborder="0" scrolling="no"></iframe>
       </div>
-       	<div class="agenda-wrapper">
-       		<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;scroll=no&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+      <div class="agenda-wrapper">
+        <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;scroll=no&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
       </div>
+      <!-- <a class="events-link acm-btn" href="">Previous Events</a> -->
     </div>
+    {% endif %}
   </main>
 {% endblock %}

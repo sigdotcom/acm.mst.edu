@@ -24,10 +24,10 @@ MEDIA_URL = 'media_files/'
 FLIERS_PATH = 'fliers'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
-# STATIC_ROOT = "/var/www/html"
+STATIC_ROOT = "/var/www/html"
 
 # Determines the max number of upcoming events that can appear on the homepage.
-MAX_HOME_FLIER_COUNT = 3
+MAX_HOME_FLIER_COUNT = 2
 
 ###
 # Stripe Keys

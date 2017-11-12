@@ -130,3 +130,4 @@ node_modules
 package-lock.json
 package.json
 .sass-cache/
+.DS_Store

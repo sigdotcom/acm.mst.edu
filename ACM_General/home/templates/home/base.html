@@ -125,15 +125,43 @@
           <img src="{% static "home/img/core/officers-icon.png" %}"/>
           <span>Officers</span>
         </a></li>
-        <li class="nav-login nav-button"><a
-          href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+        {% if not user.is_authenticated %}
+        <li class="nav-login nav-button">
+          <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
           title="Login">
-          <img src="{% static "home/img/core/login-icon.png" %}"/>
-          <span>Log In</span>
-        </a></li>
+            <img src="{% static "home/img/core/login-icon.png" %}"/>
+            <span>Log In</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-login nav-button">
+          <a href="{% url "accounts:user-logout" %}"
+          title="Logout">
+            <img src="{% static "home/img/core/logout-icon.svg" %}"/>
+            <span>Log Out</span>
+          </a>
+        </li>
+        {% endif %}
       </ul>
   </nav><!-- desktop nav -->
 {% endblock %}
+
+{% block body_messages %}
+{% if messages %}
+<div class="content-wrapper">
+  <ul class="messages">
+      {% for msg in messages %}       
+      <li>
+          <div class="alert alert-{{msg.level_tag}}" role="alert">
+          {{msg.message}}
+          </div>
+      </li>
+      {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block body_footer %}
   <footer class="footer">
     <div class="footer-wrapper">

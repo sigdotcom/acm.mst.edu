@@ -59,6 +59,13 @@ Here are some instructions for installing vagrant on various operating systems.
 6. Run the command `vagrant` and if there is a help menu it has installed
    successfully
 
+##### Arch / Manjaro
+1. Run `sudo pacman -Sy vagrant virtualbox net-tools`.
+2. Select the virtualbox version for your linux kernel.
+3. Reboot your system.
+4. Run the command `vagrant` and if there is a help menu it has installed
+   successfully
+
 ##### Windows
 1. Go to [https://www.vagrantup.com/downloads.html](https://www.vagrantup.com/downloads.html)
 2. Click the `64-bit` option under the `Windows` download.

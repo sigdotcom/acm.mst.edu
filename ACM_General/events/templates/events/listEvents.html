@@ -1,21 +1,46 @@
-{% extends "core/wireframe.html" %}
+{% extends 'home/base.html' %}
+{% load static %}
+{% load app_filters %}
+
+{% block head_stylesheets %}
+  <link rel="stylesheet" href="{% static "events/css/list-events.css" %}">
+{% endblock %}
 
 {% block body_content %}
-  <p> Current Time is {{ currentTime }} </p>
-  <h1> Current Events </h1>
-
-  <ul>
-    {% for event in eventsList %}
-      {% if event.is_active %}
-        <li> {{ event.title }} | {{ event.date_expire }} | DateTime Created: {{ event.date_created }}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-
-  <h1> All Events </h1>
-  <ul>
-    {% for event in eventsList %}
-      <li> {{ event.title}} | {{ event.date_expire }} </li>
-    {% endfor %}
-  </ul>
+  <main>
+  {% for event in eventsList %}
+    {% if event.is_active %}
+    <div class="event-wrapper">
+      <div class="event-card">
+        <a name="{{ event.title | hyphenate }}"></a>
+        <a class="flier-space" href="../{{ event.flier.url }}">
+          <img src="../{{ event.flier.url }}">
+        </a>
+        <div class="flier-info">
+          <h2>{{ event.title }}</h2>
+          <p>{{ event.description | truncatechars:750 }}</p>
+          <div>
+            <strong>When:</strong> {{ event.date_hosted | date:"m/d/o h:i A" }} CST
+            <strong>Where:</strong> {{ event.location }}
+          </div>
+          {% if event.link %}
+          <div>
+            <a href="{{ event.link }}" class="acm-btn">Learn More</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+    <div class="content-wrapper">
+      <div class="calendar-wrapper">
+        <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=100&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border: 0" frameborder="0" scrolling="no"></iframe>
+      </div>
+      <div class="agenda-wrapper">
+        <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;scroll=no&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+      </div>
+      <!--<a class="events-link acm-btn" href="">Previous Events</a>-->
+    </div>
+  </main>
 {% endblock %}

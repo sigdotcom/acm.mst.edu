@@ -9,7 +9,10 @@ import re
 # Django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django import template
+from django.template.defaultfilters import stringfilter
 
+register = template.Library()
 
 def is_valid_email(email):
     """
