@@ -45,7 +45,7 @@ class SIG(models.Model):
         User,
         verbose_name=_('SIG Founder'),
         help_text=_('The person who founded the SIG.'),
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="founder",
     )
     #: The user that is currently chair of the SIG; represented as a
@@ -54,7 +54,7 @@ class SIG(models.Model):
         User,
         verbose_name=_('SIG Chair'),
         help_text=_('The current Chair of the SIG.'),
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="chair",
     )
     #: A description of what the SIG is; represented as a CharField.

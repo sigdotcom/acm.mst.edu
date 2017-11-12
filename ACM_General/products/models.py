@@ -171,7 +171,7 @@ class Transaction(models.Model):
     #: the User model.
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
         verbose_name=_('Transaction User'),
         help_text=_('The user which completed the transaction.'),
@@ -182,6 +182,12 @@ class Transaction(models.Model):
     stripe_token = models.CharField(
         verbose_name=_('Transaction Stripe Token'),
         help_text=_('The token associated with the stripe payment.'),
+        max_length=50,
+    )
+
+    charge_id = models.CharField(
+        verbose_name=_('Stripe Charge ID'),
+        help_text=_('The identifier associated with the stripe charge.'),
         max_length=50,
     )
 

@@ -200,6 +200,16 @@ class MembershipViewTests(TestCase):
         )
         self.assertTemplateUsed(response, 'home/membership.html')
 
+    def check_response_messages(self, message, response):
+        user_messages = messages.get_messages(response.wsgi_request)
+        message_list = list(user_messages)
+        self.assertIsNotNone(message_list)
+        self.assertEqual(len(message_list), 1)
+        self.assertEqual(
+            str(message_list[0]),
+            message
+        )
+
     def test_membership_page_uses_correct_template(self):
         response = self.client.get(reverse("home:membership"))
         self.assertEqual(response.status_code, 200)
@@ -282,22 +292,14 @@ class MembershipViewTests(TestCase):
         """
         stripe.api_key = settings.STRIPE_PRIV_KEY
         token = "tok_chargeDeclined"
+        message_str = "Received a card error from the Stripe payment server."
 
         # Semester
         response = self.post_data(
             user=self.user, stripeToken=token,
             mem_type="semester", follow=True
         )
-        user_messages = messages.get_messages(response.wsgi_request)
-        message_list = list(user_messages)
-
-        # TODO: Change when messages are implemented
-        self.assertIsNotNone(message_list)
-        self.assertEqual(len(message_list), 1)
-        self.assertEqual(
-            str(message_list[0]),
-            "Received a card error from the Stripe payment server."
-        )
+        self.check_response_messages(message_str, response)
         self.assertTemplateUsed(response, 'home/membership.html')
 
         # Year
@@ -305,16 +307,8 @@ class MembershipViewTests(TestCase):
             user=self.user, stripeToken=token,
             mem_type="year", follow=True
         )
-        user_messages = messages.get_messages(response.wsgi_request)
-        message_list = list(user_messages)
 
-        # TODO: Change when messages are implemented
-        self.assertIsNotNone(message_list)
-        self.assertEqual(len(message_list), 2)
-        self.assertEqual(
-            str(message_list[1]),
-            "Received a card error from the Stripe payment server."
-        )
+        self.check_response_messages(message_str, response)
         self.assertTemplateUsed(response, 'home/membership.html')
 
     def test_card_error_on_failed_cvc_check(self):
@@ -327,16 +321,8 @@ class MembershipViewTests(TestCase):
             user=self.user, stripeToken=token,
             mem_type="semester", follow=True
         )
-        user_messages = messages.get_messages(response.wsgi_request)
-        message_list = list(user_messages)
 
-        # TODO: Change when messages are implemented
-        self.assertIsNotNone(message_list)
-        self.assertEqual(len(message_list), 1)
-        self.assertEqual(
-            str(message_list[0]),
-            message_str
-        )
+        self.check_response_messages(message_str, response)
         self.assertTemplateUsed(response, 'home/membership.html')
 
         # Year
@@ -344,16 +330,8 @@ class MembershipViewTests(TestCase):
             user=self.user, stripeToken=token,
             mem_type="year", follow=True
         )
-        user_messages = messages.get_messages(response.wsgi_request)
-        message_list = list(user_messages)
 
-        # TODO: Change when messages are implemented
-        self.assertIsNotNone(message_list)
-        self.assertEqual(len(message_list), 2)
-        self.assertEqual(
-            str(message_list[1]),
-            message_str
-        )
+        self.check_response_messages(message_str, response)
         self.assertTemplateUsed(response, 'home/membership.html')
 
     def test_successful_charge_on_semester_type(self):
@@ -392,16 +370,7 @@ class MembershipViewTests(TestCase):
             self.assertEqual(transaction.description, product.description)
 
             # Template + Messages
-            user_messages = messages.get_messages(response.wsgi_request)
-            message_list = list(user_messages)
-            # TODO: Change when messages are implemented
-            self.assertIsNotNone(message_list)
-            self.assertEqual(len(message_list), index+1)
-            self.assertEqual(
-                str(message_list[index]),
-                message_str
-            )
-
+            self.check_response_messages(message_str, response)
             self.assertTemplateUsed(response, 'home/index.html')
 
     def test_successful_charge_on_year_type(self):
@@ -438,16 +407,13 @@ class MembershipViewTests(TestCase):
             self.assertEqual(transaction.sig, product.sig)
             self.assertEqual(transaction.category, product.category)
             self.assertEqual(transaction.description, product.description)
+            self.assertIsNotNone(transaction.charge_id)
+
+            # Ensure the charge has the same values
+            ch = stripe.Charge.retrieve(transaction.charge_id)
+            self.assertEqual(ch.amount / 100, transaction.cost)
+            self.assertEqual(ch.description, transaction.description)
 
             # Template + Messages
-            user_messages = messages.get_messages(response.wsgi_request)
-            message_list = list(user_messages)
-            # TODO: Change when messages are implemented
-            self.assertIsNotNone(message_list)
-            self.assertEqual(len(message_list), index+1)
-            self.assertEqual(
-                str(message_list[index]),
-                message_str
-            )
-
+            self.check_response_messages(message_str, response)
             self.assertTemplateUsed(response, 'home/index.html')

@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, help_text='Whether or not the SIG is active', verbose_name='Is Active')),
                 ('date_created', models.DateTimeField(auto_now_add=True, help_text='The date the SIG was created.', verbose_name='Date Created')),
                 ('description', models.CharField(help_text='A description of what the special interest of the group is.', max_length=1000, verbose_name='Description')),
-                ('chair', models.ForeignKey(help_text='The current Chair of the SIG.', on_delete=django.db.models.deletion.CASCADE, related_name='chair', to=settings.AUTH_USER_MODEL, verbose_name='SIG Chair')),
-                ('founder', models.ForeignKey(help_text='The person who founded the SIG.', on_delete=django.db.models.deletion.CASCADE, related_name='founder', to=settings.AUTH_USER_MODEL, verbose_name='SIG Founder')),
+                ('chair', models.ForeignKey(help_text='The current Chair of the SIG.', on_delete=django.db.models.deletion.PROTECT, related_name='chair', to=settings.AUTH_USER_MODEL, verbose_name='SIG Chair')),
+                ('founder', models.ForeignKey(help_text='The person who founded the SIG.', on_delete=django.db.models.deletion.PROTECT, related_name='founder', to=settings.AUTH_USER_MODEL, verbose_name='SIG Founder')),
             ],
             managers=[
                 ('objects', sigs.managers.SIGManager()),

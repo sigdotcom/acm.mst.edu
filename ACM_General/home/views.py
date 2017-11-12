@@ -204,7 +204,7 @@ class Membership(View):
             )
 
         try:
-            stripe.Charge.create(
+            charge = stripe.Charge.create(
                 currency="usd",
                 amount=int(product.cost * 100),
                 description=product.description,
@@ -234,6 +234,7 @@ class Membership(View):
 
         products.models.Transaction.objects.create_transaction(
             token, user=request.user,
+            charge_id=charge.id,
             cost=product.cost,
             sig=product.sig,
             category=product.category,

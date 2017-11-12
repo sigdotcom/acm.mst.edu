@@ -469,6 +469,7 @@ class TransactionsTestCase(TestCase):
             "customer_id": "test",
             "coupon_id": "test",
             "subscription_id": "test",
+            "charge_id": "test",
             "category": self.category.id,
             "sig": self.sig.id,
             "user": self.user.id
