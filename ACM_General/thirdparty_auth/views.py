@@ -255,7 +255,7 @@ class TokenView(View):
             login(request, user)
             messages.success(
                 request,
-                'You have been logged in, {}.'.format(user.get_shot_name())
+                'You have been logged in, {}.'.format(user.get_short_name())
             )
         else:
             return HttpResponse('Error')

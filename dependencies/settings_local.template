@@ -10,17 +10,6 @@ ENFORCED_EMAIL_DOMAINS = ['mst.edu']
 
 STATIC_URL = '/static/'
 
-# Third Party Authentication
-SOCIAL_AUTH_CONFIG = {
-    'oauth2': {
-        'google': {
-            'client_id': '',
-            'client_secret': '',
-            'redirect_uri': '',
-        },
-    },
-}
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
