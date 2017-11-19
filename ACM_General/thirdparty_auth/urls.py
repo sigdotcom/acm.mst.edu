@@ -10,13 +10,13 @@ from . import views
 app_name = 'thirdparty_auth'
 urlpatterns = [
     url(
-        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/$',
-        views.AuthorizationView.as_view(),
-        name='login'
+        r'google/$',
+        views.GoogleAuthorization.as_view(),
+        name='google'
     ),
     url(
-        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/callback/$',
-        views.TokenView.as_view(),
-        name='callback'
+        r'google/callback/$',
+        views.GoogleCallback.as_view(),
+        name='google-callback'
     ),
 ]

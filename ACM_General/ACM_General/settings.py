@@ -150,12 +150,10 @@ USE_L10N = True
 USE_TZ = True
 
 SOCIAL_AUTH_CONFIG = {
-    'oauth2': {
-        'google': {
-            'client_id': os.environ.get('GOOGLE_CLIENT_ID', None),
-            'client_secret': os.environ.get('GOOGLE_CLIENT_SECRET', None),
-            'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI', None),
-        },
+    'google': {
+        'client_id': os.environ.get('GOOGLE_CLIENT_ID', None),
+        'client_secret': os.environ.get('GOOGLE_CLIENT_SECRET', None),
+        'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI', None),
     },
 }
 
