@@ -1,156 +1,123 @@
 """
 Contains unit tests for the thirdparty_auth.
 """
+# third-party
+import oauthlib
+
 # Django
-from django.test import LiveServerTestCase
+from django.contrib import messages
+from django.test import LiveServerTestCase, TestCase
 from django.urls import reverse
 
 # local Django
 from accounts import models
 
 
-class ViewTestCase(LiveServerTestCase):
+class GoogleOAuth2AuthorizationTestCase(TestCase):
     """
     Ensures that third party authorization methods behave as expected.
     """
 
     def setUp(self):
-        """
-        Initializes all variables and data required to test third party
-        authorization functionality.
-        """
+        self.default_user = models.User.objects.get(email="acm@mst.edu")
         super().setUp()
-        self.user = models.User.objects.create(
-            email="test@mst.edu",
-            first_name="test_me",
-            last_name="test_please",
-        )
 
-    def test_view_integrity(self):
-        """
-        Ensures that third party authorization methods are handled correctly in
-        the case of both proper and improper attempts.
-        """
-        ##
-        # Testing initial login fails because of callback url
-        ##
+    def test_already_authenticate_user_redirect(self):
+        check_message = "You are already logged in."
+
+        self.client.force_login(self.default_user)
         response = self.client.get(
-            reverse(
-                'thirdparty_auth:login',
-                kwargs={
-                   'auth_type': 'oauth2',
-                   'auth_provider': 'google'
-                }
-            ),
+            reverse("thirdparty_auth:google"),
             follow=True
         )
-        self.assertEqual(response.redirect_chain[0][1], 302)
-        self.assertIn(response.status_code, (404, 400))
 
-        ##
-        # Testing logged-in user being redirected
-        ##
-        self.client.force_login(
-            self.user, backend='accounts.backends.UserBackend'
-        )
-        response = self.client.get(
-            reverse(
-                'thirdparty_auth:login',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'google'
-                }
-            ),
-            follow=True
-        )
+        message_list = list(messages.get_messages(response.wsgi_request))
+
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home/index.html')
-        self.client.logout()
-
-        ##
-        # Testing that invalid auth_provider gives 404
-        ##
-        response = self.client.get(
-            reverse(
-                'thirdparty_auth:login',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'test'
-                }
-            )
+        self.assertTemplateUsed(response, "home/index.html")
+        self.assertEqual(
+            str(message_list[0]),
+            check_message
         )
-        self.assertEqual(response.status_code, 404)
 
-        ##
-        # Testing post-authentication oauth2 which cannot be attained through
-        # integration tests without a fake google account.
-        ##
+    def test_google_redirect_on_success(self):
         response = self.client.get(
-            reverse(
-                'thirdparty_auth:callback',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'google',
-                }
-            ),
+            reverse("thirdparty_auth:google"),
             follow=True
         )
-        self.assertEqual(response.status_code, 404)
 
-        ##
-        # Testing invalid auth_provider
-        ##
+        self.assertEqual(response.redirect_chain[0][1], 302)
+        self.assertIn(
+            "https://accounts.google.com", response.redirect_chain[0][0]
+        )
+        # Will not work due to the redirect url parameter
+        self.assertEqual(response.status_code, 400)
+
+class GoogleOAuth2CallbackTestCase(TestCase):
+    """
+    Ensures that third party authorization methods behave as expected.
+    """
+
+    def setUp(self):
+        self.default_user = models.User.objects.get(email="acm@mst.edu")
+        super().setUp()
+
+    def test_fail_redirect_on_no_session_state(self):
+        check_message = (
+            "Something is wrong with your session, please refresh the page."
+        )
         response = self.client.get(
-            reverse(
-                'thirdparty_auth:callback',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'test',
-                }
-            ),
+            reverse("thirdparty_auth:google-callback"),
             follow=True
         )
-        self.assertEqual(response.status_code, 404)
+        message_list = list(messages.get_messages(response.wsgi_request))
 
-        ##
-        # Testing session-state authentication which is used to ensure a
-        # proper user
-        ##
+        self.assertEqual(response.redirect_chain[0][1], 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "home/index.html")
+        self.assertEqual(
+            str(message_list[0]),
+            check_message
+        )
+
+    def test_fail_redirect_on_not_matching_session_state(self):
+        check_message = (
+            "Something is wrong with your session, please refresh the page."
+        )
+        state_var = "test"
+        response = self.client.get(
+            reverse("thirdparty_auth:google-callback"),
+            {"state": state_var},
+            follow=True
+        )
+        message_list = list(messages.get_messages(response.wsgi_request))
+
+        self.assertEqual(response.redirect_chain[0][1], 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "home/index.html")
+        self.assertEqual(
+            str(message_list[0]),
+            check_message
+        )
+
+    def test_error_on_matching_session_state(self):
+        state_var = "test"
         session = self.client.session
-        session['state'] = 'test'
+        session["state"] = state_var
         session.save()
-        response = self.client.get(
-            reverse(
-                'thirdparty_auth:callback',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'google',
-                }
-            ),
-            {'state': 'test'},
-            follow=True
-        )
-        self.assertEqual(response.status_code, 404)
+        self.client.session.save()
 
-        ##
-        # Testing Session-state with a bad auth_provider
-        ##
-        response = self.client.get(
-            reverse(
-                'thirdparty_auth:callback',
-                kwargs={
-                    'auth_type': 'oauth2',
-                    'auth_provider': 'test',
-                }
-            ),
-            {'state': 'test'},
-            follow=True
-        )
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(
+            oauthlib.oauth2.rfc6749.errors.MissingCodeError
+        ):
+            response = self.client.get(
+                reverse("thirdparty_auth:google-callback"),
+                {"state": state_var},
+                follow=True,
+                secure=True
+            )
 
-        ##
-        # TODO: Make a test which can properly bypass the JSON Web token
-        #       request to the Google API servers on line 137 of views.py
-        #       as of 3/26/17.
-        ##
+        # And that is as far as we can test with oauth currently, need to look
+        # into mocking and other testing strategies
+

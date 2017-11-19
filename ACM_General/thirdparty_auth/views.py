@@ -23,23 +23,25 @@ from core.actions import is_valid_email
 
 from django.contrib import messages
 
-###
-# TODO: Modular Authentication with support for different protocols
-#       As of right now the Views do not actually use the auth_backend
-#       parameter.
-###
-
-
-
 class GoogleAuthorization(View):
     """
-    Default Social Authentication Class View which attempts to define
-    the necessary elements for plug-and-play Social Authentication for
-    any format.
+    Initial authorization for OAuth2. This view begins the OAuth2 flow
+    transaction by redirecting the user to the proper token resource.
+
+    See https://developers.google.com/identity/protocols/OAuth2 for more
+    information about how the OAuth2 protocol works.
     """
     http_method_names = ["get"]
 
-    def get(self, request, **kwargs):
+    def get(self, request):
+        """
+        Initial preparation of the user to authenticate with the google API.
+        Completes step 1 of the OAuth2 protocol.
+
+        :returns: Redirect the user to the google consent url or the index if
+                  a failure occurs.
+        :rtype: :class:`django.http.HttpResponseRedirect`
+        """
         if request.user.is_authenticated:
             messages.warning(request, "You are already logged in.")
             return HttpResponseRedirect(reverse("home:index"))
@@ -65,7 +67,22 @@ class GoogleAuthorization(View):
 class GoogleCallback(View):
     http_method_names = ["get"]
 
-    def get(self, request, **kwargs):
+    def get(self, request):
+        """
+        Collect the google authentication token after the user successfully
+        provides consent. With this token, the backend queries google's servers
+        for additional oauth2 information. Then, their
+        :class:`~accounts.models.User` object is created with the information
+        gathered. Completes steps 2 and 3 of the OAuth2 protocol.
+
+        :returns: Redirect to the index with a message containing success or
+                  failure message.
+        :rtype: :class:`django.http.HttpResponseRedirect`
+        """
+        if request.user.is_authenticated:
+            messages.warning(request, "You are already logged in.")
+            return HttpResponseRedirect(reverse("home:index"))
+
         state = request.session.get("state")
         if state is None or request.GET["state"] != state:
             messages.error(
@@ -100,7 +117,7 @@ class GoogleCallback(View):
                 first_name=first_name,
                 last_name=last_name
             )
-            user = authenticate(email=user.email)
+            user = authenticate(email=email)
 
         if user is not None:
             login(request, user)
@@ -115,4 +132,5 @@ class GoogleCallback(View):
             )
             return HttpResponseRedirect(reverse("home:index"))
 
-        return HttpResponse(str(user_info))
+        return HttpResponseRedirect(reverse("home:index"))
+
