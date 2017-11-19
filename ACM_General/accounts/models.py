@@ -99,7 +99,7 @@ class User(AbstractBaseUser):
         """
         expiration_date = self.membership_expiration
 
-        if not expiration_date is None:
+        if expiration_date is not None:
             return timezone.now() <= expiration_date
         else:
             return False
@@ -114,8 +114,8 @@ class User(AbstractBaseUser):
 
         .. note::
             This operation saves the user every time it is applied. This may
-            result in a performance bottleneck later, but the saving should be a
-            default action when applying this operation.
+            result in a performance bottleneck later, but the saving should 
+            be a default action when applying this operation.
         """
         if not self.is_member:
             self.membership_expiration = timezone.now() + time_delta
@@ -123,7 +123,6 @@ class User(AbstractBaseUser):
             self.membership_expiration += time_delta
 
         self.save()
-
 
     def get_full_name(self):
         """

@@ -1,27 +1,22 @@
 # standard library
-import base64
-import hashlib
-import json
-import os
-
 # third-party
 from googleapiclient.discovery import build
-import google.oauth2.credentials
+# import google.oauth2.credentials
 import google_auth_oauthlib.flow
-import requests
 
 # Django
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.views import View
+from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views import View
 
 # local Django
 from accounts.models import User
 from core.actions import is_valid_email
 
 from django.contrib import messages
+
 
 class GoogleAuthorization(View):
     """
@@ -65,6 +60,7 @@ class GoogleAuthorization(View):
 
         return HttpResponseRedirect(authorization_url)
 
+
 class GoogleCallback(View):
     http_method_names = ["get"]
 
@@ -88,7 +84,8 @@ class GoogleCallback(View):
         if state is None or request.GET["state"] != state:
             messages.error(
                 request,
-                "Something is wrong with your session, please refresh the page."
+                "Something is wrong with your session, "
+                "please refresh the page."
             )
             return HttpResponseRedirect(reverse("home:index"))
 
@@ -134,4 +131,3 @@ class GoogleCallback(View):
             return HttpResponseRedirect(reverse("home:index"))
 
         return HttpResponseRedirect(reverse("home:index"))
-

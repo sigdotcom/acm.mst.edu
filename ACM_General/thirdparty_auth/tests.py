@@ -6,8 +6,8 @@ import oauthlib
 
 # Django
 from django.contrib import messages
-from django.test import LiveServerTestCase, TestCase
 from django.urls import reverse
+from django.test import TestCase
 
 # local Django
 from accounts import models
@@ -19,8 +19,8 @@ class GoogleOAuth2AuthorizationTestCase(TestCase):
     """
 
     def setUp(self):
-        self.default_user = models.User.objects.get(email="acm@mst.edu")
         super().setUp()
+        self.default_user = models.User.objects.get(email="acm@mst.edu")
 
     def test_already_authenticate_user_redirect(self):
         check_message = "You are already logged in."
@@ -54,14 +54,15 @@ class GoogleOAuth2AuthorizationTestCase(TestCase):
         # Will not work due to the redirect url parameter
         self.assertEqual(response.status_code, 400)
 
+
 class GoogleOAuth2CallbackTestCase(TestCase):
     """
     Ensures that third party authorization methods behave as expected.
     """
 
     def setUp(self):
-        self.default_user = models.User.objects.get(email="acm@mst.edu")
         super().setUp()
+        self.default_user = models.User.objects.get(email="acm@mst.edu")
 
     def test_fail_redirect_on_no_session_state(self):
         check_message = (
@@ -106,12 +107,11 @@ class GoogleOAuth2CallbackTestCase(TestCase):
         session = self.client.session
         session["state"] = state_var
         session.save()
-        self.client.session.save()
 
         with self.assertRaises(
             oauthlib.oauth2.rfc6749.errors.MissingCodeError
         ):
-            response = self.client.get(
+            self.client.get(
                 reverse("thirdparty_auth:google-callback"),
                 {"state": state_var},
                 follow=True,
@@ -120,4 +120,3 @@ class GoogleOAuth2CallbackTestCase(TestCase):
 
         # And that is as far as we can test with oauth currently, need to look
         # into mocking and other testing strategies
-
