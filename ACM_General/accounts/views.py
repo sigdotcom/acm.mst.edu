@@ -20,16 +20,3 @@ def user_logout(request):
     """
     logout(request)
     return HttpResponseRedirect('/')
-
-
-def user_login(request):
-    """
-    View rendered that displays third party login options.
-
-    :param request: Request to log in a user.
-    :type request: django.http.request.HttpRequest
-
-    :return: Template displaying third party login options.
-    :rtype: `django.shortcuts.render`
-    """
-    return render(request, "accounts/login.html")
