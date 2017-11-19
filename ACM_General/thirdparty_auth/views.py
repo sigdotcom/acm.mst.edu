@@ -37,7 +37,7 @@ class GoogleAuthorization(View):
     the necessary elements for plug-and-play Social Authentication for
     any format.
     """
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, **kwargs):
         if request.user.is_authenticated:
@@ -53,16 +53,17 @@ class GoogleAuthorization(View):
         )
 
         authorization_url, state = FLOW.authorization_url(
-            access_type='offline',
-            prompt='select_account',
-            include_granted_scopes='true'
+            hd="mst.edu",
+            access_type="offline",
+            prompt="select_account",
+            include_granted_scopes="true"
         )
         request.session["state"] = state
 
         return HttpResponseRedirect(authorization_url)
 
 class GoogleCallback(View):
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def get(self, request, **kwargs):
         state = request.session.get("state")
@@ -84,7 +85,7 @@ class GoogleCallback(View):
         )
         FLOW.fetch_token(authorization_response=authorization_response)
         user_info_service = build(
-            serviceName='oauth2', version='v2',
+            serviceName="oauth2", version="v2",
             credentials=FLOW.credentials
         )
         user_info = user_info_service.userinfo().get().execute()
