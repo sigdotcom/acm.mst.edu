@@ -6,16 +6,15 @@ import google_auth_oauthlib.flow
 
 # Django
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.views import View
+from django.urls import reverse
 
 # local Django
 from accounts.models import User
 from core.actions import is_valid_email
-
-from django.contrib import messages
 
 
 class GoogleAuthorization(View):

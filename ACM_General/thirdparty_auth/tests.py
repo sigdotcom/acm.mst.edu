@@ -15,7 +15,7 @@ from accounts import models
 
 class GoogleOAuth2AuthorizationTestCase(TestCase):
     """
-    Ensures that third party authorization methods behave as expected.
+    Ensure authorization view for Google OAuth2 works properly.
     """
 
     def setUp(self):
@@ -57,7 +57,7 @@ class GoogleOAuth2AuthorizationTestCase(TestCase):
 
 class GoogleOAuth2CallbackTestCase(TestCase):
     """
-    Ensures that third party authorization methods behave as expected.
+    Ensure callback view for Google OAuth2 works properly.
     """
 
     def setUp(self):

@@ -3,6 +3,7 @@ Contains views to be rendered by the accounts app
 """
 
 # Django
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -19,4 +20,5 @@ def user_logout(request):
     :rtype: :class:`django.http.HttpResponseRedirect`
     """
     logout(request)
+    messages.success(request, "Successfully logged out.")
     return HttpResponseRedirect('/')
