@@ -46,9 +46,10 @@ class GoogleAuthorization(View):
             messages.warning(request, "You are already logged in.")
             return HttpResponseRedirect(reverse("home:index"))
 
-        FLOW = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-            settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
-            scopes="openid email profile",
+        google_social_config = settings.SOCIAL_AUTH_SETTINGS["google"]
+        FLOW = google_auth_oauthlib.flow.Flow.from_client_config(
+            google_social_config["config"],
+            scopes=google_social_config["scopes"],
             redirect_uri=request.build_absolute_uri(
                 reverse("thirdparty_auth:google-callback")
             ),
@@ -92,13 +93,13 @@ class GoogleCallback(View):
             return HttpResponseRedirect(reverse("home:index"))
 
         authorization_response = request.build_absolute_uri()
-        FLOW = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-            settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
-            scopes="openid email profile",
+        google_social_config = settings.SOCIAL_AUTH_SETTINGS["google"]
+        FLOW = google_auth_oauthlib.flow.Flow.from_client_config(
+            google_social_config["config"],
+            scopes=google_social_config["scopes"],
             redirect_uri=request.build_absolute_uri(
                 reverse("thirdparty_auth:google-callback")
             ),
-            state=state,
         )
         FLOW.fetch_token(authorization_response=authorization_response)
         user_info_service = build(
