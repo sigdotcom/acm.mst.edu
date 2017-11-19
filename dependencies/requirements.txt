@@ -11,3 +11,7 @@ Pillow
 Sphinx
 flake8
 sphinx_rtd_theme
+google-auth 
+google-auth-oauthlib 
+google-auth-httplib2
+google-api-python-client

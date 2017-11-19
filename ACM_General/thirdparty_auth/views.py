@@ -89,4 +89,30 @@ class GoogleCallback(View):
             credentials=FLOW.credentials
         )
         user_info = user_info_service.userinfo().get().execute()
+
+        email = user_info.get("email", None)
+        first_name = user_info.get("given_name", None)
+        last_name = user_info.get("family_name", None)
+
+        if(is_valid_email(email)):
+            user = User.objects.get_or_create(
+                email=email,
+                first_name=first_name,
+                last_name=last_name
+            )
+            user = authenticate(email=user.email)
+
+        if user is not None:
+            login(request, user)
+            messages.success(
+                request,
+                'You have been logged in, {}.'.format(user.get_short_name())
+            )
+        else:
+            messages.warning(
+                request,
+                "An error occurred during login, please try again later."
+            )
+            return HttpResponseRedirect(reverse("home:index"))
+
         return HttpResponse(str(user_info))
