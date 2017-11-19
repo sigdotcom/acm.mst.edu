@@ -131,3 +131,5 @@ package-lock.json
 package.json
 .sass-cache/
 .DS_Store
+
+client_secrets.json

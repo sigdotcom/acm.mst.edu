@@ -5,6 +5,7 @@ import json
 import os
 
 # third-party
+from googleapiclient.discovery import build
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import requests
@@ -14,6 +15,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views import View
+from django.urls import reverse
 
 # local Django
 from accounts.models import User
@@ -28,6 +30,7 @@ from django.contrib import messages
 ###
 
 
+
 class GoogleAuthorization(View):
     """
     Default Social Authentication Class View which attempts to define
@@ -38,38 +41,18 @@ class GoogleAuthorization(View):
 
     def get(self, request, **kwargs):
         if request.user.is_authenticated:
-            message.warning(request, "You are already logged in.")
+            messages.warning(request, "You are already logged in.")
             return HttpResponseRedirect(reverse("home:index"))
 
-        social_auth_config = getattr(settings, "SOCIAL_AUTH_CONFIG")
-
-        if social_auth_config is None:
-            message.error(
-                request,
-                "An error has occurred. Please contact acm@mst.edu. "
-                "(ERROR: CONFIG)"
-            )
-            return HttpResponseRedirect(reverse("home:index"))
-
-        google_auth_config = social_auth_config.get("google", None)
-        if google_auth_config is None:
-            message.error(
-                request,
-                "An error has occurred. Please contact acm@mst.edu. "
-                "(ERROR: CONFIG)"
-            )
-            return HttpResponseRedirect(reverse("home:index"))
-
-        flow_data = {
-            "client_id": google_auth_config["client_id"],
-            "client_secret": google_auth_config["client_secret"],
-            "redirect_uri": google_auth_config["redirect_uri"],
-            "scopes": "openid email profile"
-        }
-        flow = google_auth_oauthlib.flow.Flow.OAuth2WebServerFlow(
-            **flow_data
+        FLOW = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+            settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
+            scopes="openid email profile",
+            redirect_uri=request.build_absolute_uri(
+                reverse("thirdparty_auth:google-callback")
+            ),
         )
-        authorization_url, state = flow.authorization_url(
+
+        authorization_url, state = FLOW.authorization_url(
             access_type='offline',
             prompt='select_account',
             include_granted_scopes='true'
@@ -82,21 +65,27 @@ class GoogleCallback(View):
     http_method_names = ['get']
 
     def get(self, request, **kwargs):
-        state = request.session["state"]
-
-        flow_data = {
-            "client_id": google_auth_config["client_id"],
-            "client_secret": google_auth_config["client_secret"],
-            "redirect_uri": google_auth_config["redirect_uri"],
-            "scopes": "openid email profile"
-            "state": state
-        }
-
-        flow = google_auth_oauthlib.flow.Flow.OAuth2WebServerFlow(
-            **flow_data
-        )
+        state = request.session.get("state")
+        if state is None or request.GET["state"] != state:
+            messages.error(
+                request,
+                "Something is wrong with your session, please refresh the page."
+            )
+            return HttpResponseRedirect(reverse("home:index"))
 
         authorization_response = request.build_absolute_uri()
-        flow.fetch_token(authorization_response=authorization_response)
-        return str(flow.credentials)
-
+        FLOW = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+            settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
+            scopes="openid email profile",
+            redirect_uri=request.build_absolute_uri(
+                reverse("thirdparty_auth:google-callback")
+            ),
+            state=state,
+        )
+        FLOW.fetch_token(authorization_response=authorization_response)
+        user_info_service = build(
+            serviceName='oauth2', version='v2',
+            credentials=FLOW.credentials
+        )
+        user_info = user_info_service.userinfo().get().execute()
+        return HttpResponse(str(user_info))

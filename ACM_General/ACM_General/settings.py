@@ -149,13 +149,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-SOCIAL_AUTH_CONFIG = {
-    'google': {
-        'client_id': os.environ.get('GOOGLE_CLIENT_ID', None),
-        'client_secret': os.environ.get('GOOGLE_CLIENT_SECRET', None),
-        'redirect_uri': os.environ.get('GOOGLE_REDIRECT_URI', None),
-    },
-}
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = "client_secrets.json"
 
 # Temporary local settings
 from ACM_General.settings_local import *
