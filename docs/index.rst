@@ -8,6 +8,7 @@ acm.mst.edu |version|
 
     beginner/overview
     beginner/sphinx
+    beginner/git
 
 Beginner's Guides
 =================
@@ -16,3 +17,6 @@ Beginner's Guides
 
 :doc:`beginner/sphinx`
     Learn how this documentation is made.
+
+:doc:`beginner/git`
+    Basic git commands and usage of common GUI git clients.
