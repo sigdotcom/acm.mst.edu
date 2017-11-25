@@ -6,13 +6,14 @@ acm.mst.edu |version|
     :maxdepth: 2
     :hidden:
 
-    beginner/overview
+    beginner/environment
     beginner/sphinx
     beginner/git
+    beginner/vagrant
 
 Beginner's Guides
 =================
-:doc:`beginner/overview`
+:doc:`beginner/environment`
     Understand what the Beginner's Guide is for.
 
 :doc:`beginner/sphinx`
@@ -20,3 +21,6 @@ Beginner's Guides
 
 :doc:`beginner/git`
     Basic git commands and usage of common GUI git clients.
+
+:doc:`beginner/vagrant`
+    What is Vagrant and How to interact with it.
