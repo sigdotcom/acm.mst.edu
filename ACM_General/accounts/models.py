@@ -114,7 +114,7 @@ class User(AbstractBaseUser):
 
         .. note::
             This operation saves the user every time it is applied. This may
-            result in a performance bottleneck later, but the saving should 
+            result in a performance bottleneck later, but the saving should
             be a default action when applying this operation.
         """
         if not self.is_member:
