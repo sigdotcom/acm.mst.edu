@@ -88,7 +88,7 @@
         </li>
         <li>
           <a
-            href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
+            href="{% url "thirdparty_auth:google" %}">Login</a>
         </li>
       </ul>
     </div>
@@ -127,7 +127,7 @@
         </a></li>
         {% if not user.is_authenticated %}
         <li class="nav-login nav-button">
-          <a href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+          <a href="{% url "thirdparty_auth:google" %}"
           title="Login">
             <img src="{% static "home/img/core/login-icon.png" %}"/>
             <span>Log In</span>
