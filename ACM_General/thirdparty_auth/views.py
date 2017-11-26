@@ -64,7 +64,8 @@ class GoogleAuthorization(View):
 class GoogleCallback(View):
     http_method_names = ["get"]
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         """
         Collect the google authentication token after the user successfully
         provides consent. With this token, the backend queries google's servers
