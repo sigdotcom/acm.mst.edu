@@ -37,6 +37,7 @@ class GoogleOAuth2AuthorizationTestCase(TestCase):
         self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "home/index.html")
+
         self.assertEqual(
             str(message_list[0]),
             message
@@ -104,6 +105,16 @@ class GoogleOAuth2CallbackTestCase(TestCase):
     def setUp(self):
         super().setUp()
         self.default_user = models.User.objects.get(email="acm@mst.edu")
+
+    def test_fail_redict_on_already_authenticated(self):
+        check_message = (
+            "You are already logged in."
+        )
+        self.client.force_login(self.default_user)
+        self.check_messages_with_redirect(
+            reverse("thirdparty_auth:google-callback"),
+            check_message
+        )
 
     def test_fail_redirect_on_no_session_state(self):
         check_message = (
