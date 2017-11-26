@@ -27,7 +27,8 @@ class GoogleAuthorization(View):
     """
     http_method_names = ["get"]
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         """
         Initial preparation of the user to authenticate with the google API.
         Completes step 1 of the OAuth2 protocol.
