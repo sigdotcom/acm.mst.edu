@@ -148,17 +148,16 @@
 
 {% block body_messages %}
 {% if messages %}
-<div class="content-wrapper">
-  <ul class="messages">
-      {% for msg in messages %}       
-      <li>
-          <div class="alert alert-{{msg.level_tag}}" role="alert">
-          {{msg.message}}
-          </div>
-      </li>
-      {% endfor %}
-  </ul>
-</div>
+<ul class="messages">
+{% for msg in messages %}       
+  <li class="messages__message">
+    <div class="alert alert-{{msg.level_tag}}" role="alert">
+      <strong>{{msg.level_tag | capfirst}}! </strong>
+      {{msg.message}}
+    </div>
+</li>
+{% endfor %}
+</ul>
 {% endif %}
 {% endblock %}
 

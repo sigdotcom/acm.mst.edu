@@ -404,29 +404,30 @@ label:focus {
   margin: 0;
 }
 
+.messages__message {
+  display: flex;
+}
+
 .alert {
-  height: 60px;
-  // border-radius: 10px;
   text-align: center;
-  line-height: 60px;
-  margin: 15px;
-  border: 2px solid lightgray;
-  font-size: 1.05em;
+  line-height: 58px;
+  display: inline-block;
+  margin: 15px auto;
+  padding: 0 50px;
+  border: 1px solid;
+  font-size: 1.09em;
 }
 
 .alert-warning {
-  background: rgba(255, 243, 0, 0.5);
-  color: rgb(175,163, 0)
+  color: #ff9966;
 }
 
 .alert-success {
-  background: rgba(118, 211, 171, 0.5);
-  color: rgb(68, 161, 121);
+  color: rgb(88, 181, 141);
 }
 
 .alert-error {
-  background: rgba(242, 70, 50, 0.5);
-  color: rgb(232, 60, 40);
+  color: rgb(255, 60, 60);
 }
 
 /* =========================================================================
