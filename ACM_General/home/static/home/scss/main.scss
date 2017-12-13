@@ -125,14 +125,14 @@ header {
   padding: 20px;
   /* Formatting */
   display: flex;
+  flex-direction: column;
   /* Cosmetics */
 }
 
 .header__welcome {
   height: 70px;
-  width: 50%;
   margin: 0;
-  line-height: 70px;
+  line-height: 50px;
   text-align: right;
   color: white;
 }
@@ -140,7 +140,6 @@ header {
 .header__logo {
   /* Allocate space */
   height: 70px;
-  width: 50%;
   /* Formatting */
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -382,8 +381,7 @@ label:focus {
 }
 
 .alert {
-  line-height: 70px;
-  padding: 0 40px;
+  padding: 30px 40px;
   font-size: 1.3em;
   color: white;
 }
@@ -622,10 +620,23 @@ footer h5 {
 
 @media (max-width: 750px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  header {
+  .messages {
     margin-top: 56px;
+  }
+
+  .alert {
+    padding: 20px 20px;
+    line-height: normal;
+    font-size: 1.1em;
+  }
+
+  .messages strong {
+    display: block;
+    padding: 0 0 20px 0;
+  }
+
+  header {
     padding-bottom: 0;
-    height: 230px;
   }
 
   .header-welcome {
