@@ -33,8 +33,6 @@ def index(request):
     :return: The render template of the index page.
     :rtype: `django.shortcut.render`
     """
-    messages.success(request, "Test notification.")
-
     events = Event.objects.filter(
         date_expire__gte=timezone.now()
     ).order_by('date_hosted')
