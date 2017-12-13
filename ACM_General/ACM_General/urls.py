@@ -1,14 +1,14 @@
 # Django
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^social-auth/', include('thirdparty_auth.urls')),
-    url(r'^web-api/', include('rest_api.urls')),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^events/', include('events.urls')),
-    url(r'^products/', include('products.urls')),
-    url(r'^', include('home.urls')),
-    url(r'^tools/', include('tools.urls')),
+    path('admin/', admin.site.urls),
+    path('social-auth/', include('thirdparty_auth.urls')),
+    path('web-api/', include('rest_api.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('events/', include('events.urls')),
+    path('products/', include('products.urls')),
+    path('', include('home.urls')),
+    path('tools/', include('tools.urls')),
 ]

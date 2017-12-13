@@ -168,7 +168,7 @@ class Membership(View):
         )
 
     def post(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseNotFound("Invalid User")
 
         token = request.POST.get("stripeToken", None)
