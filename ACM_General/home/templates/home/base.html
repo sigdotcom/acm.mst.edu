@@ -8,6 +8,7 @@
 {% block head_base_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
+  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
 {% endblock %}
 
 {% block head_javascript %}
@@ -47,19 +48,33 @@
 {% block head_fonts %}
 {% endblock %}
 
+{% block body_messages %}
+{% if messages %}
+<ul class="messages">
+{% for msg in messages %}       
+  <li>
+    <div class="alert alert-{{msg.level_tag}}" role="alert">
+      <div class="content-wrapper">
+	<strong>{{msg.level_tag | capfirst}}! </strong>
+	{{msg.message}}
+      </div>
+    </div>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block body_header %}
   <header>
-  <div class="constraint-wrapper">
-      <div class="header__logo-wrapper">
+    <div class="constraint-wrapper">
+      <div class="header__content">
         <div class="header__logo">
           <a href="{% url "home:index" %}">
             <img src="{% static "/home/img/core/acm.png" %}">
           </a>
           <h3>Association for<br>Computing Machinery</h3>
         </div>
-      </div>
-
-      <div class="header__welcome-wrapper">
         <h1 class="header__welcome">We are Missouri S&T - ACM</h1>
       </div>
     </div>
@@ -146,21 +161,7 @@
   </nav><!-- desktop nav -->
 {% endblock %}
 
-{% block body_messages %}
-{% if messages %}
-<div class="content-wrapper">
-  <ul class="messages">
-      {% for msg in messages %}       
-      <li>
-          <div class="alert alert-{{msg.level_tag}}" role="alert">
-          {{msg.message}}
-          </div>
-      </li>
-      {% endfor %}
-  </ul>
-</div>
-{% endif %}
-{% endblock %}
+
 
 {% block body_footer %}
   <footer class="footer">

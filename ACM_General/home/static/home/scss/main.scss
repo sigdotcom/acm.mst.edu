@@ -23,7 +23,7 @@ html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
-  font-family: RobotoRegular, sans-serif;
+  font-family: 'Oxygen', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -98,37 +98,43 @@ a {
  * Header Styles
  * ========================================================================= */
 
-body {
-
-}
-
 header {
   /* Allocate space */
   //@extend .constraint-wrapper;
   width: 100%;
-  height: 420px;
+  height: 200px;
   padding-bottom: 45px;
-  background:
-          url("../../home/img/core/sigcompcrop.png")
-          top / cover
-          repeat-y
-          fixed
-          #f1f1f1;
+  background: -moz-linear-gradient(45deg, #99DAFF 0%, #76d3ab 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #99DAFF), color-stop(100%, #76d3ab)); /* safari4+,chrome */
+  background: -webkit-linear-gradient(45deg, #99DAFF 0%, #76d3ab 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(45deg, #99DAFF 0%, #76d3ab 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(45deg, #99DAFF 0%, #76d3ab 100%); /* ie10+ */
+  background: linear-gradient(45deg, #99DAFF 0%, #76d3ab 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#76d3ab', endColorstr='#99DAFF',GradientType=1  ); /* ie6-9 */ 
   /* Formatting */
   /* Cosmetics */
-  /*background-color: #245623;*/
   .constraint-wrapper {
     height: 100%;
   }
 }
 
-.header__logo-wrapper {
+.header__content {
   /* Allocate space */
-  height: 50%;
+  height: 100%;
   width: 100%;
-  padding: 20px 0 0 20px;
+  padding: 20px;
   /* Formatting */
+  display: flex;
+  flex-direction: column;
   /* Cosmetics */
+}
+
+.header__welcome {
+  height: 70px;
+  margin: 0;
+  line-height: 50px;
+  text-align: right;
+  color: white;
 }
 
 .header__logo {
@@ -136,8 +142,8 @@ header {
   height: 70px;
   /* Formatting */
   display: -ms-flexbox;
-display: -webkit-flex;
-display: flex;
+  display: -webkit-flex;
+  display: flex;
   -ms-flex-align: center;
   align-items: center;
   /* Cosmetics */
@@ -163,38 +169,8 @@ display: flex;
   /* Formatting */
   /* Cosmetics */
   color: white;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 1em;
-  letter-spacing: .7px;
-}
-
-.header__welcome-wrapper {
-  /* Allocate space */
-  height: 50%;
-  width: 100%;
-  padding: 0 20px 20px 20px;
-  /* Formatting */
-  display: -ms-flexbox;
-display: -webkit-flex;
-display: flex;
-  -ms-flex-align: end;
-  align-items: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  float: right;
-  /* Cosmetics */
-}
-
-.header__welcome {
-  /* Allocate space */
-  /* Formatting */
-  margin: 0;
-  text-align: right;
-  /* Cosmetics */
-  color: white;
-  line-height: .8em;
-  font-weight: normal;
-  text-decoration: none;
 }
 
 /* =========================================================================
@@ -405,28 +381,17 @@ label:focus {
 }
 
 .alert {
-  height: 60px;
-  // border-radius: 10px;
-  text-align: center;
-  line-height: 60px;
-  margin: 15px;
-  border: 2px solid lightgray;
-  font-size: 1.05em;
-}
-
-.alert-warning {
-  background: rgba(255, 243, 0, 0.5);
-  color: rgb(175,163, 0)
+  padding: 30px 40px;
+  font-size: 1.3em;
+  color: white;
 }
 
 .alert-success {
-  background: rgba(118, 211, 171, 0.5);
-  color: rgb(68, 161, 121);
+  background-color: #22c7a9;
 }
 
 .alert-error {
-  background: rgba(242, 70, 50, 0.5);
-  color: rgb(232, 60, 40);
+  background-color: #eb625f;
 }
 
 /* =========================================================================
@@ -501,15 +466,13 @@ footer {
 
 .footer-wrapper ul li a {
   color: rgba(255,255,255,0.6);
-  font-size: .94em;
+  font-size: .86em;
   font-weight: bold;
   transition: color .14s ease-in-out;
 }
 
 .footer-wrapper ul li a:hover {
   color: rgba(255,255,255,0.8);
-  font-size: .94em;
-  font-weight: bold;
 }
 
 .footer-wrapper ul li {
@@ -657,10 +620,23 @@ footer h5 {
 
 @media (max-width: 750px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  header {
+  .messages {
     margin-top: 56px;
+  }
+
+  .alert {
+    padding: 20px 20px;
+    line-height: normal;
+    font-size: 1.1em;
+  }
+
+  .messages strong {
+    display: block;
+    padding: 0 0 20px 0;
+  }
+
+  header {
     padding-bottom: 0;
-    height: 230px;
   }
 
   .header-welcome {
