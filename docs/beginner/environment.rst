@@ -53,6 +53,9 @@ There are pros and cons for each option, but overall I recommend using
 To install any of these options, click on the link to their website and download
 the Window's executable.
 
+For a fairly long tutorial on how to use `GitKraken`_ with GitHub, see
+`a GitKraken Tutorial <https://www.youtube.com/watch?v=f0y_xCeM1Rk>`_.
+
 .. _GitKraken: https://www.gitkraken.com/
 .. _GitHub Desktop: https://desktop.github.com/
 .. _TortoiseGit: https://tortoisegit.org/
@@ -121,8 +124,7 @@ Now, you should a folder named ``acm.mst.edu`` in the current directory.
 
 GUI
 ===
-.. note::
-    TODO
+Open GitKraken and follow the initial prompts to clone the repository.
 
 ------------------
 Installing Vagrant
