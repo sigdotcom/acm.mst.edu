@@ -149,6 +149,11 @@ To perform a ``pull``, run::
     
     git pull
 
+Alternatively, if you are familiar with branching::
+    
+    git pull origin <branch>
+
+
 Push Changes to Remote Repository
 =================================
 Now all of the changes are successfully stored on your local repository;
@@ -156,7 +161,12 @@ however, the remote (the version on GitHub or whatever service you use) has not
 been updated. In order to upload the changes you made on your local repository,
 you need to ``push`` the changes. The syntax to push the code is::
     
-    git push
+    git push origin <branch>
+
+Branching is outside of the scope of this section, but to see your current
+branch simply type::
+    
+    git branch
 
 After that, all of the changes should be saved.
 
