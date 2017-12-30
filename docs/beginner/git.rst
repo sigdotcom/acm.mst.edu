@@ -6,8 +6,8 @@ Git
 Git is a powerful version control system which is utilized very heavily around
 the world. In almost any job, you will expected to use some form of version
 control system. This tutorial will focus mainly on the basics of how to use git
-with regards to GitHub, but if you're interested in learning more look at the
-:ref:`references section <git-references>`.
+with regards to GitHub and this project, but if you're interested in learning
+more look at the :ref:`references section <git-references>`.
 
 ------------------------
 What is Version Control?
@@ -95,7 +95,7 @@ Which will output:
 From top to bottom separated by the colors, the file is ``staged`` (yellow),
 ``modified`` (green), and then ``untracked`` (red).
 
-This step is very important to ensure that you do not create a new snaphot of
+This step is very important to ensure that you do not create a new snapshot of
 any file that you did not intentionally change. Also, if you made any temporary
 files such as ``test.py`` or ``test.txt``, this will prevent them from begin
 committed.
@@ -170,6 +170,70 @@ branch simply type::
 
 After that, all of the changes should be saved.
 
+
+------------------
+Branching Strategy
+------------------
+
+What is a Git Branch?
+=====================
+To understand what Git Branches are, we recommend taking a look at the Branching
+Chapter of Pro Git which can be found `here
+<https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell>`_.
+
+Git Branching Model
+===================
+For the full post describing the Git Branching model, please look at the
+:ref:`references section <git-references>`. However, there are only a few
+specific takeaways needed to follow the branching model.
+
+Develop Branch
+--------------
+The ``develop`` branch is the bleeding edge version of the website. All
+:ref:`Feature Branches <git-feature-branches>` should be derived from and
+subsequently merged into develop. When the ``develop`` branch has all of the
+features slated for the next release, it will be merged into that respective
+release's branch.
+
+
+.. _git-feature-branches:
+
+Feature Branches
+----------------
+The main type of branch that a developer will need to be responsible for is
+feature branches. Feature branches are created whenever you want to add a new
+feature to the website. These should be small, fairly self-contained branches
+which can be quickly merged after the completion into the ``develop`` branch.
+Moreover, every feature branch should have a fairly high turnover rate.
+
+All feature branches have the following form: ``feature/<feature-name>``. This
+``<feature-name>`` should describe the feature you are working on in one-two
+words or directly reference and issue number.
+
+As an example, if you were working on a login feature to integrate `GitHub`_
+login.  Firstly, break up the frontend and backend into different branches.
+Then, a good feature branch may be ``feature/gh#1135`` where ``gh#1135`` is the
+number of the Github issue being worked on. GitHub issues will be discussed
+later in this document.
+
+-------------
+Github Issues
+-------------
+Making issues using GitHub is the main way in which we organize and assign tasks
+to developers in SIG.com. In this section, you will learn how to create and use
+GitHub issues within the context of the SIG.com projects
+
+Creating an Issue
+=================
+For a good resource on how to create an issue on `GitHub`_, please refer to the
+`Creating an issue help page 
+<https://help.github.com/articles/creating-an-issue/>`_.
+
+You can find the link to all of the SIG.com Repositories in the 
+:ref:`references section <git-references>`.
+
+
+
 .. _git-references:
 
 ----------
@@ -180,3 +244,11 @@ References
 
 `GitKraken YouTube Channel <https://www.youtube.com/gitkraken>`_
     Specific tutorials using Git with the GitKraken GUI.
+
+`Git Branching Model <http://nvie.com/posts/a-successful-git-branching-model/>`_
+    The Git Branching strategy we loosely follow.
+
+`SIG.com Organization <https://github.com/sigdotcom/>`_
+    All SIG.com repositories.
+
+.. _GitHub: https://github.com/
