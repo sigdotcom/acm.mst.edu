@@ -90,6 +90,8 @@ adding a new SSH key guide
 .. _GitHub: https://github.com/
 .. _PuTTYgen: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
+.. _overview-clone-repo:
+
 --------------------
 Clone the repository
 --------------------
