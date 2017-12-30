@@ -232,11 +232,6 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')
 
-        response = self.client.get(reverse('accounts:user-login'))
-        self.assertTemplateUsed(response, 'accounts/login.html')
-
-        self.assertEqual(response.status_code, 200)
-
     def test_login_system(self):
         """
         TODO: Implement with Selenium
