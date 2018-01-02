@@ -155,14 +155,14 @@ SOCIAL_AUTH_SETTINGS = {
     "google": {
         "config": {
             "web": {
-                "client_id": os.environ["GOOGLE_CLIENT_ID"],
+                "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
                 "project_id":"acm-general",
                 "auth_uri":"https://accounts.google.com/o/oauth2/auth",
                 "token_uri":"https://accounts.google.com/o/oauth2/token",
                 "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-                "client_secret": os.environ["GOOGLE_CLIENT_SECRET"],
-                "redirect_uris": os.environ["GOOGLE_REDIRECT_URIS"].split(" "),
-                "javascript_origins":os.environ["GOOGLE_JS_ORIGINS"].split(" "),
+                "client_secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
+                "redirect_uris": os.environ.get("GOOGLE_REDIRECT_URIS", "").split(" "),
+                "javascript_origins":os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
             }
         },
         "scopes": "openid email profile"
