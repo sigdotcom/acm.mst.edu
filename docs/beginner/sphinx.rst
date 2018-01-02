@@ -34,8 +34,12 @@ version of the documentation, but the steps are the same for the other formats.
 
      make html
 5. Open your favorite web browser and browse to the generated ``index.html``.
-   For example, the url on Firefox would be
+   For example, the URL on Firefox would be
    file:///home/kschoon/git-local/acm.mst.edu/docs/_build/html/index.html.
+
+.. note::
+    Everytime that you change the documentation you **MUST** re-make the
+    documentation. See Step 4 for more information.
      
 ----------------
 reStructuredText
@@ -51,8 +55,21 @@ Primer`_.
 For a specification of the complete reStructuredText syntax, please see the
 `reStructuredText Specification`_.
 
+
+---------------------
+Writing Documentation
+---------------------
+For writing general documentation such as the ``Beginner's Guides``, add a
+``<filename>.rst`` file into the ``docs`` folder or a subfolder of ``docs``.
+Then, add a link to that file created in a `toctree`_ (table of content tree)
+located in ``index.rst``.
+
 To look at how a specific page is made in this documentation, click on the
-``View page source`` button on the top right.
+``View page source`` button on the top right. This will give you a good idea as
+how certain reStructuredText features look and how previous documentation has
+been written.
+
+.. _toctree: http://www.sphinx-doc.org/en/stable/markup/toctree.html
 
 ---------------------
 In-code Documentation
@@ -118,15 +135,14 @@ Description
     condition in which the Exception is raised using "If x".
     
 Class Docstrings
--------------------
+----------------
 Currently, there is no Class ``docstring`` style. Please use the ``docstring``
 description to adequately describe the purpose and function of the class.
 
 Module Docstrings
--------------------
+-----------------
 Currently, there is no Module ``dostring`` style. Please use the ``docstring``
 description to adequately describe the purpose and function of the module.
-
 
 .. _Sphinx: http://www.sphinx-doc.org/en/stable/
 .. _reStructuredText Specification: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
