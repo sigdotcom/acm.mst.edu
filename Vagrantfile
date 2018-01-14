@@ -13,7 +13,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "generic/ubuntu1604"
+
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -25,6 +26,10 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
   config.vm.network "private_network", type: "dhcp"
+
+  config.vm.provider "libvirt" do |lv, override|
+      override.vm.synced_folder ".", "/vagrant", type: '9p', disabled: false, accessmode: "mapped", mount: true
+  end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
