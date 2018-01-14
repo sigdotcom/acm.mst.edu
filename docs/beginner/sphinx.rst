@@ -12,9 +12,9 @@ Sphinx.
 
 Checkout the `Sphinx`_ website for more information.
 
---------------------------
-Building the Documentation
---------------------------
+----------------------------------
+Building the Documentation Locally
+----------------------------------
 Sphinx allows you to build the documentation in a variety of formats including:
 html, LaTeX, manual pages, etc. This section will focus on building an HTML
 version of the documentation, but the steps are the same for the other formats.
