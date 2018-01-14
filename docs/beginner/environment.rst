@@ -53,6 +53,9 @@ There are pros and cons for each option, but overall I recommend using
 To install any of these options, click on the link to their website and download
 the Window's executable.
 
+For a fairly long tutorial on how to use `GitKraken`_ with GitHub, see
+`a GitKraken Tutorial <https://www.youtube.com/watch?v=f0y_xCeM1Rk>`_.
+
 .. _GitKraken: https://www.gitkraken.com/
 .. _GitHub Desktop: https://desktop.github.com/
 .. _TortoiseGit: https://tortoisegit.org/
@@ -86,6 +89,8 @@ adding a new SSH key guide
 
 .. _GitHub: https://github.com/
 .. _PuTTYgen: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+.. _overview-clone-repo:
 
 --------------------
 Clone the repository
@@ -121,8 +126,7 @@ Now, you should a folder named ``acm.mst.edu`` in the current directory.
 
 GUI
 ===
-.. note::
-    TODO
+Open GitKraken and follow the initial prompts to clone the repository.
 
 ------------------
 Installing Vagrant
@@ -146,11 +150,10 @@ Running Vagrant
 ---------------
 1. Open up ``cmd``, ``Git Bash``, or any other terminal. 
 2. Navigate to ``$ROOT_DIR``, the full path to the cloned repository created
-   :ref:`here <environment-root_dir>`.
-3. In your current directory, you should see a file named ``Vagrantfile`` (Run
-   ``ls`` for linux or ``dir`` for Windows).
-4. Type ``vagrant up`` in the terminal.
-5. Open up a web browser and type http://localhost:8000. If you see something
+   :ref:`here <environment-root_dir>`. In your current directory, you should see
+   a file named ``Vagrantfile`` (Run ``ls`` for linux or ``dir`` for Windows).
+3. Type ``vagrant up`` in the terminal.
+4. Open up a web browser and type http://localhost:8000. If you see something
    resembling the following image, success!
 
 .. image:: _images/acm_vagrant_homepage.png
