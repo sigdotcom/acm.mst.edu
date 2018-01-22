@@ -1,6 +1,12 @@
 """
 Contains all unit tests for the Home app.
 """
+# Standard Library
+from io import BytesIO
+
+# Third-party
+from PIL import Image
+import stripe
 
 # Django
 from django.conf import settings
@@ -13,12 +19,9 @@ from django.utils import timezone
 # local Django
 from accounts.models import User
 from events.forms import EventForm
-from sigs.models import SIG
 from events.models import Event
 from products.models import Product, Transaction
-
-# Third-party
-import stripe
+from sigs.models import SIG
 
 
 class HomeViewCase(TestCase):
@@ -38,11 +41,15 @@ class HomeViewCase(TestCase):
             description='test',
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = 'test_data/test_image.jpg'
         self.image = SimpleUploadedFile(
             name='test_image.jpg',
-            content=open(image_path, 'rb').read(),
+            content=im_io.getvalue(),
             content_type='multipart/form-data'
         )
 
