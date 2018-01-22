@@ -2,8 +2,8 @@
 Contains all of the unit tests for the rest_api app.
 """
 # standard library
-import json
 from io import BytesIO
+import json
 
 # third-party
 from PIL import Image
@@ -12,8 +12,8 @@ from rest_framework.test import APIClient
 # Django
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 
 # local Django
 from accounts.models import User

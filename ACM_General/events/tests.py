@@ -2,10 +2,10 @@
 Contains all unit tets for Events app.
 """
 # standard library
-import os
-import tempfile
 from datetime import datetime
 from io import BytesIO
+import os
+import tempfile
 
 # Third-Party
 from PIL import Image
