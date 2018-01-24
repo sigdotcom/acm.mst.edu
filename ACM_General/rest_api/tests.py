@@ -2,16 +2,18 @@
 Contains all of the unit tests for the rest_api app.
 """
 # standard library
+from io import BytesIO
 import json
 
 # third-party
+from PIL import Image
 from rest_framework.test import APIClient
 
 # Django
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 
 # local Django
 from accounts.models import User
@@ -199,10 +201,17 @@ class EventsTestCase(TestCase):
             sig=self.sig,
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = './test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
-            image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=im_io.getvalue(),
+            content_type='multipart/form-data'
+        )
 
     def test_events_rest_actions(self):
         """

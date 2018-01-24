@@ -3,8 +3,12 @@ Contains all unit tets for Events app.
 """
 # standard library
 from datetime import datetime
+from io import BytesIO
 import os
 import tempfile
+
+# Third-Party
+from PIL import Image
 
 # Django
 from django.conf import settings
@@ -101,11 +105,15 @@ class ModelTestCase(TestCase):
             description='test',
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = 'test_data/test_image.jpg'
         self.image = SimpleUploadedFile(
             name='test_image.jpg',
-            content=open(image_path, 'rb').read(),
+            content=im_io.getvalue(),
             content_type='multipart/form-data'
         )
 
@@ -194,11 +202,15 @@ class ViewTestCase(TestCase):
             description='test',
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = 'test_data/test_image.jpg'
         image = SimpleUploadedFile(
             name='test_image.jpg',
-            content=open(image_path, 'rb').read(),
+            content=im_io.getvalue(),
             content_type='multipart/form-data'
         )
 
@@ -296,11 +308,15 @@ class EventFormTestCase(TestCase):
             description='test',
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = 'test_data/test_image.jpg'
         self.image = SimpleUploadedFile(
             name='test_image.jpg',
-            content=open(image_path, 'rb').read(),
+            content=im_io.getvalue(),
             content_type='multipart/form-data'
         )
 
