@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
-        sh '''
-            #!/bin/bash
+        sh '''#!/bin/bash
             virtualenv --python `which python3.5` .venv
             source .venv/bin/activate
         '''
