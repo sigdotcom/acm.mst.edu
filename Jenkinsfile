@@ -12,4 +12,7 @@ pipeline {
       }
     }
   }
+  environment {
+    PATH = '.venv/bin:$PATH'
+  }
 }
