@@ -13,6 +13,6 @@ pipeline {
     }
   }
   environment {
-    PATH = '.venv/bin:$PATH'
+    PATH = 'PATH+EXTRA=.venv/bin'
   }
 }
