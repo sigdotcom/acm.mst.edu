@@ -7,7 +7,8 @@ pipeline {
             virtualenv --python `which python3.5` .venv
             source .venv/bin/activate
         '''
-        sh 'pip3 install -r dependencies/requirements.txt'
+        sh '''echo $VIRTUAL_ENV pip install -r dependencies/requirements.txt
+'''
       }
     }
   }
