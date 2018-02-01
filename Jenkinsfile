@@ -10,5 +10,12 @@ pipeline {
         '''
       }
     }
+    stage('Test') {
+      steps {
+        sh '''#!/bin/bash
+            python ACM_General/manage.py test
+        '''
+      }
+    }
   }
 }
