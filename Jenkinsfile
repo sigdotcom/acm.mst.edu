@@ -13,6 +13,7 @@ pipeline {
     stage('Test') {
       steps {
         sh '''#!/bin/bash
+            source .venv/bin/activate
             python ACM_General/manage.py test
         '''
       }
