@@ -5,14 +5,14 @@ pipeline {
       steps {
         sh '''#!/bin/bash
             echo $PATH
-echo $WORKSPACE
-virtualenv --python `which python3.5` .venv
+            echo $WORKSPACE
+            virtualenv --python `which python3.5` .venv
             source .venv/bin/activate
         '''
       }
     }
   }
   environment {
-    PATH = 'PATH+EXTRA=.venv/bin'
+    PATH = 'PATH+EXTRA=WORKSPACE/.venv/bin'
   }
 }
