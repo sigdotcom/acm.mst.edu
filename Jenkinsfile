@@ -12,7 +12,4 @@ pipeline {
       }
     }
   }
-  environment {
-    PATH = 'PATH+EXTRA=WORKSPACE/.venv/bin'
-  }
 }
