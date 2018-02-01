@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+{% block html_tag %}
+  <html lang='en'>
+{% endblock %}
+    <head>
+  {% block head_defaultContent %}
+    {% block head_http-equiv %}
+      <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    {% endblock %}
+    {% block head_viewport %} {# TODO: Consider squashing all default head elements that are no going to be changed into one #}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="apple-touch-icon" sizes="180x180"
+            href="{% static "/home/img/apple-touch-icon.png" %}">
+      <link rel="icon" type="image/png"
+            href="{% static "/home/img/favicon-32x32.png" %}" sizes="32x32">
+      <link rel="icon" type="image/png"
+            href="{% static "/home/img/favicon-16x16.png" %}" sizes="16x16">
+      <link rel="manifest" href="{% static "/home/img/manifest.json" %}">
+      <link rel="mask-icon"
+            href="{% static "/home/img/safari-pinned-tab.svg" %}"
+            color="#5bbad5">
+      <meta name="theme-color" content="#ffffff">
+       <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+         <![endif] --> 
+    {% endblock %}
+    {% block head_charset %}
+      <meta charset="utf-8"/>
+    {% endblock %}
+    {% block head_keywords %}
+      <meta name="keywords" content="acmmst, mstacm, ACM General, ACM"/>
+    {% endblock %}
+    {% block head_description %}
+      <meta name="description" content="ACM-General Site"/>
+    {% endblock %}
+    {% block head_author %}
+      <meta name="author" content="ACM-MST SIG.com"/>
+    {% endblock %}
+    {% block head_robots %}
+    {% endblock %}
+    {% block head_base_stylesheets %}{% endblock %}
+    {% block head_stylesheets %}{% endblock %}
+    {% block head_javascript %}{% endblock %}
+    {% block head_extra-descriptors %}{% endblock %}
+    {% block head_fonts %}{% endblock %}
+    {% block head_title %}
+      <title> ACM </title>
+    {% endblock %}
+  {% endblock %}
+  {% block head_main %}{% endblock %}
+</head>
+
+<body>
+{% block body_messages %}{% endblock %}
+{% block body_header %}{% endblock %}
+{% block body_navigation %}{% endblock %}
+{% block body_content %}{% endblock %}
+{% block body_footer %}{% endblock %}
+{% block body_scripts %}{% endblock %}
+</body>
+</html>

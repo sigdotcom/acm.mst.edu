@@ -1,0 +1,13 @@
+{% for field in form %}
+  <div class="flex-item">
+    <label class="field-label" for="{{field.name}}">{{field.label}}:</label>
+    <span class="field-input">
+      {% for error in field.errors %}
+        <div class="error-message">
+          <strong>*{{ error }}</strong>
+        </div>
+      {% endfor %}
+      {{field}}
+    </span>
+  </div>
+{% endfor %}

@@ -1,8 +1,0 @@
-django
-requests
-psycopg2
-djangorestframework
-django-filter
-stripe
-selenium
-Sphinx

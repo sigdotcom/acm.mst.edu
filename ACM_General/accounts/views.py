@@ -1,13 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib.auth import logout
+"""
+Contains views to be rendered by the accounts app
+"""
 
-# Create your views here.
+# Django
+from django.contrib import messages
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 
 def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/')
+    """
+    View called in order to log out a user.
 
-def user_login(request):
-    return render(request, "accounts/login.html")
+    :param request: Request to log out a user.
+    :type request: django.http.request.HttpRequest
+
+    :return: Redirect to homepage.
+    :rtype: :class:`django.http.HttpResponseRedirect`
+    """
+    logout(request)
+    messages.success(request, "Successfully logged out.")
+    return HttpResponseRedirect('/')

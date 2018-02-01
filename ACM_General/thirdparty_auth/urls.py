@@ -1,32 +1,22 @@
-"""ACM_General URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+Contains the urls for the route ``/social-auth/``.
+"""
+# Django
+from django.urls import path
 
+# local Django
 from . import views
 
 app_name = 'thirdparty_auth'
 urlpatterns = [
-    url(
-        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/$',
-        views.AuthorizationView.as_view(),
-        name='login'
+    path(
+        'google/',
+        views.GoogleAuthorization.as_view(),
+        name='google'
     ),
-    url(
-        r'^(?P<auth_type>[0-9a-z-]+)/(?P<auth_provider>[0-9a-z-]+)/callback/$',
-        views.TokenView.as_view(),
-        name='callback'
+    path(
+        'google/callback/',
+        views.GoogleCallback.as_view(),
+        name='google-callback'
     ),
 ]

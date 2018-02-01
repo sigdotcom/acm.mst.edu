@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+# standard library
 import os
 import uuid
 
@@ -19,14 +20,18 @@ SECRET_KEY = uuid.uuid1()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-# STATIC_ROOT = "/var/www/html"
+MEDIA_URL = 'media_files/'
+FLIERS_PATH = 'fliers'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
+# Determines the max number of upcoming events that can appear on the homepage.
+MAX_HOME_FLIER_COUNT = 2
 
 ###
 # Stripe Keys
-## These values are set in /Dependencies/env_vars.template and copied into
-## /etc/uwsgi/apps-availabble/.
+# These values are set in /dependencies/env_vars.template and copied into
+# /etc/uwsgi/apps-availabble/.
 ###
 STRIPE_PRIV_KEY = os.environ.get('STRIPE_PRIV_KEY', None)
 STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY', None)
@@ -42,7 +47,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.backends.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.backends.DjangoFilterBackend',
+    )
 }
 
 
@@ -60,11 +67,12 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'django_filters',
     'home.apps.HomeConfig',
-    'payments.apps.PaymentsConfig',
+    'products.apps.ProductsConfig',
     'sigs.apps.SigsConfig',
     'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
     'rest_framework',
+    'tools.apps.ToolsConfig',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +96,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -102,16 +111,20 @@ WSGI_APPLICATION = 'ACM_General.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.NumericPasswordValidator',
     },
 ]
 
@@ -135,6 +148,26 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = "client_secrets.json"
+
+SOCIAL_AUTH_SETTINGS = {
+    "google": {
+        "config": {
+            "web": {
+                "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
+                "project_id":"acm-general",
+                "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+                "token_uri":"https://accounts.google.com/o/oauth2/token",
+                "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+                "client_secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
+                "redirect_uris": os.environ.get("GOOGLE_REDIRECT_URIS", "").split(" "),
+                "javascript_origins":os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
+            }
+        },
+        "scopes": "openid email profile"
+    }
+}
 
 # Temporary local settings
 from ACM_General.settings_local import *

@@ -1,136 +1,221 @@
 {% extends 'home/base.html' %}
-
 {% load static %}
 
 {% block head_title %}
-    <title> ACM | Officers </title>
+ <title> ACM | Officers </title>
 {% endblock %}
-
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/officers.css" %}" />
+ <link rel="stylesheet" href="{% static "/home/css/officers.css" %}"/>
 {% endblock %}
 
 {% block body_content %}
-	<div class="main-section">
-		<div class="content-wrapper">
-			<ul class="cards">
-            <!--<li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Sammie Bush | President, CCDC Captain</div>
-                    <p class="card__text">Year - Senior<br>Length of Service - 6 Months<br>SIG - ACM General, SIG-Security</p>
-                    <div class="link_zone">
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li> -->
-        <!-- <li class="cards__item">
-            <div class="card">
-{#                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
-                <div class="card__content">
-                    <div class="card__title">Sercan Akcay | Vice President</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 3 Months<br>SIG - ACM General</p>
-                    <div class="link_zone">
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li> -->
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/officers/current/secretary.jpg" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Dalton Cole | Secretary, SIG-Comp Chair</div>
-                    <p class="card__text">Year - PhD<br>Length of Service - 3 Years<br>SIG - ACM General, SIG-Comp</p>
-                    <div class="link_zone">
-                        <a href="https://github.com/drc14" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://www.linkedin.com/in/daltoncole1/" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="mailto:drcgy5@mst.edu" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/officers/current/treasurer.jpg" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Henry Wong | Treasurer</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 3 Months<br>SIG - ACM General, SIG-Game</p>
-                    <div class="link_zone">
-                        <a href="https://github.com/henrycwong" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://linkedin/in/henrycwong" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="mailto:hcwqk7@mst.edu" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <!--<li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Erik Michalak | SIG-Security Chair</div>
-                    <p class="card__text">Year - Senior<br>Length of Service - 6 Months<br>SIG - SIG-Security</p>
-                    <div class="link_zone">
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>-->
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/officers/current/SIG.com-chair.jpg" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Kevin Schoonover | SIG.com Chair, System Administrator</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 6 Months<br>SIG - SIG.com, ACM-General</p>
-                    <div class="link_zone">
-                        <a href="https://github.com/kevinschoonover" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://www.linkedin.com/in/schoonoverkevin/" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="mailto:ksyh3@mst.edu" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <!--<li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
-                <div class="card__content">
-                    <div class="card__title">Joseph Kuhn | SIG-Game Chair</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 3 Months<br>SIG - SIG Game</p>
-                    <div class="link_zone">
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>-->
-        <!--<li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>#}
-                <div class="card__content">
-                    <div class="card__title">Cody Roberts | SIG-Lounge Chair</div>
-                    <p class="card__text">Year - Freshman<br>Length of Service - 3 Months<br>SIG - SIG-Lounge</p>
-                    <div class="link_zone">
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">GitHub</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">LinkedIn</a>
-                        <a href="https://acm.mst.edu/404" class="btn btn--block card__btn">Email</a>
-                    </div>
-                </div>
-            </div>
-        </li>-->
-    </ul>
-{#            This a tag below should expand and make more info about past officers appear#}
-{#            <a href="#" class="past_officers">#}
-{#                Past Officers#}
-{#            </a>#}
-		</div>
-	</div>
+ <main>
+  <div class="content-wrapper">
+   <ul class="cards">
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/core/acm.png" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+         <h3 class="card__name">Steven Giangreco</h3>
+         <h5 class="card__titles">President</h5>
+       </div>
+      <div class="card__text">
+       Year - Senior<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+       Involvement - SIG-Security
+      </div>
+      <div class="card__links">
+       <a href="https://www.linkedin.com/in/steven-giangreco-42a1b5132"
+        class="acm-btn">LinkedIn</a>
+       <a href="mailto:smgrmd@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/core/acm.png" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+        <h3 class="card__name">Joseph Kuhn</h3>
+        <h5 class="card__titles">Vice President</h5>
+      </div>
+      <div class="card__text">
+       Year - Sophomore<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+      </div>
+      <div class="card__links">
+       <a href="mailto:jck244@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/officers/current/treasurer.jpg" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+        <h3 class="card__name">Katrina Ward</h3>
+        <h5 class="card__titles">Treasurer</h5>
+        <h5 class="card__titles">ACM-W President</h5>
+      </div>
+      <div class="card__text">
+       Year - PhD<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+       Involvement - ACM-W
+      </div>
+      <div class="card__links">
+       <a href="https://www.linkedin.com/in/katrina-ward-57131575/"
+         class="acm-btn">LinkedIn</a>
+       <a href="mailto:kjw26b@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/core/acm.png" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+         <h3 class="card__name">Sara Newman</h3>
+         <h5 class="card__titles">Secretary</h5>
+       </div>
+      <div class="card__text">
+       Year - Junior<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+       Involvement - SIG-Competition
+      </div>
+      <div class="card__links">
+       <a href="https://www.linkedin.com/in/sara-newman-bb2803128/"
+         class="acm-btn">LinkedIn</a>
+       <a href="mailto:sn976@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/officers/current/sysadmin.jpg" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+         <h3 class="card__name">Adam Evans</h3>
+         <h5 class="card__titles">System Administrator</h5>
+       </div>
+      <div class="card__text">
+       Year - Senior<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+       Involvement - SIG-Competition, SIG-Security
+      </div>
+      <div class="card__links">
+        <a href="https://www.linkedin.com/in/adam-evans-626408a8/"
+           class="acm-btn">LinkedIn</a>
+       <a href="mailto:ane3md@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+    <li class="cards__card">
+      <div class="card__image"
+       style="background-image: url({% static "home/img/core/acm.png" %})">
+      </div>
+
+      <div class="card__content">
+        <div class="card_heading">
+          <h3 class="card__name">Seth Kitchen</h3>
+          <h5 class="card__titles">Event Coordinator</h5>
+          <h5 class="card__titles">SIG-Competition Chair</h5>
+        </div>
+        <div class="card__text">
+          Year - Senior<br>
+          Involvement - SIG-Competition
+        </div>
+      <div class="card__links">
+       <!--<a href="https://www.linkedin.com/in/schoonoverkevin/"
+         class="acm-btn">LinkedIn</a>-->
+       <a href="mailto:sjkyv5@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+    </li>
+
+    <li class="cards__card">
+      <div class="card__image"
+       style="background-image: url({% static "home/img/officers/current/SIG.com-chair.jpg" %})">
+      </div>
+
+      <div class="card__content">
+        <div class="card_heading">
+          <h3 class="card__name">Kevin Schoonover</h3>
+          <h5 class="card__titles">SIG.com Chair</h5>
+        </div>
+        <div class="card__text">
+          Year - Sophomore<br>
+          Involvement - SIG.com
+        </div>
+      <div class="card__links">
+       <a href="https://www.linkedin.com/in/schoonoverkevin/"
+        class="acm-btn">LinkedIn</a>
+       <a href="mailto:ksyh3@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+    </li>
+
+    <li class="cards__card">
+      <div class="card__image"
+       style="background-image: url({% static "home/img/officers/current/gamechair.jpg" %})">
+      </div>
+
+      <div class="card__content">
+        <div class="card_heading">
+          <h3 class="card__name">Victoria Kraemer</h3>
+          <h5 class="card__titles">SIG-Game Chair</h5>
+        </div>
+        <div class="card__text">
+          Year - Senior<br>
+          SIG - SIG-Game
+        </div>
+      <div class="card__links">
+       <!--<a href="https://www.linkedin.com/in/schoonoverkevin/"
+         class="acm-btn">LinkedIn</a>-->
+       <a href="mailto:vjkgz3@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+    </li>
+
+    <li class="cards__card">
+     <div class="card__image"
+      style="background-image: url({% static "home/img/officers/current/loungechair.jpg" %})">
+     </div>
+     <div class="card__content">
+       <div class="card_heading">
+        <h3 class="card__name">Cody Roberts</h3>
+        <h5 class="card__titles">SIG-Lounge Chair</h5>
+      </div>
+      <div class="card__text">
+       Year - Sophomore<br>
+       {# TODO: make this start of service and put like august, 2014 #}
+       Involvement - SIG-Game, SIG-Lounge
+      </div>
+      <div class="card__links">
+       <!--<a href="https://www.linkedin.com/in/eric-michalak-400907137/"
+         class="acm-btn">LinkedIn</a>-->
+       <a href="mailto:cargy9@mst.edu"
+        class="acm-btn">Email</a>
+      </div>
+     </div>
+    </li>
+
+   {# Below should expand and make more info about past officers appear #}
+  </div>
+ </main>
 {% endblock %}

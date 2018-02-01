@@ -1,26 +1,28 @@
-"""ACM_General URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+Contains all of the routes for ``/``.
+"""
+# Django
+from django.conf import settings
+from django.urls import path
+from django.conf.urls.static import static
+
+# local Django
 from . import views
 
 app_name = "home"
 urlpatterns = [
-    url(r'^$', views.index, name="index"),
-    url(r'sponsors/', views.sponsors, name="sponsors"),
-    url(r'calendar/', views.calendar, name="calendar"),
-    url(r'media/', views.media, name="media"),
-    url(r'officers/', views.officers, name="officers"),
-]
+    # https://acm.mst.edu/
+    path('', views.index, name="index"),
+    # https://acm.mst.edu/calendar/
+    path('calendar/', views.calendar, name="calendar"),
+    # https://acm.mst.edu/media/
+    path('media/', views.media, name="media"),
+    # https://acm.mst.edu/membership/
+    path('membership/', views.Membership.as_view(), name="membership"),
+    # https://acm.mst.edu/officers/
+    path('officers/', views.officers, name="officers"),
+    # https://acm.mst.edu/sigs/
+    path('sigs/', views.sigs, name="sigs"),
+    # https://acm.mst.edu/sponsors/
+    path('sponsors/', views.Sponsors.as_view(), name="sponsors"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

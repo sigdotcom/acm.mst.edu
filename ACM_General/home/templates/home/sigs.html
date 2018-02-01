@@ -1,0 +1,82 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block head_title %}
+  <title> ACM | SIGs </title>
+{% endblock %}
+{% block head_stylesheets %}
+  <link rel="stylesheet" href="{% static "/home/css/sigs.css" %}"/>
+{% endblock %}
+
+{% block body_content %}
+  <main>
+    <div class="content-wrapper">
+      <ul class="cards">
+        <li class="cards__card">
+            <a href="https://discord.gg/eKtkR4k" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sigs/sigdotcom-logo.png" %});"></div>
+              <h5 class="card__title">SIG.com</h5>
+              </a>
+              <p class="card__text">Interested in software engineering, web
+              development, or development operations? In SIG.com, we attempt to
+              build production-grade websites using software engineering skills
+              and development patterns with weekly development meetings.
+              Currently, SIG.com is developing the https://acm.mst.edu/
+              website. Moreover, we host workshops on various foundational
+              skills such as Python, Git, HTML, CSS, and many others.</p>
+              <a href="https://discord.gg/eKtkR4k" class="card__discord-link">Discord</a>
+        </li>
+        <li class="cards__card">
+          <a href="https://discord.gg/ayjGE9t" class="card__link">
+            <div class="card__image"
+                 style="background-image: url({% static "home/img/sigs/sigcomp-logo.svg" %}); background-size: contain;"></div>
+              <h5 class="card__title">SIG-Competition</h5>
+              </a>
+              <p class="card__text">SIG Competition is a special interest group
+              within Missouri S&T’s ACM that focuses primarily on competitive
+              programming. With weekly lectures from Dr. Morales we tackle
+              challenge problems from many online judge websites such as Kattis
+              (https://open.kattis.com/) and UVA (https://uva.onlinejudge.org/).
+              We also hold our own programming contests on campus where people
+              can win the admiration of their peers and some great prizes.</p>
+              <a href="https://discord.gg/ayjGE9t" class="card__discord-link">Discord</a>
+        </li>
+        <li class="cards__card">
+            <a href="http://siggame.io/" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sigs/siggame-logo.png" %});"></div>
+              <h5 class="card__title">SIG-Game</h5>
+              </a>
+              <p class="card__text">SIG-Game is a special interest group for
+              Missouri S&T students that develops and hosts artificial
+              intelligence programming competitions on S&T's campus in Rolla,
+              Missouri. We utilize many programming languages, tools and
+              development strategies standard to the Computer Science Industry.
+              Our members gain valuable experience on one of our five
+              development teams: Arena, Game, Public Relations, Visualizer, and
+              Web. SIG-Game offers experience working on a real team, with
+              fellow students and mentors to learn and grow as a software
+              developer. We accept new members of all skill levels and majors,
+              so don't hesitate to contact us.</p>
+              <a href="https://discord.gg/Fbg4rwk" class="card__discord-link">Discord</a>
+        </li>
+        <li class="cards__card">
+            <a href="http://acmsigsec.mst.edu/" class="card__link">
+            <div class="card__image contain"
+              style="background-image: url({% static "home/img/sigs/sigsec-logo.png" %}); background-size: contain;"></div>
+            <h5 class="card__title">SIG-Security</h5>
+            </a>
+            <p class="class__text">Our ACM Special Interest Group on Security
+            is a local ACM branch whose mission is to help develop the
+            cybersecurity profession for the student body of Missouri
+            University of Science and Technology by sponsoring high-quality
+            workshops and lectures from both local and natinal industry
+            professionals, as well as hosting on campus security events and
+            competitions. </p>
+            <a href="https://discord.gg/w4x3JMc" class="card__discord-link">Discord</a>
+        </li>
+      </ul>
+    </div>
+  </main>
+{% endblock %}

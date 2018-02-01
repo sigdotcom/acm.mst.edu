@@ -1,0 +1,100 @@
+.nav-sigs a span {
+  color: #4d4d4d !important;
+}
+
+.nav-sigs:hover a span {
+  color: #4d4d4d !important;
+}
+
+.nav-sigs:after {
+  transform: scaleX(.8);
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0 0 20px 0;
+  justify-content: space-between;
+  margin: 0 60px;
+}
+
+.cards__card {
+  margin-bottom: 1rem;
+}
+
+.card__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card__image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #efefef;
+  overflow: hidden;
+  position: relative;
+}
+
+.contain {
+  background-size: contain;
+}
+
+.card__image::before {
+  content: "";
+  display: block;
+  padding-top: 50%;
+}
+
+.card__title {
+  font-size: 1.3rem;
+  margin: 15px 0 0 0;
+}
+
+.card__link {
+  text-decoration: none;
+  color: #76d3ab;
+}
+.card__link:hover {
+  text-decoration: underline;
+}
+
+.card__text {
+  color: rgba(0, 0, 0, 0.77);
+  flex: 1 1 auto;
+  font-size: .9rem;
+  line-height: 1.5;
+  margin: 15px 0 0 0;
+}
+
+.card__discord-link {
+  color: #2da1d8;
+  line-height: 2;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 350px) {
+  .cards {
+    margin: 0 10px;
+  }
+}
+
+@media (min-width: 641px) {
+  .cards__card {
+    flex: 0 1 calc(50% - 1em);
+  }
+  .cards {
+    margin: 0 30px;
+  }
+}
+@media (min-width: 1040px) {
+  .cards__card {
+    flex: 0 1 calc(33.333333333% - 1em);
+  }
+  .cards {
+    margin: 0;
+  }
+}

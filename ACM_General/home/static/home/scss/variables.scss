@@ -1,0 +1,28 @@
+$light-background: #fff;
+$light-footer: #373C3F;
+
+$acm-blue: #2da1d8;
+$acm-blue--dark: #288ebf;
+$acm-green: #76d3ab;
+$acm-green--dark: #65b593;
+
+$top-text-color: rgba(0, 0, 0, 0.87);
+$split-text-color: rgba(0, 0, 0, 0.8);
+$sub-text-color: rgba(0, 0, 0, 0.7);
+
+$font-stack: RobotoRegular, sans-serif;
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Light.ttf);
+  font-family: RobotoLight;
+}
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Regular.ttf);
+  font-family: RobotoRegular;
+}
+
+@font-face {
+  src: url(../fonts/Roboto/Roboto-Bold.ttf);
+  font-family: RobotoBold;
+}

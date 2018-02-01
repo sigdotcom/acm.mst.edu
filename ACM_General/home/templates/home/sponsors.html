@@ -1,66 +1,91 @@
 {% extends 'home/base.html' %}
-
 {% load static %}
 
 {% block head_title %}
-<title> ACM | Sponsors </title>
+  <title> ACM | Sponsors </title>
 {% endblock %}
-
 {% block head_stylesheets %}
-<link rel="stylesheet" href="{% static "/home/css/sponsors.css" %}" />
+  <link rel="stylesheet" href="{% static "/home/css/sponsors.css" %}"/>
 {% endblock %}
 
 {% block body_content %}
-<div class="main-section">
+  <main>
     <div class="content-wrapper sponsor-header-content-wrapper">
-        <h1 style="text-align:center;"> Thank you to our sponsors! </h1>
-        <h2 style="text-align:center; color:rgba(0,0,0,0.54);"> Contact <a style="color:rgba(0,0,160,54);" href="mailto:acm@mst.com?Subject=ACM Sponsorship" target="_top">acm@mst.edu</a> to become one!</h2>
+      <h1 style="text-align:center; color:rgba(0, 0, 0, .87);"> Thank you to our
+        sponsors! </h1>
+      <h2
+        style="text-align:center; color:rgba(0, 0, 0, .70); font-weight: normal">
+        Contact <a style="color:#2da1d8;"
+                   href="mailto:acm@mst.com?Subject=ACM Sponsorship"
+                   target="_top">acm@mst.edu</a> to become one!</h2>
     </div>
 
 
     <div class="content-wrapper">
-    <ul class="cards">
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image contain" style="background-image: url({% static "home/img/sponsors/tradebot_logo.png" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Tradebot | Sponsor</div>
-                    <p class="card__text">Tradebot Systems, Inc. is one of the largest high-frequency, computer trading firms in the US. Based in Kansas City, Missouri, they regularly account for 5% of the total trading volume in the US stock market.</p>
-                    <a href="http://tradebot.com/" class="btn btn--block card__btn">Learn More</a>
-                </div>
-            </div>
+      <ul class="cards">
+        <li class="cards__card">
+            <a href="http://tradebot.com/" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sponsors/tradebot_logo.png" %});"></div>
+              <h5 class="card__title">Tradebot | Sponsor</h5>
+              </a>
+              <p class="card__text">Tradebot Systems, Inc. is one of the largest
+                high-frequency, computer trading firms in the US. Based in
+                Kansas City, Missouri, they regularly account for 5% of the
+                total trading volume in the US stock market.</p>
         </li>
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Garmin | Sponsor</div>
-                    <p class="card__text">Garmin Ltd. (shortened to Garmin) is an American multinational technology company known for its specialization in GPS technology development for its use in automotive, aviation, marine, outdoor, and sport activities and utilities.</p>
-                    <a href="https://www.garmin.com/" class="btn btn--block card__btn">Learn More</a>
-                </div>
-            </div>
+        
+        <li class="cards__card">
+          <a href="https://www.garmin.com/" class="card__link">
+            <div class="card__image"
+                 style="background-image: url({% static "home/img/sponsors/garmin-squarelogo.png" %});"></div>
+              <h5 class="card__title">Garmin | Benefactor</h5>
+              </a>
+              <p class="card__text">Garmin Ltd. (shortened to Garmin) is an
+                American multinational technology company known for its
+                specialization in GPS technology development for its use in
+                automotive, aviation, marine, outdoor, and sport activities and
+                utilities.</p>
         </li>
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image contain" style="background-image: url({% static "home/img/sponsors/AT&T_2016.png" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">AT&T | Donor</div>
-                    <p class="card__text">AT&T Inc. is an American multinational telecommunications conglomerate. AT&T is the second largest provider of mobile telephone services and the largest provider of fixed telephone services in the United States, and also provides broadband subscription television services through DirecTV.</p>
-                    <a href="https://www.att.com/" class="btn btn--block card__btn">Learn More</a>
-                </div>
-            </div>
+
+        <li class="cards__card">
+            <a href="https://bats.com/" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sponsors/bats-logo.png" %});"></div>
+              <h5 class="card__title">Bats | Donor</h5>
+              </a>
+              <p class="card__text">Bats, a CBOE company, is a global stock
+              exchange operator based in Lenexa, Kansas. Currently, Bats is the
+              second-largest U.S. equities market operator and operates
+              in both the U.S. and European markets.
         </li>
-        <li class="cards__item">
-            <div class="card">
-                <div class="card__image" style="background-image: url({% static "home/img/sponsors/up_logo.gif" %})"></div>
-                <div class="card__content">
-                    <div class="card__title">Union Pacific | Contributor</div>
-                    <p class="card__text">The Union Pacific Railroad is a freight hauling railroad that operates 8,500 locomotives over 32,100 route-miles in 23 states west of Chicago, Illinois and New Orleans, Louisiana.</p>
-                    <a href="https://www.up.com/" class="btn btn--block card__btn">Learn More</a>
-                </div>
-            </div>
+
+        <!--<li class="cards__card">
+            <a href="https://www.att.com/" class="card__link">
+              <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sponsors/AT&T_2016.png" %});"></div>
+              <h5 class="card__title">AT&T | Donor</h5>
+          </a>
+              <p class="card__text">AT&T Inc. is an American multinational
+                telecommunications conglomerate. AT&T is the second largest
+                provider of mobile telephone services and the largest provider
+                of fixed telephone services in the United States, and also
+                provides broadband subscription television services through
+                DirecTV.</p>
         </li>
-    </ul>
+        <li class="cards__card">
+            <a href="https://www.up.com/"
+                 class="card__link">
+            <div class="card__image"
+                 style="background-image: url({% static "home/img/sponsors/up_logo.gif" %});"></div>
+              <h5 class="card__title">Union Pacific | Contributor</h5>
+            </a>
+              <p class="card__text">The Union Pacific Railroad is a freight
+                hauling railroad that operates 8,500 locomotives over 32,100
+                route-miles in 23 states west of Chicago, Illinois and New
+                Orleans, Louisiana.</p>
+        </li>-->
+      </ul>
     </div>
-</div>
+  </main>
 {% endblock %}
