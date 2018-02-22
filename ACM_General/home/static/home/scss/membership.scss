@@ -102,9 +102,6 @@ hr {
   font-weight: bold;
   margin-bottom: 10px;
 }
-.pay-area__card:nth-of-type(1) .pay-area__price {
-  letter-spacing: -6px;
-}
 .pay-area__price:before {
   content: '$';
   font-size: .6em;
@@ -112,7 +109,7 @@ hr {
   position: relative;
 }
 .pay-area__disclaimer {
-  color: #e4f2ec;
+  color: #ecfff7;
   text-align: center;
   margin-bottom: 40px;
 }
@@ -167,3 +164,8 @@ hr {
   }
 }
 
+.cash-text {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+}
