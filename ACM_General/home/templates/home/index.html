@@ -1,6 +1,13 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
+{% block head_title %}
+<title>ACM | Home</title>
+{% endblock %}
+{% block head_description %}
+  <meta name="description" content="Find out about Missouri S&T's ACM and what we do"/>
+{% endblock %}
+
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "home/css/index.css" %}" />
 {% endblock %}
@@ -9,7 +16,7 @@
   <main>
     <div class="content-wrapper membership-link">
       <div class="membership-link__wrapper">
-        <img src="{% static "home/img/membership/creditcard.svg" %}">
+        <img src="{% static "home/img/membership/creditcard.svg" %}" alt="payment image">
         <div class="membership-link__text">
           <h2 style="color:rgba(0, 0, 0, .70); font-weight: normal">Become a Member of ACM</h2>
           <div>
