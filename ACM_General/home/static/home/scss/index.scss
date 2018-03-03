@@ -226,7 +226,28 @@ html[data-useragent*='MSIE 10.0'] {
   }
 
   .flier-space {
-    // height: 400px;
     margin-right: 0;
   }
+}
+.membership-link {
+  padding: 40px 15px;
+  margin-bottom: 30px;
+
+  & .membership-link__wrapper {
+    max-width: 700px;
+    margin: auto;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+
+    & img {
+      max-height: 140px;
+      margin: 0 20px 0 0;
+    }
+  }
+}
+.membership-link__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
