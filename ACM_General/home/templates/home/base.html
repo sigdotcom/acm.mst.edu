@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block head_title %}
-  <title> ACM </title>
+  <title>ACM</title>
+{% endblock %}
+{% block head_description %}
+  <meta name="description" content="Missouri S&T's ACM Website"/>
 {% endblock %}
 
 {% block head_base_stylesheets %}
@@ -71,7 +74,7 @@
       <div class="header__content">
         <div class="header__logo">
           <a href="{% url "home:index" %}">
-            <img src="{% static "/home/img/core/acm.png" %}">
+            <img src="{% static "/home/img/core/acm.png" %}" alt="acm icon">
           </a>
           <h3>Association for<br>Computing Machinery</h3>
         </div>
@@ -114,37 +117,37 @@
       <ul class="nav-link-wrapper">
         <li class="nav-home nav-button">
           <a href="{% url "home:index" %}" title="Home">
-            <img src="{% static "home/img/core/home-icon.png" %}"/>
+            <img src="{% static "home/img/core/home-icon.png" %}"  alt="home icon">
             <span>Home</span>
           </a>
         </li>
         <li class="nav-sigs nav-button">
           <a href="{% url "home:sigs" %}" title="SIGs">
-            <img src="{% static "home/img/core/sigs-icon.png" %}"/>
+            <img src="{% static "home/img/core/sigs-icon.png" %}" alt="sigs icon">
             <span>SIGs</span>
           </a>
         </li>
 
         <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
                                                title="Sponsors">
-          <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
+          <img src="{% static "home/img/core/sponsors-icon.png" %}" alt="sponsors icon">
           <span>Sponsors</span>
         </a></li>
         <li class="nav-media nav-button"><a href="{% url "home:media" %}"
                                             title="Media">
-          <img src="{% static "home/img/core/media-icon.png" %}"/>
+          <img src="{% static "home/img/core/media-icon.png" %}" alt="media icon">
           <span>Media</span>
         </a></li>
         <li class="nav-officers nav-button"><a href="{% url "home:officers" %}"
                                                title="Officers">
-          <img src="{% static "home/img/core/officers-icon.png" %}"/>
+          <img src="{% static "home/img/core/officers-icon.png" %}" alt="officers icon">
           <span>Officers</span>
         </a></li>
         {% if not user.is_authenticated %}
         <li class="nav-login nav-button">
           <a href="{% url "thirdparty_auth:google" %}"
           title="Login">
-            <img src="{% static "home/img/core/login-icon.png" %}"/>
+            <img src="{% static "home/img/core/login-icon.png" %}" alt="login icon">
             <span>Log In</span>
           </a>
         </li>
@@ -152,7 +155,7 @@
         <li class="nav-login nav-button">
           <a href="{% url "accounts:user-logout" %}"
           title="Logout">
-            <img src="{% static "home/img/core/logout-icon.svg" %}"/>
+            <img src="{% static "home/img/core/logout-icon.svg" %}" alt="logout icon">
             <span>Log Out</span>
           </a>
         </li>
@@ -181,7 +184,7 @@
         <li><a href="http://siggame.io/">SIG-Game</a></li>
         <li><a href="https://discord.gg/ayjGE9t">SIG-Competition</a></li>
       </ul>
-      <a href="https://github.com/sigdotcom"><img src="{% static "home/img/core/sigdotcomlogo.png" %}"/></a>
+      <a href="https://github.com/sigdotcom"><img src="{% static "home/img/core/sigdotcomlogodarkbg.png" %}" alt="SIG.com icon"></a>
       <ul>
         <h4>Other:</h4>
         <li><a href="https://github.com/sigdotcom/acm.mst.edu/blob/develop/LICENSE">License</a></li>

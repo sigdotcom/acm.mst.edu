@@ -4,6 +4,10 @@
 {% block head_title %}
   <title> ACM | Membership </title>
 {% endblock %}
+{% block head_description %}
+  <meta name="description" content="Find out about the perks of being a Missouri S&T ACM member and become one yourself!"/>
+{% endblock %}
+
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/membership.css" %}"/>
 {% endblock %}
@@ -30,7 +34,7 @@
       <hr>
       <div class="perks">
           <div class="perks__perk">
-            <img src="{% static "home/img/membership/tshirt-crew.svg" %}">
+            <img src="{% static "home/img/membership/tshirt-crew.svg" %}" alt="tshirt icon">
             <div class="perks__content">
               <h3 class="perks__title">ACM Shirt</h3>
               <hr>
@@ -40,7 +44,7 @@
           </div>
         </div>
           <div class="perks__perk">
-              <img src="{% static "home/img/membership/cash-usd.svg" %}">
+              <img src="{% static "home/img/membership/cash-usd.svg" %}" alt="dollar icon">
               <div class="perks__content">
             <h3 class="perks__title">Discounts</h3>
             <hr>
@@ -48,7 +52,7 @@
           </div>
         </div>
           <div class="perks__perk">
-              <img src="{% static "home/img/membership/tie.svg" %}">
+              <img src="{% static "home/img/membership/tie.svg" %}" alt="tie icon">
               <div class="perks__content">
             <h3 class="perks__title">Career Fair Dinner</h3>
             <hr>
@@ -89,6 +93,7 @@
         </div>
       </div>
     
+      <p class="cash-text">To pay with cash, contact <a style="color:#2da1d8;" href="mailto:acm@mst.com?Subject=ACM Sponsorship" target="_top">acm@mst.edu</a> or visit any of ACM's main <a style="color:#2da1d8;" href="https://acm.mst.edu">events</a>.</p>
   </div>
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
