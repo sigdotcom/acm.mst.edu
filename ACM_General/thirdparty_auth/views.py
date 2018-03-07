@@ -54,7 +54,8 @@ class GoogleAuthorization(View):
             hd="mst.edu",
             access_type="offline",
             prompt="select_account",
-            include_granted_scopes="true"
+            include_granted_scopes="true",
+            next=request.GET.get("next")
         )
         request.session["state"] = state
 

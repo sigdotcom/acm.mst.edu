@@ -6,6 +6,7 @@ import stripe
 
 # Django
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import (
     HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest,
@@ -132,8 +133,9 @@ def officers(request):
     )
 
 
-class Membership(View):
+class Membership(LoginRequiredMixin, View):
     def __init__(self):
+        self.login_url = reverse("thirdparty_auth:google")
         self.membership_types = {
             "semester": {
                 "tag": "membership-semester",
