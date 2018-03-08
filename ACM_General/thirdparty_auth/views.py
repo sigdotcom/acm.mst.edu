@@ -88,7 +88,7 @@ class GoogleCallback(View):
             return HttpResponseRedirect(reverse("home:index"))
 
         state = request.session.get("state")
-        if state is None or request.GET["state"] != state:
+        if state is None or request.GET.get("state") != state:
             messages.error(
                 request,
                 "Something is wrong with your session, "
@@ -137,4 +137,4 @@ class GoogleCallback(View):
             )
             return HttpResponseRedirect(reverse("home:index"))
 
-        return HttpResponseRedirect(next_url) 
+        return HttpResponseRedirect(next_url)

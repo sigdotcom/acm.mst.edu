@@ -3,9 +3,12 @@ Contains unit tests for the thirdparty_auth.
 """
 # third-party
 import oauthlib
+from importlib import import_module
 
 # Django
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.urls import reverse
 from django.test import TestCase
 
@@ -69,11 +72,27 @@ class GoogleOAuth2AuthorizationTestCase(TestCase):
         # Will not work due to the redirect url parameter
         self.assertEqual(response.status_code, 400)
 
+    def test_next_query_parameter(self):
+        response = self.client.get(
+            reverse("thirdparty_auth:google"),
+            {REDIRECT_FIELD_NAME: reverse("thirdparty_auth:google")},
+            follow=True
+        )
+
+        self.assertEqual(
+            self.client.session[REDIRECT_FIELD_NAME],
+            reverse("thirdparty_auth:google")
+        )
+
 
 class GoogleOAuth2CallbackTestCase(TestCase):
     """
     Ensure callback view for Google OAuth2 works properly.
     """
+    def setUp(self):
+        super().setUp()
+        self.default_user = models.User.objects.get(email="acm@mst.edu")
+
     def check_messages_with_redirect(self, url, message, **kwargs):
         """
         Check the User for specific messages created with the messages
@@ -101,10 +120,31 @@ class GoogleOAuth2CallbackTestCase(TestCase):
             message
         )
 
+    def create_session(self):
+        session_engine = import_module(settings.SESSION_ENGINE)
+        store = session_engine.SessionStore()
+        store.save()
+        self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
 
-    def setUp(self):
-        super().setUp()
-        self.default_user = models.User.objects.get(email="acm@mst.edu")
+    def check_popping_redirect_session_variable(self, session={}, params={}):
+        self.create_session()
+        session = self.client.session
+        session[REDIRECT_FIELD_NAME] = reverse("thirdparty_auth:google-callback")
+        session["verification_key"] = reverse("thirdparty_auth:google-callback")
+        for sess_key, sess_value in session.items():
+            session[sess_key] = sess_value
+        session.save()
+
+        self.assertTrue(self.client.session[REDIRECT_FIELD_NAME])
+        self.client.get(
+            reverse("thirdparty_auth:google-callback"),
+            params,
+            follow=True,
+            secure=True
+        )
+        session = self.client.session
+        self.assertIsNone(session.get(REDIRECT_FIELD_NAME))
+        self.assertTrue(session.get("verification_key"))
 
     def test_fail_redict_on_already_authenticated(self):
         check_message = (
@@ -152,5 +192,31 @@ class GoogleOAuth2CallbackTestCase(TestCase):
                 secure=True
             )
 
+    def test_popping_redirect_session_variable(self):
+        self.check_popping_redirect_session_variable()
+
+    def test_popping_redirect_session_variable_when_logged_in(self):
+        self.client.force_login(self.default_user)
+        self.check_popping_redirect_session_variable()
+
+    def test_popping_redirect_session_variable_when_logged_in_with_state(self):
+        self.client.force_login(self.default_user)
+        self.check_popping_redirect_session_variable(
+            session={"state": "test"},
+            params={"state": "test"}
+        )
+
+    def test_popping_redirect_session_variable_when_logged_in_with_invalid_state(self):
+        self.client.force_login(self.default_user)
+        self.check_popping_redirect_session_variable(
+            session={"state": "test"},
+        )
+
+    def test_popping_redirect_session_variable_when_logged_in_with_mismatch_state(self):
+        self.client.force_login(self.default_user)
+        self.check_popping_redirect_session_variable(
+            session={"state": "test"},
+            params={"state": "not_test"},
+        )
         # And that is as far as we can test with oauth currently, need to look
         # into mocking and other testing strategies
