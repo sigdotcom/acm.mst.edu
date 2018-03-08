@@ -5,12 +5,16 @@ Contains all of the routes for ``/``.
 from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
+from django.http import HttpResponse
+
 
 # local Django
 from . import views
 
 app_name = "home"
 urlpatterns = [
+    path('robots.txt', lambda x: HttpResponse("", content_type="text/plain"), name="robots_file"),
+
     # https://acm.mst.edu/
     path('', views.index, name="index"),
     # https://acm.mst.edu/calendar/
