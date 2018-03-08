@@ -4,6 +4,10 @@
 {% block head_title %}
  <title> ACM | Officers </title>
 {% endblock %}
+{% block head_description %}
+  <meta name="description" content="All the Officers of Missouri S&T's ACM and their contact information."/>
+{% endblock %}
+
 {% block head_stylesheets %}
  <link rel="stylesheet" href="{% static "/home/css/officers.css" %}"/>
 {% endblock %}
@@ -140,11 +144,11 @@
           Year - Senior<br>
           Involvement - SIG-Competition
         </div>
-      <div class="card__links">
-       <!--<a href="https://www.linkedin.com/in/schoonoverkevin/"
-         class="acm-btn">LinkedIn</a>-->
-       <a href="mailto:sjkyv5@mst.edu"
-        class="acm-btn">Email</a>
+        <div class="card__links">
+          <!--<a href="https://www.linkedin.com/in/schoonoverkevin/"
+           class="acm-btn">LinkedIn</a>-->
+          <a href="mailto:sjkyv5@mst.edu" class="acm-btn">Email</a>
+        </div>
       </div>
     </li>
 
@@ -158,15 +162,16 @@
           <h3 class="card__name">Kevin Schoonover</h3>
           <h5 class="card__titles">SIG.com Chair</h5>
         </div>
+
         <div class="card__text">
           Year - Sophomore<br>
           Involvement - SIG.com
         </div>
-      <div class="card__links">
-       <a href="https://www.linkedin.com/in/schoonoverkevin/"
-        class="acm-btn">LinkedIn</a>
-       <a href="mailto:ksyh3@mst.edu"
-        class="acm-btn">Email</a>
+
+        <div class="card__links">
+          <a href="https://www.linkedin.com/in/schoonoverkevin/" class="acm-btn">LinkedIn</a>
+          <a href="mailto:ksyh3@mst.edu" class="acm-btn">Email</a>
+        </div>
       </div>
     </li>
 
@@ -189,6 +194,7 @@
          class="acm-btn">LinkedIn</a>-->
        <a href="mailto:vjkgz3@mst.edu"
         class="acm-btn">Email</a>
+      </div>
       </div>
     </li>
 
@@ -214,6 +220,7 @@
       </div>
      </div>
     </li>
+   </ul>
 
    {# Below should expand and make more info about past officers appear #}
   </div>

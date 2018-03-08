@@ -4,6 +4,10 @@
 {% block head_title %}
   <title> ACM | SIGs </title>
 {% endblock %}
+{% block head_description %}
+  <meta name="description" content="Learn more about Missouri S&T's ACM Special Interest Groups."/>
+{% endblock %}
+
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/sigs.css" %}"/>
 {% endblock %}
@@ -67,7 +71,7 @@
               style="background-image: url({% static "home/img/sigs/sigsec-logo.png" %}); background-size: contain;"></div>
             <h5 class="card__title">SIG-Security</h5>
             </a>
-            <p class="class__text">Our ACM Special Interest Group on Security
+            <p class="card__text">Our ACM Special Interest Group on Security
             is a local ACM branch whose mission is to help develop the
             cybersecurity profession for the student body of Missouri
             University of Science and Technology by sponsoring high-quality

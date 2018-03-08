@@ -4,6 +4,9 @@
 {% block head_title %}
   <title> ACM | Media </title>
 {% endblock %}
+{% block head_description %}
+  <meta name="description" content="Photos and videos from Missouri S&T's ACM events and more."/>
+{% endblock %}
 
 {% block head_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/media.css" %}"/>
@@ -16,17 +19,25 @@
         <div class="m-p-g__thumbs" data-google-image-layout
              data-max-height="350">
           <img src="{% static "/home/img/media/tracerfire_1.jpg" %}"
-               data-full="{% static "/home/img/media/tracerfire_1.jpg" %}"
-               class="m-p-g__thumbs-img"/>
+            data-full="{% static "/home/img/media/tracerfire_1.jpg" %}"
+            class="m-p-g__thumbs-img"
+            alt="tracerfire image 1"
+          >
           <img src="{% static "/home/img/media/tracerfire_2.jpg" %}"
                data-full="{% static "/home/img/media/tracerfire_2.jpg" %}"
-               class="m-p-g__thumbs-img"/>
+               class="m-p-g__thumbs-img"
+            alt="tracerfire image 2"
+          >
           <img src="{% static "/home/img/media/tracerfire_3.jpg" %}"
                data-full="{% static "/home/img/media/tracerfire_3.jpg" %}"
-               class="m-p-g__thumbs-img"/>
+               class="m-p-g__thumbs-img"
+            alt="tracerfire image 3"
+          >
           <img src="{% static "/home/img/media/tracerfire_4.jpg" %}"
                data-full="{% static "/home/img/media/tracerfire_4.jpg" %}"
-               class="m-p-g__thumbs-img"/>
+               class="m-p-g__thumbs-img"
+            alt="tracerfire image 4"
+          >
         </div>
         <div class="m-p-g__fullscreen"></div>
       </div>
