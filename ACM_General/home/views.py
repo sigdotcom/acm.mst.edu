@@ -3,22 +3,19 @@ Contains all of the view for the Home app.
 """
 # Third-party
 import stripe
-
 # Django
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.http import (
-    HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest,
-    HttpResponse
-)
-from django.shortcuts import render, redirect, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import (HttpResponse, HttpResponseBadRequest,
+                         HttpResponseNotFound, HttpResponseRedirect)
+from django.shortcuts import redirect, render, reverse
 from django.utils import timezone
 from django.views import View
 
 # local Django
-from events.models import Event
 import products.models
+from events.models import Event
 
 
 def index(request):

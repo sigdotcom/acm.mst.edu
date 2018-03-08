@@ -57,7 +57,7 @@ class SocialAuthTestCase(TestCase):
         Check the User for specific messages created with the messages
         framework and ensure a redirect to the homepage occurred.
 
-        :param url: The url to preform the get request
+        :param url: The url to perform the get request
         :type url: str
         :param message: The message to check again the message framework
         :type message: str
@@ -80,7 +80,7 @@ class SocialAuthTestCase(TestCase):
         store.save()
         self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
 
-    def check_popping_redirect_session_variable(self, session={}, params={}):
+    def check_popping_redirect_session_variable(self, session_vals=None, params=None):
         """
         Ensures that the REDIRECT_FIELD_NAME session key is removed from the
         client's session whenever the Client reaches the callback page.
@@ -93,9 +93,12 @@ class SocialAuthTestCase(TestCase):
         :type params: dict
         """
         self.create_session()
+        session_vals = session_vals or dict()
+        params = params or dict()
         session = self.client.session
         session[REDIRECT_FIELD_NAME] = reverse("thirdparty_auth:google-callback")
         session["verification_key"] = reverse("thirdparty_auth:google-callback")
+
         for sess_key, sess_value in session.items():
             session[sess_key] = sess_value
         session.save()
@@ -224,20 +227,20 @@ class GoogleOAuth2CallbackTestCase(SocialAuthTestCase):
     def test_popping_redirect_session_variable_when_logged_in_with_state(self):
         self.client.force_login(self.default_user)
         self.check_popping_redirect_session_variable(
-            session={"state": "test"},
+            session_vals={"state": "test"},
             params={"state": "test"}
         )
 
     def test_popping_redirect_session_variable_when_logged_in_with_invalid_state(self):
         self.client.force_login(self.default_user)
         self.check_popping_redirect_session_variable(
-            session={"state": "test"},
+            session_vals={"state": "test"},
         )
 
     def test_popping_redirect_session_variable_when_logged_in_with_mismatch_state(self):
         self.client.force_login(self.default_user)
         self.check_popping_redirect_session_variable(
-            session={"state": "test"},
+            session_vals={"state": "test"},
             params={"state": "not_test"},
         )
 

@@ -5,7 +5,6 @@ Contains all unit tests for the Home app.
 from io import BytesIO
 
 # Third-party
-import google_auth_oauthlib.flow
 import stripe
 # Django
 from django.conf import settings
