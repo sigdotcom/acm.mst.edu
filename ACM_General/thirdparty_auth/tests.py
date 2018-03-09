@@ -129,7 +129,7 @@ class GoogleOAuth2AuthorizationTestCase(SocialAuthTestCase):
 
         self.client.force_login(self.default_user)
         self.check_messages_with_redirect(
-            reverse("thirdparty_auth:google-callback"),
+            reverse("thirdparty_auth:google"),
             check_message,
             template="home/index.html",
         )
