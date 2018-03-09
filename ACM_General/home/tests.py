@@ -5,9 +5,7 @@ Contains all unit tests for the Home app.
 from io import BytesIO
 
 # Third-party
-from PIL import Image
 import stripe
-
 # Django
 from django.conf import settings
 from django.contrib import messages
@@ -15,6 +13,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image
 
 # local Django
 from accounts.models import User
@@ -90,10 +89,6 @@ class HomeViewCase(TestCase):
         response = self.client.get(reverse('home:officers'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/officers.html')
-
-        response = self.client.get(reverse('home:membership'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home/membership.html')
 
         response = self.client.get(reverse('home:sigs'))
         self.assertEqual(response.status_code, 200)
@@ -217,7 +212,16 @@ class MembershipViewTests(TestCase):
             message
         )
 
+    def test_membership_page_forces_login(self):
+        response = self.client.get(reverse('home:membership'), follow=True)
+        self.assertEqual(response.redirect_chain[0][1], 302)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(
+            "accounts.google.com", response.redirect_chain[1][0]
+        )
+
     def test_membership_page_uses_correct_template(self):
+        self.client.force_login(self.user)
         response = self.client.get(reverse("home:membership"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/membership.html')
@@ -228,12 +232,6 @@ class MembershipViewTests(TestCase):
 
         membership_year = Product.objects.get(tag="membership-year")
         self.assertIsNotNone(membership_year)
-
-    def test_return_404_if_user_is_not_logged_in(self):
-        error_code = "Invalid User"
-        response = self.post_data()
-        self.assertEquals(response.status_code, 404)
-        self.assertContains(response, error_code, status_code=404)
 
     def test_return_400_on_not_existing_token(self):
         error_code = (
