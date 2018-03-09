@@ -7,7 +7,7 @@ import google_auth_oauthlib.flow
 # Django
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, REDIRECT_FIELD_NAME
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.urls import reverse
@@ -54,9 +54,13 @@ class GoogleAuthorization(View):
             hd="mst.edu",
             access_type="offline",
             prompt="select_account",
-            include_granted_scopes="true"
+            include_granted_scopes="true",
         )
+
         request.session["state"] = state
+        redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
+        if redirect_to:
+            request.session[REDIRECT_FIELD_NAME] = redirect_to
 
         return HttpResponseRedirect(authorization_url)
 
@@ -77,12 +81,14 @@ class GoogleCallback(View):
                   failure message.
         :rtype: :class:`django.http.HttpResponseRedirect`
         """
+        next_url = request.session.pop(REDIRECT_FIELD_NAME, reverse("home:index"))
+
         if request.user.is_authenticated:
             messages.warning(request, "You are already logged in.")
             return HttpResponseRedirect(reverse("home:index"))
 
         state = request.session.get("state")
-        if state is None or request.GET["state"] != state:
+        if state is None or request.GET.get("state") != state:
             messages.error(
                 request,
                 "Something is wrong with your session, "
@@ -131,4 +137,4 @@ class GoogleCallback(View):
             )
             return HttpResponseRedirect(reverse("home:index"))
 
-        return HttpResponseRedirect(reverse("home:index"))
+        return HttpResponseRedirect(next_url)
