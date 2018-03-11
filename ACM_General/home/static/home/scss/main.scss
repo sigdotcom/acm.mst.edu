@@ -406,8 +406,11 @@ label:focus {
 }
 
 .close-message {
+  background-position: center;
+  background-size: cover;
   cursor: pointer;
-  font-size: 35px;
+  height: 50px;
+  width: 50px;
 }
 
 /* =========================================================================

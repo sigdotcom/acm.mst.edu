@@ -75,9 +75,7 @@
 	<strong>{{msg.level_tag | capfirst}}! </strong>
 	{{msg.message}}
       </div>
-      <a class="close-message">
-        <i class="fas fa-times"></i>
-      </a>
+      <a class="close-message" style="background-image: url('{% static "/home/img/core/close.svg" %}')"></a>
     </div>
 </li>
 {% endfor %}
