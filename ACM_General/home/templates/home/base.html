@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
   <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 {% endblock %}
 
 {% block head_javascript %}
@@ -42,9 +43,21 @@
     catch(e){window.attachEvent("onload", $buo_f)}
   </script>
 {# puts user agent into the html used in ie 10's case#}
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <script>
     var doc = document.documentElement;
     doc.setAttribute('data-useragent', navigator.userAgent);
+
+    $( window ).on("load", function() {
+        $(".message").each(function(index, value) {
+            $(value).find('.alert').find('a').on("click", function(){
+                $(value).css("height", "0");
+            });
+        });
+    });
   </script>
 {% endblock %}
 
@@ -55,12 +68,13 @@
 {% if messages %}
 <ul class="messages">
 {% for msg in messages %}       
-  <li>
+  <li class="message">
     <div class="alert alert-{{msg.level_tag}}" role="alert">
       <div class="content-wrapper">
 	<strong>{{msg.level_tag | capfirst}}! </strong>
 	{{msg.message}}
       </div>
+      <a class="close-message" style="background-image: url('{% static "/home/img/core/close.svg" %}')"></a>
     </div>
 </li>
 {% endfor %}
