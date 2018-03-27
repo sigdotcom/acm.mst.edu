@@ -47,6 +47,46 @@ def get_path_for_flier(instance, filename):
     )
 
 
+class Tag(models.Model):
+    """
+    Class used for adding classification tags on events.
+    """
+
+    #: The name of the tag that is displayed on the event creation form; represented
+    #: as a CharField.
+    display_name = models.CharField(
+        verbose_name=_('Event Tag'),
+        help_text=_('Different categories for the event.'),
+        max_length=256,
+    )
+
+    #: Unique id of the tag; represented as an IntegerField.
+    id = models.IntegerField(
+        verbose_name=_('ID'),
+        help_text=_('Unique ID of the tag.'),
+        primary_key=True,
+    )
+
+    #: If the tag should be diplayed on the event creation form; represented as a
+    #: BooleanField.
+    display = models.BooleanField(
+        verbose_name=_('Display'),
+        help_text=_('Whether or not the tag is to be displayed on the event creation form.'),
+        default = True,
+    )
+
+
+    def __str__(self):
+        """
+        Changes what is displayed for each tag on the event creation
+        form (without this it shows 'Tag object (id)').
+
+        :return: String containing the name of the tag.
+        :rtype: string.
+        """
+        return self.display_name
+
+
 class Event(models.Model):
     """
     Class used to define what is needed when creating new events.
@@ -152,6 +192,13 @@ class Event(models.Model):
         verbose_name=_('Event Link'),
         help_text=_('An optional link for the event.'),
         blank=True,
+    )
+
+    #: Tags available to attach to events; represented as a ManyToManyField.
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name=_('Event Tags'),
+        help_text=_('Different categories for classifying the event.'),
     )
 
     @property
