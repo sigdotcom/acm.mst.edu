@@ -2,7 +2,6 @@
 Contains all of the unit tests for the rest_api app.
 """
 # standard library
-import copy
 import json
 from io import BytesIO
 
@@ -20,6 +19,7 @@ from rest_framework.test import APIClient
 from accounts.models import User
 from accounts.serializers import UserSerializer
 from events.models import Event
+from events.serializers import EventSerializer
 from products.models import Product, Transaction, TransactionCategory
 from products.serializers import (CategorySerializer, ProductSerializer,
                                   TransactionSerializer)
@@ -65,6 +65,19 @@ class RestAPITestCase(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.default_user = User.objects.get(email="acm@mst.edu")
+
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
+        # Sets up image variable for creating Event
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=im_io.getvalue(),
+            content_type='multipart/form-data'
+        )
+
         self.sig = SIG.objects.create_sig(
             id='test',
             chair=self.user,
@@ -394,6 +407,9 @@ class AccountsTestCase(RestAPITestCase):
         response = self.client.post(reverse('rest_api:user-list'), user)
         self.assertEqual(response.status_code, 400)
 
+    def test_rest_actions(self):
+        super().test_rest_actions()
+
 
 class EventsTestCase(RestAPITestCase):
     """
@@ -406,17 +422,7 @@ class EventsTestCase(RestAPITestCase):
         functionality.
         """
         super().setUp()
-        # Save photo to an in-memory bytes buffer. See
-        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
-        im_io = BytesIO()
-        im = Image.new(mode='RGB', size=(50, 50))
-        im.save(im_io, 'JPEG')
-        # Sets up image variable for creating Event
-        self.image = SimpleUploadedFile(
-            name='test_image.jpg',
-            content=im_io.getvalue(),
-            content_type='multipart/form-data'
-        )
+
         self.data = {
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
@@ -442,10 +448,13 @@ class EventsTestCase(RestAPITestCase):
             "hosting_sig": str(self.sig.id),
         }
         self.model = Event
-        self.serializer = SIGSerializer
+        self.serializer = EventSerializer
         self.list_path = 'rest_api:event-list'
         self.detail_path = 'rest_api:event-detail'
         self.content_type = "multipart/form"
+
+    def test_rest_actions(self):
+        super().test_rest_actions()
 
 
 class SigsTestCase(RestAPITestCase):
@@ -478,6 +487,9 @@ class SigsTestCase(RestAPITestCase):
         self.list_path = 'rest_api:sig-list'
         self.detail_path = 'rest_api:sig-detail'
         self.content_type = "application/json"
+
+    def test_rest_actions(self):
+        super().test_rest_actions()
 
 
 class TransactionsTestCase(RestAPITestCase):
@@ -522,6 +534,9 @@ class TransactionsTestCase(RestAPITestCase):
         self.detail_path = 'rest_api:transaction-detail'
         self.content_type = "application/json"
 
+    def test_rest_actions(self):
+        super().test_rest_actions()
+
 
 class CategoryTestCase(RestAPITestCase):
     """
@@ -547,6 +562,9 @@ class CategoryTestCase(RestAPITestCase):
         self.list_path = 'rest_api:category-list'
         self.detail_path = 'rest_api:category-detail'
         self.content_type = "application/json"
+
+    def test_rest_actions(self):
+        super().test_rest_actions()
 
 
 class ProductTestCase(RestAPITestCase):
@@ -582,3 +600,6 @@ class ProductTestCase(RestAPITestCase):
         self.list_path = 'rest_api:product-list'
         self.detail_path = 'rest_api:product-detail'
         self.content_type = "application/json"
+
+    def test_rest_actions(self):
+        super().test_rest_actions()

@@ -7,7 +7,8 @@ class IsStaffOrReadonly(permissions.BasePermission):
     model, to have complete permissions if they are logged in. Otherwise, the
     Users can only perform the safe methods of GET, HEAD, or OPTIONS.
     """
-    def has_permission(self, request, view):
+    @staticmethod
+    def has_permission(request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
 
