@@ -2,12 +2,9 @@
 Contains all of the unit tests for the rest_api app.
 """
 # standard library
-from io import BytesIO
+import copy
 import json
-
-# third-party
-from PIL import Image
-from rest_framework.test import APIClient
+from io import BytesIO
 
 # Django
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -15,15 +12,342 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
+# third-party
+from PIL import Image
+from rest_framework.test import APIClient
+
 # local Django
 from accounts.models import User
+from accounts.serializers import UserSerializer
 from events.models import Event
-# from events.serializers import EventSerializer
-from products.models import TransactionCategory, Product, Transaction
+from products.models import Product, Transaction, TransactionCategory
+from products.serializers import (CategorySerializer, ProductSerializer,
+                                  TransactionSerializer)
 from sigs.models import SIG
+from sigs.serializers import SIGSerializer
 
 
-class AccountsTestCase(TestCase):
+class RestAPITestCase(TestCase):
+    """
+    Provides standard utilities to the test cases that access the REST API.
+    Moreover, implements some standard test cases for all REST endpoints for the
+    GET, POST, PUT, and DELETE HTTP methods. In order for these standard tests
+    to work, the user must define some initial variables for the TestCase
+    including:
+        1. ``self.data``: A dictionary containing all the data necessary to
+            create a instance of the model with the serializer.
+        2. ``self.mod_data``: A modified version of ``self.data`` which can be
+            used to make a PUT request.
+        3. ``self.model``: The generic model object representative of the
+            TestCase. For example, the :class:`accounts.models.User` when
+            testing the User endpoints.
+        4. ``self.serializer``: The generic serializer instance for the model
+            specified in ``self.model``.
+        5. ``self.list_path``: The namespace name associated with the list
+            endpoint of the API .
+        6. ``self.default_path``: The namespace name associated with the detail
+            endpoint of the API.
+        7. ``self.content_type``: The content_type which can be used to make a
+            PUT request with. For most cases it is safe to use
+            "application/json" unless there is an attribute which cannot be
+            serialized to a JSON.
+    """
+
+    def setUp(self):
+        """
+        Creates all references in the database necessary to instantiate models
+        that require related objects and defines some global defaults for all
+        test cases. Specifically, rebinds the ``self.client`` to the Django REST
+        freamework client and collects the default admin user as
+        ``self.default_user``.
+        """
+        super().setUp()
+        self.client = APIClient()
+        self.user = User.objects.create_user('ksyh3@mst.edu')
+        self.default_user = User.objects.get(email="acm@mst.edu")
+        self.sig = SIG.objects.create_sig(
+            id='test',
+            chair=self.user,
+            founder=self.user,
+            description='test',
+        )
+        self.event = Event.objects.create_event(
+            creator=self.user,
+            hosting_sig=self.sig,
+            title='test',
+            date_hosted=timezone.now(),
+            date_expire=timezone.now(),
+        )
+
+        self.category = TransactionCategory.objects.create_category('test')
+        self.product = Product.objects.create_product(
+            'test',
+            'test',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
+        self.transaction = Transaction.objects.create_transaction(
+            '3232',
+            cost=3.00,
+            category=self.category,
+            sig=self.sig,
+        )
+
+    def assert_request(self, http_method, path, status_code, **kwargs):
+        """
+        Asserts that a given HTTP method responds with a given status code.
+
+        :param http_method: The HTTP method to perform.
+        :type http_method: str
+        :param path: The path of the route to perform the request on. Usually
+            passed as a result of the reverse() function.
+        :type path: str
+        :param status_code: The status code to assert the response.status_code
+            is equal to.
+        :type status_code: int
+        :param kwargs: Extra paramaters to pass into the request.
+        :type kwargs: dict
+        """
+        request_func = getattr(self.client, http_method)
+        response = request_func(path, **kwargs)
+        self.assertEqual(response.status_code, status_code)
+
+    def assert_get_method(self, path, test_dict=None, status_code=200, **kwargs):
+        """
+        Generically tests a GET method on the specified path by asserting the
+        proper status code and if the response content has a element that
+        matches the test_dict.
+
+        :param path: The path of the route to perform the request on. Usually
+            passed as a result of the reverse() function.
+        :type path: str
+        :param test_dict: Key, value pairs to assert whether they exist in the
+            JSON response. Ensures response.json()[key] equals value for a given
+            key, value pair.
+        :type test_dict: dict
+        :param kwargs: Parameters to be passed into the GET request.
+        :type kwargs: dict
+        """
+        response = self.client.get(path, kwargs=kwargs)
+        self.assertEqual(response.status_code, status_code)
+        json_response = response.json()
+
+        if test_dict:
+            test_items = test_dict.items()
+            comparitor = lambda x: test_items <= x.items()
+            filtered_resp = list(filter(comparitor, json_response))
+            self.assertTrue(filtered_resp)
+
+    def assert_post_method(self, list_path, data, status_code=201, **kwargs):
+        """
+        Generically tests a POST method on the specified path by ensuring the
+        proper response code and the proper data is returned from the post.
+
+        :param list_path: The namespace name associated with the list endpoint
+            of the API.
+        :type list_path: str
+        :param data: The data to be POSTed to the specified ``list_path``.
+        :type data: dict
+        :param status_code: The status_code to assert the response returns.
+        :type status_code: int
+        :param kwargs: Parameters to be passed into the POST request.
+        :type kwargs: dict
+        """
+        response = self.client.post(list_path, data)
+        self.assertEqual(response.status_code, status_code)
+        json_response = response.json()
+
+        for key, value in data.items():
+            self.assertEqual(json_response[key], value)
+
+    def assert_put_method(self, detail_path, data, status_code=200, **kwargs):
+        """
+        Generically tests a PUT method on the specific path by ensuring the
+        proper response.
+
+        :param detail_path: The namespace name associated with the detail
+            endpoint of the API.
+        :type detail_path: str
+        :param data: The data to be PUT to the specified ``detail_path``.
+        :type data: dict
+        :param status_code: The status_code to assert the response returns.
+        :type status_code: int
+        :param kwargs: Parameters to be passed into the PUT request.
+        :type kwargs: dict
+        """
+        request_data = None
+        content_type = kwargs.get("content_type")
+        if content_type == "application/json":
+            request_data = json.dumps(data)
+        else:
+            request_data = data
+
+        response = self.client.put(
+            detail_path,
+            data=request_data,
+            **kwargs
+        )
+        self.assertEqual(response.status_code, status_code)
+        json_response = response.json()
+        for key, value in data.items():
+            self.assertEqual(json_response[key], value)
+
+
+    def assert_delete_method(self, list_path, detail_path, key, value,
+                             status_code=204):
+        """
+        Generically tests a DELETE method on the specific path by ensuring the
+        proper response and the item specified is successfully deleted.
+
+        :param list_path: The namespace name associated with the list endpoint
+            of the API.
+        :type list_path: str
+        :param detail_path: The namespace name associated with the detail
+            endpoint of the API.
+        :type detail_path: str
+        :param key: A primary key to look the model up by in the master list.
+        :type key: str
+        :param value: The value of the primary key for the model specified in
+            the ``detail_path``.
+        :type value: str or int
+        """
+        response = self.client.delete(
+            detail_path
+        )
+        self.assertEqual(response.status_code, status_code)
+        self.assert_not_exists(detail_path)
+
+        ##
+        # Ensure it doesnt exist on the master list
+        ##
+        response = self.client.get(list_path)
+        response_json = response.json()
+        filtered_resp = list(
+            filter(lambda x: x.get(key) == value, response_json)
+        )
+
+        # Asert the filtered list is empty (The item does not exist in the
+        # master list)
+        self.assertFalse(filtered_resp)
+
+    def assert_not_exists(self, path):
+        """
+        Asserts that a given path returns a 404 in the response status code.
+
+        :param path: The path to perform the GET request on.
+        :type path: str
+        """
+        self.assert_request("get", path, 404)
+
+    def assert_rest_actions(self, list_viewname, detail_viewname,
+                            data, mod_data, model, content_type):
+        """
+        Asserts that the GET, POST, PUT, and DELETE behave properly by
+        returning the correct values and status codes.
+
+        :param list_viewname: The path namespace associated with the list
+            endpoint for the model.
+        :type list_viewname: str
+        :param detail_viewname: The path namespace asscoiated with the detail
+            endpoint for the model.
+        :type detail_viewname: str
+        :param data: Data that can be used to instatiate the model with the
+            serializer.
+        :type data: dict
+        :param mod_data: A modified version of ``data`` which can be
+            used to make a PUT request and modify the original instance of the
+            model.
+        :type mod_data: dict
+        :param model: The generic model object that can be viewed and modified
+        in ``list_viewname`` and ``detail_viewname``.
+        :type model: :class:`django.db.models.Model`
+        :param content_type: The content_type which can be used to make a
+            PUT request with.
+        :type content_type: str
+        """
+        # If these are the same, it defeats the purpose of the PUT request
+        self.assertNotEqual(data, mod_data)
+
+        self.assert_post_method(reverse(list_viewname), data)
+
+        pk_key = model._meta.pk.name
+        pk_val = getattr(model.objects.get(**data), pk_key)
+        self.assert_put_method(
+            reverse(detail_viewname, kwargs={'pk': pk_val}),
+            data=mod_data,
+            content_type=content_type,
+        )
+
+        self.assert_delete_method(
+            reverse(list_viewname),
+            reverse(detail_viewname, kwargs={'pk': pk_val}),
+            pk_key,
+            pk_val,
+        )
+
+    def assert_requires_proper_permissions(self, list_path, detail_path):
+        """
+        Asserts that the endpoints for a model requires proper permissions to
+        perform actions.
+
+        :param list_path: The namespace name associated with the list endpoint
+            of the API .
+        :type list_path: str
+        :param detail_path: The namespace name associated with the detail
+            endpoint of the API .
+        :type detail_path: str
+        """
+        self.assert_request("post", list_path, 403, data={})
+        self.assert_request("put", detail_path, 403, data={})
+        self.assert_request("delete", detail_path, 403)
+
+    def acquire_permissions(self):
+        """
+        Gives the ``self.client`` attribute the required permissions to perform
+        all action the API.
+
+        .. todo::
+            Allow more granular permissions granting when the permission system
+            is implemented.
+        """
+        self.client.force_login(self.default_user)
+
+    def test_rest_actions(self):
+        """
+        Ensures that the rest actions for the model specified in the class
+        returns the proper results for the GET, POST, PUT, and DELETE methods.
+        """
+        self.acquire_permissions()
+
+        data = self.data
+        mod_data = self.mod_data
+
+        self.assert_get_method(reverse(self.list_path))
+        self.assert_rest_actions(
+            self.list_path, self.detail_path,
+            data, mod_data, self.model, self.content_type
+        )
+
+    def test_rest_actions_without_permissions(self):
+        """
+        Ensures that the rest actions for the model specified in the class fails
+        if the user does not have the proper permissions.
+        """
+        model_serializer = self.serializer(data=self.data)
+        if model_serializer.is_valid():
+            model_obj = model_serializer.save()
+            model_obj_pk_val = getattr(model_obj, model_obj._meta.pk.name)
+
+            self.assert_requires_proper_permissions(
+                reverse(self.list_path),
+                reverse(self.detail_path, kwargs={'pk': model_obj_pk_val}),
+            )
+        else:
+            raise ValueError("Serializer is not valid.")
+
+
+class AccountsTestCase(RestAPITestCase):
     """
     Ensures that a user account behaves as expected throughout various
     interactions they may have throughout the website.  This includes all basic
@@ -37,37 +361,7 @@ class AccountsTestCase(TestCase):
         test Account functionality.
         """
         super().setUp()
-        self.client = APIClient()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.user_data = {
+        self.data = {
             "email": "test@mst.edu",
             "first_name": "test",
             "last_name": "test",
@@ -75,91 +369,33 @@ class AccountsTestCase(TestCase):
             "is_staff": False,
             "is_superuser": False
         }
-
-    def test_accounts_rest_actions(self):
-        """
-        Ensures that an Accounts interactions with each REST API (post, get,
-        put, destroy) results in expected behavior.
-        """
-        user = self.user_data
-
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:user-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse('rest_api:user-detail', kwargs={'pk': self.user.id})
-        )
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new user
-        ##
-        response = self.client.post(reverse('rest_api:user-list'), user)
-        self.assertEqual(response.status_code, 201)
-        for k, v in user.items():
-            self.assertEqual(response.json()[k], v)
-
-        ##
-        # Testing "PUT" or modifing a user
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
-        ##
-        user['email'] = "test1@mst.edu"
-        response = self.client.put(
-            reverse(
-                'rest_api:user-detail',
-                kwargs={'pk': response.json()['id']}
-            ),
-            data=json.dumps(user),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["email"], "test1@mst.edu")
-
-        ##
-        # Testing delete capability
-        ##
-        user_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:user-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:user-detail',
-                kwargs={'pk': user_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:user-detail',
-                kwargs={'pk': user_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesnt exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:user-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[2], None)
-        self.assertIsNotNone(response.json()[1])
+        self.mod_data = {
+            "email": "test1@mst.edu",
+            "first_name": "test",
+            "last_name": "test",
+            "is_active": True,
+            "is_staff": False,
+            "is_superuser": False
+        }
+        self.model = User
+        self.serializer = UserSerializer
+        self.list_path = 'rest_api:user-list'
+        self.detail_path = 'rest_api:user-detail'
+        self.content_type = "application/json"
 
     def test_serializer_validation(self):
         """
         Ensures that the :class:`~accounts.serializers.UserSerializer`
         functions as intended.
         """
-        user = self.user_data
+        user = self.data
+        self.client.force_login(self.default_user)
         user['email'] = "test@fail.com"
         response = self.client.post(reverse('rest_api:user-list'), user)
         self.assertEqual(response.status_code, 400)
 
 
-class EventsTestCase(TestCase):
+class EventsTestCase(RestAPITestCase):
     """
     Ensures Events behave as expected throughout their lifecycle.
     """
@@ -170,37 +406,6 @@ class EventsTestCase(TestCase):
         functionality.
         """
         super().setUp()
-        self.client = APIClient()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-
         # Save photo to an in-memory bytes buffer. See
         # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
         im_io = BytesIO()
@@ -212,95 +417,38 @@ class EventsTestCase(TestCase):
             content=im_io.getvalue(),
             content_type='multipart/form-data'
         )
-
-    def test_events_rest_actions(self):
-        """
-        Ensures that an event behaves as expected at each point in the REST
-        api.
-        """
-        event = {
+        self.data = {
             "date_hosted": timezone.now(),
             "date_expire": timezone.now(),
             "title": "test1",
             "description": "test",
             "location": "test",
             "presenter": "test",
-            "cost": 3.00,
+            "cost": "3.00",
             "flier": self.image,
-            "creator": self.user.id,
-            "hosting_sig": self.sig.id,
+            "creator": str(self.user.id),
+            "hosting_sig": str(self.sig.id),
         }
-
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:event-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse('rest_api:event-detail', kwargs={'pk': self.event.id}))
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new event
-        ##
-        response = self.client.post(reverse('rest_api:event-list'), event)
-        self.assertEqual(response.status_code, 201)
-        for k in ('title', 'description', 'location'):
-            self.assertEqual(response.json()[k], event[k])
-
-        ##
-        # Testing "PUT" or modifying a event
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
-        ##
-
-        # Resets the image pointer to be pointing at the beginning of the image
-        # file rather than the end which would cause an error with the 'put'
-        # command.
-        self.image.seek(0)
-
-        event['title'] = "test1"
-        response = self.client.put(
-            reverse('rest_api:event-detail',
-                    kwargs={'pk': response.json()['id']}),
-            event,
-            format="multipart"
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["title"], "test1")
-
-        ##
-        # Testing delete capability of an Event
-        ##
-        event_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:event-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:event-detail',
-                kwargs={'pk': event_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:event-detail',
-                kwargs={'pk': event_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesnt exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:event-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+        self.mod_data = {
+            "date_hosted": timezone.now(),
+            "date_expire": timezone.now(),
+            "title": "test2",
+            "description": "test",
+            "location": "test",
+            "presenter": "test",
+            "cost": "3.00",
+            "flier": self.image,
+            "creator": str(self.user.id),
+            "hosting_sig": str(self.sig.id),
+        }
+        self.model = Event
+        self.serializer = SIGSerializer
+        self.list_path = 'rest_api:event-list'
+        self.detail_path = 'rest_api:event-detail'
+        self.content_type = "multipart/form"
 
 
-class SigsTestCase(TestCase):
+class SigsTestCase(RestAPITestCase):
     """
     Ensures that a SIG behaves as expected throughout it's lifecycle.
     """
@@ -310,121 +458,29 @@ class SigsTestCase(TestCase):
         Initializes all variables and data required to test SIG functionality.
         """
         super().setUp()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-
-    def test_sigs_rest_actions(self):
-        """
-        Ensures that a SIG behaves as expected at each
-        point in the REST API.
-        """
-        sig = {
+        self.data = {
             "id": "sig_test",
             "is_active": True,
             "description": "test",
-            "founder": self.user.id,
-            "chair": self.user.id
+            "founder": str(self.user.id),
+            "chair": str(self.user.id)
+        }
+        self.mod_data = {
+            "id": "sig_test1",
+            "is_active": True,
+            "description": "test",
+            "founder": str(self.user.id),
+            "chair": str(self.user.id)
         }
 
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:sig-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse('rest_api:sig-detail', kwargs={'pk': self.sig.id})
-        )
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new event
-        ##
-        response = self.client.post(
-            reverse('rest_api:sig-list'),
-            data=json.dumps(sig, default=str),
-            content_type='application/json'
-
-        )
-        self.assertEqual(response.status_code, 201)
-        for k in sig:
-            self.assertEqual(str(response.json()[k]), str(sig[k]))
-
-        ##
-        # Testing "PUT" or modifing a user
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
-        ##
-        sig["description"] = "sig-web"
-        response = self.client.put(
-            reverse(
-                'rest_api:sig-detail',
-                kwargs={'pk': response.json()['id']}
-            ),
-            data=json.dumps(sig, default=str),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["description"], "sig-web")
-
-        ##
-        # Testing delete capability
-        ##
-        sig_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:sig-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:sig-detail',
-                kwargs={'pk': sig_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:sig-detail',
-                kwargs={'pk': sig_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesnt exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:sig-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[2], None)
-        self.assertIsNotNone(response.json()[1])
+        self.model = SIG
+        self.serializer = SIGSerializer
+        self.list_path = 'rest_api:sig-list'
+        self.detail_path = 'rest_api:sig-detail'
+        self.content_type = "application/json"
 
 
-class TransactionsTestCase(TestCase):
+class TransactionsTestCase(RestAPITestCase):
     """
     Ensures a Transaction behaves as expected throughout all
     points in it's lifecycle.
@@ -436,128 +492,38 @@ class TransactionsTestCase(TestCase):
         functionality.
         """
         super().setUp()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-
-    def test_transactions_rest_actions(self):
-        """
-        Ensures a Transaction behaves as expected throughout all points in the
-        REST API.
-        """
-        transaction = {
+        self.data = {
             "description": "test",
-            "cost": 3,
+            "cost": "3.00",
             "stripe_token": "test",
             "customer_id": "test",
             "coupon_id": "test",
             "subscription_id": "test",
             "charge_id": "test",
-            "category": self.category.id,
-            "sig": self.sig.id,
-            "user": self.user.id
+            "category": str(self.category.id),
+            "sig": str(self.sig.id),
+            "user": str(self.user.id)
         }
-
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:transaction-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse(
-                'rest_api:transaction-detail',
-                kwargs={'pk': self.transaction.id}
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new event
-        ##
-        response = self.client.post(
-            reverse('rest_api:transaction-list'),
-            data=json.dumps(transaction, default=str),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 201)
-        for k in ('description', 'stripe_token'):
-            self.assertEqual(str(response.json()[k]), str(transaction[k]))
-
-        ##
-        # Testing "PUT" or modifying a user
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the Django client does put requests.
-        ##
-        transaction["description"] = "test"
-        response = self.client.put(
-            reverse(
-                'rest_api:transaction-detail',
-                kwargs={'pk': response.json()['id']}
-            ),
-            data=json.dumps(transaction, default=str),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["description"], "test")
-
-        ##
-        # Testing delete capability
-        ##
-        transaction_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:transaction-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:transaction-detail',
-                kwargs={'pk': transaction_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:transaction-detail',
-                kwargs={'pk': transaction_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesn't exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:transaction-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+        self.mod_data = {
+            "description": "test2",
+            "cost": "3.00",
+            "stripe_token": "test",
+            "customer_id": "test",
+            "coupon_id": "test",
+            "subscription_id": "test",
+            "charge_id": "test",
+            "category": str(self.category.id),
+            "sig": str(self.sig.id),
+            "user": str(self.user.id)
+        }
+        self.model = Transaction
+        self.serializer = TransactionSerializer
+        self.list_path = 'rest_api:transaction-list'
+        self.detail_path = 'rest_api:transaction-detail'
+        self.content_type = "application/json"
 
 
-class CategoryTestCase(TestCase):
+class CategoryTestCase(RestAPITestCase):
     """
     Ensures that Categories behave as expected throughout all points in their
     life-cycle.
@@ -569,120 +535,21 @@ class CategoryTestCase(TestCase):
         functionality.
         """
         super().setUp()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-
-    def test_category_rest_actions(self):
-        """
-        Ensures that a Category behaves as expected at
-        each point in the REST API.
-        """
-        category = {
-            "name": "test"
+        self.data = {
+            "name": "test1"
         }
+        self.mod_data = {
+            "name": "test2"
+        }
+        self.model = TransactionCategory
 
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:category-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse(
-                'rest_api:category-detail',
-                kwargs={'pk': self.category.id}
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new event
-        ##
-        response = self.client.post(
-            reverse('rest_api:category-list'),
-            data=json.dumps(category, default=str),
-            content_type='application/json'
-
-        )
-        self.assertEqual(response.status_code, 201)
-        for k in category:
-            self.assertEqual(str(response.json()[k]), str(category[k]))
-
-        ##
-        # Testing "PUT" or modifying a user
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the Django client does put requests.
-        ##
-        category["name"] = "test1"
-        response = self.client.put(
-            reverse(
-                'rest_api:category-detail',
-                kwargs={'pk': response.json()['id']}
-            ),
-            data=json.dumps(category, default=str),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["name"], "test1")
-
-        ##
-        # Testing delete capability
-        ##
-        category_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:category-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:category-detail',
-                kwargs={'pk': category_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:category-detail',
-                kwargs={'pk': category_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesn't exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:category-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[2], None)
-        self.assertIsNotNone(response.json()[1])
+        self.serializer = CategorySerializer
+        self.list_path = 'rest_api:category-list'
+        self.detail_path = 'rest_api:category-detail'
+        self.content_type = "application/json"
 
 
-class ProductTestCase(TestCase):
+class ProductTestCase(RestAPITestCase):
     """
     Ensures that a Product behaves as expected throughout all points of its
     life-cycle.
@@ -694,119 +561,24 @@ class ProductTestCase(TestCase):
         Product functionality.
         """
         super().setUp()
-        self.user = User.objects.create_user('ksyh3@mst.edu')
-        self.sig = SIG.objects.create_sig(
-            id='test',
-            chair=self.user,
-            founder=self.user,
-            description='test',
-        )
-        self.event = Event.objects.create_event(
-            creator=self.user,
-            hosting_sig=self.sig,
-            title='test',
-            date_hosted=timezone.now(),
-            date_expire=timezone.now(),
-        )
-
-        self.category = TransactionCategory.objects.create_category('test')
-        self.product = Product.objects.create_product(
-            'test',
-            'test',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-        self.transaction = Transaction.objects.create_transaction(
-            '3232',
-            cost=3.00,
-            category=self.category,
-            sig=self.sig,
-        )
-
-    def test_product_rest_actions(self):
-        """
-        Ensures that a Product behaves as expected at
-        each point in the REST API.
-        """
-        product = {
+        self.data = {
             "tag": "name",
             "name": "test",
-            "cost": 3.00,
+            "cost": "3.00",
             "description": "test",
-            "category": self.category.id,
-            "sig": self.sig.id
+            "category": str(self.category.id),
+            "sig": str(self.sig.id)
         }
-
-        ##
-        # Testing standard views with initial created model
-        ##
-        response = self.client.get(reverse('rest_api:product-list'))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(
-            reverse(
-                'rest_api:product-detail',
-                kwargs={'pk': self.product.tag}
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-
-        ##
-        # Testing creating a new event
-        ##
-        response = self.client.post(
-            reverse('rest_api:product-list'),
-            data=json.dumps(product, default=str),
-            content_type='application/json'
-
-        )
-        self.assertEqual(response.status_code, 201)
-        for k in ('name', 'description'):
-            self.assertEqual(str(response.json()[k]), str(product[k]))
-
-        ##
-        # Testing "PUT" or modifying a user
-        # NOTE: This test requires the data to be sent in a special way due to
-        #       how the Django client does put requests.
-        ##
-        product["name"] = "test1"
-        response = self.client.put(
-            reverse(
-                'rest_api:product-detail',
-                kwargs={'pk': response.json()['tag']}
-            ),
-            data=json.dumps(product, default=str),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["name"], "test1")
-
-        ##
-        # Testing delete capability
-        ##
-        product_id = response.json()['tag']
-        response = self.client.get(reverse('rest_api:product-list'))
-        self.assertIsNotNone(response.json()[1])
-
-        response = self.client.delete(
-            reverse(
-                'rest_api:product-detail',
-                kwargs={'pk': product_id}
-            )
-        )
-        self.assertEqual(response.status_code, 204)
-        response = self.client.get(
-            reverse(
-                'rest_api:product-detail',
-                kwargs={'pk': product_id}
-            )
-        )
-        self.assertEqual(response.status_code, 404)
-
-        ##
-        # Ensure it doesn't exist on the master list
-        ##
-        response = self.client.get(reverse('rest_api:product-list'))
-        with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[3], None)
-        self.assertIsNotNone(response.json()[2])
+        self.mod_data = {
+            "tag": "name",
+            "name": "test1",
+            "cost": "3.00",
+            "description": "test",
+            "category": str(self.category.id),
+            "sig": str(self.sig.id)
+        }
+        self.model = Product
+        self.serializer = ProductSerializer
+        self.list_path = 'rest_api:product-list'
+        self.detail_path = 'rest_api:product-detail'
+        self.content_type = "application/json"

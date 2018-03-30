@@ -1,28 +1,17 @@
-"""
 from rest_framework import permissions
 
 
-class IsStaffOrReadOnly(permissions.BasePermission):
-
-    Custom permission which only allows admins to edit data.
-
-
-    def has_object_permission(self, request, view, obj):
-        return request.user.is_staff
-
-
-class IsOwnerOrReadOnly(permissions.BasePermission):
-
-    Custom permission which only allows Owners to edit data
-
-    Requires that the Model/Serializer has field email.
-
-    TODO: Make it so that it does not require there to be email.
-
-
-    def has_object_permission(self, request, view, obj):
+class IsStaffOrReadonly(permissions.BasePermission):
+    """
+    Allows only staff members, classified by the `is_staff` method of the User
+    model, to have complete permissions if they are logged in. Otherwise, the
+    Users can only perform the safe methods of GET, HEAD, or OPTIONS.
+    """
+    def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        return request.user.email == obj.email
-"""
+        if not request.user.is_authenticated:
+            return False
+
+        return request.user.is_staff
