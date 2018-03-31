@@ -161,7 +161,7 @@ class RestAPITestCase(TestCase):
         self.assertEqual(response.status_code, status_code)
         json_response = response.json()
 
-        if test_dict:
+        if test_dict: # pragma: no cover
             test_items = test_dict.items()
             comparitor = lambda x: test_items <= x.items()
             filtered_resp = list(filter(comparitor, json_response))
@@ -378,7 +378,7 @@ class RestAPITestCase(TestCase):
                 reverse(self.detail_path, kwargs={'pk': model_obj_pk_val}),
             )
         else:
-            raise ValueError("Serializer is not valid.")
+            raise ValueError("Serializer is not valid.") # pragma: no cover
 
 
 class AccountsTestCase(RestAPITestCase):
