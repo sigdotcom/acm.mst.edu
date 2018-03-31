@@ -347,7 +347,7 @@ class RestAPITestCase(TestCase):
         """
         self.client.force_login(self.default_user)
 
-    def test_rest_actions(self):
+    def assert_generic_rest_actions(self):
         """
         Ensures that the rest actions for the model specified in the class
         returns the proper results for the GET, POST, PUT, and DELETE methods.
@@ -363,7 +363,7 @@ class RestAPITestCase(TestCase):
             data, mod_data, self.model, self.content_type
         )
 
-    def test_rest_actions_without_permissions(self):
+    def assert_rest_actions_without_permissions(self):
         """
         Ensures that the rest actions for the model specified in the class fails
         if the user does not have the proper permissions.
@@ -429,7 +429,10 @@ class AccountsTestCase(RestAPITestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
 
 
 class EventsTestCase(RestAPITestCase):
@@ -466,7 +469,10 @@ class EventsTestCase(RestAPITestCase):
         self.content_type = "multipart/form-data"
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
 
 
 class SigsTestCase(RestAPITestCase):
@@ -501,7 +507,10 @@ class SigsTestCase(RestAPITestCase):
         self.content_type = "application/json"
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
 
 
 class TransactionsTestCase(RestAPITestCase):
@@ -547,7 +556,10 @@ class TransactionsTestCase(RestAPITestCase):
         self.content_type = "application/json"
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
 
 
 class CategoryTestCase(RestAPITestCase):
@@ -576,7 +588,10 @@ class CategoryTestCase(RestAPITestCase):
         self.content_type = "application/json"
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
 
 
 class ProductTestCase(RestAPITestCase):
@@ -614,4 +629,7 @@ class ProductTestCase(RestAPITestCase):
         self.content_type = "application/json"
 
     def test_rest_actions(self):
-        super().test_rest_actions()
+        self.assert_generic_rest_actions()
+
+    def test_rest_actions_without_permissions(self):
+        self.assert_rest_actions_without_permissions()
