@@ -2,6 +2,7 @@
 Contains all of the unit tests for the rest_api app.
 """
 # standard library
+import copy
 import json
 from io import BytesIO
 
@@ -51,6 +52,19 @@ class RestAPITestCase(TestCase):
             PUT request with. For most cases it is safe to use
             "application/json" unless there is an attribute which cannot be
             serialized to a JSON.
+
+    Optionally, there are some other class variables that will help with running
+    tests on more complicated models:
+        1. ``self.exclude``: A list of keys in ``self.data`` or
+            ``self.mod_data`` which will be excluded when performing comparisons on
+            request results. For example, if there is an ImageField in the
+            model, it is impossible to compare a raw image field with a
+            serialized image field.
+
+    .. todo::
+        There may be a way to compare the results of the response and the raw
+        data in the ``self.data`` field more robustly using serializers without
+        the self.exclude field.
     """
 
     def setUp(self):
@@ -62,6 +76,7 @@ class RestAPITestCase(TestCase):
         ``self.default_user``.
         """
         super().setUp()
+        self.exclude = []
         self.client = APIClient()
         self.user = User.objects.create_user('ksyh3@mst.edu')
         self.default_user = User.objects.get(email="acm@mst.edu")
@@ -172,7 +187,8 @@ class RestAPITestCase(TestCase):
         json_response = response.json()
 
         for key, value in data.items():
-            self.assertEqual(json_response[key], value)
+            if not key in self.exclude:
+                self.assertEqual(json_response[key], value)
 
     def assert_put_method(self, detail_path, data, status_code=200, **kwargs):
         """
@@ -191,10 +207,13 @@ class RestAPITestCase(TestCase):
         """
         request_data = None
         content_type = kwargs.get("content_type")
-        if content_type == "application/json":
-            request_data = json.dumps(data)
-        else:
+        kwargs["content_type"] = "application/json"
+        if content_type == "multipart/form-data":
+            kwargs.setdefault("format", "multipart")
+            kwargs.pop("content_type")
             request_data = data
+        else:
+            request_data = json.dumps(data)
 
         response = self.client.put(
             detail_path,
@@ -204,7 +223,8 @@ class RestAPITestCase(TestCase):
         self.assertEqual(response.status_code, status_code)
         json_response = response.json()
         for key, value in data.items():
-            self.assertEqual(json_response[key], value)
+            if not key in self.exclude:
+                self.assertEqual(json_response[key], value)
 
 
     def assert_delete_method(self, list_path, detail_path, key, value,
@@ -283,9 +303,10 @@ class RestAPITestCase(TestCase):
         self.assertNotEqual(data, mod_data)
 
         self.assert_post_method(reverse(list_viewname), data)
+        search_data = {k: v for k, v in data.items() if not k in self.exclude}
 
         pk_key = model._meta.pk.name
-        pk_val = getattr(model.objects.get(**data), pk_key)
+        pk_val = getattr(model.objects.get(**search_data), pk_key)
         self.assert_put_method(
             reverse(detail_viewname, kwargs={'pk': pk_val}),
             data=mod_data,
@@ -422,6 +443,7 @@ class EventsTestCase(RestAPITestCase):
         functionality.
         """
         super().setUp()
+        self.exclude = ["date_hosted", "date_expire", "flier"]
 
         self.data = {
             "date_hosted": timezone.now(),
@@ -435,23 +457,13 @@ class EventsTestCase(RestAPITestCase):
             "creator": str(self.user.id),
             "hosting_sig": str(self.sig.id),
         }
-        self.mod_data = {
-            "date_hosted": timezone.now(),
-            "date_expire": timezone.now(),
-            "title": "test2",
-            "description": "test",
-            "location": "test",
-            "presenter": "test",
-            "cost": "3.00",
-            "flier": self.image,
-            "creator": str(self.user.id),
-            "hosting_sig": str(self.sig.id),
-        }
+        self.mod_data = copy.deepcopy(self.data)
+        self.mod_data["title"] = "test2"
         self.model = Event
         self.serializer = EventSerializer
         self.list_path = 'rest_api:event-list'
         self.detail_path = 'rest_api:event-detail'
-        self.content_type = "multipart/form"
+        self.content_type = "multipart/form-data"
 
     def test_rest_actions(self):
         super().test_rest_actions()
