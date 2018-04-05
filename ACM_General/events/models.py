@@ -49,40 +49,36 @@ def get_path_for_flier(instance, filename):
 
 class Tag(models.Model):
     """
-    Class used for adding classification tags on events.
+    Model used for adding tags on events.
     """
 
-    #: The name of the tag that is displayed on the event creation form; represented
-    #: as a CharField.
+    #: The name of the tag that is displayed; represented as a CharField.
     display_name = models.CharField(
         verbose_name=_('Event Tag'),
-        help_text=_('Different categories for the event.'),
+        help_text=_('The name of the tag that will be displayed to users.'),
+        unique=True,
         max_length=256,
     )
 
-    #: Unique id of the tag; represented as an IntegerField.
-    id = models.IntegerField(
+    #: Unique id of the tag; represented as an CharField.
+    id = models.CharField(
         verbose_name=_('ID'),
         help_text=_('Unique ID of the tag.'),
         primary_key=True,
+        max_length=256,
     )
 
-    #: If the tag should be diplayed on the event creation form; represented as a
-    #: BooleanField.
-    display = models.BooleanField(
+    #: If the tag should be diplayed; represented as a BooleanField.
+    is_disabled = models.BooleanField(
         verbose_name=_('Display'),
-        help_text=_('Whether or not the tag is to be displayed on the event creation form.'),
+        help_text=_('Whether or not the tag is to be displayed.'),
         default = True,
     )
 
-
     def __str__(self):
         """
-        Changes what is displayed for each tag on the event creation
-        form (without this it shows 'Tag object (id)').
-
-        :return: String containing the name of the tag.
-        :rtype: string.
+        :returns: Display the name of the tag.
+        :rtype: str
         """
         return self.display_name
 
@@ -198,7 +194,7 @@ class Event(models.Model):
     tags = models.ManyToManyField(
         Tag,
         verbose_name=_('Event Tags'),
-        help_text=_('Different categories for classifying the event.'),
+        help_text=_('The name of the Tag that will be displayed to users'),
     )
 
     @property
@@ -207,7 +203,7 @@ class Event(models.Model):
         Checking whether or not an event has already expired
         (gone past the current date).
 
-        :return: Bool value representing whether or not the event is
+        :returns: Bool value representing whether or not the event is
                   considered 'active'.
         :rtype: bool
         """
@@ -218,7 +214,7 @@ class Event(models.Model):
         The clean function is used for making checks on the data posted to the
         form.
 
-        :return: None.
+        :returns: None.
         :rtype: None
 
         :raises ValidationError: if date_expire or date_hosted are invalid.

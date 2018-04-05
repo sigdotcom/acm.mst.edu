@@ -24,6 +24,9 @@ class EventForm(ModelForm):
             'date_expire': DateTimeInput(attrs={'id': 'calendar'}),
             'title': Textarea(attrs={'rows': 3}),
             'description': Textarea(attrs={'rows': 3}),
-            'link': TextInput(), 
+            'link': TextInput(),
             'tags': CheckboxSelectMultiple(),
         }
+    def __init__(self, **kwargs):
+        super(EventForm, self).__init__(**kwargs)
+        self.fields['tags'].queryset = Tag.objects.filter(is_disabled=False)
