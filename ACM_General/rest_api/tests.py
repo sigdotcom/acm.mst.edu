@@ -1,38 +1,40 @@
+"""
+Contains all of the unit tests for the rest_api app.
+"""
 # standard library
+from io import BytesIO
 import json
 
 # third-party
+from PIL import Image
 from rest_framework.test import APIClient
 
 # Django
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 
 # local Django
 from accounts.models import User
 from events.models import Event
 # from events.serializers import EventSerializer
-from payments.models import TransactionCategory, Product, Transaction
+from products.models import TransactionCategory, Product, Transaction
 from sigs.models import SIG
 
 
 class AccountsTestCase(TestCase):
     """
-    Ensures that a user account behaves as expected throughout
-    various interactions they may have throughout the website.
-    This includes all basic functionality pertaining to
-    data associated with the user, as well as the user itself.
+    Ensures that a user account behaves as expected throughout various
+    interactions they may have throughout the website.  This includes all basic
+    functionality pertaining to data associated with the user, as well as the
+    user itself.
     """
 
     def setUp(self):
         """
         Initializes all variables and data that is required to
         test Account functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.client = APIClient()
@@ -53,6 +55,7 @@ class AccountsTestCase(TestCase):
 
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
+            'test',
             'test',
             cost=3.00,
             category=self.category,
@@ -75,11 +78,8 @@ class AccountsTestCase(TestCase):
 
     def test_accounts_rest_actions(self):
         """
-        Ensures that an Accounts interactions with each REST api
-        (post, get, put, destroy) results in expected behavior.
-
-        :rtype: None
-        :return: None
+        Ensures that an Accounts interactions with each REST API (post, get,
+        put, destroy) results in expected behavior.
         """
         user = self.user_data
 
@@ -145,16 +145,13 @@ class AccountsTestCase(TestCase):
         ##
         response = self.client.get(reverse('rest_api:user-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
     def test_serializer_validation(self):
         """
-        Ensures that the UserSerializer in accounts/serializers.py
+        Ensures that the :class:`~accounts.serializers.UserSerializer`
         functions as intended.
-
-        :rtype: None
-        :return: None
         """
         user = self.user_data
         user['email'] = "test@fail.com"
@@ -171,9 +168,6 @@ class EventsTestCase(TestCase):
         """
         Initializes all variables and data required to test Event
         functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.client = APIClient()
@@ -195,6 +189,7 @@ class EventsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -206,18 +201,22 @@ class EventsTestCase(TestCase):
             sig=self.sig,
         )
 
+        # Save photo to an in-memory bytes buffer. See
+        # https://stackoverflow.com/questions/48075739/unit-testing-a-django-form-with-a-imagefield-without-external-file.
+        im_io = BytesIO()
+        im = Image.new(mode='RGB', size=(50, 50))
+        im.save(im_io, 'JPEG')
         # Sets up image variable for creating Event
-        image_path = './test_data/test_image.jpg'
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
-            image_path, 'rb').read(), content_type='multipart/form-data')
+        self.image = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=im_io.getvalue(),
+            content_type='multipart/form-data'
+        )
 
     def test_events_rest_actions(self):
         """
-        Ensures that an event behaves as expected at each
-        point in the REST api.
-
-        :rtype: None
-        :return: None
+        Ensures that an event behaves as expected at each point in the REST
+        api.
         """
         event = {
             "date_hosted": timezone.now(),
@@ -309,9 +308,6 @@ class SigsTestCase(TestCase):
     def setUp(self):
         """
         Initializes all variables and data required to test SIG functionality.
-
-        :rtype: None
-        :return: None
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -332,6 +328,7 @@ class SigsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -346,10 +343,7 @@ class SigsTestCase(TestCase):
     def test_sigs_rest_actions(self):
         """
         Ensures that a SIG behaves as expected at each
-        point in the REST api.
-
-        :rtype: None
-        :return: None
+        point in the REST API.
         """
         sig = {
             "id": "sig_test",
@@ -362,10 +356,10 @@ class SigsTestCase(TestCase):
         ##
         # Testing standard views with initial created model
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(
-            reverse('rest_api:sigs-detail', kwargs={'pk': self.sig.id})
+            reverse('rest_api:sig-detail', kwargs={'pk': self.sig.id})
         )
         self.assertEqual(response.status_code, 200)
 
@@ -373,7 +367,7 @@ class SigsTestCase(TestCase):
         # Testing creating a new event
         ##
         response = self.client.post(
-            reverse('rest_api:sigs-list'),
+            reverse('rest_api:sig-list'),
             data=json.dumps(sig, default=str),
             content_type='application/json'
 
@@ -390,7 +384,7 @@ class SigsTestCase(TestCase):
         sig["description"] = "sig-web"
         response = self.client.put(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': response.json()['id']}
             ),
             data=json.dumps(sig, default=str),
@@ -403,19 +397,19 @@ class SigsTestCase(TestCase):
         # Testing delete capability
         ##
         sig_id = response.json()['id']
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         self.assertIsNotNone(response.json()[1])
 
         response = self.client.delete(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
         self.assertEqual(response.status_code, 204)
         response = self.client.get(
             reverse(
-                'rest_api:sigs-detail',
+                'rest_api:sig-detail',
                 kwargs={'pk': sig_id}
             )
         )
@@ -424,10 +418,10 @@ class SigsTestCase(TestCase):
         ##
         # Ensure it doesnt exist on the master list
         ##
-        response = self.client.get(reverse('rest_api:sigs-list'))
+        response = self.client.get(reverse('rest_api:sig-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class TransactionsTestCase(TestCase):
@@ -438,11 +432,8 @@ class TransactionsTestCase(TestCase):
 
     def setUp(self):
         """
-        Initializes all variables and data required to test
-        Transaction functionality.
-
-        :rtype: None
-        :return: None
+        Initializes all variables and data required to test Transaction
+        functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -463,6 +454,7 @@ class TransactionsTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -476,11 +468,8 @@ class TransactionsTestCase(TestCase):
 
     def test_transactions_rest_actions(self):
         """
-        Ensures a Transaction behaves as expected throughout all
-        points in the REST api.
-
-        :rtype: None
-        :return: None
+        Ensures a Transaction behaves as expected throughout all points in the
+        REST API.
         """
         transaction = {
             "description": "test",
@@ -489,6 +478,7 @@ class TransactionsTestCase(TestCase):
             "customer_id": "test",
             "coupon_id": "test",
             "subscription_id": "test",
+            "charge_id": "test",
             "category": self.category.id,
             "sig": self.sig.id,
             "user": self.user.id
@@ -520,9 +510,9 @@ class TransactionsTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(transaction[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         transaction["description"] = "test"
         response = self.client.put(
@@ -559,7 +549,7 @@ class TransactionsTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:transaction-list'))
         with self.assertRaises(IndexError):
@@ -569,17 +559,14 @@ class TransactionsTestCase(TestCase):
 
 class CategoryTestCase(TestCase):
     """
-    Ensures that Categories behave as expected throughout
-    all points in their lifecycle.
+    Ensures that Categories behave as expected throughout all points in their
+    life-cycle.
     """
 
     def setUp(self):
         """
-        Initializes all variables and data required to
-        test Category functionality.
-
-        :rtype: None
-        :return: None
+        Initializes all variables and data required to test Category
+        functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -600,6 +587,7 @@ class CategoryTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -614,10 +602,7 @@ class CategoryTestCase(TestCase):
     def test_category_rest_actions(self):
         """
         Ensures that a Category behaves as expected at
-        each point in the REST api.
-
-        :rtype: None
-        :return: None
+        each point in the REST API.
         """
         category = {
             "name": "test"
@@ -650,9 +635,9 @@ class CategoryTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(category[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         category["name"] = "test1"
         response = self.client.put(
@@ -689,27 +674,24 @@ class CategoryTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:category-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[2], None)
+        self.assertIsNotNone(response.json()[1])
 
 
 class ProductTestCase(TestCase):
     """
-    Ensures that a Product behaves as expected throughout all
-    points of its lifecycle.
+    Ensures that a Product behaves as expected throughout all points of its
+    life-cycle.
     """
 
     def setUp(self):
         """
         Initialize all variables and data required to test
-        Product functinoality.
-
-        :rtype: None
-        :return: None
+        Product functionality.
         """
         super().setUp()
         self.user = User.objects.create_user('ksyh3@mst.edu')
@@ -730,6 +712,7 @@ class ProductTestCase(TestCase):
         self.category = TransactionCategory.objects.create_category('test')
         self.product = Product.objects.create_product(
             'test',
+            'test',
             cost=3.00,
             category=self.category,
             sig=self.sig,
@@ -744,12 +727,10 @@ class ProductTestCase(TestCase):
     def test_product_rest_actions(self):
         """
         Ensures that a Product behaves as expected at
-        each point in the REST api.
-
-        :rtype: None
-        :return: None
+        each point in the REST API.
         """
         product = {
+            "tag": "name",
             "name": "test",
             "cost": 3.00,
             "description": "test",
@@ -765,7 +746,7 @@ class ProductTestCase(TestCase):
         response = self.client.get(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': self.product.id}
+                kwargs={'pk': self.product.tag}
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -784,15 +765,15 @@ class ProductTestCase(TestCase):
             self.assertEqual(str(response.json()[k]), str(product[k]))
 
         ##
-        # Testing "PUT" or modifing a user
+        # Testing "PUT" or modifying a user
         # NOTE: This test requires the data to be sent in a special way due to
-        #       how the django client does put requests.
+        #       how the Django client does put requests.
         ##
         product["name"] = "test1"
         response = self.client.put(
             reverse(
                 'rest_api:product-detail',
-                kwargs={'pk': response.json()['id']}
+                kwargs={'pk': response.json()['tag']}
             ),
             data=json.dumps(product, default=str),
             content_type='application/json'
@@ -803,7 +784,7 @@ class ProductTestCase(TestCase):
         ##
         # Testing delete capability
         ##
-        product_id = response.json()['id']
+        product_id = response.json()['tag']
         response = self.client.get(reverse('rest_api:product-list'))
         self.assertIsNotNone(response.json()[1])
 
@@ -823,9 +804,9 @@ class ProductTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
         ##
-        # Ensure it doesnt exist on the master list
+        # Ensure it doesn't exist on the master list
         ##
         response = self.client.get(reverse('rest_api:product-list'))
         with self.assertRaises(IndexError):
-            self.assertEqual(response.json()[1], None)
-        self.assertIsNotNone(response.json()[0])
+            self.assertEqual(response.json()[3], None)
+        self.assertIsNotNone(response.json()[2])

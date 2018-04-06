@@ -1,3 +1,6 @@
+"""
+Custom Event Manager and helper functions.
+"""
 # Django
 from django.db import models
 
@@ -9,12 +12,14 @@ class EventManager(models.Manager):
 
     def get_by_natural_key(self, title):
         """
+        Queries the database for an Event based on event title.
+
         :param title: Title of the event
         :type title: str
 
-        :rtype: event.models.Event or None
-        :returns: The event object that matches with the passed title variable
+        :return: The event object that matches with the passed title variable
                   (if there is one) or None.
+        :rtype: :class:`~events.models.Event` or None
         """
         return self.get(title=title)
 
@@ -23,10 +28,10 @@ class EventManager(models.Manager):
         Checks the date_hosted and date_expire variable to make sure they
         are valid and then saves the event to the database.
 
-        :raises ValueError: if date_hosted or date_expire is invalid.
+        :return: The event object that was created.
+        :rtype: :class:`~events.models.Event`
 
-        :rtype: event.models.Event
-        :returns: The event object that was created.
+        :raises ValueError: if date_hosted or date_expire is invalid.
         """
         date_hosted = kwargs.get('date_hosted', None)
         date_expire = kwargs.get('date_expire', None)
@@ -51,7 +56,8 @@ class EventManager(models.Manager):
         Calls the '_create_event' public wrapper which a user can overwrite to
         add extra functionality to the private function.
 
-        :rtype: event.models.Event
-        :returns: The event object that was created.
+        :return: The event object that was created.
+        :rtype: :class:`~events.models.Event`
         """
+
         return self._create_event(**kwargs)

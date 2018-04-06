@@ -2,12 +2,17 @@
 {% load static %}
 
 {% block head_title %}
-  <title> ACM </title>
+  <title>ACM</title>
+{% endblock %}
+{% block head_description %}
+  <meta name="description" content="Missouri S&T's ACM Website"/>
 {% endblock %}
 
 {% block head_base_stylesheets %}
   <link rel="stylesheet" href="{% static "/home/css/normalize.css" %}"/>
   <link rel="stylesheet" href="{% static "/home/css/main.css" %}"/>
+  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 {% endblock %}
 
 {% block head_javascript %}
@@ -38,28 +43,55 @@
     catch(e){window.attachEvent("onload", $buo_f)}
   </script>
 {# puts user agent into the html used in ie 10's case#}
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <script>
     var doc = document.documentElement;
     doc.setAttribute('data-useragent', navigator.userAgent);
+
+    $( window ).on("load", function() {
+        $(".message").each(function(index, value) {
+            $(value).find('.alert').find('a').on("click", function(){
+                $(value).css("height", "0");
+            });
+        });
+    });
   </script>
 {% endblock %}
 
 {% block head_fonts %}
 {% endblock %}
 
+{% block body_messages %}
+{% if messages %}
+<ul class="messages">
+{% for msg in messages %}       
+  <li class="message">
+    <div class="alert alert-{{msg.level_tag}}" role="alert">
+      <div class="content-wrapper">
+	<strong>{{msg.level_tag | capfirst}}! </strong>
+	{{msg.message}}
+      </div>
+      <a class="close-message" style="background-image: url('{% static "/home/img/core/close.svg" %}')"></a>
+    </div>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block body_header %}
   <header>
-  <div class="constraint-wrapper">
-      <div class="header__logo-wrapper">
+    <div class="constraint-wrapper">
+      <div class="header__content">
         <div class="header__logo">
           <a href="{% url "home:index" %}">
-            <img src="{% static "/home/img/core/acm.png" %}">
+            <img src="{% static "/home/img/core/acm.png" %}" alt="acm icon">
           </a>
           <h3>Association for<br>Computing Machinery</h3>
         </div>
-      </div>
-
-      <div class="header__welcome-wrapper">
         <h1 class="header__welcome">We are Missouri S&T - ACM</h1>
       </div>
     </div>
@@ -88,7 +120,7 @@
         </li>
         <li>
           <a
-            href="{% url "thirdparty_auth:login" "oauth2" "google" %}">Login</a>
+            href="{% url "thirdparty_auth:google" %}">Login</a>
         </li>
       </ul>
     </div>
@@ -99,53 +131,82 @@
       <ul class="nav-link-wrapper">
         <li class="nav-home nav-button">
           <a href="{% url "home:index" %}" title="Home">
-            <img src="{% static "home/img/core/home-icon.png" %}"/>
+            <img src="{% static "home/img/core/home-icon.png" %}"  alt="home icon">
             <span>Home</span>
           </a>
         </li>
         <li class="nav-sigs nav-button">
           <a href="{% url "home:sigs" %}" title="SIGs">
-            <img src="{% static "home/img/core/sigs-icon.png" %}"/>
+            <img src="{% static "home/img/core/sigs-icon.png" %}" alt="sigs icon">
             <span>SIGs</span>
           </a>
         </li>
 
         <li class="nav-sponsors nav-button"><a href="{% url "home:sponsors" %}"
                                                title="Sponsors">
-          <img src="{% static "home/img/core/sponsors-icon.png" %}"/>
+          <img src="{% static "home/img/core/sponsors-icon.png" %}" alt="sponsors icon">
           <span>Sponsors</span>
         </a></li>
         <li class="nav-media nav-button"><a href="{% url "home:media" %}"
                                             title="Media">
-          <img src="{% static "home/img/core/media-icon.png" %}"/>
+          <img src="{% static "home/img/core/media-icon.png" %}" alt="media icon">
           <span>Media</span>
         </a></li>
         <li class="nav-officers nav-button"><a href="{% url "home:officers" %}"
                                                title="Officers">
-          <img src="{% static "home/img/core/officers-icon.png" %}"/>
+          <img src="{% static "home/img/core/officers-icon.png" %}" alt="officers icon">
           <span>Officers</span>
         </a></li>
-        <li class="nav-login nav-button"><a
-          href="{% url "thirdparty_auth:login" "oauth2" "google" %}"
+        {% if not user.is_authenticated %}
+        <li class="nav-login nav-button">
+          <a href="{% url "thirdparty_auth:google" %}"
           title="Login">
-          <img src="{% static "home/img/core/login-icon.png" %}"/>
-          <span>Log In</span>
-        </a></li>
+            <img src="{% static "home/img/core/login-icon.png" %}" alt="login icon">
+            <span>Log In</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-login nav-button">
+          <a href="{% url "accounts:user-logout" %}"
+          title="Logout">
+            <img src="{% static "home/img/core/logout-icon.svg" %}" alt="logout icon">
+            <span>Log Out</span>
+          </a>
+        </li>
+        {% endif %}
       </ul>
   </nav><!-- desktop nav -->
 {% endblock %}
+
+
+
 {% block body_footer %}
-  <footer>
-    <img src="{% static "core/img/mstacm-logo-trans-new.png" %}"/>
-    <div class="footer-nav">
-      <a href="{% url "home:index" %}">Home</a>
-      <a href="{% url "home:sigs" %}">SIGs</a>
-      <a href="{% url "home:sponsors" %}">Sponsors</a>
-      <a href="{% url "home:media" %}">Media</a>
-      <a href="{% url "home:officers" %}">Officers</a>
-      <a href="https://www.acm.org/">About ACM</a>
+  <footer class="footer">
+    <div class="footer-wrapper">
+      <ul class="footer__nav">
+        <h4>Links:</h4>
+        <li><a href="{% url "home:index" %}">Home</a></li>
+        <li><a href="{% url "home:sponsors" %}">Sponsors</a></li>
+        <li><a href="{% url "home:media" %}">Media</a></li>
+        <li><a href="{% url "home:officers" %}">Officers</a></li>
+      </ul>
+      <ul class="footer__sigs">
+        <h4><a href="{% url "home:sigs" %}">SIGs:</a></h4>
+        <li><a href="https://discord.gg/eKtkR4k">SIG.com</a></li>
+        <li><a href="http://mst.orgsync.com/org/acmw/">ACM-W</a></li>
+        <li><a href="http://acmsigsec.mst.edu/">SIG-Security</a></li>
+        <li><a href="http://siggame.io/">SIG-Game</a></li>
+        <li><a href="https://discord.gg/ayjGE9t">SIG-Competition</a></li>
+      </ul>
+      <a href="https://github.com/sigdotcom"><img src="{% static "home/img/core/sigdotcomlogodarkbg.png" %}" alt="SIG.com icon"></a>
+      <ul>
+        <h4>Other:</h4>
+        <li><a href="https://github.com/sigdotcom/acm.mst.edu/blob/develop/LICENSE">License</a></li>
+        <li><a href="https://github.com/sigdotcom/acm.mst.edu">Source Code</a></li>
+        <li><a href="https://www.acm.org/">About ACM</a></li>
+      </ul>
     </div>
-    <h5>@ 2017 Missouri S&T SIG.com. All rights reserved.</h5>
+    <h5>@ 2017 Missouri S&amp;T SIG.com. All rights reserved.</h5>
   </footer>
 
 {% endblock %}

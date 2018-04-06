@@ -11,7 +11,6 @@ from django.apps import AppConfig
 
 class AccountsConfig(AppConfig):
     """
-    AppConfiguration class which defines a global app name for the accounts
-    app.
+    Defines a global app name for the accounts app.
     """
     name = 'accounts'

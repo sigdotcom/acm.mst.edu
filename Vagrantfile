@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "bento/ubuntu-16.04"
 
+
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
@@ -26,14 +27,19 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
   config.vm.network "private_network", type: "dhcp"
 
+  config.vm.provider "libvirt" do |lv, override|
+      override.vm.box = "generic/ubuntu1604"
+      override.vm.synced_folder ".", "/vagrant", type: '9p', disabled: false, accessmode: "mapped", mount: true
+  end
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   $updates = <<-UPDATE
-    apt-add-repository ppa:brightbox/ruby-ng
     apt-get update
-    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common libjpeg-dev ruby2.2 ruby2.2-dev
+    apt-get install -y python3 python3-pip postgresql libpq-dev nfs-common libjpeg-dev ruby-dev libffi-dev
     pip3 install --upgrade pip
+    gem update --system
     gem install sass
     gem install compass
   UPDATE

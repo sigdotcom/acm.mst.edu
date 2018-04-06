@@ -1,18 +1,22 @@
 {% load tz %}
+{% load app_filters %}
 
 {% for event in upcoming_events %}
     <div class="event-wrapper">
         <div class="event-card">
             <a href="{{ event.flier.url }}" class="flier-space">
-                <img src="{{ event.flier.url }}" />
+              <img src="{{ event.flier.url }}" alt="{{ event.title }} flier">
             </a>
             <div class="flier-info">
                 <h2>{{ event.title }}</h2>
-                <p>{{ event.description }}</p>
-                {% if event.link %}
-                    <div><a href="{{ event.link }}" class="acm-btn">Learn More</a></div>
-                {% endif %}
+                <p>{{ event.description|truncatechars:100 }}</p>
+                <div><a href="{% url "events:events-list" %}#{{ event.title | hyphenate }}" class="acm-btn">See More</a></div>
             </div>
         </div>
     </div>
 {% endfor %}
+{% if num_events > 2 %}
+<div class="content-wrapper">
+  <a href="{% url "events:events-list" %}" class="events-link acm-btn">More Events</a>
+</div>
+{% endif %}

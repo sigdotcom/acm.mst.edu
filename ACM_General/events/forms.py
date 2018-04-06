@@ -1,3 +1,7 @@
+"""
+Contains all of the forms utilized for the Events app.
+"""
+
 # Django
 from django.forms import ModelForm
 from django.forms.widgets import DateTimeInput, Textarea, TextInput

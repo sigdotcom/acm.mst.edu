@@ -1,0 +1,185 @@
+.nav-home a span {
+  color: #4d4d4d !important; }
+
+.nav-home:hover a span {
+  color: #4d4d4d !important; }
+
+.nav-home:after {
+  transform: scaleX(0.8); }
+
+.event-wrapper:nth-child(even) {
+  background-color: #f1f1f1; }
+
+.event-card {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 100%;
+  box-sizing: content-box;
+  max-width: 1000px;
+  display: flex; }
+
+.event-wrapper:nth-child(even) .event-card {
+  flex-direction: row-reverse; }
+
+.flier-space {
+  height: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-shrink: 0; }
+
+.flier-space img {
+  height: 400px;
+  flex-shrink: 0; }
+
+.event-wrapper:nth-child(even) .event-card .flier-space img {
+  margin-left: 10px; }
+
+.flier-info {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  white-space: pre-line;
+  flex: 1 1 auto;
+  justify-content: center;
+  margin-left: 20px; }
+
+.flier-info h2 {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: normal;
+  line-height: 25px; }
+
+.flier-info p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  margin-bottom: 0; }
+
+iframe:before {
+  position: relative;
+  width: 100%;
+  padding-top: 68%; }
+
+.calendar-title {
+  text-align: center;
+  font-family: RobotoLight, Sans-Serif;
+  color: rgba(0, 0, 0, 0.87); }
+
+.calendar-wrapper {
+  display: block !important;
+  position: relative;
+  width: 100%;
+  padding-top: 68%;
+  margin: 15px auto;
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.agenda-wrapper {
+  display: none !important;
+  position: relative;
+  width: 90%;
+  height: 550px;
+  margin: 15px auto; }
+
+.events-link {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  margin: 15px 0;
+  font-weight: bold;
+  background: #288ebf;
+  box-shadow: inset 0 -6px 0 0 #227aa4;
+}
+
+.events-link:hover {
+  box-shadow: inset 0 -60px 0 0 #227aa4;
+}
+
+@media (max-width: 641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .event-card {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+
+  .event-card .flier-space img {
+    margin: auto !important; }
+
+  .flier-info {
+    margin: 0; }
+
+  .flier-info h2 {
+    margin-left: 0;
+    text-align: center; }
+
+  .flier-info p {
+    margin-left: 15px;
+    margin-right: 15px; }
+
+  .flier-info a {
+    margin-left: 15px; }
+
+  .event-wrapper:nth-child(even) .event-card {
+    flex-direction: column !important;
+    -webkit-flex-direction: column !important;
+    -ms-flex-direction: column !important; }
+
+  .event-wrapper:nth-child(even) .flier-space {
+    margin-right: 0;
+    margin-left: 0 !important; }
+
+  .flier-space {
+    height: 400px;
+    margin-right: 0; }
+
+  .flier-info div {
+    margin: 0 15px;
+  }
+}
+@media (max-width: 750px) {
+  .calendar-wrapper {
+    display: none !important; }
+
+  .agenda-wrapper {
+    display: block !important; } }
+html[data-useragent*='MSIE 10.0'] .event-card {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center; }
+html[data-useragent*='MSIE 10.0'] .event-card .flier-space img {
+  margin: auto !important; }
+html[data-useragent*='MSIE 10.0'] .flier-info {
+  max-width: 600px;
+  margin: auto; }
+html[data-useragent*='MSIE 10.0'] .flier-info h2 {
+  margin-left: 0;
+  text-align: center; }
+html[data-useragent*='MSIE 10.0'] .flier-info p {
+  margin-left: 15px;
+  margin-right: 15px; }
+html[data-useragent*='MSIE 10.0'] .flier-info a {
+  margin-left: 15px; }
+html[data-useragent*='MSIE 10.0'] .event-wrapper:nth-child(even) .event-card {
+  flex-direction: column !important;
+  -webkit-flex-direction: column !important;
+  -ms-flex-direction: column !important; }
+html[data-useragent*='MSIE 10.0'] .event-wrapper:nth-child(even) .flier-space {
+  margin-right: 0;
+  margin-left: 0 !important; }
+html[data-useragent*='MSIE 10.0'] .flier-space {
+  height: 400px;
+  margin-right: 0; }
+
+/*# sourceMappingURL=events.css.map */

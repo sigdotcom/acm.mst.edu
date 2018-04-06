@@ -112,14 +112,11 @@ ENV/
 *.pyc
 __pycache__/
 __pycache__
-migrations
-migrations/
 ACM_General/static/
 *.sock
 db.*
 settings_local.py
 .vagrant/
-.*
 *.log*
 docs/_build/
 docs/app_rst_docs/
@@ -129,3 +126,10 @@ ACM_General/home/static/home/css
 *.pdf
 *.out
 *.toc
+node_modules
+package-lock.json
+package.json
+.sass-cache/
+.DS_Store
+
+client_secrets.json

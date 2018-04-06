@@ -8,7 +8,6 @@ hr {
   height: 3px;
   background-color: #76d3ab;
   border: none;
-  margin-bottom: 40px;
 }
 
 .perks {
@@ -17,14 +16,42 @@ hr {
   display: flex;
   -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-bottom: 60px;
+  justify-content: space-evenly;
+  flex-direction: column;
 }
 .perks__perk {
-  width: 33.333333333333%;
+  width: 100%;
+  justify-content: space-evenly;
+  max-width: 275px;
+  display: block;
+  margin: auto;
+}
+.perks__perk img {
+  margin: 20px auto 0 auto;
+  display: block;
+  height: 72px;
+  width: 72px;
+  }
+.perks__content {
+  margin: -36px 10px 0 10px;
+  border: 2px solid lightgrey;
+  height: 275px;
+}
+.perks__perk hr {
+  width: 90px;
+  margin: 5px auto;
 }
 .perks__title {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 50px 0 5px 0;
+}
+.perks__description {
+  margin: 20px 30px 0 30px;
+  text-align: center;
+  font-size: 1.3rem;
 }
 .perks__details-link {
   font-size: .9rem;
@@ -33,7 +60,7 @@ hr {
 
 .pay-area {
   width: 100%;
-  margin: 0 auto;
+  margin: 56px auto 0 auto;
   padding-bottom: 50px;
   display: -ms-flexbox;
     display: -webkit-flex;
@@ -41,6 +68,8 @@ hr {
   -webkit-justify-content: center;
     -ms-flex-pack: center;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .pay-area__spacer {
   width: 10%;
@@ -73,9 +102,6 @@ hr {
   font-weight: bold;
   margin-bottom: 10px;
 }
-.pay-area__card:nth-of-type(1) .pay-area__price {
-  letter-spacing: -6px;
-}
 .pay-area__price:before {
   content: '$';
   font-size: .6em;
@@ -83,7 +109,7 @@ hr {
   position: relative;
 }
 .pay-area__disclaimer {
-  color: #e4f2ec;
+  color: #ecfff7;
   text-align: center;
   margin-bottom: 40px;
 }
@@ -127,41 +153,19 @@ hr {
   font-weight: bold;
 }
 
-@media (max-width: 641px) { /*SMARTPHONE*/
-  .perks {
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
+@media (min-width: 750px) {
   .perks__perk {
-    margin: auto;
-    width: 70%;
-    margin-bottom: 20px;
   }
-  .perks__title {
-    font-size: 1.8rem;
-    margin:  0 0 15px 0;
+  .perks {
+    flex-direction: row;
   }
-  .perks__perk:nth-of-type(even) {
-    text-align: right;
-  }
-  .perks__details-link {
-    font-size: 1.3rem;
-  }
-  
   .pay-area {
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+    flex-direction: row;
   }
 }
 
-@media (max-width: 1090px) {
-  .perks {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+.cash-text {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 1.1em;
 }

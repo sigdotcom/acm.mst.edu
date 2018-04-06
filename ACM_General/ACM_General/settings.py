@@ -24,10 +24,9 @@ MEDIA_URL = 'media_files/'
 FLIERS_PATH = 'fliers'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
-# STATIC_ROOT = "/var/www/html"
 
 # Determines the max number of upcoming events that can appear on the homepage.
-MAX_HOME_FLIER_COUNT = 3
+MAX_HOME_FLIER_COUNT = 2
 
 ###
 # Stripe Keys
@@ -68,11 +67,12 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'django_filters',
     'home.apps.HomeConfig',
-    'payments.apps.PaymentsConfig',
+    'products.apps.ProductsConfig',
     'sigs.apps.SigsConfig',
     'rest_api.apps.RestApiConfig',
     'thirdparty_auth.apps.ThirdpartyAuthConfig',
     'rest_framework',
+    'tools.apps.ToolsConfig',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +148,26 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = "client_secrets.json"
+
+SOCIAL_AUTH_SETTINGS = {
+    "google": {
+        "config": {
+            "web": {
+                "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
+                "project_id":"acm-general",
+                "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+                "token_uri":"https://accounts.google.com/o/oauth2/token",
+                "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+                "client_secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
+                "redirect_uris": os.environ.get("GOOGLE_REDIRECT_URIS", "").split(" "),
+                "javascript_origins":os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
+            }
+        },
+        "scopes": "openid email profile"
+    }
+}
 
 # Temporary local settings
 from ACM_General.settings_local import *
