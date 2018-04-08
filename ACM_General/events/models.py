@@ -195,6 +195,7 @@ class Event(models.Model):
         Tag,
         verbose_name=_('Event Tags'),
         help_text=_('The name of the Tag that will be displayed to users'),
+        blank=True,
     )
 
     @property

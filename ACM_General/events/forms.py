@@ -27,6 +27,6 @@ class EventForm(ModelForm):
             'link': TextInput(),
             'tags': CheckboxSelectMultiple(),
         }
-    def __init__(self, **kwargs):
-        super(EventForm, self).__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
         self.fields['tags'].queryset = Tag.objects.filter(is_disabled=False)
