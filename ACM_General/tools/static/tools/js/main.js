@@ -1,7 +1,7 @@
 var data = {}
 jQuery.getJSON("/web-api/accounts/?format=json", function generate_table(data) {
   CreateAccountsTable ( data ) ;
-}
+})
 
 function CreateAccountsTable ( data )
 {
