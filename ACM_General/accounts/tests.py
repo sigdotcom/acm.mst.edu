@@ -5,6 +5,7 @@ Contains all unit tests for the accounts app.
 import uuid
 
 # Django
+from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
@@ -278,30 +279,35 @@ class UserAuthBackendCase(TestCase):
         intended.
         """
         self.assertEqual(
-            self.backend.authenticate(email="fail@mst.edu"), None
+            authenticate(username="fail@mst.edu"), None
         )
-        self.assertIsNotNone(self.backend.authenticate(email="test@mst.edu"))
+        self.assertIsNotNone(authenticate(username="test@mst.edu"))
         self.assertEqual(
-            self.backend.authenticate(email="fail2@mst.edu"), None
+            authenticate(username="fail2@mst.edu"), None
         )
-        self.assertEqual(self.backend.authenticate(), None)
+        self.assertEqual(authenticate(), None)
         models.User.objects.create_user(
             'thisisatest@mst.edu', is_active=False
         )
         self.assertEqual(
-            self.backend.authenticate('thisisatest@mst.edu'), None
+            authenticate('thisisatest@mst.edu'), None
         )
 
     def test_user_can_authenticate_function(self):
         """
         Ensures that the user_can_authenticate function works as intended.
         """
-        self.assertEqual(self.backend.user_can_authenticate(
-            models.User.objects.get(email="test@mst.edu")), True
+        self.assertEqual(
+            self.backend.user_can_authenticate(
+                models.User.objects.get(email="test@mst.edu")
+            ), True
         )
-        self.assertEqual(self.backend.user_can_authenticate(
-            models.User.objects.get(email="test2@mst.edu")), False
+        self.assertEqual(
+            self.backend.user_can_authenticate(
+                models.User.objects.get(email="test2@mst.edu")
+            ), False
         )
+
         with self.assertRaises(TypeError):
             self.assertEqual(self.backend.user_can_authenticate())
 

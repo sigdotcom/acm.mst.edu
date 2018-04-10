@@ -42,7 +42,7 @@ class GoogleAuthorization(View):
             return HttpResponseRedirect(reverse("home:index"))
 
         google_social_config = settings.SOCIAL_AUTH_SETTINGS["google"]
-        FLOW = google_auth_oauthlib.flow.Flow.from_client_config(
+        flow = google_auth_oauthlib.flow.Flow.from_client_config(
             google_social_config["config"],
             scopes=google_social_config["scopes"],
             redirect_uri=request.build_absolute_uri(
@@ -50,7 +50,7 @@ class GoogleAuthorization(View):
             ),
         )
 
-        authorization_url, state = FLOW.authorization_url(
+        authorization_url, state = flow.authorization_url(
             hd="mst.edu",
             access_type="offline",
             prompt="select_account",
@@ -81,7 +81,9 @@ class GoogleCallback(View):
                   failure message.
         :rtype: :class:`django.http.HttpResponseRedirect`
         """
-        next_url = request.session.pop(REDIRECT_FIELD_NAME, reverse("home:index"))
+        next_url = request.session.pop(
+            REDIRECT_FIELD_NAME, reverse("home:index")
+        )
 
         if request.user.is_authenticated:
             messages.warning(request, "You are already logged in.")
@@ -98,17 +100,17 @@ class GoogleCallback(View):
 
         authorization_response = request.build_absolute_uri()
         google_social_config = settings.SOCIAL_AUTH_SETTINGS["google"]
-        FLOW = google_auth_oauthlib.flow.Flow.from_client_config(
+        flow = google_auth_oauthlib.flow.Flow.from_client_config(
             google_social_config["config"],
             scopes=google_social_config["scopes"],
             redirect_uri=request.build_absolute_uri(
                 reverse("thirdparty_auth:google-callback")
             ),
         )
-        FLOW.fetch_token(authorization_response=authorization_response)
+        flow.fetch_token(authorization_response=authorization_response)
         user_info_service = build(
             serviceName="oauth2", version="v2",
-            credentials=FLOW.credentials
+            credentials=flow.credentials
         )
         user_info = user_info_service.userinfo().get().execute()
 
@@ -122,7 +124,7 @@ class GoogleCallback(View):
                 first_name=first_name,
                 last_name=last_name
             )
-            user = authenticate(email=email)
+            user = authenticate(username=email)
 
         if user is not None:
             login(request, user)

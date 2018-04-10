@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 import uuid as uuid
 
 # Django
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth import models as auth_models
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 from . import managers
 
 
-class User(AbstractBaseUser):
+class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Overloading of the base user class to enable email validation
     as opposed to username validation in default django.
