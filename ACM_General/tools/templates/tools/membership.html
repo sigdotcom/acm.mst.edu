@@ -1,22 +1,28 @@
 {% load static %}
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
- <link rel="stylesheet" href="{% static "/tools/css/bootstrap.min.css" %}"/>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static "/tools/css/bootstrap.min.css" %}"/>
+  </head>
 
-<div class="container" style="padding-top:25px;">
-  <div style="margin:auto;">
-    <form class="" role="search">
-      <div class="form-group">
-        <input class="form-control" placeholder="Search" type="text" id="SearchBar" oninput="SearchFunction()">
+  <body>
+    <div class="container" style="padding-top:25px;">
+      <div style="margin:auto;">
+        <form class="" role="search">
+          <div class="form-group">
+            <input class="form-control" placeholder="Search" type="text" id="SearchBar" oninput="SearchFunction()">
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
+  </body>
 
 
-<script src="{% static "/tools/js/Fuse/dist/fuse.js" %}"></script>
-<script src="{% static "/tools/js/main.js" %}"></script>
-<script src="{% static "/tools/js/search.js" %}"></script>
+  <script src="{% static "/tools/js/Fuse/dist/fuse.js" %}"></script>
+  <script src="{% static "/tools/js/main.js" %}"></script>
+  <script src="{% static "/tools/js/search.js" %}"></script>
+</html>

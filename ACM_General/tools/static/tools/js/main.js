@@ -23,6 +23,7 @@ function CreateAccountsTable ( data )
 
 function PopulateAccountsTable ( data , tbl )
 {
+  //Create Header
   var tblHead = document.createElement("thead");
   var nameHead = document.createElement("th");
   var nameHeadText = document.createTextNode('Name');
@@ -46,31 +47,50 @@ function PopulateAccountsTable ( data , tbl )
 
   // creating all cells
   for (let i in data) {
-    // creates a table row
+    // --creates a table row--
     var row = document.createElement("tr");
     row.classList.add((data[i].is_active?"success":"warning"));
+
+    //create and fill name column table data cell
     var name = document.createElement("td");
     var nameText = document.createTextNode(data[i].first_name+' '+data[i].last_name);
     name.appendChild(nameText);
+    //create and fill email column table data cell
     var email = document.createElement("td");
     var emailText = document.createTextNode(data[i].email);
     email.appendChild(emailText);
+    //create and fill status table data cell
     var status = document.createElement("td");
     var statusText = document.createTextNode((data[i].is_active?'':'in')+"active");
-    status.appendChild(statusText);
-    var settings = document.createElement("td");
-    var settingsButton = document.createElement("a");
-    settingsButton.href="";
-    var settingsButtonIconContainer = document.createElement("i");
-    settingsButtonIconContainer.classList.add("material-icons");
-    var settingsButtonIcon = document.createTextNode("settings");
+    status.appendChild(statusText);    
 
-    settingsButtonIconContainer.appendChild(settingsButtonIcon);
-    settingsButton.appendChild(settingsButtonIconContainer);
-    settings.appendChild(settingsButton);
+    //create setting table data cell
+    var settings = document.createElement("td");
+    //create delete button
+    var deleteButton = document.createElement("a");
+    deleteButton.href="";
+    var deleteButtonIconContainer = document.createElement("i");
+    deleteButtonIconContainer.classList.add("material-icons");
+    var deleteButtonIcon = document.createTextNode("delete");
+    //create edit button
+    var editButton = document.createElement("a");
+    editButton.href="";
+    var editButtonIconContainer = document.createElement("i");
+    editButtonIconContainer.classList.add("material-icons");
+    var editButtonIcon = document.createTextNode("build");
+
+
+    //adds created table data to row
+    editButtonIconContainer.appendChild(editButtonIcon);
+    editButton.appendChild(editButtonIconContainer);
+    settings.appendChild(editButton);
+    deleteButtonIconContainer.appendChild(deleteButtonIcon);
+    deleteButton.appendChild(deleteButtonIconContainer);
+    settings.appendChild(deleteButton);
     row.appendChild(name);
     row.appendChild(email);
     row.appendChild(status);
+    row.appendChild(settings);
     row.appendChild(settings);
 
     tblBody.appendChild(row);
