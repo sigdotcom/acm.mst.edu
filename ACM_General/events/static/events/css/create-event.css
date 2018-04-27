@@ -26,15 +26,24 @@ input, textarea, option {
     display: flex;
     -webkit-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    background-color: blue;
+    background-color: #008080;
     width:auto;
     height:auto;
-    padding:10px;
-    background-color: #241234;
+    padding:10px 16px;
 }
 
+/* .sticky {
+    position: fixed;
+    top: 0%;
+    width: 100%;
+} */
+/* 
+.form-content {
+    padding: 115px;
+} */
+
 .header-items:last-child {
-    color: white;
+    color: seashell;
     align-self: flex-end;
     margin-right: auto;
     font-family: 'Roboto', sans-serif;
@@ -88,4 +97,12 @@ input[type="submit"]{
     margin-top: 35px;
     margin-left: 120px;
     box-shadow: 1px 0 4px #39B38F;
+}
+
+a:link {
+    color: seashell;
+}
+
+a:visited {
+    color: seashell;
 }

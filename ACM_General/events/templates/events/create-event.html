@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="{% static "events/css/create-event.css" %}" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css">
 {% endblock %}
 
 {% block head_javascript %}
@@ -22,7 +23,7 @@
     on the page but that is because I have the items arranged in "row-reverse" order through using FlexBox
     (tool used for arrangning items on page amongst other things; in the css file).
   -->
-  <div class="header">
+  <div class="header teal">
     <div class="logo-name">
       <a href="/">
         Association for<br>Computing Machinery
@@ -47,12 +48,17 @@
   {% endfor %}
 
   <!-- Each of the "Event Details" input fields -->
-  <div class="event-details">
-    <form action="" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% include "events/form-template.html" %}
-      <input type="submit" value="Submit Event">
-    </form>
+  <div class="ui form">
+    <div class="ui main text container segment">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include "events/form-template.html" %}
+        <div class="ui segment">
+            <input class="ui teal big basic button" type="submit" value="Submit">
+            <a href="/" class="ui black big basic button">Home</a>
+          </div>
+        </form>
+    </div>
   </div>
 {% endblock %}
 

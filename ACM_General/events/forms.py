@@ -21,7 +21,7 @@ class EventForm(ModelForm):
         widgets = {
             'date_hosted': DateTimeInput(attrs={'id': 'calendar'}),
             'date_expire': DateTimeInput(attrs={'id': 'calendar'}),
-            'title': Textarea(attrs={'rows': 3}),
+            'title': Textarea(attrs={'rows': 1}),
             'description': Textarea(attrs={'rows': 3}),
             'link': TextInput(),
         }

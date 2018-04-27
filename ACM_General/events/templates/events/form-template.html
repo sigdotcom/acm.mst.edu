@@ -1,5 +1,5 @@
 {% for field in form %}
-  <div class="flex-item">
+  <div class="flex-item field">
     <label class="field-label" for="{{field.name}}">{{field.label}}:</label>
     <span class="field-input">
       {% for error in field.errors %}
