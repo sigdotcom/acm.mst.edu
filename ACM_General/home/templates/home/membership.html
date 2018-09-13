@@ -42,7 +42,7 @@
               <div class="perks__content">
             <h3 class="perks__title">Career Fair Dinner</h3>
             <hr>
-            <div class="perks__description">Exclusive dinner with industry 
+            <div class="perks__description">Exclusive dinner with industry
               professionals
             </div>
           </div>
@@ -78,7 +78,7 @@
           </form>
         </div>
       </div>
-    
+
       <p class="cash-text">To pay with cash, contact <a style="color:#2da1d8;" href="mailto:acm@mst.com?Subject=ACM Sponsorship" target="_top">acm@mst.edu</a> or visit any of ACM's main <a style="color:#2da1d8;" href="{% url "home:index" %}">events</a>.</p>
   </div>
   </main>
@@ -91,7 +91,7 @@
               locale: 'auto',
               token: function(token) {
                   console.log("Token: " + token);
-                  $("#stripeToken").val(token.id);
+                  $("#semester-button #stripeToken").val(token.id);
                   $("#semester-button").submit();
               }
             });
@@ -102,7 +102,7 @@
               locale: 'auto',
               token: function(token) {
                   console.log("Token: " + token);
-                  $("#stripeToken").val(token.id);
+                  $("#year-button #stripeToken").val(token.id);
                   $("#year-button").submit();
               }
             });
