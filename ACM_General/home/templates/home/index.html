@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static "home/css/index.css" %}" />
 {% endblock %}
 
-{% block body_content %}	
+{% block body_content %}
   <main>
     <div class="content-wrapper membership-link">
       <div class="membership-link__wrapper">
@@ -30,7 +30,7 @@
     {% include "home/upcoming-events.html" %}
     {% else %}
     <div class="content-wrapper">
-      <div class="calendar-wrapper">
+      <div class="calendar-wrapper" id="calendar">
         <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=100&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mst.edu_7u3stm8bn7l2umuastep5fmbl0%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" style="border: 0" frameborder="0" scrolling="no"></iframe>
       </div>
       <div class="agenda-wrapper">

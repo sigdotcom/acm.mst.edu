@@ -15,22 +15,16 @@
 {% block body_content %}
   <main>
     <div class="content-wrapper">
+      <h2 style="text-align:center; color:rgba(0, 0, 0, .87);">
+        Refer to the
+        <a target="_blank" style="color:#2da1d8" href="{% url "home:index" %}#calendar">
+          ACM Calendar
+        </a> for meeting times and locations.
+      </h2>
+    </div>
+    <br />
+    <div class="content-wrapper">
       <ul class="cards">
-        <li class="cards__card">
-            <a href="https://discord.gg/eKtkR4k" class="card__link">
-            <div class="card__image contain"
-                 style="background-image: url({% static "home/img/sigs/sigdotcom-logo.png" %});"></div>
-              <h5 class="card__title">SIG.com</h5>
-              </a>
-              <p class="card__text">Interested in software engineering, web
-              development, or development operations? In SIG.com, we attempt to
-              build production-grade websites using software engineering skills
-              and development patterns with weekly development meetings.
-              Currently, SIG.com is developing the https://acm.mst.edu/
-              website. Moreover, we host workshops on various foundational
-              skills such as Python, Git, HTML, CSS, and many others.</p>
-              <a href="https://discord.gg/eKtkR4k" class="card__discord-link">Discord</a>
-        </li>
         <li class="cards__card">
           <a href="https://discord.gg/ayjGE9t" class="card__link">
             <div class="card__image"
@@ -47,9 +41,27 @@
               <a href="https://discord.gg/ayjGE9t" class="card__discord-link">Discord</a>
         </li>
         <li class="cards__card">
+          <a href="https://modata.blog" class="card__link">
+            <div class="card__image"
+                 style="background-image: url({% static "home/img/sigs/sigdata-logo.svg" %}); background-size: contain;"></div>
+              <h5 class="card__title">SIG-Data</h5>
+              </a>
+              <p class="card__text">
+              SIG-Data is a data focused org covering topics like Data Science,
+              Data Mining, Data Analytics, and Data Engineering. Data Science,
+              commonly seen as a combination of most data professions, is a new
+              field with an infinite landscape. Our goal is to catalyze a new
+              era of Data Science by using our curiosity to explore this
+              landscape and push new standards. In SIG-Data, we participate in
+              competition sites such as Kaggle, tell stories using data, learn
+              what’s new in Data Science, and whatever is necessary to be
+              cutting edge.</p>
+              <a href="https://discord.gg/pm2KJtt" class="card__discord-link">Discord</a>
+        </li>
+        <li class="cards__card">
             <a href="http://siggame.io/" class="card__link">
             <div class="card__image contain"
-                 style="background-image: url({% static "home/img/sigs/siggame-logo.png" %});"></div>
+                 style="background-image: url({% static "home/img/sigs/siggame-logo.svg" %});"></div>
               <h5 class="card__title">SIG-Game</h5>
               </a>
               <p class="card__text">SIG-Game is a special interest group for
@@ -66,9 +78,28 @@
               <a href="https://discord.gg/Fbg4rwk" class="card__discord-link">Discord</a>
         </li>
         <li class="cards__card">
+            <a href="http://pickhacks.io/" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sigs/sighack-logo.svg" %});"></div>
+              <h5 class="card__title">SIG-Hack</h5>
+              </a>
+              <p class="card__text">SIG-Hack introduces students to the world of
+              hackathons: weekend long events where students come together to
+              turn ideas into reality. We organize travel and attendance to
+              these events, which take place across the Midwest and the country.
+              We also run PickHacks, the annual student-run hackathon held at
+              S&T in March. Alongside hackathons, we also host events about
+              various design thinking concepts, hackathon preparation, and much
+              more. Skill level and major doesn’t matter here — as long as you
+              like building new things and meeting awesome people, SIG-Hack
+              is right for you.</p>
+              <a href="https://discord.gg/zkwtu9p" class="card__discord-link">Discord</a>
+        </li>
+
+        <li class="cards__card">
             <a href="http://acmsigsec.mst.edu/" class="card__link">
             <div class="card__image contain"
-              style="background-image: url({% static "home/img/sigs/sigsec-logo.png" %}); background-size: contain;"></div>
+              style="background-image: url({% static "home/img/sigs/sigsec-logo.svg" %}); background-size: contain;"></div>
             <h5 class="card__title">SIG-Security</h5>
             </a>
             <p class="card__text">Our ACM Special Interest Group on Security
@@ -78,7 +109,22 @@
             workshops and lectures from both local and natinal industry
             professionals, as well as hosting on campus security events and
             competitions. </p>
-            <a href="https://discord.gg/w4x3JMc" class="card__discord-link">Discord</a>
+            <a href="https://discord.gg/BfPyeHw" class="card__discord-link">Discord</a>
+        </li>
+        <li class="cards__card">
+            <a href="https://discord.gg/eKtkR4k" class="card__link">
+            <div class="card__image contain"
+                 style="background-image: url({% static "home/img/sigs/sigweb-logo.svg" %});"></div>
+              <h5 class="card__title">SIG-Web</h5>
+              </a>
+              <p class="card__text">Interested in software engineering, web
+              development, or development operations? In SIG-Web, we attempt to
+              build production-grade websites using software engineering skills
+              and development patterns with weekly development meetings.
+              Currently, SIG-Web is developing the https://acm.mst.edu/
+              website. Moreover, we host workshops on various foundational
+              skills such as Python, Git, HTML, CSS, and many others.</p>
+              <a href="https://discord.gg/eKtkR4k" class="card__discord-link">Discord</a>
         </li>
       </ul>
     </div>
