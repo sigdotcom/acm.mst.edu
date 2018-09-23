@@ -165,7 +165,7 @@ SOCIAL_AUTH_SETTINGS = {
                 "javascript_origins":os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
             }
         },
-        "scopes": "openid email profile"
+        "scopes": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me"
     }
 }
 
