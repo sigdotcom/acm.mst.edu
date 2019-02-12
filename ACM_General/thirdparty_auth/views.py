@@ -106,12 +106,8 @@ class GoogleCallback(View):
             ),
         )
         FLOW.fetch_token(authorization_response=authorization_response)
-        user_info_service = build(
-            serviceName="oauth2", version="v2",
-            credentials=FLOW.credentials
-        )
-        user_info = user_info_service.userinfo().get().execute()
-
+        session = FLOW.authorized_session()
+        user_info = session.get('https://www.googleapis.com/oauth2/v3/userinfo').json()
         email = user_info.get("email", None)
         first_name = user_info.get("given_name", None)
         last_name = user_info.get("family_name", None)
@@ -122,6 +118,7 @@ class GoogleCallback(View):
                 first_name=first_name,
                 last_name=last_name
             )
+
             user = authenticate(email=email)
 
         if user is not None:

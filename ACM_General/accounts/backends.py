@@ -14,7 +14,7 @@ class UserBackend(object):
     the main authentication method.
     """
 
-    def authenticate(self, email=None):
+    def authenticate(self, request, email=None):
         """
         Authenticates whether or not a user is in the database based on a given
         email. Necessary for login as Django requires this function to be run
@@ -28,7 +28,6 @@ class UserBackend(object):
                  database.
         :rtype: :class:`~accounts.models.User` or None
         """
-
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
