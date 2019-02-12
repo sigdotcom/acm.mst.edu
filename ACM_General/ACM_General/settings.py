@@ -162,10 +162,10 @@ SOCIAL_AUTH_SETTINGS = {
                 "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
                 "client_secret": os.environ.get("GOOGLE_CLIENT_SECRET"),
                 "redirect_uris": os.environ.get("GOOGLE_REDIRECT_URIS", "").split(" "),
-                "javascript_origins":os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
+                "javascript_origins": os.environ.get("GOOGLE_JS_ORIGINS", "").split(" "),
             }
         },
-        "scopes": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me"
+        "scopes": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid"
     }
 }
 
