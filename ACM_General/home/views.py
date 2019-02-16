@@ -207,6 +207,7 @@ class Membership(LoginRequiredMixin, View):
                 currency="usd",
                 amount=int(product.cost * 100),
                 description=product.description,
+                receipt_email=request.user.email,
                 source=token,
             )
         except stripe.error.APIConnectionError as con_err:  # pragma: no cover
