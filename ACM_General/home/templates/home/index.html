@@ -14,6 +14,7 @@
 
 {% block body_content %}
   <main>
+    {% if not user.is_authenticated or not user.membership_expiration or user.is_authenticated and user.membership_expiration < now %}
     <div class="content-wrapper membership-link">
       <div class="membership-link__wrapper">
         <img src="{% static "home/img/membership/creditcard.svg" %}" alt="payment image">
@@ -25,6 +26,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <!-- This is where upcoming events are automatically added -->
     {% if num_events != 0 %}
     {% include "home/upcoming-events.html" %}
