@@ -38,6 +38,7 @@ class TransactionCategory(models.Model):
         verbose_name=_('Category Name'),
         help_text=_('The name of the Category'),
         max_length=50,
+        unique=True
     )
 
     def __str__(self):
