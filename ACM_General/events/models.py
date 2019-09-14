@@ -47,6 +47,42 @@ def get_path_for_flier(instance, filename):
     )
 
 
+class Tag(models.Model):
+    """
+    Model used for adding tags on events.
+    """
+
+    #: The name of the tag that is displayed; represented as a CharField.
+    display_name = models.CharField(
+        verbose_name=_('Event Tag'),
+        help_text=_('The name of the tag that will be displayed to users.'),
+        unique=True,
+        max_length=256,
+    )
+
+    #: Unique id of the tag; represented as an CharField.
+    id = models.CharField(
+        verbose_name=_('ID'),
+        help_text=_('Unique ID of the tag.'),
+        primary_key=True,
+        max_length=256,
+    )
+
+    #: If the tag should be diplayed; represented as a BooleanField.
+    is_disabled = models.BooleanField(
+        verbose_name=_('Display'),
+        help_text=_('Whether or not the tag is to be displayed.'),
+        default = True,
+    )
+
+    def __str__(self):
+        """
+        :returns: Display the name of the tag.
+        :rtype: str
+        """
+        return self.display_name
+
+
 class Event(models.Model):
     """
     Class used to define what is needed when creating new events.
@@ -154,13 +190,21 @@ class Event(models.Model):
         blank=True,
     )
 
+    #: Tags available to attach to events; represented as a ManyToManyField.
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name=_('Event Tags'),
+        help_text=_('The name of the Tag that will be displayed to users'),
+        blank=True,
+    )
+
     @property
     def is_active(self):
         """
         Checking whether or not an event has already expired
         (gone past the current date).
 
-        :return: Bool value representing whether or not the event is
+        :returns: Bool value representing whether or not the event is
                   considered 'active'.
         :rtype: bool
         """
@@ -171,7 +215,7 @@ class Event(models.Model):
         The clean function is used for making checks on the data posted to the
         form.
 
-        :return: None.
+        :returns: None.
         :rtype: None
 
         :raises ValidationError: if date_expire or date_hosted are invalid.

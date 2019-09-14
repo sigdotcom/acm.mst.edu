@@ -48,8 +48,9 @@ def create_event(request):
         - If the user is submitting a GET request, it will send them to the
           blank create event page.
         - If the user is submitting a POST request:
-            - If the form is valid, it will save the event to the database and
-              redirect the user to the homepage.
+            - If the form is valid, it will save the event as well as the
+              ManyToMany relation to the database and redirect the user to the
+              homepage.
             - If the form is invalid, the user will be redirected back to the
               same create event page with same information that they filled
               out, but also with information that now explains the errors that
@@ -74,6 +75,7 @@ def create_event(request):
             event = form.save(commit=False)
             event.creator = request.user
             event.save()
+            form.save_m2m()
             return HttpResponseRedirect("/")
 
         return render(request, 'events/create-event.html', {'form': form})
